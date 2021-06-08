@@ -1,0 +1,130 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Introduction
+
+<!--### Articles:
+
+  1. "Are We Consistently Biased? Multidimensional Analysis of Biases in Distributional Word Vectors"
+  https://www.aclweb.org/anthology/S19-1010.pdf 
+
+  2. Proving the harmfullness of biases in models 
+[source https://poseidon01.ssrn.com/delivery.php?ID=004020091089126117028081015085009075120015077012021005105005104113074127101113104030041107053119007034112081087110119071025006053026022082043000071011123067077124004027040024008122116091025075126111098104007096110113089007070120009111119015084097017092&EXT=pdf&INDEX=TRUE]
+
+  3. Summary what causes bias short article
+  [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html]-->
+
+<!-- Men Also Like Shopping: Reducing Gender Bias Amplification using Corpus-level Constraint -->
+<!-- Bias in Bios: A Case Study of Semantic Representation Bias in a High-Stakes Setting -->
+
+<!-- !bibliografia paperdraft; jabref
+4.pomysly na czwarty rozdzial - podsumowanie; 
+jak mierzyc bias za pomoca jednej liczby?
+IAT - test psychologiczny -->
+
+<!-- 
+    1.state the general topic and give some background
+    2.provide a review of the literature related to the topic
+    3.define the terms and scope of the topic
+    4.outline the current situation
+    5.evaluate the current situation (advantages/ disadvantages) and identify the gap
+    6.identify the importance of the proposed research
+    7.state the research problem/ questions
+    8.state the research aims and/or research objectives
+    9.state the hypotheses
+    10.outline the order of information in the thesis
+    11.outline the methodology
+-->
+
+
+\textbf{state the general topic and give some background}
+
+Natural language processing (NLP) is a subfield of computer science that processes and analyzes language in text and speech 
+with the use of modern programming methods. It has practical applications in everyday life as it concerns tasks such as email filters,
+smart assistants, search results, language translations, text analytics and so on. Models used to accomplish these tasks need a lot of
+data to learn from. This data originates from humans activities and historical recordings like texts, messages, speeches. It turns out
+that in the learning process these models can learn implicit biases that reflect harmful stereotypical thinking still present in modern societies. One can find methods that aim at identifying hidden biases and/or try to remove them by modifying the models explicitly. 
+There are many different types of models in NLP depending on a task that they ought to solve. However all of them need as an input words represented as numerical values and this is accomplished with word embedding models. The biases seem to have their primary source
+in the way the words are assigned the numerical values.
+\newline
+
+\textbf{review of the literature related to the topic}
+
+There is a bunch of literature available on the topic of bias detection and mitigation in NLP models. Bolukbasi2016Man focuses on gender
+biases that may be observable while investigating the representation of job occupations and gender in terms of their assigned numerical
+values. The authors apply cosine similarity measurement to investigate the phenomenon where jobs stereotypically associated with a given
+gender are in fact in the model situated closer to this gender. 
+
+Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
+discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT). 
+
+manzini2019black proposes novel way of using a cosine similarity method to get the information on assumed resemblance between words. They investigate 
+an approach that enables to measure the bias for a class (like gender, religion, race) and express the final result with only one averaged number.
+\newline
+
+<!-- Nissim2019Fair -->
+
+
+\textbf{define the terms and scope of the topic}
+
+It is worth noticing the general distinction of biases mentioned in Caliskan2017Semantics. They refer to the publication concerning Implicit Association
+Test Greenwald et al., 1998) where certain baseline of bias phenomenon was introduced. Namely it seems that humans naturally exhibit some biases and
+that not always bring social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general people would rather associate flowers with feeling pleasant than insects and this preference could be named a bias or
+prejudice in some direction. However this type of preference does not cause an uproar and it is rather morally neutral case. Unfortunately there are other
+biases and prejudices that directly influence the quality of other people's lives and therefore they should be taken care of. 
+
+One can find a bunch of various definitions trying to capture what bias and fairness actually are. With the choice of the definition, implications into the real-life applications may change as well as it was pointed out in Mehrabi2019Survey. They mark out that there exist different types of biases, the list if long but among others there are historical bias, representation bias, measurement bias. This indicates how complex the process itself is. Without the proper understanding and awareness of the problem, people are prone to unconsciously sustain this phenomenon.
+
+In the article one can also find the distinction on different types of discrimination, some of them will be shortly described. It is worth first mentioning that protected attributes are those qualities, traits or characteristics that one cannot, according to the law, discriminated against.
+Direct discrimination refers to the situation when protected attributes of individuals explicitly result in non-favorable outcomes toward them. In contrast in indirect discrimination individuals appear to be treated equally but anyway they end up being treated unjustly due to the hidden effects of biases towards their protected attributes. Systemic discrimination takes place when policies, customs or behaviors that result from certain culture or organizational structure lead to discrimination against some groups of people. Finally, very common statistical discrimination refers to using
+average group statistics to judge person belonging to the group. 
+
+The topic of discrimination is entangled with another concept which is fairness. It is essential to grasp some concepts of fairness to take them into
+consideration while designing implementation of some machine learning model. In Mehrabi2019Survey one may notice that depending on the context and application different definitions may be applied.
+\newline
+
+
+\textbf{outline the current situation}
+The most popular methods focus on comparing the similarity between words from protected groups and those that are considered to be stereotypical or harmful in some way. One can find in this group methods such as euclidean distance, dot product or cosine similarity. There are also other ways to detect the effects of biases. For example through the investigation of the model performance on certain tasks that validate if the model returns some values 
+independently on gender or race or not. 
+\newline
+
+\textbf{evaluate the current situation (advantages/ disadvantages) and identify the gap}
+
+In the currently used methods (like cosine similarity) the values of similarity are often aggregated in a way that may lead to false conclusions. For 
+example due to the averaging of values and the lack of confidence interval information. 
+\newline
+
+\textbf{identify the importance of the proposed research}
+One can find a number of articles on negative real-life implications resulting from the presence of unaddressed biases in the machine learning models.
+\newline
+
+
+\textbf{state the research problem/ questions}
+
+In the paper we indicate how current methods used to detect biases in natural language models are limited in terms of confidence interval.
+\newline
+
+\textbf{state the research aims and/or research objectives}
+
+Our research tries to answer the question of how to enhance the current way in which the bias detection is performed to make sure that it is
+methodologically valid.
+\newline
+
+\textbf{state the hypotheses}
+
+Our hypothesis is that there can be greater understanding of data and bias implications when confidence interval and Bayesian method are applied to the
+methodology.
+\newline
+<!-- \textbf{outline the order of information in the thesis} -->
+
+\textbf{outline the methodology}
+
+To discuss!
+
+
+
+
+

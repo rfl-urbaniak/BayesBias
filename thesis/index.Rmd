@@ -1,0 +1,62 @@
+---
+title: "Conceptual and methodological problems with bias detection and avoidance in natural language processing"
+author: "Alicja Dobrzeniecka"
+date: '`r Sys.Date()`'
+output:
+  bookdown::pdf_book: 
+    keep_tex: yes
+    toc_depth: 6
+    latex_engine: xelatex
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+includes:
+    in_header:
+      - Rafal_latex6.sty
+documentclass: book
+classoptions: dvipsnames, usenames
+site: bookdown::bookdown_site
+bibliography: [../references/bibliographyRafal.bib]
+biblio-style: 
+link-citations: yes
+csl: apa-5th-edition.csl
+---
+
+<!-- github-repo: rstudio/bookdown-demo -->
+
+
+```{r setup, include=FALSE, echo=FALSE}
+library(tidyverse)
+library(knitr)
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+```
+
+
+
+# Preface {-}
+
+Test 
+  
+<!-- testsds -->
+
+
+
+<!-- \begin{align}  -->
+<!--   f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k} -->
+<!--   (\#eq:binom) -->
+<!-- \end{align}  -->
+
+
+<!-- This is a citation [@diamond90] which uses keys from the bib file listed in the preamble. -->
+
+<!-- Equation \@ref(eq:binom)^[This is a footnote containing a double citation [@diamond90; @dahlmanNakedStat2020; @Zhao2019Gender].] -->
+
+<!-- Note that chapter files are found and compiled automatically, but the file names have to contain chapter numbers first. For instance, we used `01-intro.Rmd`, placed in the same folder. Observe how we included r code inline. -->
+
+
+
+<!-- ```{r fig-margin, fig.margin=TRUE} -->
+<!-- plot(cars) -->
+<!-- ``` -->
+
