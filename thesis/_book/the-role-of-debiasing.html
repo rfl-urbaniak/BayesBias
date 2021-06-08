@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
-  <meta name="description" content="3 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <title>4 The role of debiasing | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
+  <meta name="description" content="4 The role of debiasing | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta property="og:title" content="4 The role of debiasing | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta name="twitter:title" content="4 The role of debiasing | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="walkthrough-with-the-religion-dataset.html"/>
-<link rel="next" href="the-role-of-debiasing.html"/>
+<link rel="prev" href="protected-word-level-analysis.html"/>
+
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -123,52 +123,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="protected-word-level-analysis" class="section level1">
-<h1><span class="header-section-number">3</span> Protected-word level analysis</h1>
-<p>Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the <code>visualiseStats.R</code> script for details).</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> ) <span class="co">#removes install pop-up request</span>
-religion<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(religion<span class="op">$</span>protectedWord, <span class="st">&quot;-&quot;</span>, religion<span class="op">$</span>connection))
-religion<span class="op">$</span>pwIndex &lt;-<span class="st"> </span><span class="kw">as.integer</span>(religion<span class="op">$</span>pwFactor)
+<div id="the-role-of-debiasing" class="section level1">
+<h1><span class="header-section-number">4</span> The role of debiasing</h1>
 
-religionSeparate &lt;-<span class="st"> </span><span class="kw">ulam</span>(
-  <span class="kw">alist</span>(
-    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
-    mu &lt;-<span class="st"> </span>c[pwIndex],
-    c[pwIndex] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
-    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
-  ),
-  <span class="dt">data =</span> religion,
-  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">10000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>,
-  <span class="dt">start=</span><span class="kw">list</span>(<span class="dt">no =</span> <span class="dv">1</span>, <span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">d =</span> <span class="dv">0</span>, <span class="dt">sigma=</span> <span class="fl">.3</span>), <span class="dt">log_lik =</span>  <span class="ot">TRUE</span>
-)</code></pre></div>
+<p>First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:</p>
 
-<p>Let's see if the individualized model does better than the previous models in light of WAIC which does add penalty for the number of parameters.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compareBaselineCoefsSeparate&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;../datasets/compareBaselineCoefsSeparate.rds&quot;</span>)
-compareBaselineCoefsSeparate</code></pre></div>
-<pre><code>##                   WAIC SE dWAIC dSE pWAIC weight
-## religionSeparate -2400 93     0  NA    60      1
-## religionCoefs    -2328 93    72  29    20      0
-## religionBaseline -2283 95   117  37    16      0</code></pre>
 
-<p>It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89% highest posterior density intervals.</p>
-
-<p>Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).</p>
+<p>Some points to discuss:</p>
+<ul>
+<li><p>humans in religion got closer (should they?)</p></li>
+<li><p>change in Gender is really minor, still zero out of HPDI range, note how different is very similar</p></li>
+<li><p>small improvement in race, at the price of moving neutral terms closer</p></li>
+</ul>
+<p>Now, perhaps, the effects of debiasing will be better appreciated if we look at the level of protected words. After all, the hope is, the situation of extremely ill-positioned protected words have improved?</p>
 
 
 
 
-
-
+<div id="refs" class="references">
+<div>
+<p>Islam, A. C., Bryson, J. J., &amp; Narayanan, A. (2016). Semantics derived automatically from language corpora necessarily contain human biases. <em>CoRR</em>, <em>abs/1608.07187</em>. Retrieved from <a href="http://arxiv.org/abs/1608.07187" class="uri">http://arxiv.org/abs/1608.07187</a></p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="walkthrough-with-the-religion-dataset.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-role-of-debiasing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="protected-word-level-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>

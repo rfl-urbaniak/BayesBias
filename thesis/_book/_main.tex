@@ -1,5 +1,7 @@
-\documentclass[]{book}
+\documentclass[12pt,]{book}
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.5}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -29,6 +31,8 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage[left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, asymmetric,
+includeheadfoot]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -120,11 +124,6 @@ in natural language processing}
 \setcounter{tocdepth}{5}
 \tableofcontents
 }
-\chapter*{Preface}\label{preface}
-\addcontentsline{toc}{chapter}{Preface}
-
-Test
-
 \chapter{Introduction}\label{introduction}
 
 \textbf{state the general topic and give some background}
@@ -262,9 +261,6 @@ applied to the methodology. \newline
 \textbf{outline the methodology}
 
 To discuss!
-
-\chapter{Bayesian analysis of cosine-based
-bias}\label{bayesian-analysis-of-cosine-based-bias}
 
 We start with loading the libraries needed for the analysis.
 
@@ -653,15 +649,6 @@ the Widely Acceptable Information Criterion (WAIC):
 
 \vspace{1mm} \footnotesize
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#the calculation requires models which are large, we prepared the table}
-\CommentTok{#compareBaseline <- print(round(compare(religionBaseline, religionCoefs)), 3)}
-\NormalTok{compareBaseline <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"../datasets/compareBaseline.rds"}\NormalTok{)}
-\NormalTok{compareBaseline}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 ##                   WAIC SE dWAIC dSE pWAIC weight
 ## religionCoefs    -2328 93     0  NA    20      1
@@ -862,12 +849,89 @@ of parameters.
 
 \normalsize
 
-Great, it seems that we do want to prefer this model, despite its
-relative complication. Now, what does it tell us about the protected
-words? Let's visualise the predicted means together with 89\% highest
-posterior density intervals.
+It seems that we do want to prefer this model, despite its relative
+complication. Now, what does it tell us about the protected words? Let's
+visualise the predicted means together with 89\% highest posterior
+density intervals.
 
-\includegraphics[width=12cm]{../images/visReligionReddit.png}
+\includegraphics[width=14cm]{../images/visReligionReddit.png}
+
+Before we move on, let's perform analogous analyses for the remaining
+types of supposed bias: gender and race (the model building is
+analogous).
+
+\includegraphics[width=14cm]{../images/visGenderReddit.png}
+
+\includegraphics[width=14cm]{../images/visRaceReddit.png}
+
+\todo{Explain where you took the embedding from, cite publications first announcing it.}
+
+\includegraphics[width=14cm]{../images/visReligionGoogle.png}
+
+\includegraphics[width=14cm]{../images/visGenderGoogle.png}
+
+\includegraphics[width=14cm]{../images/visRaceGoogle.png}
+
+\chapter{The role of debiasing}\label{the-role-of-debiasing}
+
+\todo{describe which debiasing you used and how it was advertised in the paper}
+
+First, let's look at coefficient estimated for the whole datasets, as
+compared to their estimation prior to debiasing:
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedReligionRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedGenderRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedRaceRedditCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+\end{center}
+
+\todo{comment on this}
+
+Some points to discuss:
+
+\begin{itemize}
+\item
+  humans in religion got closer (should they?)
+\item
+  change in Gender is really minor, still zero out of HPDI range, note
+  how different is very similar
+\item
+  small improvement in race, at the price of moving neutral terms closer
+\end{itemize}
+
+Now, perhaps, the effects of debiasing will be better appreciated if we
+look at the level of protected words. After all, the hope is, the
+situation of extremely ill-positioned protected words have improved?
+
+\includegraphics[width=14cm]{../images/visDebReligionReddit.png}
+
+\includegraphics[width=14cm]{../images/visDebGenderReddit.png}
+
+\includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
 \hypertarget{refs}{}
 \hypertarget{ref-Caliskan2017Semantics}{}

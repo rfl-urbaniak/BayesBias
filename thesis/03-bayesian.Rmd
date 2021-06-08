@@ -1,4 +1,3 @@
-# Bayesian analysis of cosine-based bias
 
 
 
@@ -208,7 +207,7 @@ That is, we assume the estimated means might be different for diferent protected
 
 \vspace{2mm}
 
-```{r priorsVis,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%", fig.caption = "Regularizing priors for the bayesian models."}
+```{r priorsVis,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, out.width = "100%", fig.caption = "Regularizing priors for the bayesian models."}
 library(ggpubr)
 sim <- seq(-1,1,by = 0.001)
 dis <- 1-sim
@@ -298,7 +297,7 @@ religionCoefs <- ulam(
 
 \vspace{1mm}
 \footnotesize
-```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
 #the calculation requires models which are large, we prepared the table
 #compareBaseline <- print(round(compare(religionBaseline, religionCoefs)), 3)
 compareBaseline <- readRDS("../datasets/compareBaseline.rds")
@@ -468,10 +467,108 @@ compareBaselineCoefsSeparate
 
 
 
-Great, it seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89\% highest posterior density intervals.
+It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89\% highest posterior density intervals.
 
 
-\includegraphics[width=12cm]{../images/visReligionReddit.png}
+\includegraphics[width=14cm]{../images/visReligionReddit.png}
+
+
+
+Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).
+
+
+
+
+\includegraphics[width=14cm]{../images/visGenderReddit.png}
+
+
+\includegraphics[width=14cm]{../images/visRaceReddit.png}
+
+
+
+\todo{Explain where you took the embedding from, cite publications first announcing it.}
+
+
+\includegraphics[width=14cm]{../images/visReligionGoogle.png}
+
+
+\includegraphics[width=14cm]{../images/visGenderGoogle.png}
+
+\includegraphics[width=14cm]{../images/visRaceGoogle.png}
+
+
+
+# The role of debiasing
+
+\todo{describe which debiasing you used and how it was advertised in the paper}
+
+First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:
+
+
+
+
+ 
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedReligionRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedGenderRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedRaceRedditCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+\end{center}
+
+
+
+
+\todo{comment on this}
+
+Some points to discuss: 
+
+- humans in religion got closer (should they?)
+
+- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
+
+- small improvement in race, at the price of moving neutral terms closer
+
+
+
+Now, perhaps, the effects of debiasing will be better appreciated if we look at the level of protected words. After all, the hope is, the situation of extremely ill-positioned protected words have improved?
+
+
+
+
+\includegraphics[width=14cm]{../images/visDebReligionReddit.png}
+
+
+
+\includegraphics[width=14cm]{../images/visDebGenderReddit.png}
+
+
+
+\includegraphics[width=14cm]{../images/visDebRaceReddit.png}
+
+
 
 
 

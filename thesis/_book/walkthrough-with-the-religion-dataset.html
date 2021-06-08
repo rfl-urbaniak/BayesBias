@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
-  <meta name="description" content="3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <title>2 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
+  <meta name="description" content="2 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta property="og:title" content="2 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta name="twitter:title" content="2 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   
   
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="bayesian-analysis-of-cosine-based-bias.html"/>
+<link rel="prev" href="introduction.html"/>
 <link rel="next" href="protected-word-level-analysis.html"/>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -102,11 +102,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="bayesian-analysis-of-cosine-based-bias.html"><a href="bayesian-analysis-of-cosine-based-bias.html"><i class="fa fa-check"></i><b>2</b> Bayesian analysis of cosine-based bias</a></li>
-<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a></li>
-<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a></li>
+<li class="chapter" data-level="2" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>2</b> Walkthrough with the religion dataset</a></li>
+<li class="chapter" data-level="3" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>3</b> Protected-word level analysis</a></li>
+<li class="chapter" data-level="4" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>4</b> The role of debiasing</a></li>
 </ul>
 
       </nav>
@@ -125,7 +124,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="walkthrough-with-the-religion-dataset" class="section level1">
-<h1><span class="header-section-number">3</span> Walkthrough with the religion dataset</h1>
+<h1><span class="header-section-number">2</span> Walkthrough with the religion dataset</h1>
 <p>We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure, not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here can fairly easily be run for different stereotypization patterns. Let's start with explaining the method and its deployment using a dataset obtained for the religion-related protected words.</p>
 <p>Let's load, clean a bit and inspect the head of the religion dataset we prepared. In order to obtain this dataset, we calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added as control groups. For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).</p>
 <p>We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300 more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. </p>
@@ -270,10 +269,6 @@ religionCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
 
 <p>First, let's see if this model is really better in terms of the Widely Acceptable Information Criterion (WAIC):</p>
 <p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#the calculation requires models which are large, we prepared the table</span>
-<span class="co">#compareBaseline &lt;- print(round(compare(religionBaseline, religionCoefs)), 3)</span>
-compareBaseline &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;../datasets/compareBaseline.rds&quot;</span>)
-compareBaseline</code></pre></div>
 <pre><code>##                   WAIC SE dWAIC dSE pWAIC weight
 ## religionCoefs    -2328 93     0  NA    20      1
 ## religionBaseline -2283 95    45  17    16      0</code></pre>
@@ -335,7 +330,7 @@ islamCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
           </div>
         </div>
       </div>
-<a href="bayesian-analysis-of-cosine-based-bias.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="protected-word-level-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

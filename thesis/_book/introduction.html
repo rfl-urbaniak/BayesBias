@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
-  <meta name="description" content="1 Introduction | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <title>Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
+  <meta name="description" content="Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta property="og:title" content="Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta name="twitter:title" content="Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="bayesian-analysis-of-cosine-based-bias.html"/>
+
+<link rel="next" href="walkthrough-with-the-religion-dataset.html"/>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -102,11 +102,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="bayesian-analysis-of-cosine-based-bias.html"><a href="bayesian-analysis-of-cosine-based-bias.html"><i class="fa fa-check"></i><b>2</b> Bayesian analysis of cosine-based bias</a></li>
-<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a></li>
-<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a></li>
+<li class="chapter" data-level="2" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>2</b> Walkthrough with the religion dataset</a></li>
+<li class="chapter" data-level="3" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>3</b> Protected-word level analysis</a></li>
+<li class="chapter" data-level="4" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>4</b> The role of debiasing</a></li>
 </ul>
 
       </nav>
@@ -124,6 +123,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Conceptual and methodological problems with bias detection and avoidance in natural language processing</h1>
+<p class="author"><em>Alicja Dobrzeniecka</em></p>
+<p class="date"><em>2021-06-08</em></p>
+</div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <!--### Articles:
@@ -180,6 +184,18 @@ IAT - test psychologiczny -->
 
 <p>To discuss!</p>
 
+<p>We start with loading the libraries needed for the analysis.</p>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(ggthemes)
+<span class="kw">library</span>(rethinking)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(ggpubr)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(ggExtra)
+<span class="kw">library</span>(cowplot)</code></pre></div>
+
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
@@ -192,8 +208,8 @@ IAT - test psychologiczny -->
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bayesian-analysis-of-cosine-based-bias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="walkthrough-with-the-religion-dataset.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>

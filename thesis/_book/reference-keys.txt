@@ -1,4 +1,4 @@
 introduction
-bayesian-analysis-of-cosine-based-bias
 walkthrough-with-the-religion-dataset
 protected-word-level-analysis
+the-role-of-debiasing
