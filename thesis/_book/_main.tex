@@ -4,34 +4,27 @@
 \setstretch{1.5}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
-% Use upquote if available, for straight quotes in verbatim environments
+% use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
 \hypersetup{
             pdftitle={Conceptual and methodological problems with bias detection and avoidance in natural language processing},
             pdfauthor={Alicja Dobrzeniecka},
@@ -92,40 +85,35 @@ includeheadfoot]{geometry}
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-% Set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-\usepackage{todonotes}
-\ifluatex
-  \usepackage{selnolig}  % disable illegal ligatures
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
-\title{Conceptual and methodological problems with bias detection and avoidance in natural language processing}
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{todonotes}
+
+\title{Conceptual and methodological problems with bias detection and avoidance
+in natural language processing}
 \author{Alicja Dobrzeniecka}
 \date{2021-06-08}
 
@@ -138,35 +126,57 @@ includeheadfoot]{geometry}
 }
 \chapter{Introduction}\label{introduction}
 
-\textbf{state the general topic and give some background}
-
 Natural language processing (NLP) is a subfield of computer science that
 processes and analyzes language in text and speech with the use of
 modern programming methods. It has practical applications in everyday
 life as it concerns tasks such as email filters, smart assistants,
 search results, language translations, text analytics and so on. Models
 used to accomplish these tasks need a lot of data to learn from. This
-data originates from humans activities and historical recordings like
-texts, messages, speeches. It turns out that in the learning process
+data originates from humans activities and historical recordings such as
+texts, messages or speeches. It turns out that in the learning process
 these models can learn implicit biases that reflect harmful
 stereotypical thinking still present in modern societies. One can find
-methods that aim at identifying hidden biases and/or try to remove them
-by modifying the models explicitly. There are many different types of
-models in NLP depending on a task that they ought to solve. However all
-of them need as an input words represented as numerical values and this
-is accomplished with word embedding models. The biases seem to have
-their primary source in the way the words are assigned the numerical
-values. \newline
+methods that aim at identifying and measuring hidden biases and/or try
+to remove them by modifying the models. There are many different types
+of models in NLP depending on a task that they are supposed to solve.
+However, all of them need as an input words represented by means of
+numbers and this is accomplished with word embedding models. The models
+usually assign the values based on the context in which the words
+appear. It means that the input data can have enormous influence on the
+outcome. The biases seem to have their primary source in the way the
+words are assigned the numerical values.
 
-\textbf{review of the literature related to the topic}
+There is considerable amount of literature available on the topic of
+bias detection and mitigation in NLP models. Bolukbasi, Chang, Zou,
+Saligrama, \& Kalai (\protect\hyperlink{ref-Bolukbasi2016Man}{2016})
+focuses on gender biases that may be observable while investigating the
+representation of job occupations and gender in terms of their assigned
+numerical values. The authors apply cosine similarity measurement to
+investigate the phenomenon where (the vectors corresponding to) words
+related to jobs that are stereotypically associated with a given gender
+are in fact in the model situated closer to this gender. They also use
+analogy tasks to evaluate if the bias is present in the word embedding
+model. They check analogies by comparing pairs of word vectors, for
+example they search for the word complementing the puzzle: man is to
+doctor as woman is to \ldots{}? First they subtract word ``man'' from
+word ``woman'' and then they search for the ranked list of other words
+pairs that have similar vectors' difference. They also include in the
+formula a threshold to ensure that the resulting pairs could not be
+randomly picked.
 
-There is a bunch of literature available on the topic of bias detection
-and mitigation in NLP models. Bolukbasi2016Man focuses on gender biases
-that may be observable while investigating the representation of job
-occupations and gender in terms of their assigned numerical values. The
-authors apply cosine similarity measurement to investigate the
-phenomenon where jobs stereotypically associated with a given gender are
-in fact in the model situated closer to this gender.
+However, as in Nissim, Noord, \& Goot
+(\protect\hyperlink{ref-Nissim2019Fair}{2019}) it is pointed out, there
+are some limitations of this approach. According to the authors in
+practice most of analogies implementations do not return any input
+words. This means that it does not make sense to expect the algorithm to
+return the same profession for both woman and man. Therefore this method
+seems to be limited in terms of bias detection. The other problems
+regard for example the choice of pairs and words that are used to detect
+the presence of discrimination as it is often subjective and without
+proper justification. Additionally the choice of parameter set in
+Bolukbasi et al. (\protect\hyperlink{ref-Bolukbasi2016Man}{2016})
+formula to ensure that word pairs are not picked by random, is also not
+justified and changing it drastically influences the results.
 
 Islam, Bryson, \& Narayanan
 (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}) touches upon the
@@ -177,37 +187,38 @@ learnt biases to discover close relationship between these two. For the
 evaluation they use Word Embedding Association Test (WEAT) and the Word
 Embedding Factual Association Test (WEFAT).
 
-manzini2019black proposes novel way of using a cosine similarity method
-to get the information on assumed resemblance between words. They
-investigate an approach that enables to measure the bias for a class
-(like gender, religion, race) and express the final result with only one
-averaged number. \newline
-
-\textbf{define the terms and scope of the topic}
+Manzini, Lim, Tsvetkov, \& Black
+(\protect\hyperlink{ref-manzini2019black}{2019}) proposes a novel way of
+using cosine similarity to obtain the information on assumed resemblance
+between words. They investigate an approach that enables them to measure
+the bias for a class (like gender, religion, race) and express the final
+result with a single metric.
 
 It is worth noticing the general distinction of biases mentioned in
-Caliskan2017Semantics. They refer to the publication concerning Implicit
-Association Test Greenwald et al., 1998) where certain baseline of bias
-phenomenon was introduced. Namely it seems that humans naturally exhibit
-some biases and that not always bring social concern. One can imagine
-the intuitive associations between for example insects and flowers, and
-the feelings of pleasantness or unpleasantness. In general people would
-rather associate flowers with feeling pleasant than insects and this
-preference could be named a bias or prejudice in some direction. However
-this type of preference does not cause an uproar and it is rather
-morally neutral case. Unfortunately there are other biases and
-prejudices that directly influence the quality of other people's lives
-and therefore they should be taken care of.
+Islam et al. (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}). They
+refer to the publication concerning Implicit Association Test Greenwald
+et al., 1998) where certain baseline of bias phenomenon was introduced.
+Namely it seems that humans naturally exhibit some biases and that not
+always bring social concern. One can imagine the intuitive associations
+between for example insects and flowers, and the feelings of
+pleasantness or unpleasantness. In general people would rather associate
+flowers with feeling pleasant than insects and this preference could be
+named a bias or prejudice in some direction. However this type of
+preference does not cause an uproar and it is rather morally neutral
+case. Unfortunately there are other biases and prejudices that directly
+influence the quality of other people's lives and therefore they should
+be taken care of.
 
 One can find a bunch of various definitions trying to capture what bias
 and fairness actually are. With the choice of the definition,
 implications into the real-life applications may change as well as it
-was pointed out in Mehrabi2019Survey. They mark out that there exist
-different types of biases, the list if long but among others there are
-historical bias, representation bias, measurement bias. This indicates
-how complex the process itself is. Without the proper understanding and
-awareness of the problem, people are prone to unconsciously sustain this
-phenomenon.
+was pointed out in Mehrabi, Morstatter, Saxena, Lerman, \& Galstyan
+(\protect\hyperlink{ref-Mehrabi2019Survey}{2019}). They mark out that
+there exist different types of biases, the list if long but among others
+there are historical bias, representation bias, measurement bias. This
+indicates how complex the process itself is. Without the proper
+understanding and awareness of the problem, people are prone to
+unconsciously sustain this phenomenon.
 
 In the article one can also find the distinction on different types of
 discrimination, some of them will be shortly described. It is worth
@@ -229,50 +240,34 @@ fairness. It is essential to grasp some concepts of fairness to take
 them into consideration while designing implementation of some machine
 learning model. In Mehrabi2019Survey one may notice that depending on
 the context and application different definitions may be applied.
-\newline
 
-\textbf{outline the current situation} The most popular methods focus on
-comparing the similarity between words from protected groups and those
-that are considered to be stereotypical or harmful in some way. One can
-find in this group methods such as euclidean distance, dot product or
-cosine similarity. There are also other ways to detect the effects of
-biases. For example through the investigation of the model performance
-on certain tasks that validate if the model returns some values
-independently on gender or race or not. \newline
-
-\textbf{evaluate the current situation (advantages/ disadvantages) and identify the gap}
+The most popular methods focus on comparing the similarity between words
+from protected groups and those that are considered to be stereotypical
+or harmful in some way. One can find in this group methods such as
+euclidean distance, dot product or cosine similarity. There are also
+other ways to detect the effects of biases. For example through the
+investigation of the model performance on certain tasks that validate if
+the model returns some values independently on gender or race or not.
 
 In the currently used methods (like cosine similarity) the values of
 similarity are often aggregated in a way that may lead to false
 conclusions. For example due to the averaging of values and the lack of
-confidence interval information. \newline
+confidence interval information.
 
-\textbf{identify the importance of the proposed research} One can find a
-number of articles on negative real-life implications resulting from the
-presence of unaddressed biases in the machine learning models. \newline
-
-\textbf{state the research problem/ questions}
+One can find a number of articles on negative real-life implications
+resulting from the presence of unaddressed biases in the machine
+learning models.
 
 In the paper we indicate how current methods used to detect biases in
 natural language models are limited in terms of confidence interval.
-\newline
-
-\textbf{state the research aims and/or research objectives}
 
 Our research tries to answer the question of how to enhance the current
 way in which the bias detection is performed to make sure that it is
-methodologically valid. \newline
-
-\textbf{state the hypotheses}
+methodologically valid.
 
 Our hypothesis is that there can be greater understanding of data and
 bias implications when confidence interval and Bayesian method are
-applied to the methodology. \newline
-<!-- \textbf{outline the order of information in the thesis} -->
-
-\textbf{outline the methodology}
-
-To discuss!
+applied to the methodology.
 
 \chapter{Cosine similarity and bias
 detection}\label{cosine-similarity-and-bias-detection}
@@ -404,17 +399,16 @@ product itself (often dot product) is used to measure the similarity.
 \section{Cosine distance in a one-class bias
 detection}\label{cosine-distance-in-a-one-class-bias-detection}
 
-Bolukbasi, Chang, Zou, Saligrama, \& Kalai
-(\protect\hyperlink{ref-Bolukbasi2016Man}{2016}) define similarity
-between words as the inner product of their normalized vectors (that is,
-they use cosine similarity). They focus on examining what the geometry
-of word embedding is in regard to ``he'' and ``she'' words. In other
-words, whether the similarity between those concepts and other words
-reflects expected gender stereotypes. They test this hypothesis by
-investigating whether there is a connection between word embeddings
-representing certain professions and words referring to gender. They
-also evaluate whether automatically produced analogies between words
-reflect the stereotypes as well.
+Bolukbasi et al. (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}) define
+similarity between words as the inner product of their normalized
+vectors (that is, they use cosine similarity). They focus on examining
+what the geometry of word embedding is in regard to ``he'' and ``she''
+words. In other words, whether the similarity between those concepts and
+other words reflects expected gender stereotypes. They test this
+hypothesis by investigating whether there is a connection between word
+embeddings representing certain professions and words referring to
+gender. They also evaluate whether automatically produced analogies
+between words reflect the stereotypes as well.
 
 A very vivid way to follow their method of arguing that bias in word
 embeddings is real is to plot the values of inner product of chosen
@@ -447,7 +441,7 @@ and properties of a vector space.
 \section{Cosine distance in a multi-class bias
 detection}\label{cosine-distance-in-a-multi-class-bias-detection}
 
-In the article Manzini, Lim, Tsvetkov, \& Black
+In the article Manzini et al.
 (\protect\hyperlink{ref-manzini2019black}{2019}) the authors present
 different approach towards finding similarities between classes of
 words. The authors claim that texts available online are full of direct
@@ -922,39 +916,44 @@ picture:
 
 \normalsize
 
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\noindent Notice that the distribution for \texttt{human} (even though
+we did our best not to include in it any stereotype-related atributes)
+is left-skewed, with much overlap with \texttt{associated} and
+\texttt{different}, which illustrates the need to take being associated
+with humans as an important predictor.
 
-Natural language processing (NLP) is a subfield of computer science that processes and analyzes language in text and speech
-with the use of modern programming methods. It has practical applications in everyday life as it concerns tasks such as email filters,
-smart assistants, search results, language translations, text analytics and so on. Models used to accomplish these tasks need a lot of
-data to learn from. This data originates from humans activities and historical recordings such as texts, messages or speeches. It turns out
-that in the learning process these models can learn implicit biases that reflect harmful stereotypical thinking still present in modern societies. One can find methods that aim at identifying and measuring hidden biases and/or try to remove them by modifying the models.
-There are many different types of models in NLP depending on a task that they are supposed to solve. However, all of them need as an input words represented by means of numbers and this is accomplished with word embedding models. The models usually assign the values based on the context in which the words appear. It means that the input data can have enormous influence on the outcome. The biases seem to have their primary source in the way the words are assigned the numerical values.
+Our focus lies in \texttt{connection} as a predictor. Morever, later on
+we'll be interested in looking at the protected words separately, and at
+protected words split by connection. For technical reasons it is useful
+to represent these factors as integer vectors.
 
-There is considerable amount of literature available on the topic of bias detection and mitigation in NLP models. \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}) focuses on gender biases that may be observable while investigating the representation of job occupations and gender in terms of their assigned numerical
-values. The authors apply cosine similarity measurement to investigate the phenomenon where jobs stereotypically associated with a given gender are in fact in the model situated closer to this gender.
+\vspace{1mm} \footnotesize
 
-\protect\hyperlink{ref-Caliskan2017Semantics}{Islam, Bryson, \& Narayanan} (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}) touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
-discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{religion}\OperatorTok{$}\NormalTok{con <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(religion}\OperatorTok{$}\NormalTok{connection)}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{pw <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(religion}\OperatorTok{$}\NormalTok{protectedWord)}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{pwFactor <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(religion}\OperatorTok{$}\NormalTok{protectedWord, religion}\OperatorTok{$}\NormalTok{connection))}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{pwIndex <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(religion}\OperatorTok{$}\NormalTok{pwFactor)}
+\end{Highlighting}
+\end{Shaded}
 
-\protect\hyperlink{ref-manzini2019black}{Manzini, Lim, Tsvetkov, \& Black} (\protect\hyperlink{ref-manzini2019black}{2019}) proposes novel way of using a cosine similarity method to get the information on assumed resemblance between words. They investigate
-an approach that enables to measure the bias for a class (like gender, religion, race) and express the final result with only one averaged number.
+\normalsize
 
-It is worth noticing the general distinction of biases mentioned in \protect\hyperlink{ref-Caliskan2017Semantics}{Islam, Bryson, \& Narayanan} (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}). They refer to the publication concerning Implicit Association
-Test Greenwald et al., 1998) where certain baseline of bias phenomenon was introduced. Namely it seems that humans naturally exhibit some biases and
-that not always bring social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general people would rather associate flowers with feeling pleasant than insects and this preference could be named a bias or
-prejudice in some direction. However this type of preference does not cause an uproar and it is rather morally neutral case. Unfortunately there are other
-biases and prejudices that directly influence the quality of other people's lives and therefore they should be taken care of.
+A short script, \texttt{cleanDataset} to make this faster, so
+equivalently:
 
-One can find a bunch of various definitions trying to capture what bias and fairness actually are. With the choice of the definition, implications into the real-life applications may change as well as it was pointed out in \protect\hyperlink{ref-Mehrabi2019Survey}{Mehrabi, Morstatter, Saxena, Lerman, \& Galstyan} (\protect\hyperlink{ref-Mehrabi2019Survey}{2019}). They mark out that there exist different types of biases, the list if long but among others there are historical bias, representation bias, measurement bias. This indicates how complex the process itself is. Without the proper understanding and awareness of the problem, people are prone to unconsciously sustain this phenomenon.
+\vspace{1mm} \footnotesize
 
-In the article one can also find the distinction on different types of discrimination, some of them will be shortly described. It is worth first mentioning that protected attributes are those qualities, traits or characteristics that one cannot, according to the law, discriminated against.
-Direct discrimination refers to the situation when protected attributes of individuals explicitly result in non-favorable outcomes toward them. In contrast in indirect discrimination individuals appear to be treated equally but anyway they end up being treated unjustly due to the hidden effects of biases towards their protected attributes. Systemic discrimination takes place when policies, customs or behaviors that result from certain culture or organizational structure lead to discrimination against some groups of people. Finally, very common statistical discrimination refers to using
-average group statistics to judge person belonging to the group.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"../functions/cleanDataset.R"}\NormalTok{)}
+\NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{religion <-}\StringTok{ }\KeywordTok{cleanDataset}\NormalTok{(religion,}\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
-The topic of discrimination is entangled with another concept which is fairness. It is essential to grasp some concepts of fairness to take them into
-consideration while designing implementation of some machine learning model. In Mehrabi2019Survey one may notice that depending on the context and application different definitions may be applied.
+\normalsize
 
 \section{Looking at the islam-related
 words}\label{looking-at-the-islam-related-words}
@@ -965,23 +964,36 @@ associates with islam four stereotypical attributes (``violent'',
 ``terrorist'', ``uneducated'' and ``dirty''). First, we select and plot
 the empirical distributions for these protected words.
 
-In the currently used methods (like cosine similarity) the values of similarity are often aggregated in a way that may lead to false conclusions. For
-example due to the averaging of values and the lack of confidence interval information.
+\vspace{1mm} \footnotesize
 
-One can find a number of articles on negative real-life implications resulting from the presence of unaddressed biases in the machine learning models.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{muslimWords <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"imam"}\NormalTok{,}\StringTok{"islam"}\NormalTok{,}\StringTok{"mosque"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"quran"}\NormalTok{)}
+\NormalTok{muslim <-}\StringTok{ }\NormalTok{religion }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(protectedWord }\OperatorTok{%in%}\StringTok{ }\NormalTok{muslimWords)}
+\KeywordTok{ggplot}\NormalTok{(muslim, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{  cosineDistance, }\DataTypeTok{fill =}\NormalTok{ connection, }\DataTypeTok{color =}\NormalTok{ connection))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.6}\NormalTok{,}\DataTypeTok{size =} \FloatTok{.2}\NormalTok{)}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"orangered4"}\NormalTok{,}\StringTok{"chartreuse4"}\NormalTok{, }\StringTok{"skyblue"}\NormalTok{, }\StringTok{"gray"}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.1}\NormalTok{))}\OperatorTok{+}\KeywordTok{xlab}\NormalTok{(}\StringTok{"cosine distance"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"orangered4"}\NormalTok{,}\StringTok{"chartreuse4"}\NormalTok{,}\StringTok{"skyblue"}\NormalTok{,}\StringTok{"gray"}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{()}\OperatorTok{+}\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Empirical distribution of distances (muslim)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
-Our research tries to answer the question of how to enhance the current way in which the bias detection is performed to make sure that it is
-methodologically valid.
+\normalsize
 
-Our hypothesis is that there can be greater understanding of data and bias implications when confidence interval and Bayesian method are applied to the
-methodology.
+\noindent Once we focus on words related to islam, the associated bias
+seems to be stronger than in the whole dataset. This is a step towards
+illustrating that the distribution of bias is uneven.
 
-\hypertarget{bayesian-analysis-of-cosine-based-bias}{%
-\chapter{Bayesian analysis of cosine-based bias}\label{bayesian-analysis-of-cosine-based-bias}}
+Now, say we want to look at a single protected word. Since the dataset
+also contains comparison multiple control neutral and human attributes,
+we randomly select only 5 from \texttt{none} and 5 from \texttt{human}
+control groups of those for the visualisation purposes.
 
-Placeholder
+\vspace{1mm} \footnotesize
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1358,8 +1370,7 @@ of parameters.
 ## religionBaseline -2283 95   117  37    16      0
 \end{verbatim}
 
-\leavevmode\hypertarget{ref-Caliskan2017Semantics}{}%
-Islam, A. C., Bryson, J. J., \& Narayanan, A. (2016). Semantics derived automatically from language corpora necessarily contain human biases. \emph{CoRR}, \emph{abs/1608.07187}. Retrieved from \url{http://arxiv.org/abs/1608.07187}
+\normalsize
 
 \section{Protected classes in Reddit and Google
 embeddings}\label{protected-classes-in-reddit-and-google-embeddings}
@@ -1471,5 +1482,17 @@ automatically from language corpora necessarily contain human biases.
 Manzini, T., Lim, Y. C., Tsvetkov, Y., \& Black, A. W. (2019). Black is
 to criminal as caucasian is to police: Detecting and removing multiclass
 bias in word embeddings.
+
+\hypertarget{ref-Mehrabi2019Survey}{}
+Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., \& Galstyan, A.
+(2019). A survey on bias and fairness in machine learning. \emph{CoRR},
+\emph{abs/1908.09635}. Retrieved from
+\url{http://arxiv.org/abs/1908.09635}
+
+\hypertarget{ref-Nissim2019Fair}{}
+Nissim, M., Noord, R. van, \& Goot, R. van der. (2019). Fair is better
+than sensational: Man is to doctor as woman is to doctor. \emph{CoRR},
+\emph{abs/1905.09866}. Retrieved from
+\url{http://arxiv.org/abs/1905.09866}
 
 \end{document}
