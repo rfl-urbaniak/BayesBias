@@ -224,6 +224,59 @@ m_{pw} &amp; ~ dnorm(1,.5) \\
 
 <p><img src="_main_files/figure-html/priorsVis-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Now we can define and compile the baseline model. Its parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the <code>rethinking</code> package.</p>
+<p> </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rethinking)
+<span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> )
+religionBaseline &lt;-<span class="st"> </span><span class="kw">ulam</span>(
+  <span class="kw">alist</span>(
+    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
+    mu &lt;-<span class="st"> </span>m[pw],
+    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
+    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
+  ),
+  <span class="dt">data =</span> religion,
+  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">4000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>,
+  <span class="dt">start=</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">1</span>, <span class="dt">co =</span> <span class="dv">0</span>, <span class="dt">sigma=</span> <span class="fl">.3</span>),
+  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>, <span class="dt">cores=</span><span class="dv">4</span>
+)
+<span class="co">#saving</span>
+<span class="co">#saveRDS(religionBaseline, </span>
+<span class="co">#file = &quot;cosineAnalysis/models/religionBaseline.rds&quot;)</span></code></pre></div>
+<p>The only reason we need it is the evaluation of connection as a predictor. Does including it in o the model improve the situation? To investigate this, let's now build a model according to the following specification:</p>
+<span class="math display">\[\begin{align}
+cosineDistance_i  &amp; \sim dnorm(\mu_i, \sigma) \\
+\mu_i &amp; = m_{pw} + co_{con}\\
+m_{pw} &amp; ~ dnorm(1,.5) \\
+co_{con} &amp; ~ dnorm(0,1) \\
+\sigma &amp;\sim  dcauchy(0,1)
+\end{align}\]</span>
+<p>The idea now is that each connection type comes with its own coefficient <span class="math inline">\(co\)</span> that has impact on mean distances for protected words taken separately.</p>
+<p> </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rethinking)
+<span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> )
+religionCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
+  <span class="kw">alist</span>(
+    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
+    mu &lt;-<span class="st"> </span>m[pw] <span class="op">+</span><span class="st"> </span>co[con],
+    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
+    co[con] <span class="op">~</span><span class="kw">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),
+    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
+  ),
+  <span class="dt">data =</span> religion,
+  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">8000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>, 
+  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>
+)</code></pre></div>
+
+<p>First, let's see if this model is really better in terms of the Widely Acceptable Information Criterion (WAIC):</p>
+<p> </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#the calculation requires models which are large, we prepared the table</span>
+<span class="co">#compareBaseline &lt;- print(round(compare(religionBaseline, religionCoefs)), 3)</span>
+compareBaseline &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;../datasets/compareBaseline.rds&quot;</span>)
+compareBaseline</code></pre></div>
+<pre><code>##                   WAIC SE dWAIC dSE pWAIC weight
+## religionCoefs    -2328 93     0  NA    20      1
+## religionBaseline -2283 95    45  17    16      0</code></pre>
+
 
 </div>
             </section>

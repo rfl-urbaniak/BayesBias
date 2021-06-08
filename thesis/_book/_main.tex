@@ -583,4 +583,90 @@ Now we can define and compile the baseline model. Its parameters will
 have a posterior distribution obtained using either Hamiltionian Monte
 Carlo methods (STAN) available through the \texttt{rethinking} package.
 
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rethinking)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\OtherTok{TRUE}\NormalTok{ )}
+\NormalTok{religionBaseline <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
+  \KeywordTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu <-}\StringTok{ }\NormalTok{m[pw],}
+\NormalTok{    m[pw] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  ),}
+  \DataTypeTok{data =}\NormalTok{ religion,}
+  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{4000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{,}
+  \DataTypeTok{start=} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mu =} \DecValTok{1}\NormalTok{, }\DataTypeTok{co =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sigma=} \FloatTok{.3}\NormalTok{),}
+  \DataTypeTok{log_lik =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{cores=}\DecValTok{4}
+\NormalTok{)}
+\CommentTok{#saving}
+\CommentTok{#saveRDS(religionBaseline, }
+\CommentTok{#file = "cosineAnalysis/models/religionBaseline.rds")}
+\end{Highlighting}
+\end{Shaded}
+
+The only reason we need it is the evaluation of connection as a
+predictor. Does including it in o the model improve the situation? To
+investigate this, let's now build a model according to the following
+specification:
+
+\begin{align}
+cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
+\mu_i & = m_{pw} + co_{con}\\
+m_{pw} & ~ dnorm(1,.5) \\
+co_{con} & ~ dnorm(0,1) \\
+\sigma &\sim  dcauchy(0,1)
+\end{align}
+
+\noindent The idea now is that each connection type comes with its own
+coefficient \(co\) that has impact on mean distances for protected words
+taken separately.
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rethinking)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\OtherTok{TRUE}\NormalTok{ )}
+\NormalTok{religionCoefs <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
+  \KeywordTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu <-}\StringTok{ }\NormalTok{m[pw] }\OperatorTok{+}\StringTok{ }\NormalTok{co[con],}
+\NormalTok{    m[pw] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    co[con] }\OperatorTok{~}\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  ),}
+  \DataTypeTok{data =}\NormalTok{ religion,}
+  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{8000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{, }
+  \DataTypeTok{log_lik =} \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\noindent First, let's see if this model is really better in terms of
+the Widely Acceptable Information Criterion (WAIC):
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#the calculation requires models which are large, we prepared the table}
+\CommentTok{#compareBaseline <- print(round(compare(religionBaseline, religionCoefs)), 3)}
+\NormalTok{compareBaseline <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"../datasets/compareBaseline.rds"}\NormalTok{)}
+\NormalTok{compareBaseline}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   WAIC SE dWAIC dSE pWAIC weight
+## religionCoefs    -2328 93     0  NA    20      1
+## religionBaseline -2283 95    45  17    16      0
+\end{verbatim}
+
+\normalsize
+
 \end{document}
