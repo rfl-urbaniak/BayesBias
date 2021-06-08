@@ -22,9 +22,9 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
-title:		           'Monte carlo backtesting in R'
-description:	       '</br> Why the usual backesting methods may mislead you </br>'
-author:              'Rafal Urbaniak'
+title:		           'Bayesian bias'
+description:	       '</br> Gauging uncertainty in word embedding bias measurement</br>'
+author:              'Alicja Dobrzeniecka and Rafal Urbaniak'
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
