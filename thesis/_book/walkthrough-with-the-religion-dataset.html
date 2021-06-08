@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="bayesian-analysis-of-cosine-based-bias.html"/>
-
+<link rel="next" href="protected-word-level-analysis.html"/>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -106,6 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="bayesian-analysis-of-cosine-based-bias.html"><a href="bayesian-analysis-of-cosine-based-bias.html"><i class="fa fa-check"></i><b>2</b> Bayesian analysis of cosine-based bias</a></li>
 <li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a></li>
+<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a></li>
 </ul>
 
       </nav>
@@ -277,15 +278,65 @@ compareBaseline</code></pre></div>
 ## religionCoefs    -2328 93     0  NA    20      1
 ## religionBaseline -2283 95    45  17    16      0</code></pre>
 
+<p>Clearly, it should be given weight 1 as compared to the baseline model. So far, we've learned that the connection type actually has predictive value. Let's take a look at the coefficient estimates:</p>
+<p> </p>
+<pre><code>##              mean        sd       5.5%      94.5%    n_eff    Rhat4
+## co[1] -0.14956420 0.1151675 -0.3261650 0.03741930 294.2033 1.001449
+## co[2] -0.09880543 0.1145024 -0.2736985 0.08813271 291.5044 1.001564
+## co[3] -0.07282752 0.1133894 -0.2447778 0.11158986 287.7820 1.001627
+## co[4] -0.03103179 0.1131420 -0.2034442 0.15268770 286.8283 1.001606</code></pre>
 
+<p>Let's plot them together with their highest posterior density invervals, for the three topic groups.</p>
+
+<p>What should strike us is that while the mean estimates of the coefficients indeed do differ a bit, usually the highest posterior density invervals all include zero, and so we do not have strong reasons to say that, say, as far as the whole religion dataset is involved, being associated indeed is connected with lower cosine distance. A second striking observation is that the estimated impact for associated stereotypes is quite often not too different from the estimated impact of attributes associated with different stereotypes, and both are sometimes not too far from the estimated impact for simply human attributes. In general, once the uncertainty involved is taken seriously by using control groups and statistical uncertainty estimation that does not dispose of pointwise data, the picture which focuses only on differences between means of means is too simplistic.</p>
+<p>But this doesn't mean important differences for some protected words are not there. For one thing, if you start with a word list that is very uneven, the actually not so bad status of some of the protected words might mask a pretty bad situation in which some other protected words are. For comparison, let's see what a model focused on words related to islam tells us.</p>
+<p> </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#this is how we build the model</span>
+religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;cosineAnalysis/datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
+<span class="kw">colnames</span>(religion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;protectedWord&quot;</span>,<span class="st">&quot;wordToCompare&quot;</span>,<span class="st">&quot;wordClass&quot;</span>,
+                        <span class="st">&quot;cosineDistance&quot;</span>,<span class="st">&quot;cosineSimilarity&quot;</span>,<span class="st">&quot;connection&quot;</span>)
+<span class="kw">levels</span>(religion<span class="op">$</span>wordClass) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>)
+muslimWords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;imam&quot;</span>,<span class="st">&quot;islam&quot;</span>,<span class="st">&quot;mosque&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;quran&quot;</span>)
+muslim &lt;-<span class="st"> </span>religion <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(protectedWord <span class="op">%in%</span><span class="st"> </span>muslimWords)
+muslim<span class="op">$</span>protectedWord &lt;-<span class="st"> </span><span class="kw">droplevels</span>(muslim<span class="op">$</span>protectedWord)
+muslim<span class="op">$</span>pw &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>protectedWord)
+muslim<span class="op">$</span>con &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>connection)
+muslim<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(muslim<span class="op">$</span>protectedWord, muslim<span class="op">$</span>connection))
+muslim<span class="op">$</span>pwIndex &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>pwFactor)
+
+islamCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
+  <span class="kw">alist</span>(
+    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
+    mu &lt;-<span class="st"> </span>m[pw] <span class="op">+</span><span class="st"> </span>co[con],
+    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
+    co[con] <span class="op">~</span><span class="kw">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),
+    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
+  ),
+  <span class="dt">data =</span> muslim,
+  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">10000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>, <span class="dt">cores =</span> <span class="dv">4</span>,
+  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>
+)</code></pre></div>
+
+<p>Let's take a look at the coefficients:</p>
+<p> </p>
+<pre><code>##                mean        sd       5.5%      94.5%    n_eff    Rhat4
+## co[1] -0.1979930035 0.1708785 -0.4682696 0.07634977 1789.894 1.003445
+## co[2] -0.0334215769 0.1687587 -0.3021954 0.23720938 1738.720 1.003575
+## co[3] -0.0192492753 0.1675754 -0.2840596 0.24860974 1732.907 1.003755
+## co[4] -0.0003911363 0.1670610 -0.2661047 0.26815172 1723.758 1.003837</code></pre>
+
+
+
+<p>While muslim words were unusual in the sense that the disparity between associated attributes and others is stronger, the evidence is still not conclusive. This is because the variation even within islam-related words is large enough (and sample sizes sufficiently small) for all the highest posterior density invervals to still include zeros.</p>
+<p>So, it seems, taking a closer look does seem to make a difference. The question is, what happens if we do take a close look at the level of protected words?</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="bayesian-analysis-of-cosine-based-bias.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="bayesian-analysis-of-cosine-based-bias.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="protected-word-level-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>

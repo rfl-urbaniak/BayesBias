@@ -307,11 +307,171 @@ compareBaseline
 \normalsize
 
 
+Clearly, it should be given weight 1 as compared to the baseline model. So far, we've learned that the connection type actually has predictive value. Let's take a look at the coefficient estimates:
+ 
+ \vspace{1mm}
+ \footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+#precisCoefs <- print(precis(religionCoefs, depth =2, pars= "co" ))
+#saveRDS(precisCoefs, "../datasets/precisCoefs.rds")
+precisCoefs <- readRDS("../datasets/precisCoefs.rds")
+precisCoefs
+```
+ \normalsize
+
+
+
+
+\noindent Let's plot them together with their highest posterior density invervals, for the three topic groups.
+ 
+ 
+ 
+ 
+ 
+ 
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/religionGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/genderGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/raceGoogleCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+
+\end{center}
+
+
+
+
+\noindent What should strike us is that while the mean estimates of the coefficients indeed do differ a bit, usually the highest posterior density invervals all include zero, and so we do not have strong reasons to say that, say, as far as the whole religion dataset is involved, being associated indeed is connected  with lower cosine distance. A second striking observation is that the estimated impact for associated stereotypes is quite often not too different from the estimated impact of attributes associated with different stereotypes, and both are sometimes not too far from the estimated impact for simply human attributes.  In general, once the uncertainty involved is taken seriously by using control groups and statistical uncertainty estimation that does not dispose of pointwise data, the picture which focuses only on differences between means of means is too simplistic.
+
+
+
+But this doesn't mean important differences for some protected words are not there. For one thing, if you start with a word list that is very uneven, the actually not so bad status of some of the protected words might mask  a pretty bad situation in which some other protected words are. For comparison, let's see what a model focused on words related to islam tells us. 
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+#this is how we build the model
+religion <- read.csv("cosineAnalysis/datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+muslimWords <- c("imam","islam","mosque","muslim","quran")
+muslim <- religion %>% filter(protectedWord %in% muslimWords)
+muslim$protectedWord <- droplevels(muslim$protectedWord)
+muslim$pw <- as.integer(muslim$protectedWord)
+muslim$con <- as.integer(muslim$connection)
+muslim$pwFactor <- factor(paste0(muslim$protectedWord, muslim$connection))
+muslim$pwIndex <- as.integer(muslim$pwFactor)
+
+islamCoefs <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m[pw] + co[con],
+    m[pw] ~ dnorm(1,.5),
+    co[con] ~dnorm(0,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = muslim,
+  chains=2 , iter=10000 , warmup=1000, cores = 4,
+  log_lik = TRUE
+)
+```
+\normalsize
+
+Let's take a look at the coefficients:
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+islamCoefs <- readRDS("../datasets/islamCoefs.rds")
+islamCoefs
+```
+\normalsize
+
+
+\begin{center}
+\includegraphics[width=8cm]{../images/islamCoeffs.jpeg}
+\end{center}
+
+\normalsize
+
+
+While muslim words were unusual in the sense that the disparity between associated attributes and others is stronger, the evidence is still not conclusive. This is because the variation even within islam-related words is large enough (and sample sizes sufficiently small) for all the highest posterior density invervals to still include zeros.  
+
+So, it seems, taking a closer look does seem to make a difference. The question is, what happens if we do take a close look at the level of protected words?
 
 
 
 
 
+#  Protected-word level analysis
+
+Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the `visualiseStats.R` script for details).
+
+\vspace{1mm}
+\footnotesize
+```{r build religionSeparate,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+options(buildtools.check = function(action) TRUE ) #removes install pop-up request
+religion$pwFactor <- factor(paste0(religion$protectedWord, "-", religion$connection))
+religion$pwIndex <- as.integer(religion$pwFactor)
+
+religionSeparate <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- c[pwIndex],
+    c[pwIndex] ~ dnorm(1,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=10000 , warmup=1000,
+  start=list(no = 1, a = 0, d = 0, sigma= .3), log_lik =  TRUE
+)
+```
+\normalsize
+
+
+
+\noindent Let's see if the individualized model does better than the previous models in light of WAIC which does add penalty for the number of parameters.
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+compareBaselineCoefsSeparate<- readRDS("../datasets/compareBaselineCoefsSeparate.rds")
+compareBaselineCoefsSeparate
+```
+\normalsize
+
+
+
+Great, it seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89\% highest posterior density intervals.
+
+
+\includegraphics[width=12cm]{../images/visReligionReddit.png}
 
 
 

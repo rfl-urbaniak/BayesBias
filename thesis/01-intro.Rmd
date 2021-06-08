@@ -52,7 +52,7 @@ biases that may be observable while investigating the representation of job occu
 values. The authors apply cosine similarity measurement to investigate the phenomenon where jobs stereotypically associated with a given
 gender are in fact in the model situated closer to this gender. 
 
-Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
+@Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
 discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT). 
 
 manzini2019black proposes novel way of using a cosine similarity method to get the information on assumed resemblance between words. They investigate 

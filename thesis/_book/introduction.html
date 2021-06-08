@@ -106,6 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="bayesian-analysis-of-cosine-based-bias.html"><a href="bayesian-analysis-of-cosine-based-bias.html"><i class="fa fa-check"></i><b>2</b> Bayesian analysis of cosine-based bias</a></li>
 <li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a></li>
+<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a></li>
 </ul>
 
       </nav>
@@ -158,7 +159,7 @@ IAT - test psychologiczny -->
 <p>Natural language processing (NLP) is a subfield of computer science that processes and analyzes language in text and speech with the use of modern programming methods. It has practical applications in everyday life as it concerns tasks such as email filters, smart assistants, search results, language translations, text analytics and so on. Models used to accomplish these tasks need a lot of data to learn from. This data originates from humans activities and historical recordings like texts, messages, speeches. It turns out that in the learning process these models can learn implicit biases that reflect harmful stereotypical thinking still present in modern societies. One can find methods that aim at identifying hidden biases and/or try to remove them by modifying the models explicitly. There are many different types of models in NLP depending on a task that they ought to solve. However all of them need as an input words represented as numerical values and this is accomplished with word embedding models. The biases seem to have their primary source in the way the words are assigned the numerical values. </p>
 
 <p>There is a bunch of literature available on the topic of bias detection and mitigation in NLP models. Bolukbasi2016Man focuses on gender biases that may be observable while investigating the representation of job occupations and gender in terms of their assigned numerical values. The authors apply cosine similarity measurement to investigate the phenomenon where jobs stereotypically associated with a given gender are in fact in the model situated closer to this gender.</p>
-<p>Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT).</p>
+<p><span class="citation">Islam, Bryson, &amp; Narayanan (<a href="#ref-Caliskan2017Semantics">2016</a>)</span> touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT).</p>
 <p>manzini2019black proposes novel way of using a cosine similarity method to get the information on assumed resemblance between words. They investigate an approach that enables to measure the bias for a class (like gender, religion, race) and express the final result with only one averaged number. </p>
 <!-- Nissim2019Fair -->
 
@@ -179,6 +180,12 @@ IAT - test psychologiczny -->
 
 <p>To discuss!</p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Caliskan2017Semantics">
+<p>Islam, A. C., Bryson, J. J., &amp; Narayanan, A. (2016). Semantics derived automatically from language corpora necessarily contain human biases. <em>CoRR</em>, <em>abs/1608.07187</em>. Retrieved from <a href="http://arxiv.org/abs/1608.07187" class="uri">http://arxiv.org/abs/1608.07187</a></p>
+</div>
 </div>
             </section>
 

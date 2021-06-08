@@ -157,13 +157,14 @@ authors apply cosine similarity measurement to investigate the
 phenomenon where jobs stereotypically associated with a given gender are
 in fact in the model situated closer to this gender.
 
-Caliskan2017Semantics touches upon the topic of biases regarding race
-and gender. They apply knowledge from well-known psychological studies
-like Implicit Association Test to research the relation between human
-stereotypical thinking and model learnt biases to discover close
-relationship between these two. For the evaluation they use Word
-Embedding Association Test (WEAT) and the Word Embedding Factual
-Association Test (WEFAT).
+Islam, Bryson, \& Narayanan
+(\protect\hyperlink{ref-Caliskan2017Semantics}{2016}) touches upon the
+topic of biases regarding race and gender. They apply knowledge from
+well-known psychological studies like Implicit Association Test to
+research the relation between human stereotypical thinking and model
+learnt biases to discover close relationship between these two. For the
+evaluation they use Word Embedding Association Test (WEAT) and the Word
+Embedding Factual Association Test (WEFAT).
 
 manzini2019black proposes novel way of using a cosine similarity method
 to get the information on assumed resemblance between words. They
@@ -668,5 +669,211 @@ the Widely Acceptable Information Criterion (WAIC):
 \end{verbatim}
 
 \normalsize
+
+Clearly, it should be given weight 1 as compared to the baseline model.
+So far, we've learned that the connection type actually has predictive
+value. Let's take a look at the coefficient estimates:
+
+\vspace{1mm} \footnotesize
+
+\begin{verbatim}
+##              mean        sd       5.5%      94.5%    n_eff    Rhat4
+## co[1] -0.14956420 0.1151675 -0.3261650 0.03741930 294.2033 1.001449
+## co[2] -0.09880543 0.1145024 -0.2736985 0.08813271 291.5044 1.001564
+## co[3] -0.07282752 0.1133894 -0.2447778 0.11158986 287.7820 1.001627
+## co[4] -0.03103179 0.1131420 -0.2034442 0.15268770 286.8283 1.001606
+\end{verbatim}
+
+\normalsize
+
+\noindent Let's plot them together with their highest posterior density
+invervals, for the three topic groups.
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/religionGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/genderGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/raceGoogleCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+
+\end{center}
+
+\noindent What should strike us is that while the mean estimates of the
+coefficients indeed do differ a bit, usually the highest posterior
+density invervals all include zero, and so we do not have strong reasons
+to say that, say, as far as the whole religion dataset is involved,
+being associated indeed is connected with lower cosine distance. A
+second striking observation is that the estimated impact for associated
+stereotypes is quite often not too different from the estimated impact
+of attributes associated with different stereotypes, and both are
+sometimes not too far from the estimated impact for simply human
+attributes. In general, once the uncertainty involved is taken seriously
+by using control groups and statistical uncertainty estimation that does
+not dispose of pointwise data, the picture which focuses only on
+differences between means of means is too simplistic.
+
+But this doesn't mean important differences for some protected words are
+not there. For one thing, if you start with a word list that is very
+uneven, the actually not so bad status of some of the protected words
+might mask a pretty bad situation in which some other protected words
+are. For comparison, let's see what a model focused on words related to
+islam tells us.
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#this is how we build the model}
+\NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"cosineAnalysis/datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\KeywordTok{colnames}\NormalTok{(religion) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"protectedWord"}\NormalTok{,}\StringTok{"wordToCompare"}\NormalTok{,}\StringTok{"wordClass"}\NormalTok{,}
+                        \StringTok{"cosineDistance"}\NormalTok{,}\StringTok{"cosineSimilarity"}\NormalTok{,}\StringTok{"connection"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{)}
+\NormalTok{muslimWords <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"imam"}\NormalTok{,}\StringTok{"islam"}\NormalTok{,}\StringTok{"mosque"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"quran"}\NormalTok{)}
+\NormalTok{muslim <-}\StringTok{ }\NormalTok{religion }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(protectedWord }\OperatorTok{%in%}\StringTok{ }\NormalTok{muslimWords)}
+\NormalTok{muslim}\OperatorTok{$}\NormalTok{protectedWord <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(muslim}\OperatorTok{$}\NormalTok{protectedWord)}
+\NormalTok{muslim}\OperatorTok{$}\NormalTok{pw <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(muslim}\OperatorTok{$}\NormalTok{protectedWord)}
+\NormalTok{muslim}\OperatorTok{$}\NormalTok{con <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(muslim}\OperatorTok{$}\NormalTok{connection)}
+\NormalTok{muslim}\OperatorTok{$}\NormalTok{pwFactor <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(muslim}\OperatorTok{$}\NormalTok{protectedWord, muslim}\OperatorTok{$}\NormalTok{connection))}
+\NormalTok{muslim}\OperatorTok{$}\NormalTok{pwIndex <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(muslim}\OperatorTok{$}\NormalTok{pwFactor)}
+
+\NormalTok{islamCoefs <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
+  \KeywordTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu <-}\StringTok{ }\NormalTok{m[pw] }\OperatorTok{+}\StringTok{ }\NormalTok{co[con],}
+\NormalTok{    m[pw] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    co[con] }\OperatorTok{~}\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  ),}
+  \DataTypeTok{data =}\NormalTok{ muslim,}
+  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{10000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{, }\DataTypeTok{cores =} \DecValTok{4}\NormalTok{,}
+  \DataTypeTok{log_lik =} \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+Let's take a look at the coefficients:
+
+\vspace{1mm} \footnotesize
+
+\begin{verbatim}
+##                mean        sd       5.5%      94.5%    n_eff    Rhat4
+## co[1] -0.1979930035 0.1708785 -0.4682696 0.07634977 1789.894 1.003445
+## co[2] -0.0334215769 0.1687587 -0.3021954 0.23720938 1738.720 1.003575
+## co[3] -0.0192492753 0.1675754 -0.2840596 0.24860974 1732.907 1.003755
+## co[4] -0.0003911363 0.1670610 -0.2661047 0.26815172 1723.758 1.003837
+\end{verbatim}
+
+\normalsize
+
+\begin{center}
+\includegraphics[width=8cm]{../images/islamCoeffs.jpeg}
+\end{center}
+
+\normalsize
+
+While muslim words were unusual in the sense that the disparity between
+associated attributes and others is stronger, the evidence is still not
+conclusive. This is because the variation even within islam-related
+words is large enough (and sample sizes sufficiently small) for all the
+highest posterior density invervals to still include zeros.
+
+So, it seems, taking a closer look does seem to make a difference. The
+question is, what happens if we do take a close look at the level of
+protected words?
+
+\chapter{Protected-word level
+analysis}\label{protected-word-level-analysis}
+
+Let's turn then to data analysis that takes a look at protected words
+separately. This time for each combination of a protected word and a
+connection status we will have a separate mean cosine distance estimate,
+each coming with its own highest posterior density interval. This means
+we will use indices that are result from all such combinations (and then
+we will split them up in the model precis to build visualisation, feel
+free to look at the \texttt{visualiseStats.R} script for details).
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\OtherTok{TRUE}\NormalTok{ ) }\CommentTok{#removes install pop-up request}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{pwFactor <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(religion}\OperatorTok{$}\NormalTok{protectedWord, }\StringTok{"-"}\NormalTok{, religion}\OperatorTok{$}\NormalTok{connection))}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{pwIndex <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(religion}\OperatorTok{$}\NormalTok{pwFactor)}
+
+\NormalTok{religionSeparate <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
+  \KeywordTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu <-}\StringTok{ }\NormalTok{c[pwIndex],}
+\NormalTok{    c[pwIndex] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  ),}
+  \DataTypeTok{data =}\NormalTok{ religion,}
+  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{10000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{,}
+  \DataTypeTok{start=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{no =} \DecValTok{1}\NormalTok{, }\DataTypeTok{a =} \DecValTok{0}\NormalTok{, }\DataTypeTok{d =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sigma=} \FloatTok{.3}\NormalTok{), }\DataTypeTok{log_lik =}  \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\noindent Let's see if the individualized model does better than the
+previous models in light of WAIC which does add penalty for the number
+of parameters.
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{compareBaselineCoefsSeparate<-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"../datasets/compareBaselineCoefsSeparate.rds"}\NormalTok{)}
+\NormalTok{compareBaselineCoefsSeparate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   WAIC SE dWAIC dSE pWAIC weight
+## religionSeparate -2400 93     0  NA    60      1
+## religionCoefs    -2328 93    72  29    20      0
+## religionBaseline -2283 95   117  37    16      0
+\end{verbatim}
+
+\normalsize
+
+Great, it seems that we do want to prefer this model, despite its
+relative complication. Now, what does it tell us about the protected
+words? Let's visualise the predicted means together with 89\% highest
+posterior density intervals.
+
+\includegraphics[width=12cm]{../images/visReligionReddit.png}
+
+\hypertarget{refs}{}
+\hypertarget{ref-Caliskan2017Semantics}{}
+Islam, A. C., Bryson, J. J., \& Narayanan, A. (2016). Semantics derived
+automatically from language corpora necessarily contain human biases.
+\emph{CoRR}, \emph{abs/1608.07187}. Retrieved from
+\url{http://arxiv.org/abs/1608.07187}
 
 \end{document}
