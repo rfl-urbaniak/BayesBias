@@ -57,7 +57,7 @@ they search for the ranked list of other words pairs that have similar vectors' 
 
 However, as in @Nissim2019Fair it is pointed out, there are some limitations of this approach. According to the authors in practice most of analogies implementations do not return any input words. This means that it does not make sense to expect the algorithm to return the same profession for both woman and man. Therefore this method seems to be limited in terms of bias detection. The other problems regard for example the
 choice of pairs and words that are used to detect the presence of discrimination as it is often subjective and without proper justification. Additionally the choice of parameter set in @Bolukbasi2016Man formula to ensure that word pairs are not picked by random, is also not justified and changing it drastically 
-influences the results.
+influences the results. 
 
 @Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
 discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT). 

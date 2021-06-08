@@ -19,6 +19,9 @@ site: bookdown::bookdown_site
 bibliography: [../references/bibliographyRafal.bib]
 biblio-style: 
 link-citations: yes
+fontsize: 12pt
+linestretch: 1.5
+geometry: left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, asymmetric, includeheadfoot
 csl: apa-5th-edition.csl
 ---
 
@@ -35,9 +38,9 @@ library(kableExtra)
 
 
 
-# Preface {-}
+<!-- # Preface {-} -->
 
-Test 
+<!-- Test  -->
   
 <!-- testsds -->
 
