@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+# Walkthrough with the religion dataset
+
+
+## Loading and understanding the dataset
+
 We start with loading the libraries needed for the analysis.
 
 \footnotesize
@@ -17,12 +26,6 @@ library(ggExtra)
 library(cowplot)
 ```
 \normalsize 
-
-
-
-
-
-# Walkthrough with the religion dataset
 
 
 We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure,  not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here  can fairly easily be  run  for different stereotypization patterns.  Let's start  with  explaining the method and its deployment using a dataset obtained for the religion-related protected words.
@@ -54,7 +57,7 @@ head(religion)  %>%  kable(format = "latex",booktabs=T,
 
  The `protectedWord` column contains words from a protected class that (in a perfect world according to the assumptions of the orignal study) should not be associated with  harmful stereotypes. `wordToCompare` contains attributes, including stereotypes and control group words. For each row we compute the cosine distances between a given protected  word and a given attribute word. `wordClass` tells us  which class an attribute is supposed to be stereotypically associated with, that is, whether the  word from `wordToCompare` is associated stereotypically with jews, christians or muslims, or whether it belongs to a control group. `cosineDistance` is simply a calculation of the cosine distance between protected word and atrribute.  `cosineSimilarity`  contains the result of substracting cosine distance from 1. `connection` contains information about  the relation type between a protected word and an attribute. If the attribute is e.g. a harmful jewish stereotype and the protected word is also from the judaism group,  the connection has value `associated`.  If the attribute is still stereotypically jewish, but the protected word comes from another religion, the connection is labelled as  `different`. If the attribute belongs to  a neutral group then the connection is labelled as `none` and if an attribute belongs to the `human` class, then the connection is labelled as `human`. 
 
-
+## First look at the empirical distributions
 
 
 First let's take a look at the empirical distribution of distances by the connection type, initially ignoring the human control class for now.
@@ -97,18 +100,7 @@ religion$pwIndex <- as.integer(religion$pwFactor)
 ```
 \normalsize
 
-<!-- For technical reasons it is useful to represent an $n$-level factor with $n-1$ binary vectors. `connection` in this case has four levels. -->
 
-
-<!-- \vspace{1mm} -->
-<!-- \footnotesize -->
-<!-- ```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"} -->
-<!-- religion$associated <- ifelse(religion$connection == "associated", 1, 0) -->
-<!-- religion$different <- ifelse(religion$connection == "different", 1, 0) -->
-<!-- religion$human <- ifelse(religion$connection == "human" |religion$connection == "associated"| -->
-<!--                            religion$connection == "different", 1, 0)   -->
-<!-- ```   -->
-<!-- \normalsize -->
 
 
 
@@ -123,6 +115,8 @@ religion <- cleanDataset(religion,c("christian","human","jewish","muslim","neutr
 ```
 \normalsize
 
+
+## Looking at the islam-related words
 
 
 For now, let's focus on five protected words related to islam ("imam", "islam", "mosque", "muslim", and "quran"). The word list associates with islam  four stereotypical attributes ("violent", "terrorist", "uneducated" and "dirty").  First, we select and plot the empirical distributions for these protected words.
@@ -189,6 +183,8 @@ visualiseProtected(priestVis,"priest")
 
 The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates. 
 
+## Bayesian model structure and assumptions
+
 
 We will now think of cosine distance as the output variable, and 
 will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.
@@ -226,7 +222,7 @@ ggarrange(noneG,cauG, parG, ncol = 1)
 ```
 
 
-
+## Choosing predictors
 
 Now we can define and compile the baseline model. Its  parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the `rethinking` package. 
 
@@ -318,7 +314,7 @@ precisCoefs
 ```
  \normalsize
 
-
+## Dataset-level coefficients
 
 
 \noindent Let's plot them together with their highest posterior density invervals, for the three topic groups.
@@ -429,6 +425,8 @@ So, it seems, taking a closer look does seem to make a difference. The question 
 
 #  Protected-word level analysis
 
+## Model structure and assumptions
+
 Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the `visualiseStats.R` script for details).
 
 \vspace{1mm}
@@ -465,7 +463,7 @@ compareBaselineCoefsSeparate
 ```
 \normalsize
 
-
+## Protected classes in Reddit and Google embeddings
 
 It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89\% highest posterior density intervals.
 
@@ -501,6 +499,8 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 # The role of debiasing
 
 \todo{describe which debiasing you used and how it was advertised in the paper}
+
+## Dataset-level coefficients after debiasing
 
 First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:
 
@@ -552,6 +552,7 @@ Some points to discuss:
 - small improvement in race, at the price of moving neutral terms closer
 
 
+## Protected classes  after debiasing
 
 Now, perhaps, the effects of debiasing will be better appreciated if we look at the level of protected words. After all, the hope is, the situation of extremely ill-positioned protected words have improved?
 
