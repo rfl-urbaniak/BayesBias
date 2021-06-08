@@ -7,6 +7,7 @@ output:
     keep_tex: yes
     toc_depth: 6
     latex_engine: xelatex
+    extra_dependencies: ["todonotes"]
   bookdown::gitbook:
     lib_dir: "book_assets"
 includes:

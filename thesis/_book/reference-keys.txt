@@ -1,1 +1,3 @@
 introduction
+bayesian-analysis-of-cosine-based-bias
+walkthrough-with-the-religion-dataset
