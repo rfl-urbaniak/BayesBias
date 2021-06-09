@@ -59,7 +59,7 @@ However, as in @Nissim2019Fair it is pointed out, there are some limitations of 
 choice of pairs and words that are used to detect the presence of discrimination as it is often subjective and without proper justification. Additionally the choice of parameter set in @Bolukbasi2016Man formula to ensure that word pairs are not picked by random, is also not justified and changing it drastically 
 influences the results. 
 
-@Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies like Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
+@Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies such as Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
 discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT). 
 
 @manzini2019black proposes a novel way of using cosine similarity to obtain the information on assumed resemblance between words. They investigate 
@@ -71,7 +71,7 @@ an approach that enables them to measure the bias for a class (like gender, reli
 <!-- \textbf{define the terms and scope of the topic}-->
 
 It is worth noticing the general distinction of biases mentioned in @Caliskan2017Semantics. They refer to the publication concerning Implicit Association
-Test Greenwald et al., 1998) where certain baseline of bias phenomenon was introduced. Namely it seems that humans naturally exhibit some biases and
+Test (Greenwald et al., 1998) where certain baseline of bias phenomenon was introduced. Namely it seems that humans naturally exhibit some biases and
 that not always bring social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general people would rather associate flowers with feeling pleasant than insects and this preference could be named a bias or
 prejudice in some direction. However this type of preference does not cause an uproar and it is rather morally neutral case. Unfortunately there are other
 biases and prejudices that directly influence the quality of other people's lives and therefore they should be taken care of. 
