@@ -1,4 +1,44 @@
 ---
+title: "Conceptual and methodological problems with bias detection and avoidance in natural language processing"
+author: "Alicja Dobrzeniecka"
+date: '`r Sys.Date()`'
+output:
+  bookdown::pdf_book: 
+    keep_tex: yes
+    toc_depth: 6
+    latex_engine: xelatex
+    extra_dependencies: ["todonotes"]
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+includes:
+    in_header:
+      - Rafal_latex6.sty
+documentclass: book
+classoptions: dvipsnames, usenames
+site: bookdown::bookdown_site
+bibliography: [../references/bibliographyRafal.bib]
+biblio-style: 
+link-citations: yes
+fontsize: 12pt
+linestretch: 1.5
+geometry: left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, asymmetric, includeheadfoot
+csl: apa-5th-edition.csl
+---
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Introduction
+
+Placeholder
+
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+---
 output:
   pdf_document: default
   html_document: default
@@ -305,3 +345,25 @@ https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of
 -
 -
 -->
+
+<!--chapter:end:02-cosine.Rmd-->
+
+
+# Walkthrough with the religion dataset
+
+Placeholder
+
+
+## Loading and understanding the dataset
+## First look at the empirical distributions
+## Looking at the islam-related words
+## Bayesian model structure and assumptions
+## Choosing predictors
+## Dataset-level coefficients
+## Model structure and assumptions
+## Protected classes in Reddit and Google embeddings
+## Dataset-level coefficients after debiasing
+## Protected classes  after debiasing
+
+<!--chapter:end:03-bayesian.Rmd-->
+

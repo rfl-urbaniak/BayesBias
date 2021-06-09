@@ -70,16 +70,14 @@ an approach that enables them to measure the bias for a class (like gender, reli
 
 <!-- \textbf{define the terms and scope of the topic}-->
 
-It is worth noticing the general distinction of biases mentioned in @Caliskan2017Semantics. They refer to the publication concerning Implicit Association
-Test (Greenwald et al., 1998) where certain baseline of bias phenomenon was introduced. Namely it seems that humans naturally exhibit some biases and
-that not always bring social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general people would rather associate flowers with feeling pleasant than insects and this preference could be named a bias or
-prejudice in some direction. However this type of preference does not cause an uproar and it is rather morally neutral case. Unfortunately there are other
+It is worth noticing the general distinction of biases mentioned in @Caliskan2017Semantics. They refer to the publication concerning Implicit Association Test (Greenwald et al., 1998) that measures the strength of associations between concepts or stereotypes by calculating the time of reaction for special tasks. It is worth noticing that humans naturally exhibit some biases and that they do not always cause social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general, people would rather associate flowers with feeling pleasant than insects, and this preference could be named a bias or
+prejudice in some direction. However, this type of preference does not cause an uproar and is a rather morally neutral case. Unfortunately, there are other
 biases and prejudices that directly influence the quality of other people's lives and therefore they should be taken care of. 
 
-One can find a bunch of various definitions trying to capture what bias and fairness actually are. With the choice of the definition, implications into the real-life applications may change as well as it was pointed out in @Mehrabi2019Survey. They mark out that there exist different types of biases, the list if long but among others there are historical bias, representation bias, measurement bias. This indicates how complex the process itself is. Without the proper understanding and awareness of the problem, people are prone to unconsciously sustain this phenomenon.
+One can find various definitions trying to capture what bias and fairness actually are. With the choice of the definition, implications into the real-life applications may change as well. @Mehrabi2019Survey mark out that there exist different types of biases such as historical bias, representation bias, measurement bias (the list is long). This indicates how complex the issue of bias is. Without the proper understanding and awareness of the problem, people are prone to unconsciously sustain the bias existence.
 
-In the article one can also find the distinction on different types of discrimination, some of them will be shortly described. It is worth first mentioning that protected attributes are those qualities, traits or characteristics that one cannot, according to the law, discriminated against.
-Direct discrimination refers to the situation when protected attributes of individuals explicitly result in non-favorable outcomes toward them. In contrast in indirect discrimination individuals appear to be treated equally but anyway they end up being treated unjustly due to the hidden effects of biases towards their protected attributes. Systemic discrimination takes place when policies, customs or behaviors that result from certain culture or organizational structure lead to discrimination against some groups of people. Finally, very common statistical discrimination refers to using
+@Mehrabi2019Survey also distinguish different types of discrimination, some of them will be briefly described. By protected attributes we mean those qualities, traits or characteristics that one cannot legally discriminate against.
+Direct discrimination occurs when protected attributes of individuals explicitly result in non-favorable outcomes toward them. In contrast in indirect discrimination individuals appear to be treated equally but anyway they end up being treated unjustly due to the hidden effects of biases towards their protected attributes. Systemic discrimination takes place when policies, customs or behaviors that result from certain culture or organizational structure lead to discrimination against some groups of people. Finally, very common statistical discrimination refers to using
 average group statistics to judge person belonging to the group. 
 
 The topic of discrimination is entangled with another concept which is fairness. It is essential to grasp some concepts of fairness to take them into
@@ -87,31 +85,30 @@ consideration while designing implementation of some machine learning model. In 
 
 <!--\textbf{outline the current situation} -->
 
-The most popular methods focus on comparing the similarity between words from protected groups and those that are considered to be stereotypical or harmful in some way. One can find in this group methods such as euclidean distance, dot product or cosine similarity. There are also other ways to detect the effects of biases. For example through the investigation of the model performance on certain tasks that validate if the model returns some values 
+The most popular methods focus on comparing the similarity between words from protected groups and those that are considered to be stereotypical or harmful in some way. One can find in this group methods such as euclidean distance or cosine similarity (which is equivalent to dot product if the
+vectors are normalized). There are also other ways to detect the effects of biases. For example through the investigation of the model performance on certain tasks that validate if the model returns some values 
 independently on gender or race or not. 
 
 
 <!-- \textbf{evaluate the current situation (advantages/ disadvantages) and identify the gap}-->
 
-In the currently used methods (like cosine similarity) the values of similarity are often aggregated in a way that may lead to false conclusions. For 
-example due to the averaging of values and the lack of confidence interval information. 
+The currently used methods (such as cosine similarity) make the similarity values often aggregated in a way that may lead to hasty conclusions. The averaging of values and the lack of uncertainty may lead to the incomplete picture of the bias situation in the vocabulary. 
 
 <!-- \textbf{identify the importance of the proposed research}-->
 One can find a number of articles on negative real-life implications resulting from the presence of unaddressed biases in the machine learning models.
 
 <!-- \textbf{state the research problem/ questions} -->
 
-In the paper we indicate how current methods used to detect biases in natural language models are limited in terms of confidence interval.
+In the paper we indicate how current methods used to detect biases in natural language models are limited from the perspective of Bayesian analysis.
 
 <!-- \textbf{state the research aims and/or research objectives} -->
 
-Our research tries to answer the question of how to enhance the current way in which the bias detection is performed to make sure that it is
+Our research enhances the current way in which the bias detection is performed to make sure that it is
 methodologically valid.
 
 <!-- \textbf{state the hypotheses} -->
 
-Our hypothesis is that there can be greater understanding of data and bias implications when confidence interval and Bayesian method are applied to the
-methodology.
+The key hypothesis is that greater understanding of data and bias implications can be achieved when Bayesian methods are applied to issue.
 
 <!-- \textbf{outline the order of information in the thesis} -->
 
