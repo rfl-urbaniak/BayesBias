@@ -152,6 +152,7 @@ After finding bias subspace, they use it to modify the vector values individuall
 4. In the final step there is an evaluation of the results. The cosine distances are calculated again but this time using debiased vocabulary. After
 taking the mean of all distances one final value is obtained and then it is compared with the average value from the beginning. If the cosine distances are on average greater than before then it leads the authors to the conclusion that improvement was made. As the cosine distance increases it is assumed that the association between protected and stereotypical words decreases. 
 
+
 <!-- add more information on the source of words used -->
 
 ## Limitations of the approach
