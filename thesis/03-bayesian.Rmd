@@ -39,15 +39,18 @@ We decided to add control groups in the form of two classes --- neutral words an
 \vspace{1mm}
 \footnotesize
 
-```{r religionTableHead,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+```{r religionTableHead,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
 religion <- read.csv("../datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
-levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+library(plyr)
+religion$wordClass <- mapvalues(religion$wordClass, 
+                          from = levels(religion$wordClass),
+                          to = c("christian","human","jewish","muslim","neutral"))
+#levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
 head(religion)  %>%  kable(format = "latex",booktabs=T,
                       linesep = "",  escape = FALSE, 
-                      caption = "Head of the religion dataset.") %>%
-                      kable_styling(latex_options=c("scale_down"))
+                      caption = "Head of the religion dataset.") %>%      kable_styling(latex_options=c("scale_down"))
 ```
 \normalsize
 
