@@ -1,0 +1,189 @@
+---
+title: "A bayesian method of cosine-based word2vec bias"
+author: "Alicja Dobrzeniecka and Rafal Urbaniak"
+output:
+  pdf_document:
+    number_sections: true
+    df_print: kable 
+    keep_tex: true
+    includes:
+      in_header:
+        - Rafal_latex6.sty
+classoption: dvipsnames,enabledeprecatedfontcommands
+fontsize: 10pt
+documentclass: scrartcl
+urlcolor: blue
+bibliography: cosineReferences1.bib
+csl: apa-5th-edition.csl
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '../')
+
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+```
+
+
+
+test
+
+
+# Cosine-based measures of bias
+
+
+One of the first measures in the discussion has been developed by @bolukbasi2016man. There, the gender bias of a word $w$ is understood as its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ (the gender direction is the top principal compontent of ten gender pair difference vectors). The underlying idea is that no bias is present if non-explicitly gendered words are in equal distance to both elements in all explicitly gendered pairs. Given the (ideally) gender netural words $N$ and the gender direction $g$ the direct direct gender bias is defined as the average distance of the words in $N$ from $g$ ($c$ is a parameter determining how strict we want to be):
+\begin{align}
+\mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
+\end{align}
+
+The use of projections has been ciriticized for instance by @Gonen2019lipstick, who point out that while gender-direction might be an indicator of bias, it is only one possible manifestation of it, and reducing a projection of words might be insufficient. For instance, "math" and "delicate" might be in equal distance to both explicitly gendered words while being closer to quite different stereotypical attribute words. Further, the authors point out that most word pairs preserve similarity under debiasing meant to minimize projection-based bias.^[@bolukbasi2016man use also another method which involves analogies and their evaluations by human users on Mechanical Turk. It is discussed and criticized in [@Nissim2020fair].]
+
+
+
+To measure bias in word embeddings, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.
+Let $f$ be a distance or similarity measure (usually, cosine similarity). The association difference for a term $t$ is:
+\begin{align}
+s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
+\end{align}
+\noindent then, the association difference between $A$ a $B$ is:
+\begin{align}
+s(X,Y,A,B) & = \sum_{x\in X} s(x,A,B) -  \sum_{y\in Y} s(y,A,B)
+\end{align}
+\noindent
+$s(X,Y,A,B)$ is the statistic used in the signifcance test, and the $p$-value obtained by bootstrapping: it is the frequency of $s(X_i,Y_i,A,B)>s(X,Y,A,B)$ for all equally sized partitions $X_i, Y_i$ of $X\cup Y$. The effect size is computed by normalizing the difference in means as follows:
+\begin{align}
+bias(A,B) & = \frac{
+\mu(\{s(x,A,B)\}_{x\in X}) -\mu(\{s(y,A,B)\}_{y\in Y}) 
+}{
+\sigma(\{s(w,A,B)\}_{w\in X\cup Y})
+}
+\end{align}
+
+@Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extended the methodology to a multilingual and cross-lingual setting, arguing that using Euclidean distance instead of similarty does not make much difference, while the bias effects vary greatly accross embedding models (interestingly, with social media-text trained embeddings being less biased than those based on Wikipedia).
+
+A similar methodology is employed by @Garg2018years, who employ word embeddings trained od corpora from different decades to study the shifts in various biases. For instance, to compute the occupational embeddings bias for women the authors first compute the average vector of vector emeddings of words that represent women (e.g. "she", "female"), then calculate the Euclidean distance between this mean vector  and words for occupations. Then they take the mean of these distances and subtract from it the analogously obtained mean for the average vector of vector embeddings of words that represent men. Formally they take the relative norm distance between $X$ and $Y$ to be:
+\begin{align}
+\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
+\end{align}
+\noindent where the norm used is Euclidean, and $v_X$ and $x_Y$ are average vectors for sets $X$ and $Y$ respectively.
+
+
+
+There is a problem with taking means of means in the calculations, though. By pre-averaging data we throw away information about sample size. For instance, think about proportions: 10 out of 20 and 2 out of 4 give the same mean, but you would obtain more information by making the former observation rather than by making the latter. Connectedly, when we pre-average, we remove variation, and so pre-averaging  tend to manufacture false confidence.
+
+To illustrate let's employ the formulas used by @Caliskan2017semanticsBiases and go through an example. Conceptually, all such tests come up with rather short lists of protected words and rather short lists of stereotypical attributes. Clearly, these are not complete list. So let's treat them as  samples from richer pools of stereotypical predicates and let's take the uncertainty and variation involved seriously. 
+
+Consider a situation in which there are two protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$ and two five-element sets $A$ and $B$. 
+
+First, we play around with a scenario in which all the protected terms are on average equally distant from both sets ($\mu =1$) with standard deviation of $.05$. First, let's randomly draw distances and plot the results with group means plotted as vertical lines.
+
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+set.seed(123)
+t1 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
+t2 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
+t3 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
+t4 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
+```
+\normalsize
+
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t1 in X")
+
+t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t2 in X")
+
+t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t3 in Y")
+
+t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t4 in Y")
+
+grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
+```
+
+
+When you look at the datapoints, do you have the impression of a strong bias here? We wouldn't think so.  But now let's run the calculations from [@Caliskan2017semanticsBiases].
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+s <- function (table){ mean(table$A) - mean(table$B)}
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
+bias <- numerator / factor
+bias
+```
+\normalsize
+
+This should make us pause. We know these were points randomly drawn from distributions where there is no difference in means. Yet, the calculated effect size is 1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81!
+
+
+Now, let's try sampling from distributions where there in fact is a difference in means. Terms from $X$ are on average .8 away from $A$ (and $1$ from $B$), while terms from $Y$ are $.8$ away to $B$ (and 1 to $A$). The standard deviation is 0.1 in all the cases. There is a  clear difference between $X$ and $Y$ and quick visual inspection should tell us so.
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+set.seed(123)
+t1 <- data.frame(A  = rnorm(5,.8,0.1), B = rnorm(5,1,0.1))
+t2 <- data.frame(A  = rnorm(5,.8,0.1), B = rnorm(5,1,0.1))
+t3 <- data.frame(A  = rnorm(5,1,0.1), B = rnorm(5,.8,0.1))
+t4 <- data.frame(A  = rnorm(5,1,0.1), B = rnorm(5,.8,0.1))
+```
+\normalsize
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+t1Plot2 <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t1 in X")
+
+t2Plot2 <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t2 in X")
+
+t3Plot2 <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t3 in Y")
+
+t4Plot2 <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t4 in Y")
+
+grid.arrange(t1Plot2,t2Plot2, t3Plot2, t4Plot2, ncol=2)
+```
+\normalsize
+
+
+Is this clear difference mirrored in the calculations?
+
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
+bias <- numerator / factor
+bias
+```
+\normalsize 
+
+The absolute value of the effect size is smaller than in the previous case!  
+
+
+
+
+
+
+
+\newpage
+
+\noindent \huge  \textbf{Appendix} \normalsize
+
+\noindent \Large \textbf{Word lists, including human and neutral predicates} \normalsize
+
+
+
+
+
+
+#  References {-}
+
+\vspace{-3mm}
+
+
+
+
+
