@@ -384,9 +384,8 @@ This is is a bit better, but still quite some uncertainty is involved, far from 
 
 
 
-- Even if there is a difference in means, the bias metric can be lower, and the uncertainty about it needs to be gauged.
 
-- Even if the difference in means is the same, but the variation is different, the bias metric in the long run could tend toward a different value:
+- Even if the underlying means are the same, but the variation is different, the bias metric in the long run could tend toward a different value:
 
 \vspace{1mm}
 \footnotesize
@@ -397,6 +396,20 @@ median(biasesD1); median(biasesD2)
 
 \normalsize
 and so the point estimations of bias are sensitive to factors other than the underlying process means.
+
+
+
+- Even if there is a difference in means, the bias metric can be lower, and the uncertainty about it needs to be gauged. 
+
+- The uncertainty resulting from including the raw datapoint variance into considerations is more extensive than the one suggested by the low p-values obtained from taking means as datapoints. 
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+quantile(biasesD2, probs = c(0.275,0.975))
+quantile(biasesD1, probs = c(0.275,0.975))
+```
+\normalsize
 
 
 

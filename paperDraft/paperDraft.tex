@@ -745,10 +745,7 @@ set-up the key observations are as follows:
   datapoints might suggest, because with the decrease of standard
   deviation, the factor decreases and the bias increases.
 \item
-  Even if there is a difference in means, the bias metric can be lower,
-  and the uncertainty about it needs to be gauged.
-\item
-  Even if the difference in means is the same, but the variation is
+  Even if the underlying means are the same, but the variation is
   different, the bias metric in the long run could tend toward a
   different value:
 \end{itemize}
@@ -786,6 +783,42 @@ set-up the key observations are as follows:
 \normalsize
 and so the point estimations of bias are sensitive to factors other than
 the underlying process means.
+
+\begin{itemize}
+\item
+  Even if there is a difference in means, the bias metric can be lower,
+  and the uncertainty about it needs to be gauged.
+\item
+  The uncertainty resulting from including the raw datapoint variance
+  into considerations is more extensive than the one suggested by the
+  low p-values obtained from taking means as datapoints.
+\end{itemize}
+
+\vspace{1mm} \footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{quantile}\NormalTok{(biasesD2, }\DataTypeTok{probs =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.275}\NormalTok{,}\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    27.5%    97.5% 
+## 1.539149 2.166488
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{quantile}\NormalTok{(biasesD1, }\DataTypeTok{probs =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.275}\NormalTok{,}\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    27.5%    97.5% 
+## 1.300648 2.356815
+\end{verbatim}
+
+\normalsize
 
 \newpage
 
