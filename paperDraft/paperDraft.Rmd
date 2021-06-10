@@ -31,7 +31,6 @@ library(gridExtra)
 
 # Cosine-based measures of bias
 
-
 One of the first measures in the discussion has been developed by @bolukbasi2016man. There, the gender bias of a word $w$ is understood as its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ (the gender direction is the top principal compontent of ten gender pair difference vectors). The underlying idea is that no bias is present if non-explicitly gendered words are in equal distance to both elements in all explicitly gendered pairs. Given the (ideally) gender netural words $N$ and the gender direction $g$ the direct direct gender bias is defined as the average distance of the words in $N$ from $g$ ($c$ is a parameter determining how strict we want to be):
 \begin{align}
 \mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
@@ -41,7 +40,7 @@ The use of projections has been ciriticized for instance by @Gonen2019lipstick, 
 
 
 
-To measure bias in word embeddings, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.
+To measure bias in word embeddings, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans. If the person's attitude towards given pair of concept is to be interpreted as neutral, the final value from the formula should be around 0.
 Let $f$ be a similarity measure (usually, cosine similarity). The association difference for a term $t$ is:
 \begin{align}
 s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
@@ -60,9 +59,9 @@ bias(A,B) & = \frac{
 }
 \end{align}
 
-@Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extended the methodology to a multilingual and cross-lingual setting, arguing that using Euclidean distance instead of similarty does not make much difference, while the bias effects vary greatly accross embedding models (interestingly, with social media-text trained embeddings being less biased than those based on Wikipedia).
+@Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extended the methodology to a multilingual and cross-lingual setting, arguing that using Euclidean distance instead of similarity does not make much difference, while the bias effects vary greatly across embedding models (interestingly, with social media-text trained embeddings being less biased than those based on Wikipedia).
 
-A similar methodology is employed by @Garg2018years, who employ word embeddings trained on corpora from different decades to study the shifts in various biases. For instance, to compute the occupational embeddings bias for women the authors first compute the average vector of vector emeddings of words that represent women (e.g. "she", "female"), then calculate the Euclidean distance between this mean vector  and words for occupations. Then they take the mean of these distances and subtract from it the analogously obtained mean for the average vector of vector embeddings of words that represent men. Formally they take the relative norm distance between $X$ and $Y$ to be:
+A similar methodology is employed by @Garg2018years, who employ word embeddings trained on corpora from different decades to study the shifts in various biases. For instance, to compute the occupational embeddings bias for women the authors first compute the average vector of vector emeddings of words that represent women (e.g. "she", "female"), then calculate the Euclidean distance between this mean vector and words for occupations. Then they take the mean of these distances and subtract from it the analogously obtained mean for the average vector of vector embeddings of words that represent men. Formally they take the relative norm distance between $X$ and $Y$ to be:
 \begin{align}
 \textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
 \end{align}
@@ -386,6 +385,9 @@ This is is a bit better, but still quite some uncertainty is involved, far from 
 
 
 - Even if the underlying means are the same, but the variation is different, the bias metric in the long run could tend toward a different value:
+
+- The lack of control group in the paper and our analysis indicates that without neutral baseline it is difficult
+to interpret the effectiveness of the metric. 
 
 \vspace{1mm}
 \footnotesize
