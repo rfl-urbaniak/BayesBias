@@ -1,0 +1,1079 @@
+---
+title: "Conceptual and methodological problems with bias detection and avoidance in natural language processing"
+author: "Alicja Dobrzeniecka"
+date: '`r Sys.Date()`'
+output:
+  bookdown::pdf_book: 
+    keep_tex: yes
+    toc_depth: 6
+    latex_engine: xelatex
+    extra_dependencies: ["todonotes"]
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+includes:
+    in_header:
+      - Rafal_latex6.sty
+documentclass: book
+classoptions: dvipsnames, usenames
+site: bookdown::bookdown_site
+bibliography: [../references/bibliographyRafal.bib]
+biblio-style: 
+link-citations: yes
+fontsize: 12pt
+linestretch: 1.5
+geometry: left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, asymmetric, includeheadfoot
+csl: apa-5th-edition.csl
+---
+
+<!-- github-repo: rstudio/bookdown-demo -->
+
+
+```{r setup, include=FALSE, echo=FALSE}
+library(tidyverse)
+library(knitr)
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+```
+
+
+
+<!-- # Preface {-} -->
+
+<!-- Test  -->
+  
+<!-- testsds -->
+
+
+
+<!-- \begin{align}  -->
+<!--   f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k} -->
+<!--   (\#eq:binom) -->
+<!-- \end{align}  -->
+
+
+<!-- This is a citation [@diamond90] which uses keys from the bib file listed in the preamble. -->
+
+<!-- Equation \@ref(eq:binom)^[This is a footnote containing a double citation [@diamond90; @dahlmanNakedStat2020; @Zhao2019Gender].] -->
+
+<!-- Note that chapter files are found and compiled automatically, but the file names have to contain chapter numbers first. For instance, we used `01-intro.Rmd`, placed in the same folder. Observe how we included r code inline. -->
+
+
+
+<!-- ```{r fig-margin, fig.margin=TRUE} -->
+<!-- plot(cars) -->
+<!-- ``` -->
+
+
+<!--chapter:end:index.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Introduction
+
+<!--### Articles:
+
+  1. "Are We Consistently Biased? Multidimensional Analysis of Biases in Distributional Word Vectors"
+  https://www.aclweb.org/anthology/S19-1010.pdf 
+
+  2. Proving the harmfullness of biases in models 
+[source https://poseidon01.ssrn.com/delivery.php?ID=004020091089126117028081015085009075120015077012021005105005104113074127101113104030041107053119007034112081087110119071025006053026022082043000071011123067077124004027040024008122116091025075126111098104007096110113089007070120009111119015084097017092&EXT=pdf&INDEX=TRUE]
+
+  3. Summary what causes bias short article
+  [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html]-->
+
+<!-- Men Also Like Shopping: Reducing Gender Bias Amplification using Corpus-level Constraint -->
+<!-- Bias in Bios: A Case Study of Semantic Representation Bias in a High-Stakes Setting -->
+
+<!-- !bibliografia paperdraft; jabref
+4.pomysly na czwarty rozdzial - podsumowanie; 
+jak mierzyc bias za pomoca jednej liczby?
+IAT - test psychologiczny -->
+
+<!-- 
+    1.state the general topic and give some background
+    2.provide a review of the literature related to the topic
+    3.define the terms and scope of the topic
+    4.outline the current situation
+    5.evaluate the current situation (advantages/ disadvantages) and identify the gap
+    6.identify the importance of the proposed research
+    7.state the research problem/ questions
+    8.state the research aims and/or research objectives
+    9.state the hypotheses
+    10.outline the order of information in the thesis
+    11.outline the methodology
+-->
+
+
+<!-- \textbf{state the general topic and give some background}-->
+
+Natural language processing (NLP) is a subfield of computer science that processes and analyzes language in text and speech 
+with the use of modern programming methods. It has practical applications in everyday life as it concerns tasks such as email filters,
+smart assistants, search results, language translations, text analytics and so on. Models used to accomplish these tasks need a lot of
+data to learn from. This data originates from humans activities and historical recordings such as texts, messages or speeches. It turns out
+that in the learning process these models can learn implicit biases that reflect harmful stereotypical thinking still present in modern societies. One can find methods that aim at identifying and measuring hidden biases and/or try to remove them by modifying the models. 
+There are many different types of models in NLP depending on a task that they are supposed to solve. However, all of them need as an input words represented by means of numbers and this is accomplished with word embedding models. The models usually assign the values based on the context in which the words appear. It means that the input data can have enormous influence on the outcome. The biases seem to have their primary source in the way the words are assigned the numerical values.
+
+<!-- \textbf{review of the literature related to the topic}-->
+
+There is considerable amount of literature available on the topic of bias detection and mitigation in NLP models. @Bolukbasi2016Man focuses on gender biases that may be observable while investigating the representation of job occupations and gender in terms of their assigned numerical
+values. The authors apply cosine similarity measurement to investigate the phenomenon where (the vectors corresponding to) words related to jobs that are stereotypically associated with a given gender are in fact in the model situated closer to this gender. 
+They also use analogy tasks to evaluate if the bias is present in the word embedding model. They check analogies by comparing pairs of word vectors, for example they search for the word complementing the puzzle: man is to doctor as woman is to ...? First they subtract word "man" from word "woman" and then 
+they search for the ranked list of other words pairs that have similar vectors' difference. They also include in the formula a threshold to ensure that the resulting pairs could not be randomly picked. 
+
+However, as in @Nissim2019Fair it is pointed out, there are some limitations of this approach. According to the authors in practice most of analogies implementations do not return any input words. This means that it does not make sense to expect the algorithm to return the same profession for both woman and man. Therefore this method seems to be limited in terms of bias detection. The other problems regard for example the
+choice of pairs and words that are used to detect the presence of discrimination as it is often subjective and without proper justification. Additionally the choice of parameter set in @Bolukbasi2016Man formula to ensure that word pairs are not picked by random, is also not justified and changing it drastically 
+influences the results. 
+
+@Caliskan2017Semantics touches upon the topic of biases regarding race and gender. They apply knowledge from well-known psychological studies such as Implicit Association Test to research the relation between human stereotypical thinking and model learnt biases to
+discover close relationship between these two. For the evaluation they use Word Embedding Association Test (WEAT) and the Word Embedding Factual Association Test (WEFAT). 
+
+@manzini2019black proposes a novel way of using cosine similarity to obtain the information on assumed resemblance between words. They investigate 
+an approach that enables them to measure the bias for a class (like gender, religion, race) and express the final result with a single metric.
+
+<!-- Nissim2019Fair -->
+
+
+<!-- \textbf{define the terms and scope of the topic}-->
+
+It is worth noticing the general distinction of biases mentioned in @Caliskan2017Semantics. They refer to the publication concerning Implicit Association Test (Greenwald et al., 1998) that measures the strength of associations between concepts or stereotypes by calculating the time of reaction for special tasks. It is worth noticing that humans naturally exhibit some biases and that they do not always cause social concern. One can imagine the intuitive associations between for example insects and flowers, and the feelings of pleasantness or unpleasantness. In general, people would rather associate flowers with feeling pleasant than insects, and this preference could be named a bias or
+prejudice in some direction. However, this type of preference does not cause an uproar and is a rather morally neutral case. Unfortunately, there are other
+biases and prejudices that directly influence the quality of other people's lives and therefore they should be taken care of. 
+
+One can find various definitions trying to capture what bias and fairness actually are. With the choice of the definition, implications into the real-life applications may change as well. @Mehrabi2019Survey mark out that there exist different types of biases such as historical bias, representation bias, measurement bias (the list is long). This indicates how complex the issue of bias is. Without the proper understanding and awareness of the problem, people are prone to unconsciously sustain the bias existence.
+
+@Mehrabi2019Survey also distinguish different types of discrimination, some of them will be briefly described. By protected attributes we mean those qualities, traits or characteristics that one cannot legally discriminate against.
+Direct discrimination occurs when protected attributes of individuals explicitly result in non-favorable outcomes toward them. In contrast in indirect discrimination individuals appear to be treated equally but anyway they end up being treated unjustly due to the hidden effects of biases towards their protected attributes. Systemic discrimination takes place when policies, customs or behaviors that result from certain culture or organizational structure lead to discrimination against some groups of people. Finally, very common statistical discrimination refers to using
+average group statistics to judge person belonging to the group. 
+
+The topic of discrimination is entangled with another concept which is fairness. It is essential to grasp some concepts of fairness to take them into
+consideration while designing implementation of some machine learning model. In Mehrabi2019Survey one may notice that depending on the context and application different definitions may be applied.
+
+<!--\textbf{outline the current situation} -->
+
+The most popular methods focus on comparing the similarity between words from protected groups and those that are considered to be stereotypical or harmful in some way. One can find in this group methods such as euclidean distance or cosine similarity (which is equivalent to dot product if the
+vectors are normalized). There are also other ways to detect the effects of biases. For example through the investigation of the model performance on certain tasks that validate if the model returns some values 
+independently on gender or race or not. 
+
+
+<!-- \textbf{evaluate the current situation (advantages/ disadvantages) and identify the gap}-->
+
+The currently used methods (such as cosine similarity) make the similarity values often aggregated in a way that may lead to hasty conclusions. The averaging of values and the lack of uncertainty may lead to the incomplete picture of the bias situation in the vocabulary. 
+
+<!-- \textbf{identify the importance of the proposed research}-->
+One can find a number of articles on negative real-life implications resulting from the presence of unaddressed biases in the machine learning models.
+
+<!-- \textbf{state the research problem/ questions} -->
+
+In the paper we indicate how current methods used to detect biases in natural language models are limited from the perspective of Bayesian analysis.
+
+<!-- \textbf{state the research aims and/or research objectives} -->
+
+Our research enhances the current way in which the bias detection is performed to make sure that it is
+methodologically valid.
+
+<!-- \textbf{state the hypotheses} -->
+
+The key hypothesis is that greater understanding of data and bias implications can be achieved when Bayesian methods are applied to issue.
+
+<!-- \textbf{outline the order of information in the thesis} -->
+
+
+
+
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Cosine similarity and bias detection
+
+## Word embeddings
+<!-- [based on https://machinelearningmastery.com/what-are-word-embeddings/] -->
+
+To understand what cosine similarity measurement is, one first needs to grasp the concept of translating words to a computer-readable form. In the field of natural language processsing there are two main types of words representation --- localist and distributed. One-hot encoding is an example of a method used to achieve a localist representation of words. Here each vector contains information only about a single data point, this is achieved by first mapping categorical values (words) to integers and then to each integers a binary vector is assigned which contains only 0s except for the index of the integer, which is assigned 1. An example of a localist representation is:
+
+word | 1 | 2 | 3 | 4 | 5  
+|---|---|---|---|---|---|
+woman | 1 | 0 | 0 | 0 | 0 
+man | 0 | 1 | 0 | 0 | 0 
+girl | 0 | 0 | 1 | 0 | 0 
+boy | 0 | 0 | 0 | 1 | 0 
+monarch | 0 | 0 | 0 | 0 | 1 
+
+In the example above it is clear that the length of the vectors increases with the number of words in a vocabulary. It is not a very computationally efficient representation. It has other flaws as well. For example, it is unable to capture the resemblance between words appearing in similar contexts.
+
+In contrast to the localist representation, a distributed representation returns vectors that contain continuous values instead of discrete 1s and 0s. Word embeddings are a class of various techniques that allow one to represent words as distributed vectors. Such learned representations of text have certain properties. At least prima facie, they store similar (or at least co-occurring) words close to each other in a vector space. An example of distributed representation is:
+
+word | 1 | 2 | 3 | 4   
+|---|---|---|---|---|
+woman | 0.456 | 0.267 | 0.675 | 0.131
+man | 0.451 | 0.897 | 0.472 | 0.088
+girl | 0.604 | 0.262 | 0.414 | 0.706 
+boy | 0.279 | 0.172 | 0.475 | 0.010 
+monarch | 0.565 | 0.678 | 0.463 | 0.975 
+
+One of the advantages of using a distributed representation is that one is able to represent an enormous number of concepts with a smaller number of units. It is also possible to better capture similarities as words of similar meanings can have similar numeric vectors. 
+
+The numbers occurring in such representations are not random. They are learned in a process that uses a very shallow neural network. There are various types of techniques used for learning the vectors representations. One of the most straightforward ones is a skip-gram model.
+Given a word the models tries to predict its neighboring words from the sentence. The mathematics behind the process relies on the idea that the prediction concerns the conditional probability of the adjacent words. The algorithm tries to minimize the loss function, which penalizes the system for discrepancy with actual co-occurrence frequencies in the corpus. One can choose various parameters of the model, such as the window size that determines how many surrounding words the model should predict. After preparing such a fitted model one takes only the learned weights from a neural network, and uses them as vectors in a word embeddings representation.
+
+Word embeddings have many applications in natural language processing. They are handy in document search and information retrieval. They also play their part in improving automatic translations. Well learned word representations may also contribute to the improvement of sentiment analysis or spam detection.
+
+## Cosine similarity and distance
+<!-- [based on https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity] -->
+
+
+Cosine similarity is often used as a method of finding out whether vector representations for two words suggest that they are similar or somehow connected. Cosine similarity is the cosine of the angle between two vectors: the result of dividing their inner product (dot product usually) by the product of their magnitudes.
+\begin{align} \tag{Sim}
+\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
+\end{align}
+<!-- add information about inner product role -->
+Cosine similarity is considered a proper tool for this operation as its result has a clear connection to geometry and at least for a low number of dimensions may be easily interpreted. Using this scale, one can compare vector similarities in a fairly clear manner. When the vectors are aligned perpendicularly to each other, their similarity equals 0 (which is the same as the cosine of 90 degrees). This tells us that the similarity between the vectors is small. As the angle between vectors decreases, cosine similarity approaches one, which stands for the greatest similarity. 
+
+<!-- todo: plotting exemplary vectors in 2d -->
+One of the limitations of this measure is that it informs us only about similarities between vectors in terms of their orientation. However, it is often argued that in comparing words in terms of this metric, the magnitude of vectors may be treated as irrelevant, as the most important information pertains to direction. <!-- todo: find reference--> 
+
+
+In what follows, it is important to distinguish between cosine similarity and cosine distance, defined as:
+\begin{align} \tag{Sim}
+\mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)\\
+ &  = 1 - \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert} \nonumber
+\end{align}
+
+The greater the similarity between two vectors, the smaller the distance between them. The cosine distance ranges between 0 and 2. If the vectors are in an opposite direction to each other, the cosine distance is 2. And if the vectors are extremely similar then the cosine distance is very close to 0. 
+
+It is worth mentioning one more point concerning cosine similarity. After the vectors are normalized to have length equal to 1, inner product itself (often dot product) is used to measure the similarity.
+
+## Cosine distance in a one-class bias detection
+<!-- https://arxiv.org/pdf/1607.06520.pdf -->
+<!-- source of plot https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings -->
+
+@Bolukbasi2016Man
+ define similarity between words as the outcome inner product of their normalized vectors. 
+They focus on examining what the geometry of word embedding is in regard to "he" and "she" words. In other words, whether the similarity between those concepts and other words reflects expected gender stereotypes. They test this hypothesis by investigating whether there is a connection between word embeddings representing certain professions and words referring to gender. They also evaluate whether automatically produced analogies between words reflect the stereotypes as well. 
+
+A very vivid way to follow their method of arguing that bias in word embeddings is real is to plot the values of inner product of chosen words. The plot below does not originate from the original paper (it is from https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings) but similar visualization may be found there. Data used to create our plot is as follows.
+\newline
+
+
+Occupations associated with feminine: \textbf{"homemaker", "nurse", "receptionist", "librarian", "socialite", "hairdresser", "nanny", "bookkeeper", "stylist", "housekeeper", "interior designer", "guidance counselor"}
+\newline
+
+Occupations associated with masculine: \textbf{"maestro", "skipper", "protege", "philosopher", "captain", "architect", "financier", "warrior", "broadcaster", "magician", "fighter pilot", "boss"}
+\newline
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+genderProjections <-  read.csv("../datasets/genderProjections.csv")[,-1]
+colnames(genderProjections)[4] <- "Stereotype"
+levels(genderProjections$Stereotype) <- c("male occupation", "female occupation")
+ggplot(genderProjections, aes(x=he,y=she, color = Stereotype, shape = Stereotype))+geom_point(size = 2, alpha = 0.75)+theme_tufte()+labs(title ="Stereotypical professions projected on the he-she axis (dot product, unnormalized)", subtitle ="GloVe embeddings trained on the Wikipedia 2014 and Gigaword 5th Edition corpus")+scale_color_manual(values =c("orangered4","chartreuse4"))
+```
+\normalsize
+
+The points in the plot above result from the calculation of the inner product of a chosen vector for a profession word and a vector for a gender word (she or he). Inner product of two vectors expresses similarity between words. This assumption originates from the geometry and properties of a vector space. 
+
+<!-- todo: shortly describe what they do later and how they verify if it was removed - analogies etc. -->
+
+
+## Cosine distance in a multi-class bias detection
+<!-- [article https://arxiv.org/pdf/1904.04047.pdf] -->
+
+@manzini2019black present a different approach towards finding similarities between classes of words. The authors claim that texts available online are full of direct or indirect human stereotypes. As a result, word embeddings are prone to learn and maybe amplify those biases and propagate them further into AI models that are used for various applications. Cosine distance is used in the article as a measure to first argue for the existence of multi-class bias and then to show how through bias mitigation techniques the bias may be decreased. 
+
+<!-- The methodology used in the paper  -->
+
+As the code has been provided by the authors we were able to reconstruct their results. The main steps in the procedure are as follows. Let us go through an example that refers to the process of hard debiasing on religious attributes. 
+
+The example refers to the process of hard debiasing on religious attributes.
+
+1. First we load word embeddings from reddit.US.txt.tok.clean.cleanedforw2v.w2v dataset
+  - The word embeddings have only 50 dimensions
+  - The number of individual words from the dataset is 44895
+  
+2. The protected group the authors assume should ideally not have high cosine similarity to stereotypical words. The word embeddings geometry should not place this group close to harmful stereotypes, if it is to be bias-free. 
+\newline
+
+For instance, let's look at the religion-related words.
+
+Protected words by religion type:
+
+\textbf{"jew"       : ["judaism", "jew", "synagogue", "torah", "rabbi"]}
+\newline
+\textbf{"christian" : ["christianity", "christian", "church", "bible", "priest"]}
+\newline
+\textbf{"muslim"    : ["islam", "muslim", "mosque", "quran", "imam"]}
+\newline
+
+Stereotypical words by religion type:
+
+\textbf{"jew"       : ["greedy", "cheap", "hairy", "liberal"]}
+\newline
+\textbf{"christian"       : ["judgemental", "conservative", "familial"]}
+\newline
+\textbf{"muslim"       : ["violent", "terrorist", "dirty", "uneducated"]}
+\newline
+
+
+We have prepared a table presenting the values of cosine distance for each protected word with each attribute (stereotype). The part of the results is shown below.
+
+\footnotesize 
+```{r religionTableHeadEarly,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religion <- read.csv("../datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+head(religion)  %>%  kable(format = "latex",booktabs=T,
+                      linesep = "",  escape = FALSE, 
+                      caption = "Head of the religion dataset.") %>%
+                      kable_styling(latex_options=c("scale_down"))
+```
+\normalsize
+
+\pagebreak 
+
+In the article there was no analysis of individual distances but the general look at the data through the usage of mean. The authors introduced a metric that tries to generalize the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.
+
+3. In the article the authors also try to remove previously defined biases from word embedding. 
+
+First they identify the bias subspace using Principal Component Analysis (PCA) which is a technique for dimensionality reduction. It is applied here to choose the subspace that contains the greatest amount of information. There can be many subspaces found in a given group, for example in terms of religion one can identify at least a few sets that are to grasp the concept of religion in general:
+\newline
+\textbf{["judaism", "christianity", "islam"]}
+\newline
+\textbf{["jew", "christian", "muslim"]}
+\newline
+\textbf{["synagogue", "church", "mosque"]}
+\newline
+
+The idea is to find a set that provides enough information to create from it a vector representing the concept of religion among words. This strategy is based on the idea that different dimensions of vectors contain different types of information and in some words in vector layers (subspaces) the information about religiousness is implicitly conveyed. In some cases this knowledge is useful but in the case of harmful stereotypes one does not want to have religion concept in stereotypical words.
+
+After finding bias subspace, they use it to modify the vector values individually so that their cosine distances towards certain words are changed. In the case of stereotypes the aim is to make the cosine distances larger so that the association between protected word and harmful stereotype is smaller.
+
+<!-- go through it again --> 
+
+4. In the final step there is an evaluation of the results. The cosine distances are calculated again but this time using debiased vocabulary. After
+taking the mean of all distances one final value is obtained and then it is compared with the average value from the beginning. If the cosine distances are on average greater than before then it leads the authors to the conclusion that improvement was made. As the cosine distance increases it is assumed that the association between protected and stereotypical words decreases. 
+
+<!-- add more information on the source of words used -->
+
+## Limitations of the approach
+
+\textbf{1. Selection of attributes}
+
+<!-- TODO: Universal ways to decide on the quality and type of attributes so that the research is significant? -->
+
+The attributes are taken from different sources, there is no principled justification for their choice. From our analysis it will become clear that
+the list is rather uneven.
+
+There is no mention of methodology for deciding on the number of attributes necessary to decide a hypothesis on the given size of dataset. There are however some ways to estimate how many samples we need to make sure that the result is significant. Our research will show that the numbers used
+are rather insufficient.
+
+\textbf{2. No control while taking the mean of cosines}
+
+The authors use the mean average cosine similarity to check on multi-class similarity between protected word and harmful stereotypes. 
+They average the results until they obtain one final value to represent the mean cosine distance between protected word from a given class and the
+attributes of that class. As there is no control of the individual values of cosine distances, one can observe values that have cosine distances
+greater than 1 which would suggest that these compare words do not have significant similarity. However, as there is a lack of control, even such
+words are taken into the account for calculations.
+
+\textbf{3. The lack of uncertainty}
+
+A mean hides this issue and as there are pairs having negative and small similarities and there are those that have similarity equal to 0.5, the resulting calculation seems to be in norm. Additionally in such method the uncertainty is also not included which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results. 
+
+\textbf{4. No word class distinction}
+
+In the original paper words from all three religions were checked with all of the stereotypes which means that there was no distinction on whether the stereotype is associated with given religion or with the other. Not all of the stereotypical words should be considered as harmful for all of the religions. In our analysis we distinguished between associated stereotypes, not associated (stereotype is valid but for different religion than currently checked) and none (meaning neutral words).
+
+\textbf{5. Interpreting the results}
+
+Assuming for a moment that the value of multi-class cosine distance is correct, one may question the results' interpretation. In @manzini2019black Table 2, there are summarized the averages of cosine distance per group (gender, race, religion). I would like to focus  now on analyzing the values relating to religious biases. Here is the fragment of table that refers to that:
+
+
+Religion Debiasing  | MAC
+------------- | -------------
+Biased        | 0.859
+Hard Debiased | 0.934
+Soft Debiased ($\lambda$ = 0.2) | 0.894
+
+
+MAC stand for mean average cosine similarity although in reality the values of cosine distance are stored there. What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before "debiasing". High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as biased. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically there is a question on what basis this small similarity is still considered as a proof of bias presence.
+
+This is in general the problem of scale and the lack of universal intervals that could be applied to know whether the cosine similarity is high enough to considered given words more similar that if we chose them on random. It seems like similar practice could be beneficial for metrics aimed at measuring similarity between words. 
+
+<!-- TODO: numerical test if this distance is significant? check mean mean cosine distances of some random words? -->
+
+\textbf{6. The curse of dimensionality}
+
+<!-- TODO: -->
+<!-- 1. https://www.cs.princeton.edu/courses/archive/fall13/cos521/lecnotes/lec11.pdf -->
+<!-- 2. https://stats.stackexchange.com/questions/341535/curse-of-dimensionality-does-cosine-similarity-work-better-and-if-so-why -->
+<!-- 3. https://stats.stackexchange.com/questions/21547/distance-metric-and-curse-of-dimensions -->
+<!-- + check if it may be proved in the code -->
+
+Curse of dimensionality may take place when there is an increase in volume of data that results in adding extra dimensions to the Euclidean space. According to the article 
+"https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/"
+as the number of features increases, it may be harder and harder to obtain useful information from the data with the usage of available algorithms. One may notice that more data should contribute to greater amount of information but more information also means greater risk of noise and distractions in data. At the same time, many times modern solutions are adapted to smaller dimensions and their results in higher ones are not intuitive or may be prone to be mistaken. 
+
+Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to this article "https://www.researchgate.net/publication/327498046_The_Curse_of_Dimensionality_Inside_Out"
+there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. 
+
+<!-- Add more information on the experiment -->
+
+In the article an experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase, the first one is that effort required to measure cosine similarity will be greater and the second one is that the similarity between data will blur out and have less variation. In details, the authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. According to some researches the cosine similarity in high dimensions is not reliable enough to trust it as it may be the case that choosing words on random may result in getting similar values as when picking them consciously. 
+
+![curse of dimensionality,  number of dimensions on the x axis,  standard deviation of similarity on the y axis](../images/curseOfDimensionality.png)
+
+<!-- textbf{Control group} 
+
+How to properly prepare control group in terms of quality and quantity?
+<!-- + check if it may be proved in the code --> 
+
+<!--  \textbf{Verifying other similarity meaures} 
+
+Besides cosine similarity, there are other methods used to find the similarity between vectors.  
+
+a) TS-SS 
+todo: check if it makes sense to calculate for all of the datasets; interpretations etc.
+https://www.researchgate.net/publication/303513110_A_Hybrid_Geometric_Approach_for_Measuring_Similarity_Level_Among_Documents_and_Document_Clustering
+
+b) WEAT test 
+<!-- https://docs.responsibly.ai/word-embedding-bias.html#module-responsibly.we.weat -->
+
+<!-- [to check https://github.com/taki0112/Vector_Similarity] -->
+
+<!-- TODO: check in code if they make more sense -->
+
+
+
+<!-- ## Bibliography
+- https://www.amazon.com/Language-Processing-Synthesis-Lectures-Technologies/dp/1627052984/ref=as_li_ss_tl?ie=UTF8&qid=1502062931&sr=8-1&keywords=Neural+Network+Methods+in+Natural+Language+Processing&linkCode=sl1&tag=inspiredalgor-20&linkId=d63df073fea3ebe2d405820570b3ff03 ->
+
+
+<!-- ## *** Additional -->
+
+<!-- ### Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings" -->
+<!-- [article https://arxiv.org/pdf/1607.06520.pdf] -->
+
+<!-- Assumptions: -->
+<!-- "We assume there is a set of gender neutral words $N\subseteq W$ such as flight attendant or shoes, which, by definition, are not specific to any gender." -->
+
+<!-- TODO: check if it is useful for the analysis of black is .. -->
+
+
+<!-- ### Identifying the bias subspace  -->
+
+<!-- Interesting analysis about limits o subspace and research [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html] -->
+
+<!-- Resources to analyze: -->
+<!-- 1. https://arxiv.org/pdf/2005.00965.pdf -->
+<!-- 2. https://arxiv.org/pdf/2009.09435.pdf -->
+<!-- 3. https://arxiv.org/pdf/1904.04047.pdf -->
+<!-- 4. https://www.aclweb.org/anthology/P19-1166.pdf -->
+
+
+<!-- ### How is cosine similarity entangled with analogy topic in NLP (is it??) -->
+
+<!-- article:  https://arxiv.org/pdf/1905.09866.pdf -->
+
+<!-- Critique of the usage of analogies as a proof for gender biases -->
+
+<!-- TODO: check if there is other argument than that algorithm does not allow it -->
+
+<!-- general thoughts 
+https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of_Gender_Bias_Assessment_in_Word_Embeddings_The_Role_of_Base_Pairs
+
+-
+-
+-
+-->
+
+<!--chapter:end:02-cosine.Rmd-->
+
+
+
+
+
+
+
+
+
+# Walkthrough with the religion dataset
+
+
+## Loading and understanding the dataset
+
+We start with loading the libraries needed for the analysis.
+
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
+library(ggplot2)
+library(ggthemes)
+library(rethinking)
+library(tidyverse)
+library(ggpubr)
+library(kableExtra)
+library(dplyr)
+library(ggExtra)
+library(cowplot)
+```
+\normalsize 
+
+
+We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure,  not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here  can fairly easily be  run  for different stereotypization patterns.  Let's start  with  explaining the method and its deployment using a dataset obtained for the religion-related protected words.
+
+Let's load, clean a bit and inspect the head of the religion dataset we prepared.  In order to obtain this  dataset, we  calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added  as control groups.  For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).  
+
+We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300\todo{FIX later} more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a  more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate  whether the smaller cosine distance between protected words and stereotypes can result  simply from the fact that the stereotype predicates  are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. \todo{describe once the words are selected}
+
+<!-- In other words, we took each protected word and in nested iteration calculated all of the cosine distances between the word and all available harmful stereotypes, neutral words, and human ones, which resulted with approximately 333 cosine distances per each protected word. -->
+
+\vspace{1mm}
+\footnotesize
+
+```{r religionTableHead,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religion <- read.csv("../datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+head(religion)  %>%  kable(format = "latex",booktabs=T,
+                      linesep = "",  escape = FALSE, 
+                      caption = "Head of the religion dataset.") %>%
+                      kable_styling(latex_options=c("scale_down"))
+```
+\normalsize
+
+
+
+
+
+ The `protectedWord` column contains words from a protected class that (in a perfect world according to the assumptions of the orignal study) should not be associated with  harmful stereotypes. `wordToCompare` contains attributes, including stereotypes and control group words. For each row we compute the cosine distances between a given protected  word and a given attribute word. `wordClass` tells us  which class an attribute is supposed to be stereotypically associated with, that is, whether the  word from `wordToCompare` is associated stereotypically with jews, christians or muslims, or whether it belongs to a control group. `cosineDistance` is simply a calculation of the cosine distance between protected word and atrribute.  `cosineSimilarity`  contains the result of substracting cosine distance from 1. `connection` contains information about  the relation type between a protected word and an attribute. If the attribute is e.g. a harmful jewish stereotype and the protected word is also from the judaism group,  the connection has value `associated`.  If the attribute is still stereotypically jewish, but the protected word comes from another religion, the connection is labelled as  `different`. If the attribute belongs to  a neutral group then the connection is labelled as `none` and if an attribute belongs to the `human` class, then the connection is labelled as `human`. 
+
+## First look at the empirical distributions
+
+
+First let's take a look at the empirical distribution of distances by the connection type, initially ignoring the human control class for now.
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religionNoHumans <- religion[religion$connection !="human",]
+
+ggplot(religionNoHumans, aes(x =  cosineDistance, fill = connection, color = connection ))+geom_density(alpha=0.6,size = .2)+theme_tufte()+ggtitle("Empirical distribution of cosine distances (religion), no human attributes.")+ scale_fill_manual(values = c("orangered4","chartreuse4","gray"))+scale_x_continuous(breaks = seq(0.3,1.5, by = 0.1))+xlab("cosine distance")+ scale_color_manual(values = c("orangered4","chartreuse4","gray"))
+```
+\normalsize
+
+The first impression is that while  there is a  shift for  associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover,  the empirical distributions overlap to alarge extent and the  means grouped by connection type do not seem too far from each other. In fact, as there is a lot of  variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and  to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes.   Now, let's add the human attributes to the picture:
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+ggplot(religion, aes(x =  cosineDistance, fill = connection, color = connection))+geom_density(alpha=0.6,size = .2)+theme_tufte()+ggtitle("Empirical distribution of cosine distances (religion)")+ scale_fill_manual(values = c("orangered4","chartreuse4", "skyblue", "gray"))+scale_x_continuous(breaks = seq(0.3,1.5, by = 0.1))+xlab("cosine distance")+ scale_color_manual(values = c("orangered4","chartreuse4","skyblue","gray"))
+```
+\normalsize
+
+
+\noindent Notice that the distribution for `human` (even though we did our best not to include in it any stereotype-related atributes) is left-skewed, with much overlap with `associated` and `different`, which illustrates the need to take being associated with humans as an important predictor.
+
+
+
+
+
+Our focus lies in  `connection` as a predictor. Morever, later on we'll be interested in looking at the protected words separately, and at protected words split by connection. For technical reasons it is useful to represent these factors as integer vectors.
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religion$con <- as.integer(religion$connection)
+religion$pw <- as.integer(religion$protectedWord)
+religion$pwFactor <- factor(paste0(religion$protectedWord, religion$connection))
+religion$pwIndex <- as.integer(religion$pwFactor)
+```
+\normalsize
+
+
+
+
+
+A short script, `cleanDataset` to make this faster, so equivalently:
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+source("../functions/cleanDataset.R")
+religion <- read.csv("../datasets/religionReddit.csv")[-1]
+religion <- cleanDataset(religion,c("christian","human","jewish","muslim","neutral"))
+```
+\normalsize
+
+
+## Looking at the islam-related words
+
+
+For now, let's focus on five protected words related to islam ("imam", "islam", "mosque", "muslim", and "quran"). The word list associates with islam  four stereotypical attributes ("violent", "terrorist", "uneducated" and "dirty").  First, we select and plot the empirical distributions for these protected words.
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE}
+library(tidyverse)
+muslimWords <- c("imam","islam","mosque","muslim","quran")
+muslim <- religion %>% filter(protectedWord %in% muslimWords)
+ggplot(muslim, aes(x =  cosineDistance, fill = connection, color = connection))+
+  geom_density(alpha=0.6,size = .2)+ 
+  scale_fill_manual(values = c("orangered4","chartreuse4", "skyblue", "gray"))+
+  scale_x_continuous(breaks = seq(0.3,1.5, by = 0.1))+xlab("cosine distance")+
+  scale_color_manual(values = c("orangered4","chartreuse4","skyblue","gray"))+
+  theme_tufte()+ggtitle("Empirical distribution of distances (muslim)")
+```
+\normalsize
+
+\noindent Once we focus on words related to islam, the associated bias seems to be stronger than in the whole dataset.  This is a  step towards illustrating that the distribution of bias is uneven. 
+
+
+Now, say we want to look at a single protected word. Since the dataset also contains comparison multiple control neutral and  human attributes, we randomly select only 5 from `none` and 5 from `human` control groups of those for the visualisation purposes.
+
+
+\vspace{1mm}
+\footnotesize
+```{r tableMuslimActive,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+library(tidyverse)
+muslimClass <- muslim %>% filter(protectedWord == "muslim")
+neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
+humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
+muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
+muslimVis <- rbind(muslimVis,neutralSample,humanSample)
+
+#we plug in our visualisation script
+source("../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(muslimVis,"muslim")
+```
+\normalsize
+
+Note that the distance between the grey point and the other points is proportional to cosine distance, the non-grey point size is proportional to cosine similarity to the protected word, and color groups by the connection type.  So for `muslim` it seems that the stereotypes coming from the word list are fairly well visible. To give you some taste of how uneven the dataset is, compare this to what happens with `priest`.
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+library(tidyverse)
+priestClass <- religion %>% filter(protectedWord == "priest")
+neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
+humanSample <- sample_n(filter(priestClass,connection == "human"), 5)
+priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
+priestVis <- rbind(priestVis,neutralSample,humanSample)
+
+#we plug in our visualisation script
+source("../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(priestVis,"priest")
+```
+\normalsize
+
+\noindent Here you can see that some human attributes are closer than stereotype attributes, and that there is no clear reason to claim that `associated` attributes are closer than `different`  or `human` attributes. This, again, illustrates the need of case-by-case analysis with  control groups. 
+
+The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates. 
+
+## Bayesian model structure and assumptions
+
+
+We will now think of cosine distance as the output variable, and 
+will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.
+
+Here is the intution behind the mathematical Bayesian model involved. Our outcome variable is `cosine difference`, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest  model specification is:
+
+\begin{align}
+cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
+\mu_i & = m_{pw} \\
+m_{pw} & ~ dnorm(1,.5) \\
+\sigma &\sim  dcauchy(0,1)
+\end{align}
+
+
+That is, we assume the estimated means might be different for diferent protected words and our prior for the mean and the overal standard deviation are normal with mean 1 and sd=.5 and half-cauchy with parameters `0,1`. Further on we'll also estimate additional impact the connection type may have. For this impact we take a slightly skeptical prior centered around 0 distributed normally with sd = 1. These are fairly weak and slightly skeptical regularizing priors, which can be illustrated as follows:
+
+\vspace{2mm}
+
+```{r priorsVis,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, out.width = "100%", fig.caption = "Regularizing priors for the bayesian models."}
+library(ggpubr)
+sim <- seq(-1,1,by = 0.001)
+dis <- 1-sim
+
+p <- ggplot(data = data.frame(distance = dis), 
+            mapping = aes(x = distance))+theme_tufte()
+
+none <- function(x) dnorm(x,1,.5)
+cau <- function(x) dcauchy(x,0,1)
+par <- function(x) dnorm(x,0,1)
+
+noneG <- p + stat_function(fun = none)+xlim(c(-0.5,2.5))+ggtitle("Prior for mean distances")
+parG <- p + stat_function(fun = par)+xlim(c(-2,2))+xlab("distance change")+ggtitle("Prior for coefficients")
+cauG <- p + stat_function(fun = cau)+xlim(c(0,2))+ggtitle("Prior for standard deviation")+xlab("distance change")
+ggarrange(noneG,cauG, parG, ncol = 1)
+```
+
+
+## Choosing predictors
+
+Now we can define and compile the baseline model. Its  parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the `rethinking` package. 
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r religionBaseline,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", results= "hide"}
+library(rethinking)
+options(buildtools.check = function(action) TRUE )
+religionBaseline <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m[pw],
+    m[pw] ~ dnorm(1,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=4000 , warmup=1000,
+  start= list(mu = 1, co = 0, sigma= .3),
+  log_lik = TRUE, cores=4
+)
+#saving
+#saveRDS(religionBaseline, 
+#file = "cosineAnalysis/models/religionBaseline.rds")
+```
+
+
+
+
+The only reason we need it is the evaluation of connection as a predictor. Does including it in o the model improve the situation? To investigate this, let's now build a model according to the following specification: 
+
+
+\begin{align}
+cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
+\mu_i & = m_{pw} + co_{con}\\
+m_{pw} & ~ dnorm(1,.5) \\
+co_{con} & ~ dnorm(0,1) \\
+\sigma &\sim  dcauchy(0,1)
+\end{align}
+
+\noindent The idea now is that each connection type comes with its own coefficient $co$ that has impact on mean distances for protected words taken separately. 
+
+\vspace{1mm}
+\footnotesize
+```{r Coefsmodel,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+library(rethinking)
+options(buildtools.check = function(action) TRUE )
+religionCoefs <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m[pw] + co[con],
+    m[pw] ~ dnorm(1,.5),
+    co[con] ~dnorm(0,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=8000 , warmup=1000, 
+  log_lik = TRUE
+)
+```
+\normalsize
+
+
+\noindent First, let's see if this model is really better in terms of the Widely Acceptable Information Criterion (WAIC):
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+#the calculation requires models which are large, we prepared the table
+#compareBaseline <- print(round(compare(religionBaseline, religionCoefs)), 3)
+compareBaseline <- readRDS("../datasets/compareBaseline.rds")
+compareBaseline
+```
+\normalsize
+
+
+Clearly, it should be given weight 1 as compared to the baseline model. So far, we've learned that the connection type actually has predictive value. Let's take a look at the coefficient estimates:
+ 
+ \vspace{1mm}
+ \footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+#precisCoefs <- print(precis(religionCoefs, depth =2, pars= "co" ))
+#saveRDS(precisCoefs, "../datasets/precisCoefs.rds")
+precisCoefs <- readRDS("../datasets/precisCoefs.rds")
+precisCoefs
+```
+ \normalsize
+
+## Dataset-level coefficients
+
+
+\noindent Let's plot them together with their highest posterior density invervals, for the three topic groups.
+ 
+ 
+ 
+ 
+ 
+ 
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/religionGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/genderGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/raceGoogleCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+
+\end{center}
+
+
+
+
+\noindent What should strike us is that while the mean estimates of the coefficients indeed do differ a bit, usually the highest posterior density invervals all include zero, and so we do not have strong reasons to say that, say, as far as the whole religion dataset is involved, being associated indeed is connected  with lower cosine distance. A second striking observation is that the estimated impact for associated stereotypes is quite often not too different from the estimated impact of attributes associated with different stereotypes, and both are sometimes not too far from the estimated impact for simply human attributes.  In general, once the uncertainty involved is taken seriously by using control groups and statistical uncertainty estimation that does not dispose of pointwise data, the picture which focuses only on differences between means of means is too simplistic.
+
+
+
+But this doesn't mean important differences for some protected words are not there. For one thing, if you start with a word list that is very uneven, the actually not so bad status of some of the protected words might mask  a pretty bad situation in which some other protected words are. For comparison, let's see what a model focused on words related to islam tells us. 
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+#this is how we build the model
+religion <- read.csv("cosineAnalysis/datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+muslimWords <- c("imam","islam","mosque","muslim","quran")
+muslim <- religion %>% filter(protectedWord %in% muslimWords)
+muslim$protectedWord <- droplevels(muslim$protectedWord)
+muslim$pw <- as.integer(muslim$protectedWord)
+muslim$con <- as.integer(muslim$connection)
+muslim$pwFactor <- factor(paste0(muslim$protectedWord, muslim$connection))
+muslim$pwIndex <- as.integer(muslim$pwFactor)
+
+islamCoefs <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m[pw] + co[con],
+    m[pw] ~ dnorm(1,.5),
+    co[con] ~dnorm(0,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = muslim,
+  chains=2 , iter=10000 , warmup=1000, cores = 4,
+  log_lik = TRUE
+)
+```
+\normalsize
+
+Let's take a look at the coefficients:
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+islamCoefs <- readRDS("../datasets/islamCoefs.rds")
+islamCoefs
+```
+\normalsize
+
+
+\begin{center}
+\includegraphics[width=8cm]{../images/islamCoeffs.jpeg}
+\end{center}
+
+\normalsize
+
+
+While muslim words were unusual in the sense that the disparity between associated attributes and others is stronger, the evidence is still not conclusive. This is because the variation even within islam-related words is large enough (and sample sizes sufficiently small) for all the highest posterior density invervals to still include zeros.  
+
+So, it seems, taking a closer look does seem to make a difference. The question is, what happens if we do take a close look at the level of protected words?
+
+
+
+
+
+#  Protected-word level analysis
+
+## Model structure and assumptions
+
+Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the `visualiseStats.R` script for details).
+
+\vspace{1mm}
+\footnotesize
+```{r build religionSeparate,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+options(buildtools.check = function(action) TRUE ) #removes install pop-up request
+religion$pwFactor <- factor(paste0(religion$protectedWord, "-", religion$connection))
+religion$pwIndex <- as.integer(religion$pwFactor)
+
+religionSeparate <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- c[pwIndex],
+    c[pwIndex] ~ dnorm(1,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=10000 , warmup=1000,
+  start=list(no = 1, a = 0, d = 0, sigma= .3), log_lik =  TRUE
+)
+```
+\normalsize
+
+
+
+\noindent Let's see if the individualized model does better than the previous models in light of WAIC which does add penalty for the number of parameters.
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+compareBaselineCoefsSeparate<- readRDS("../datasets/compareBaselineCoefsSeparate.rds")
+compareBaselineCoefsSeparate
+```
+\normalsize
+
+## Protected classes in Reddit and Google embeddings
+
+It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89\% highest posterior density intervals.
+
+
+\includegraphics[width=14cm]{../images/visReligionReddit.png}
+
+
+
+Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).
+
+
+
+
+\includegraphics[width=14cm]{../images/visGenderReddit.png}
+
+
+\includegraphics[width=14cm]{../images/visRaceReddit.png}
+
+
+
+\todo{Explain where you took the embedding from, cite publications first announcing it.}
+
+
+\includegraphics[width=14cm]{../images/visReligionGoogle.png}
+
+
+\includegraphics[width=14cm]{../images/visGenderGoogle.png}
+
+\includegraphics[width=14cm]{../images/visRaceGoogle.png}
+
+
+
+# The role of debiasing
+
+\todo{describe which debiasing you used and how it was advertised in the paper}
+
+## Dataset-level coefficients after debiasing
+
+First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:
+
+
+
+
+ 
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedReligionRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedGenderRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedRaceRedditCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+\end{center}
+
+
+
+
+\todo{comment on this}
+
+Some points to discuss: 
+
+- humans in religion got closer (should they?)
+
+- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
+
+- small improvement in race, at the price of moving neutral terms closer
+
+
+## Protected classes  after debiasing
+
+Now, perhaps, the effects of debiasing will be better appreciated if we look at the level of protected words. After all, the hope is, the situation of extremely ill-positioned protected words have improved?
+
+
+
+
+\includegraphics[width=14cm]{../images/visDebReligionReddit.png}
+
+
+
+\includegraphics[width=14cm]{../images/visDebGenderReddit.png}
+
+
+
+\includegraphics[width=14cm]{../images/visDebRaceReddit.png}
+
+
+
+
+
+
+
+<!--chapter:end:03-bayesian.Rmd-->
+
