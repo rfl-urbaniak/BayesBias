@@ -336,9 +336,11 @@ male-related career words, and \(B\) stereotypically female-related
 family words. WEAT is a modification of the Implicit Association Test
 (IAT) (Nosek, Banaji, \& Greenwald, 2002) used in psychology and uses
 almost the same word sets, allowing for a \emph{prima facie} sensible
-comparison with bias in humans. Let \(f\) be a similarity measure
-(usually, cosine similarity). The association difference for a term
-\(t\) is: \begin{align}
+comparison with bias in humans. If the attitude towards given pair of
+concept is to be interpreted as neutral, the final value from the
+formula should be around 0. Let \(f\) be a similarity measure (usually,
+cosine similarity). The association difference for a term \(t\) is:
+\begin{align}
 s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
 \end{align} \noindent then, the association difference between \(A\) a
 \(B\) is: \begin{align}
@@ -359,8 +361,8 @@ Caliskan, Bryson, \& Narayanan (2017) show that significant
 biases---thus measured--- similar to the ones discovered by IAT can be
 discovered in word embeddings. Lauscher \& Glavas (2019) extended the
 methodology to a multilingual and cross-lingual setting, arguing that
-using Euclidean distance instead of similarty does not make much
-difference, while the bias effects vary greatly accross embedding models
+using Euclidean distance instead of similarity does not make much
+difference, while the bias effects vary greatly across embedding models
 (interestingly, with social media-text trained embeddings being less
 biased than those based on Wikipedia).
 
