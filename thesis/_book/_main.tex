@@ -519,7 +519,6 @@ results is shown below.
 \NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
 \KeywordTok{colnames}\NormalTok{(religion) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"protectedWord"}\NormalTok{,}\StringTok{"wordToCompare"}\NormalTok{,}\StringTok{"wordClass"}\NormalTok{,}
                         \StringTok{"cosineDistance"}\NormalTok{,}\StringTok{"cosineSimilarity"}\NormalTok{,}\StringTok{"connection"}\NormalTok{)}
-\NormalTok{religion}\OperatorTok{$}\NormalTok{wordClass <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass)}
 \KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(religion)  }\OperatorTok{%>%}\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{format =} \StringTok{"latex"}\NormalTok{,}\DataTypeTok{booktabs=}\NormalTok{T,}
                       \DataTypeTok{linesep =} \StringTok{""}\NormalTok{,  }\DataTypeTok{escape =} \OtherTok{FALSE}\NormalTok{, }
@@ -813,17 +812,11 @@ property usually attributed to humans, and human attributes.
 \NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
 \KeywordTok{colnames}\NormalTok{(religion) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"protectedWord"}\NormalTok{,}\StringTok{"wordToCompare"}\NormalTok{,}\StringTok{"wordClass"}\NormalTok{,}
                         \StringTok{"cosineDistance"}\NormalTok{,}\StringTok{"cosineSimilarity"}\NormalTok{,}\StringTok{"connection"}\NormalTok{)}
-\CommentTok{#head(religion)}
-\CommentTok{#library(plyr)}
-\NormalTok{religion}\OperatorTok{$}\NormalTok{wordClass <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass)}
-\CommentTok{#levels(religion$wordClass)}
-\CommentTok{#religion$wordClass <- mapvalues(religion$wordClass, }
-\CommentTok{#                          from = levels(religion$wordClass),}
-\CommentTok{#                          to = c("christian","human","jewish","muslim","neutral"))}
 \KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(religion)  }\OperatorTok{%>%}\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{format =} \StringTok{"latex"}\NormalTok{,}\DataTypeTok{booktabs=}\NormalTok{T,}
                       \DataTypeTok{linesep =} \StringTok{""}\NormalTok{,  }\DataTypeTok{escape =} \OtherTok{FALSE}\NormalTok{, }
-                      \DataTypeTok{caption =} \StringTok{"Head of the religion dataset."}\NormalTok{) }\OperatorTok{%>%}\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{))}
+                      \DataTypeTok{caption =} \StringTok{"Head of the religion dataset."}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{                      }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1450,8 +1443,6 @@ situation of extremely ill-positioned protected words have improved?
 \includegraphics[width=14cm]{../images/visDebGenderReddit.png}
 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
-
-\chapter{Discussion}\label{discussion}
 
 \hypertarget{refs}{}
 \hypertarget{ref-Bolukbasi2016Man}{}
