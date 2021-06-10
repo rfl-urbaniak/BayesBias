@@ -1,3 +1,7 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
 \documentclass[12pt,dvipsnames,enabledeprecatedfontcommands]{scrartcl}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -6,12 +10,9 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
@@ -21,12 +22,18 @@
 \usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
-\usepackage[unicode=true]{hyperref}
-\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{xcolor}
+\usepackage{hyperref}
 \hypersetup{
             colorlinks=true,
             linkcolor=Maroon,
+            filecolor=Maroon,
             citecolor=Blue,
             urlcolor=blue,
             breaklinks=true}
@@ -40,12 +47,6 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -254,7 +255,7 @@
 
 A considerable amount of literature exists on bias detection and
 mitigation in NLP models, especially word2vec embeddings, which
-represent words as number vectors (see e.g. {[}1{]} and {[}4{]} and
+represent words as number vectors (see e.g.~{[}1{]} and {[}4{]} and
 references therein). The most common method used compares cosine
 similarity between words from protected groups and attributes that are
 considered to be stereotypical or harmful in some way, and this method
@@ -273,13 +274,12 @@ WEAT is a modification of the Implicit Association Test (IAT) {[}7{]}
 used in psychology and uses almost the same word sets, allowing for a
 \emph{prima facie} sensible comparison with bias in humans. The
 association difference for a term \(t\) is \(s(t,A,B)\), and the effect
-size is computed by normalizing the difference in means as follows:
+size is computed by normalizing the difference in means as follows
+(\(f\) is a similarity measure, such as cosine similarity):
 
 \vspace{-3mm}
 
-\footnotesize 
-
-\begin{align}
+\footnotesize \begin{align}
 \mathsf{s}(t,A,B)  = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
 & \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
 \mathsf{bias}(A,B)  = \frac{
@@ -287,20 +287,17 @@ size is computed by normalizing the difference in means as follows:
 }{
 \sigma(\{s(w,A,B)\}_{w\in X\cup Y})
 } \tag{WEAT}
-\end{align}
-
-\normalsize
-\noindent {[}2{]} show that significant biases---thus measured---
-similar to the ones discovered by IAT can be discovered in word
-embeddings. {[}5{]} extends the methodology to a multilingual and
-cross-lingual setting; a similar methodology is employed by {[}3{]}, who
-employ word embeddings trained on corpora from different decades.
-{[}6{]} modify WEAT to a multi-class setting, introducing Mean Average
-Cosine (MAC) similarity as a measure of bias (in fact, in the paper they
-report distances rather than similarities). Let
-\(T = \{t_1, \dots, t_k\}\) be a class of protected word embeddings, and
-let each \(A_j\in A\) be a set of attributes stereotypically associated
-with a protected word). Then:
+\end{align} \normalsize \noindent {[}2{]} show that significant
+biases---thus measured--- similar to the ones discovered by IAT can be
+discovered in word embeddings. {[}5{]} extends the methodology to a
+multilingual and cross-lingual setting; a similar methodology is
+employed by {[}3{]}, who use word embeddings trained on corpora from
+different decades. {[}6{]} modify WEAT to a multi-class setting,
+introducing Mean Average Cosine (MAC) similarity as a measure of bias
+(in fact, in the paper they report distances rather than similarities).
+Let \(T = \{t_1, \dots, t_k\}\) be a class of protected word embeddings,
+and let each \(A_j\in A\) be a set of attributes stereotypically
+associated with a protected word). Then:
 
 \vspace{-2mm}
 
@@ -309,17 +306,15 @@ with a protected word). Then:
 \begin{align}
 \mathsf{S}(t_i, A_j)  = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) & \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
 \mathsf{MAC}(T,A)  = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j) \tag{MAC}
-\end{align}
-
-\normalsize  \noindent That is, for each protected word and each
-attribute class, they first take the mean for this protected word and
-all attributes in a given attribute class, and then take the mean of
+\end{align} \normalsize  \noindent That is, for each protected word and
+each attribute class, they first take the mean for this protected word
+and all attributes in a given attribute class, and then take the mean of
 thus obtained means for all the protected words.
 
 Such methods are statistically problematic. One issue, specific to
 {[}6{]}, is that no distinction is made based on whether given a
-protected word and a class of attributes is stereotypically associated
-with this protected word or a different protected word. A related,
+protected word a class of attributes is stereotypically associated with
+this protected word or with a different protected word. A related,
 general problem, is that all the authors ignore the step of comparing
 their results with control groups, especially control groups of
 stereotype-neutral human attributes. That such a move is important is
@@ -356,7 +351,7 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 \end{tabular}
 }
 \end{minipage}& \begin{minipage}[c]{0.6\linewidth}
-Two protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal, two cases in which they are different, and the underlying variances are different (code available upon request).
+Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard devation  (code available upon request).
 \end{minipage}
 \end{tabular}
 
@@ -368,21 +363,22 @@ effect size can easily be 1.82, whereas the largest effect size reported
 by {[}2{]} is 1.81. (2) For samples from distributions where the means
 are different, the (absolute) effect sizes can easily be lower than in
 the first two simulations. As Figure 2. illustrates, quite some
-uncertainty is involved, far from what systematically low mean-based
-p-values reported in the papers might suggest. Part of the problem is
-random variation unaccounted for in the original approach (see Figures 3
-and 4 for an example), and part of the problem is that that
+uncertainty is involved, far more than what systematically low
+mean-based p-values reported in the papers might suggest. Part of the
+problem is random variation unaccounted for in the original approach
+(see Figures 3 and 4 for an example), and part of the problem is that
 non-negligible changes in effect size can result from a shift in the
 standard deviation of the original process, because with the decrease of
 standard deviation the numerator in (WEAT) decreases.
 
-To improve on the situation, we build bayesian models to estimate the
+To improve on the situation, we build Bayesian models to estimate the
 biases involved using the raw datapoints, actually using control groups,
 distinguishing the connection types, and taking the uncertainty involved
 seriously. For the general impact of being associated, we build models
-using STAN according to the following specification:
+using STAN according to the following specification (linear categorical
+model and the priors):
 
-\footnotesize 
+\footnotesize
 
 \vspace{-5mm}
 
@@ -392,15 +388,13 @@ cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
 m_{pw} & \sim dnorm(1,.5) \\
 co_{con} & \sim dnorm(0,1) \\
 \sigma &\sim  dcauchy(0,1)
-\end{align}
-
-\normalsize 
+\end{align} \normalsize 
 
 The resulting coefficients for the religion dataset based on Reddit
 embeddings are in Figure 5. While there is some difference in the means,
 the 89\% highest posterior density invervals are quite wide and include
 0s for all the coefficients. Then, motivated by large differences
-between the status of different protected words, we build bayesian
+between the states of different protected words, we build bayesian
 models with separate mean estimates, with the same regularizing priors
 as before. The results for the religion dataset based on Reddit
 embeddings are in Figure 6.
@@ -423,9 +417,9 @@ The bottom line is that if we want to take bias seriously, so should we
 approach the uncertainty involved in our estimations. There is no
 replacement for proper statistical evaluation that does not discard
 information about the uncertaintly involved, larger word lists are
-needed, and visualisation of the results particular protected classes
-provides much better guidance than chasing a single metric based on a
-means of means.
+needed, and visualisation of the results for particular protected
+classes provides much better guidance than chasing a single metric based
+on a means of means.
 
 \pagebreak
 
@@ -464,30 +458,31 @@ means of means.
 
 \end{center}
 
-\scriptsize 
+\scriptsize
 
 \vspace{-4mm}
 
 \hypertarget{refs}{}
-\hypertarget{ref-bolukbasi2016man}{}
+\leavevmode\hypertarget{ref-bolukbasi2016man}{}%
 {[}1{]} Tolga Bolukbasi, Kai-Wei Chang, James Zou, Venkatesh Saligrama,
 and Adam Kalai. 2016. Man is to computer programmer as woman is to
-homemaker? Debiasing word embeddings.
+homemaker? Debiasing word embeddings. Retrieved from
+\url{http://arxiv.org/abs/1607.06520}
 
-\hypertarget{ref-Caliskan2017semanticsBiases}{}
+\leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
 {[}2{]} Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan. 2017.
 Semantics derived automatically from language corpora contain human-like
 biases. \emph{Science} 356, 6334 (April 2017), 183--186.
 DOI:\url{https://doi.org/10.1126/science.aal4230}
 
-\hypertarget{ref-Garg2018years}{}
+\leavevmode\hypertarget{ref-Garg2018years}{}%
 {[}3{]} Nikhil Garg, Londa Schiebinger, Dan Jurafsky, and James Zou.
 2018. Word embeddings quantify 100 years of gender and ethnic
 stereotypes. \emph{Proceedings of the National Academy of Sciences} 115,
 16 (April 2018), E3635--E3644.
 DOI:\url{https://doi.org/10.1073/pnas.1720347115}
 
-\hypertarget{ref-Gonen2019lipstick}{}
+\leavevmode\hypertarget{ref-Gonen2019lipstick}{}%
 {[}4{]} Hila Gonen and Yoav Goldberg. 2019. Lipstick on a pig: Debiasing
 methods cover up systematic gender biases in word embeddings but do not
 remove them. In \emph{Proceedings of the 2019 conference of the north
@@ -496,18 +491,19 @@ language technologies, volume 1 (long and short papers)}, Association
 for Computational Linguistics, Minneapolis, Minnesota, 609--614.
 DOI:\url{https://doi.org/10.18653/v1/N19-1061}
 
-\hypertarget{ref-Lauscher2019multidimensional}{}
+\leavevmode\hypertarget{ref-Lauscher2019multidimensional}{}%
 {[}5{]} Anne Lauscher and Goran Glavas. 2019. Are we consistently
 biased? Multidimensional analysis of biases in distributional word
 vectors. \emph{CoRR} abs/1904.11783, (2019). Retrieved from
 \url{http://arxiv.org/abs/1904.11783}
 
-\hypertarget{ref-Manzini2019blackToCriminal}{}
+\leavevmode\hypertarget{ref-Manzini2019blackToCriminal}{}%
 {[}6{]} Thomas Manzini, Yao Chong Lim, Yulia Tsvetkov, and Alan W Black.
 2019. Black is to criminal as caucasian is to police: Detecting and
-removing multiclass bias in word embeddings.
+removing multiclass bias in word embeddings. Retrieved from
+\url{http://arxiv.org/abs/1904.04047}
 
-\hypertarget{ref-Nosek2002harvesting}{}
+\leavevmode\hypertarget{ref-Nosek2002harvesting}{}%
 {[}7{]} Brian A. Nosek, Mahzarin R. Banaji, and Anthony G. Greenwald.
 2002. Harvesting implicit group attitudes and beliefs from a
 demonstration web site. \emph{Group Dynamics: Theory, Research, and
