@@ -812,11 +812,12 @@ property usually attributed to humans, and human attributes.
 \NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
 \KeywordTok{colnames}\NormalTok{(religion) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"protectedWord"}\NormalTok{,}\StringTok{"wordToCompare"}\NormalTok{,}\StringTok{"wordClass"}\NormalTok{,}
                         \StringTok{"cosineDistance"}\NormalTok{,}\StringTok{"cosineSimilarity"}\NormalTok{,}\StringTok{"connection"}\NormalTok{)}
-\KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(plyr)}
+\NormalTok{religion}\OperatorTok{$}\NormalTok{wordClass <-}\StringTok{ }\KeywordTok{mapvalues}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass, }\DataTypeTok{from =} \KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass), }\DataTypeTok{to =} \KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{))}
+\CommentTok{#levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")}
 \KeywordTok{head}\NormalTok{(religion)  }\OperatorTok{%>%}\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{format =} \StringTok{"latex"}\NormalTok{,}\DataTypeTok{booktabs=}\NormalTok{T,}
                       \DataTypeTok{linesep =} \StringTok{""}\NormalTok{,  }\DataTypeTok{escape =} \OtherTok{FALSE}\NormalTok{, }
-                      \DataTypeTok{caption =} \StringTok{"Head of the religion dataset."}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{                      }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{))}
+                      \DataTypeTok{caption =} \StringTok{"Head of the religion dataset."}\NormalTok{) }\OperatorTok{%>%}\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
