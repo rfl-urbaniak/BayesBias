@@ -43,11 +43,14 @@ We decided to add control groups in the form of two classes --- neutral words an
 religion <- read.csv("../datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
-library(plyr)
-religion$wordClass <- mapvalues(religion$wordClass, 
-                          from = levels(religion$wordClass),
-                          to = c("christian","human","jewish","muslim","neutral"))
-#levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+#head(religion)
+#library(plyr)
+religion$wordClass <- as.factor(religion$wordClass)
+#levels(religion$wordClass)
+#religion$wordClass <- mapvalues(religion$wordClass, 
+#                          from = levels(religion$wordClass),
+#                          to = c("christian","human","jewish","muslim","neutral"))
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
 head(religion)  %>%  kable(format = "latex",booktabs=T,
                       linesep = "",  escape = FALSE, 
                       caption = "Head of the religion dataset.") %>%      kable_styling(latex_options=c("scale_down"))

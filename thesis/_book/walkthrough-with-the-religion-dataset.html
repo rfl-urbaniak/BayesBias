@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
   <meta name="description" content="3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Walkthrough with the religion dataset | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="cosine-similarity-and-bias-detection.html"/>
 <link rel="next" href="protected-word-level-analysis.html"/>
+<script src="book_assets/header-attrs-2.8/header-attrs.js"></script>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,44 +51,96 @@
 
 
 
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -103,14 +156,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a><ul>
+<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#word-embeddings"><i class="fa fa-check"></i><b>2.1</b> Word embeddings</a></li>
 <li class="chapter" data-level="2.2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-similarity-and-distance"><i class="fa fa-check"></i><b>2.2</b> Cosine similarity and distance</a></li>
 <li class="chapter" data-level="2.3" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-one-class-bias-detection"><i class="fa fa-check"></i><b>2.3</b> Cosine distance in a one-class bias detection</a></li>
 <li class="chapter" data-level="2.4" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-multi-class-bias-detection"><i class="fa fa-check"></i><b>2.4</b> Cosine distance in a multi-class bias detection</a></li>
 <li class="chapter" data-level="2.5" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#limitations-of-the-approach"><i class="fa fa-check"></i><b>2.5</b> Limitations of the approach</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a><ul>
+<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#loading-and-understanding-the-dataset"><i class="fa fa-check"></i><b>3.1</b> Loading and understanding the dataset</a></li>
 <li class="chapter" data-level="3.2" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#first-look-at-the-empirical-distributions"><i class="fa fa-check"></i><b>3.2</b> First look at the empirical distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#looking-at-the-islam-related-words"><i class="fa fa-check"></i><b>3.3</b> Looking at the islam-related words</a></li>
@@ -118,11 +173,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#choosing-predictors"><i class="fa fa-check"></i><b>3.5</b> Choosing predictors</a></li>
 <li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a><ul>
+<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#model-structure-and-assumptions"><i class="fa fa-check"></i><b>4.1</b> Model structure and assumptions</a></li>
 <li class="chapter" data-level="4.2" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#protected-classes-in-reddit-and-google-embeddings"><i class="fa fa-check"></i><b>4.2</b> Protected classes in Reddit and Google embeddings</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a><ul>
+<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#dataset-level-coefficients-after-debiasing"><i class="fa fa-check"></i><b>5.1</b> Dataset-level coefficients after debiasing</a></li>
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
@@ -143,225 +200,212 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="walkthrough-with-the-religion-dataset" class="section level1">
+<div id="walkthrough-with-the-religion-dataset" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Walkthrough with the religion dataset</h1>
-<div id="loading-and-understanding-the-dataset" class="section level2">
+<div id="loading-and-understanding-the-dataset" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Loading and understanding the dataset</h2>
 <p>We start with loading the libraries needed for the analysis.</p>
-
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(ggthemes)
-<span class="kw">library</span>(rethinking)
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(ggpubr)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(ggExtra)
-<span class="kw">library</span>(cowplot)</code></pre></div>
-
-<p>We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure, not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here can fairly easily be run for different stereotypization patterns. Let's start with explaining the method and its deployment using a dataset obtained for the religion-related protected words.</p>
-<p>Let's load, clean a bit and inspect the head of the religion dataset we prepared. In order to obtain this dataset, we calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added as control groups. For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).</p>
-<p>We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300 more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. </p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="walkthrough-with-the-religion-dataset.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="walkthrough-with-the-religion-dataset.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb2-3"><a href="walkthrough-with-the-religion-dataset.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb2-4"><a href="walkthrough-with-the-religion-dataset.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-5"><a href="walkthrough-with-the-religion-dataset.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb2-6"><a href="walkthrough-with-the-religion-dataset.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-7"><a href="walkthrough-with-the-religion-dataset.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-8"><a href="walkthrough-with-the-religion-dataset.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb2-9"><a href="walkthrough-with-the-religion-dataset.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
+<p>We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure, not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here can fairly easily be run for different stereotypization patterns. Let’s start with explaining the method and its deployment using a dataset obtained for the religion-related protected words.</p>
+<p>Let’s load, clean a bit and inspect the head of the religion dataset we prepared. In order to obtain this dataset, we calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added as control groups. For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).</p>
+<p>We decided to add control groups in the form of two classes — neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300 more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. </p>
 <!-- In other words, we took each protected word and in nested iteration calculated all of the cosine distances between the word and all available harmful stereotypes, neutral words, and human ones, which resulted with approximately 333 cosine distances per each protected word. -->
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
-<span class="kw">colnames</span>(religion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;protectedWord&quot;</span>,<span class="st">&quot;wordToCompare&quot;</span>,<span class="st">&quot;wordClass&quot;</span>,
-                        <span class="st">&quot;cosineDistance&quot;</span>,<span class="st">&quot;cosineSimilarity&quot;</span>,<span class="st">&quot;connection&quot;</span>)
-<span class="kw">library</span>(plyr)
-religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span class="kw">mapvalues</span>(religion<span class="op">$</span>wordClass, <span class="dt">from =</span> <span class="kw">levels</span>(religion<span class="op">$</span>wordClass), <span class="dt">to =</span> <span class="kw">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>))
-<span class="co">#levels(religion$wordClass) &lt;- c(&quot;christian&quot;,&quot;human&quot;,&quot;jewish&quot;,&quot;muslim&quot;,&quot;neutral&quot;)</span>
-<span class="kw">head</span>(religion)  <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">kable</span>(<span class="dt">format =</span> <span class="st">&quot;latex&quot;</span>,<span class="dt">booktabs=</span>T,
-                      <span class="dt">linesep =</span> <span class="st">&quot;&quot;</span>,  <span class="dt">escape =</span> <span class="ot">FALSE</span>, 
-                      <span class="dt">caption =</span> <span class="st">&quot;Head of the religion dataset.&quot;</span>) <span class="op">%&gt;%</span><span class="st">      </span><span class="kw">kable_styling</span>(<span class="dt">latex_options=</span><span class="kw">c</span>(<span class="st">&quot;scale_down&quot;</span>))</code></pre></div>
-
-
-<p>The <code>protectedWord</code> column contains words from a protected class that (in a perfect world according to the assumptions of the orignal study) should not be associated with harmful stereotypes. <code>wordToCompare</code> contains attributes, including stereotypes and control group words. For each row we compute the cosine distances between a given protected word and a given attribute word. <code>wordClass</code> tells us which class an attribute is supposed to be stereotypically associated with, that is, whether the word from <code>wordToCompare</code> is associated stereotypically with jews, christians or muslims, or whether it belongs to a control group. <code>cosineDistance</code> is simply a calculation of the cosine distance between protected word and atrribute. <code>cosineSimilarity</code> contains the result of substracting cosine distance from 1. <code>connection</code> contains information about the relation type between a protected word and an attribute. If the attribute is e.g. a harmful jewish stereotype and the protected word is also from the judaism group, the connection has value <code>associated</code>. If the attribute is still stereotypically jewish, but the protected word comes from another religion, the connection is labelled as <code>different</code>. If the attribute belongs to a neutral group then the connection is labelled as <code>none</code> and if an attribute belongs to the <code>human</code> class, then the connection is labelled as <code>human</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="walkthrough-with-the-religion-dataset.html#cb3-1" aria-hidden="true" tabindex="-1"></a>religion <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a href="walkthrough-with-the-religion-dataset.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(religion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;protectedWord&quot;</span>,<span class="st">&quot;wordToCompare&quot;</span>,<span class="st">&quot;wordClass&quot;</span>,</span>
+<span id="cb3-3"><a href="walkthrough-with-the-religion-dataset.html#cb3-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;cosineDistance&quot;</span>,<span class="st">&quot;cosineSimilarity&quot;</span>,<span class="st">&quot;connection&quot;</span>)</span>
+<span id="cb3-4"><a href="walkthrough-with-the-religion-dataset.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#head(religion)</span></span>
+<span id="cb3-5"><a href="walkthrough-with-the-religion-dataset.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#library(plyr)</span></span>
+<span id="cb3-6"><a href="walkthrough-with-the-religion-dataset.html#cb3-6" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>wordClass <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(religion<span class="sc">$</span>wordClass)</span>
+<span id="cb3-7"><a href="walkthrough-with-the-religion-dataset.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#levels(religion$wordClass)</span></span>
+<span id="cb3-8"><a href="walkthrough-with-the-religion-dataset.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#religion$wordClass &lt;- mapvalues(religion$wordClass, </span></span>
+<span id="cb3-9"><a href="walkthrough-with-the-religion-dataset.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                          from = levels(religion$wordClass),</span></span>
+<span id="cb3-10"><a href="walkthrough-with-the-religion-dataset.html#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                          to = c(&quot;christian&quot;,&quot;human&quot;,&quot;jewish&quot;,&quot;muslim&quot;,&quot;neutral&quot;))</span></span>
+<span id="cb3-11"><a href="walkthrough-with-the-religion-dataset.html#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(religion<span class="sc">$</span>wordClass) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>)</span>
+<span id="cb3-12"><a href="walkthrough-with-the-religion-dataset.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(religion)  <span class="sc">%&gt;%</span>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&quot;latex&quot;</span>,<span class="at">booktabs=</span>T,</span>
+<span id="cb3-13"><a href="walkthrough-with-the-religion-dataset.html#cb3-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">linesep =</span> <span class="st">&quot;&quot;</span>,  <span class="at">escape =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb3-14"><a href="walkthrough-with-the-religion-dataset.html#cb3-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">caption =</span> <span class="st">&quot;Head of the religion dataset.&quot;</span>) <span class="sc">%&gt;%</span>      <span class="fu">kable_styling</span>(<span class="at">latex_options=</span><span class="fu">c</span>(<span class="st">&quot;scale_down&quot;</span>))</span></code></pre></div>
+<p>The <code>protectedWord</code> column contains words from a protected class that (in a perfect world according to the assumptions of the orignal study) should not be associated with harmful stereotypes. <code>wordToCompare</code> contains attributes, including stereotypes and control group words. For each row we compute the cosine distances between a given protected word and a given attribute word. <code>wordClass</code> tells us which class an attribute is supposed to be stereotypically associated with, that is, whether the word from <code>wordToCompare</code> is associated stereotypically with jews, christians or muslims, or whether it belongs to a control group. <code>cosineDistance</code> is simply a calculation of the cosine distance between protected word and atrribute. <code>cosineSimilarity</code> contains the result of substracting cosine distance from 1. <code>connection</code> contains information about the relation type between a protected word and an attribute. If the attribute is e.g. a harmful jewish stereotype and the protected word is also from the judaism group, the connection has value <code>associated</code>. If the attribute is still stereotypically jewish, but the protected word comes from another religion, the connection is labelled as <code>different</code>. If the attribute belongs to a neutral group then the connection is labelled as <code>none</code> and if an attribute belongs to the <code>human</code> class, then the connection is labelled as <code>human</code>.</p>
 </div>
-<div id="first-look-at-the-empirical-distributions" class="section level2">
+<div id="first-look-at-the-empirical-distributions" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> First look at the empirical distributions</h2>
-<p>First let's take a look at the empirical distribution of distances by the connection type, initially ignoring the human control class for now.</p>
-<p>  </p>
-<p>The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let's add the human attributes to the picture:</p>
-<p>  </p>
+<p>First let’s take a look at the empirical distribution of distances by the connection type, initially ignoring the human control class for now.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+</p>
+<p>The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let’s add the human attributes to the picture:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
+</p>
 <p>Notice that the distribution for <code>human</code> (even though we did our best not to include in it any stereotype-related atributes) is left-skewed, with much overlap with <code>associated</code> and <code>different</code>, which illustrates the need to take being associated with humans as an important predictor.</p>
-<p>Our focus lies in <code>connection</code> as a predictor. Morever, later on we'll be interested in looking at the protected words separately, and at protected words split by connection. For technical reasons it is useful to represent these factors as integer vectors.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">religion<span class="op">$</span>con &lt;-<span class="st"> </span><span class="kw">as.integer</span>(religion<span class="op">$</span>connection)
-religion<span class="op">$</span>pw &lt;-<span class="st"> </span><span class="kw">as.integer</span>(religion<span class="op">$</span>protectedWord)
-religion<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(religion<span class="op">$</span>protectedWord, religion<span class="op">$</span>connection))
-religion<span class="op">$</span>pwIndex &lt;-<span class="st"> </span><span class="kw">as.integer</span>(religion<span class="op">$</span>pwFactor)</code></pre></div>
-
+<p>Our focus lies in <code>connection</code> as a predictor. Morever, later on we’ll be interested in looking at the protected words separately, and at protected words split by connection. For technical reasons it is useful to represent these factors as integer vectors.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="walkthrough-with-the-religion-dataset.html#cb4-1" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>con <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(religion<span class="sc">$</span>connection)</span>
+<span id="cb4-2"><a href="walkthrough-with-the-religion-dataset.html#cb4-2" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>pw <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(religion<span class="sc">$</span>protectedWord)</span>
+<span id="cb4-3"><a href="walkthrough-with-the-religion-dataset.html#cb4-3" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>pwFactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">paste0</span>(religion<span class="sc">$</span>protectedWord, religion<span class="sc">$</span>connection))</span>
+<span id="cb4-4"><a href="walkthrough-with-the-religion-dataset.html#cb4-4" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>pwIndex <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(religion<span class="sc">$</span>pwFactor)</span></code></pre></div>
 <p>A short script, <code>cleanDataset</code> to make this faster, so equivalently:</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;../functions/cleanDataset.R&quot;</span>)
-religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
-religion &lt;-<span class="st"> </span><span class="kw">cleanDataset</span>(religion,<span class="kw">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>))</code></pre></div>
-
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="walkthrough-with-the-religion-dataset.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../functions/cleanDataset.R&quot;</span>)</span>
+<span id="cb5-2"><a href="walkthrough-with-the-religion-dataset.html#cb5-2" aria-hidden="true" tabindex="-1"></a>religion <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb5-3"><a href="walkthrough-with-the-religion-dataset.html#cb5-3" aria-hidden="true" tabindex="-1"></a>religion <span class="ot">&lt;-</span> <span class="fu">cleanDataset</span>(religion,<span class="fu">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>))</span></code></pre></div>
 </div>
-<div id="looking-at-the-islam-related-words" class="section level2">
+<div id="looking-at-the-islam-related-words" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Looking at the islam-related words</h2>
-<p>For now, let's focus on five protected words related to islam (&quot;imam&quot;, &quot;islam&quot;, &quot;mosque&quot;, &quot;muslim&quot;, and &quot;quran&quot;). The word list associates with islam four stereotypical attributes (&quot;violent&quot;, &quot;terrorist&quot;, &quot;uneducated&quot; and &quot;dirty&quot;). First, we select and plot the empirical distributions for these protected words.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-muslimWords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;imam&quot;</span>,<span class="st">&quot;islam&quot;</span>,<span class="st">&quot;mosque&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;quran&quot;</span>)
-muslim &lt;-<span class="st"> </span>religion <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(protectedWord <span class="op">%in%</span><span class="st"> </span>muslimWords)
-<span class="kw">ggplot</span>(muslim, <span class="kw">aes</span>(<span class="dt">x =</span>  cosineDistance, <span class="dt">fill =</span> connection, <span class="dt">color =</span> connection))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.6</span>,<span class="dt">size =</span> <span class="fl">.2</span>)<span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;orangered4&quot;</span>,<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;skyblue&quot;</span>, <span class="st">&quot;gray&quot;</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="fl">0.3</span>,<span class="fl">1.5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>))<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;cosine distance&quot;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;orangered4&quot;</span>,<span class="st">&quot;chartreuse4&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;gray&quot;</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_tufte</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Empirical distribution of distances (muslim)&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /> </p>
+<p>For now, let’s focus on five protected words related to islam (“imam,” “islam,” “mosque,” “muslim,” and “quran”). The word list associates with islam four stereotypical attributes (“violent,” “terrorist,” “uneducated” and “dirty”). First, we select and plot the empirical distributions for these protected words.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="walkthrough-with-the-religion-dataset.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="walkthrough-with-the-religion-dataset.html#cb6-2" aria-hidden="true" tabindex="-1"></a>muslimWords <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;imam&quot;</span>,<span class="st">&quot;islam&quot;</span>,<span class="st">&quot;mosque&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;quran&quot;</span>)</span>
+<span id="cb6-3"><a href="walkthrough-with-the-religion-dataset.html#cb6-3" aria-hidden="true" tabindex="-1"></a>muslim <span class="ot">&lt;-</span> religion <span class="sc">%&gt;%</span> <span class="fu">filter</span>(protectedWord <span class="sc">%in%</span> muslimWords)</span>
+<span id="cb6-4"><a href="walkthrough-with-the-religion-dataset.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(muslim, <span class="fu">aes</span>(<span class="at">x =</span>  cosineDistance, <span class="at">fill =</span> connection, <span class="at">color =</span> connection))<span class="sc">+</span></span>
+<span id="cb6-5"><a href="walkthrough-with-the-religion-dataset.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">size =</span> .<span class="dv">2</span>)<span class="sc">+</span> </span>
+<span id="cb6-6"><a href="walkthrough-with-the-religion-dataset.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;orangered4&quot;</span>,<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;skyblue&quot;</span>, <span class="st">&quot;gray&quot;</span>))<span class="sc">+</span></span>
+<span id="cb6-7"><a href="walkthrough-with-the-religion-dataset.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.3</span>,<span class="fl">1.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;cosine distance&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-8"><a href="walkthrough-with-the-religion-dataset.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;orangered4&quot;</span>,<span class="st">&quot;chartreuse4&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;gray&quot;</span>))<span class="sc">+</span></span>
+<span id="cb6-9"><a href="walkthrough-with-the-religion-dataset.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Empirical distribution of distances (muslim)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+</p>
 <p>Once we focus on words related to islam, the associated bias seems to be stronger than in the whole dataset. This is a step towards illustrating that the distribution of bias is uneven.</p>
 <p>Now, say we want to look at a single protected word. Since the dataset also contains comparison multiple control neutral and human attributes, we randomly select only 5 from <code>none</code> and 5 from <code>human</code> control groups of those for the visualisation purposes.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-muslimClass &lt;-<span class="st"> </span>muslim <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(protectedWord <span class="op">==</span><span class="st"> &quot;muslim&quot;</span>)
-neutralSample &lt;-<span class="st"> </span><span class="kw">sample_n</span>(<span class="kw">filter</span>(muslimClass,connection <span class="op">==</span><span class="st"> &quot;none&quot;</span>), <span class="dv">5</span>)
-humanSample &lt;-<span class="st"> </span><span class="kw">sample_n</span>(<span class="kw">filter</span>(muslimClass,connection <span class="op">==</span><span class="st"> &quot;human&quot;</span>), <span class="dv">5</span>)
-muslimVis &lt;-<span class="st"> </span>muslimClass <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(connection <span class="op">!=</span><span class="st"> &quot;none&quot;</span> <span class="op">&amp;</span><span class="st"> </span>connection <span class="op">!=</span><span class="st">&quot;human&quot;</span>)
-muslimVis &lt;-<span class="st"> </span><span class="kw">rbind</span>(muslimVis,neutralSample,humanSample)
-
-<span class="co">#we plug in our visualisation script</span>
-<span class="kw">source</span>(<span class="st">&quot;../functions/visualisationTools.R&quot;</span>)
-<span class="co">#two arguments: dataset and protected word</span>
-<span class="kw">visualiseProtected</span>(muslimVis,<span class="st">&quot;muslim&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/tableMuslimActive-1.png" width="100%" style="display: block; margin: auto;" /> </p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="walkthrough-with-the-religion-dataset.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-2"><a href="walkthrough-with-the-religion-dataset.html#cb7-2" aria-hidden="true" tabindex="-1"></a>muslimClass <span class="ot">&lt;-</span> muslim <span class="sc">%&gt;%</span> <span class="fu">filter</span>(protectedWord <span class="sc">==</span> <span class="st">&quot;muslim&quot;</span>)</span>
+<span id="cb7-3"><a href="walkthrough-with-the-religion-dataset.html#cb7-3" aria-hidden="true" tabindex="-1"></a>neutralSample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="fu">filter</span>(muslimClass,connection <span class="sc">==</span> <span class="st">&quot;none&quot;</span>), <span class="dv">5</span>)</span>
+<span id="cb7-4"><a href="walkthrough-with-the-religion-dataset.html#cb7-4" aria-hidden="true" tabindex="-1"></a>humanSample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="fu">filter</span>(muslimClass,connection <span class="sc">==</span> <span class="st">&quot;human&quot;</span>), <span class="dv">5</span>)</span>
+<span id="cb7-5"><a href="walkthrough-with-the-religion-dataset.html#cb7-5" aria-hidden="true" tabindex="-1"></a>muslimVis <span class="ot">&lt;-</span> muslimClass <span class="sc">%&gt;%</span> <span class="fu">filter</span>(connection <span class="sc">!=</span> <span class="st">&quot;none&quot;</span> <span class="sc">&amp;</span> connection <span class="sc">!=</span><span class="st">&quot;human&quot;</span>)</span>
+<span id="cb7-6"><a href="walkthrough-with-the-religion-dataset.html#cb7-6" aria-hidden="true" tabindex="-1"></a>muslimVis <span class="ot">&lt;-</span> <span class="fu">rbind</span>(muslimVis,neutralSample,humanSample)</span>
+<span id="cb7-7"><a href="walkthrough-with-the-religion-dataset.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="walkthrough-with-the-religion-dataset.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#we plug in our visualisation script</span></span>
+<span id="cb7-9"><a href="walkthrough-with-the-religion-dataset.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../functions/visualisationTools.R&quot;</span>)</span>
+<span id="cb7-10"><a href="walkthrough-with-the-religion-dataset.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#two arguments: dataset and protected word</span></span>
+<span id="cb7-11"><a href="walkthrough-with-the-religion-dataset.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">visualiseProtected</span>(muslimVis,<span class="st">&quot;muslim&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tableMuslimActive-1.png" width="100%" style="display: block; margin: auto;" />
+</p>
 <p>Note that the distance between the grey point and the other points is proportional to cosine distance, the non-grey point size is proportional to cosine similarity to the protected word, and color groups by the connection type. So for <code>muslim</code> it seems that the stereotypes coming from the word list are fairly well visible. To give you some taste of how uneven the dataset is, compare this to what happens with <code>priest</code>.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-priestClass &lt;-<span class="st"> </span>religion <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(protectedWord <span class="op">==</span><span class="st"> &quot;priest&quot;</span>)
-neutralSample &lt;-<span class="st"> </span><span class="kw">sample_n</span>(<span class="kw">filter</span>(priestClass,connection <span class="op">==</span><span class="st"> &quot;none&quot;</span>), <span class="dv">5</span>)
-humanSample &lt;-<span class="st"> </span><span class="kw">sample_n</span>(<span class="kw">filter</span>(priestClass,connection <span class="op">==</span><span class="st"> &quot;human&quot;</span>), <span class="dv">5</span>)
-priestVis &lt;-<span class="st"> </span>priestClass <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(connection <span class="op">!=</span><span class="st"> &quot;none&quot;</span> <span class="op">&amp;</span><span class="st"> </span>connection <span class="op">!=</span><span class="st">&quot;human&quot;</span>)
-priestVis &lt;-<span class="st"> </span><span class="kw">rbind</span>(priestVis,neutralSample,humanSample)
-
-<span class="co">#we plug in our visualisation script</span>
-<span class="kw">source</span>(<span class="st">&quot;../functions/visualisationTools.R&quot;</span>)
-<span class="co">#two arguments: dataset and protected word</span>
-<span class="kw">visualiseProtected</span>(priestVis,<span class="st">&quot;priest&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /> </p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="walkthrough-with-the-religion-dataset.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href="walkthrough-with-the-religion-dataset.html#cb8-2" aria-hidden="true" tabindex="-1"></a>priestClass <span class="ot">&lt;-</span> religion <span class="sc">%&gt;%</span> <span class="fu">filter</span>(protectedWord <span class="sc">==</span> <span class="st">&quot;priest&quot;</span>)</span>
+<span id="cb8-3"><a href="walkthrough-with-the-religion-dataset.html#cb8-3" aria-hidden="true" tabindex="-1"></a>neutralSample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="fu">filter</span>(priestClass,connection <span class="sc">==</span> <span class="st">&quot;none&quot;</span>), <span class="dv">5</span>)</span>
+<span id="cb8-4"><a href="walkthrough-with-the-religion-dataset.html#cb8-4" aria-hidden="true" tabindex="-1"></a>humanSample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="fu">filter</span>(priestClass,connection <span class="sc">==</span> <span class="st">&quot;human&quot;</span>), <span class="dv">5</span>)</span>
+<span id="cb8-5"><a href="walkthrough-with-the-religion-dataset.html#cb8-5" aria-hidden="true" tabindex="-1"></a>priestVis <span class="ot">&lt;-</span> priestClass <span class="sc">%&gt;%</span> <span class="fu">filter</span>(connection <span class="sc">!=</span> <span class="st">&quot;none&quot;</span> <span class="sc">&amp;</span> connection <span class="sc">!=</span><span class="st">&quot;human&quot;</span>)</span>
+<span id="cb8-6"><a href="walkthrough-with-the-religion-dataset.html#cb8-6" aria-hidden="true" tabindex="-1"></a>priestVis <span class="ot">&lt;-</span> <span class="fu">rbind</span>(priestVis,neutralSample,humanSample)</span>
+<span id="cb8-7"><a href="walkthrough-with-the-religion-dataset.html#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="walkthrough-with-the-religion-dataset.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#we plug in our visualisation script</span></span>
+<span id="cb8-9"><a href="walkthrough-with-the-religion-dataset.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../functions/visualisationTools.R&quot;</span>)</span>
+<span id="cb8-10"><a href="walkthrough-with-the-religion-dataset.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#two arguments: dataset and protected word</span></span>
+<span id="cb8-11"><a href="walkthrough-with-the-religion-dataset.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">visualiseProtected</span>(priestVis,<span class="st">&quot;priest&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+</p>
 <p>Here you can see that some human attributes are closer than stereotype attributes, and that there is no clear reason to claim that <code>associated</code> attributes are closer than <code>different</code> or <code>human</code> attributes. This, again, illustrates the need of case-by-case analysis with control groups.</p>
 <p>The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates.</p>
 </div>
-<div id="bayesian-model-structure-and-assumptions" class="section level2">
+<div id="bayesian-model-structure-and-assumptions" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Bayesian model structure and assumptions</h2>
-<p>We will now think of cosine distance as the output variable, and will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.</p>
+<p>We will now think of cosine distance as the output variable, and
+will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.</p>
 <p>Here is the intution behind the mathematical Bayesian model involved. Our outcome variable is <code>cosine difference</code>, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest model specification is:</p>
-<span class="math display">\[\begin{align}
+<p><span class="math display">\[\begin{align}
 cosineDistance_i  &amp; \sim dnorm(\mu_i, \sigma) \\
 \mu_i &amp; = m_{pw} \\
 m_{pw} &amp; ~ dnorm(1,.5) \\
 \sigma &amp;\sim  dcauchy(0,1)
-\end{align}\]</span>
-<p>That is, we assume the estimated means might be different for diferent protected words and our prior for the mean and the overal standard deviation are normal with mean 1 and sd=.5 and half-cauchy with parameters <code>0,1</code>. Further on we'll also estimate additional impact the connection type may have. For this impact we take a slightly skeptical prior centered around 0 distributed normally with sd = 1. These are fairly weak and slightly skeptical regularizing priors, which can be illustrated as follows:</p>
-
+\end{align}\]</span></p>
+<p>That is, we assume the estimated means might be different for diferent protected words and our prior for the mean and the overal standard deviation are normal with mean 1 and sd=.5 and half-cauchy with parameters <code>0,1</code>. Further on we’ll also estimate additional impact the connection type may have. For this impact we take a slightly skeptical prior centered around 0 distributed normally with sd = 1. These are fairly weak and slightly skeptical regularizing priors, which can be illustrated as follows:</p>
 <p><img src="_main_files/figure-html/priorsVis-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="choosing-predictors" class="section level2">
+<div id="choosing-predictors" class="section level2" number="3.5">
 <h2><span class="header-section-number">3.5</span> Choosing predictors</h2>
 <p>Now we can define and compile the baseline model. Its parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the <code>rethinking</code> package.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rethinking)
-<span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> )
-religionBaseline &lt;-<span class="st"> </span><span class="kw">ulam</span>(
-  <span class="kw">alist</span>(
-    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
-    mu &lt;-<span class="st"> </span>m[pw],
-    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
-    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
-  ),
-  <span class="dt">data =</span> religion,
-  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">4000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>,
-  <span class="dt">start=</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">1</span>, <span class="dt">co =</span> <span class="dv">0</span>, <span class="dt">sigma=</span> <span class="fl">.3</span>),
-  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>, <span class="dt">cores=</span><span class="dv">4</span>
-)
-<span class="co">#saving</span>
-<span class="co">#saveRDS(religionBaseline, </span>
-<span class="co">#file = &quot;cosineAnalysis/models/religionBaseline.rds&quot;)</span></code></pre></div>
-<p>The only reason we need it is the evaluation of connection as a predictor. Does including it in o the model improve the situation? To investigate this, let's now build a model according to the following specification:</p>
-<span class="math display">\[\begin{align}
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="walkthrough-with-the-religion-dataset.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb9-2"><a href="walkthrough-with-the-religion-dataset.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">buildtools.check =</span> <span class="cf">function</span>(action) <span class="cn">TRUE</span> )</span>
+<span id="cb9-3"><a href="walkthrough-with-the-religion-dataset.html#cb9-3" aria-hidden="true" tabindex="-1"></a>religionBaseline <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb9-4"><a href="walkthrough-with-the-religion-dataset.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb9-5"><a href="walkthrough-with-the-religion-dataset.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    cosineDistance <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb9-6"><a href="walkthrough-with-the-religion-dataset.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> m[pw],</span>
+<span id="cb9-7"><a href="walkthrough-with-the-religion-dataset.html#cb9-7" aria-hidden="true" tabindex="-1"></a>    m[pw] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),</span>
+<span id="cb9-8"><a href="walkthrough-with-the-religion-dataset.html#cb9-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb9-9"><a href="walkthrough-with-the-religion-dataset.html#cb9-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb9-10"><a href="walkthrough-with-the-religion-dataset.html#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> religion,</span>
+<span id="cb9-11"><a href="walkthrough-with-the-religion-dataset.html#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">chains=</span><span class="dv">2</span> , <span class="at">iter=</span><span class="dv">4000</span> , <span class="at">warmup=</span><span class="dv">1000</span>,</span>
+<span id="cb9-12"><a href="walkthrough-with-the-religion-dataset.html#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">start=</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="dv">1</span>, <span class="at">co =</span> <span class="dv">0</span>, <span class="at">sigma=</span> .<span class="dv">3</span>),</span>
+<span id="cb9-13"><a href="walkthrough-with-the-religion-dataset.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_lik =</span> <span class="cn">TRUE</span>, <span class="at">cores=</span><span class="dv">4</span></span>
+<span id="cb9-14"><a href="walkthrough-with-the-religion-dataset.html#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-15"><a href="walkthrough-with-the-religion-dataset.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#saving</span></span>
+<span id="cb9-16"><a href="walkthrough-with-the-religion-dataset.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(religionBaseline, </span></span>
+<span id="cb9-17"><a href="walkthrough-with-the-religion-dataset.html#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#file = &quot;cosineAnalysis/models/religionBaseline.rds&quot;)</span></span></code></pre></div>
+<p>The only reason we need it is the evaluation of connection as a predictor. Does including it in o the model improve the situation? To investigate this, let’s now build a model according to the following specification:</p>
+<p><span class="math display">\[\begin{align}
 cosineDistance_i  &amp; \sim dnorm(\mu_i, \sigma) \\
 \mu_i &amp; = m_{pw} + co_{con}\\
 m_{pw} &amp; ~ dnorm(1,.5) \\
 co_{con} &amp; ~ dnorm(0,1) \\
 \sigma &amp;\sim  dcauchy(0,1)
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>The idea now is that each connection type comes with its own coefficient <span class="math inline">\(co\)</span> that has impact on mean distances for protected words taken separately.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rethinking)
-<span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> )
-religionCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
-  <span class="kw">alist</span>(
-    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
-    mu &lt;-<span class="st"> </span>m[pw] <span class="op">+</span><span class="st"> </span>co[con],
-    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
-    co[con] <span class="op">~</span><span class="kw">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),
-    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
-  ),
-  <span class="dt">data =</span> religion,
-  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">8000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>, 
-  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>
-)</code></pre></div>
-
-<p>First, let's see if this model is really better in terms of the Widely Acceptable Information Criterion (WAIC):</p>
-<p> </p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="walkthrough-with-the-religion-dataset.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb10-2"><a href="walkthrough-with-the-religion-dataset.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">buildtools.check =</span> <span class="cf">function</span>(action) <span class="cn">TRUE</span> )</span>
+<span id="cb10-3"><a href="walkthrough-with-the-religion-dataset.html#cb10-3" aria-hidden="true" tabindex="-1"></a>religionCoefs <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb10-4"><a href="walkthrough-with-the-religion-dataset.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb10-5"><a href="walkthrough-with-the-religion-dataset.html#cb10-5" aria-hidden="true" tabindex="-1"></a>    cosineDistance <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb10-6"><a href="walkthrough-with-the-religion-dataset.html#cb10-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> m[pw] <span class="sc">+</span> co[con],</span>
+<span id="cb10-7"><a href="walkthrough-with-the-religion-dataset.html#cb10-7" aria-hidden="true" tabindex="-1"></a>    m[pw] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),</span>
+<span id="cb10-8"><a href="walkthrough-with-the-religion-dataset.html#cb10-8" aria-hidden="true" tabindex="-1"></a>    co[con] <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),</span>
+<span id="cb10-9"><a href="walkthrough-with-the-religion-dataset.html#cb10-9" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb10-10"><a href="walkthrough-with-the-religion-dataset.html#cb10-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb10-11"><a href="walkthrough-with-the-religion-dataset.html#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> religion,</span>
+<span id="cb10-12"><a href="walkthrough-with-the-religion-dataset.html#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">chains=</span><span class="dv">2</span> , <span class="at">iter=</span><span class="dv">8000</span> , <span class="at">warmup=</span><span class="dv">1000</span>, </span>
+<span id="cb10-13"><a href="walkthrough-with-the-religion-dataset.html#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-14"><a href="walkthrough-with-the-religion-dataset.html#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>First, let’s see if this model is really better in terms of the Widely Acceptable Information Criterion (WAIC):</p>
 <pre><code>##                   WAIC SE dWAIC dSE pWAIC weight
 ## religionCoefs    -2328 93     0  NA    20      1
 ## religionBaseline -2283 95    45  17    16      0</code></pre>
-
-<p>Clearly, it should be given weight 1 as compared to the baseline model. So far, we've learned that the connection type actually has predictive value. Let's take a look at the coefficient estimates:</p>
-<p> </p>
+<p>Clearly, it should be given weight 1 as compared to the baseline model. So far, we’ve learned that the connection type actually has predictive value. Let’s take a look at the coefficient estimates:</p>
+<p>
+</p>
 <pre><code>##              mean        sd       5.5%      94.5%    n_eff    Rhat4
 ## co[1] -0.14956420 0.1151675 -0.3261650 0.03741930 294.2033 1.001449
 ## co[2] -0.09880543 0.1145024 -0.2736985 0.08813271 291.5044 1.001564
 ## co[3] -0.07282752 0.1133894 -0.2447778 0.11158986 287.7820 1.001627
 ## co[4] -0.03103179 0.1131420 -0.2034442 0.15268770 286.8283 1.001606</code></pre>
-
+<p></p>
 </div>
-<div id="dataset-level-coefficients" class="section level2">
+<div id="dataset-level-coefficients" class="section level2" number="3.6">
 <h2><span class="header-section-number">3.6</span> Dataset-level coefficients</h2>
-<p>Let's plot them together with their highest posterior density invervals, for the three topic groups.</p>
-
+<p>Let’s plot them together with their highest posterior density invervals, for the three topic groups.</p>
 <p>What should strike us is that while the mean estimates of the coefficients indeed do differ a bit, usually the highest posterior density invervals all include zero, and so we do not have strong reasons to say that, say, as far as the whole religion dataset is involved, being associated indeed is connected with lower cosine distance. A second striking observation is that the estimated impact for associated stereotypes is quite often not too different from the estimated impact of attributes associated with different stereotypes, and both are sometimes not too far from the estimated impact for simply human attributes. In general, once the uncertainty involved is taken seriously by using control groups and statistical uncertainty estimation that does not dispose of pointwise data, the picture which focuses only on differences between means of means is too simplistic.</p>
-<p>But this doesn't mean important differences for some protected words are not there. For one thing, if you start with a word list that is very uneven, the actually not so bad status of some of the protected words might mask a pretty bad situation in which some other protected words are. For comparison, let's see what a model focused on words related to islam tells us.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#this is how we build the model</span>
-religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;cosineAnalysis/datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
-<span class="kw">colnames</span>(religion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;protectedWord&quot;</span>,<span class="st">&quot;wordToCompare&quot;</span>,<span class="st">&quot;wordClass&quot;</span>,
-                        <span class="st">&quot;cosineDistance&quot;</span>,<span class="st">&quot;cosineSimilarity&quot;</span>,<span class="st">&quot;connection&quot;</span>)
-<span class="kw">levels</span>(religion<span class="op">$</span>wordClass) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>)
-muslimWords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;imam&quot;</span>,<span class="st">&quot;islam&quot;</span>,<span class="st">&quot;mosque&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;quran&quot;</span>)
-muslim &lt;-<span class="st"> </span>religion <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(protectedWord <span class="op">%in%</span><span class="st"> </span>muslimWords)
-muslim<span class="op">$</span>protectedWord &lt;-<span class="st"> </span><span class="kw">droplevels</span>(muslim<span class="op">$</span>protectedWord)
-muslim<span class="op">$</span>pw &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>protectedWord)
-muslim<span class="op">$</span>con &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>connection)
-muslim<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(muslim<span class="op">$</span>protectedWord, muslim<span class="op">$</span>connection))
-muslim<span class="op">$</span>pwIndex &lt;-<span class="st"> </span><span class="kw">as.integer</span>(muslim<span class="op">$</span>pwFactor)
-
-islamCoefs &lt;-<span class="st"> </span><span class="kw">ulam</span>(
-  <span class="kw">alist</span>(
-    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
-    mu &lt;-<span class="st"> </span>m[pw] <span class="op">+</span><span class="st"> </span>co[con],
-    m[pw] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
-    co[con] <span class="op">~</span><span class="kw">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),
-    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
-  ),
-  <span class="dt">data =</span> muslim,
-  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">10000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>, <span class="dt">cores =</span> <span class="dv">4</span>,
-  <span class="dt">log_lik =</span> <span class="ot">TRUE</span>
-)</code></pre></div>
-
-<p>Let's take a look at the coefficients:</p>
-<p> </p>
+<p>But this doesn’t mean important differences for some protected words are not there. For one thing, if you start with a word list that is very uneven, the actually not so bad status of some of the protected words might mask a pretty bad situation in which some other protected words are. For comparison, let’s see what a model focused on words related to islam tells us.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="walkthrough-with-the-religion-dataset.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this is how we build the model</span></span>
+<span id="cb13-2"><a href="walkthrough-with-the-religion-dataset.html#cb13-2" aria-hidden="true" tabindex="-1"></a>religion <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;cosineAnalysis/datasets/religionReddit.csv&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb13-3"><a href="walkthrough-with-the-religion-dataset.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(religion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;protectedWord&quot;</span>,<span class="st">&quot;wordToCompare&quot;</span>,<span class="st">&quot;wordClass&quot;</span>,</span>
+<span id="cb13-4"><a href="walkthrough-with-the-religion-dataset.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;cosineDistance&quot;</span>,<span class="st">&quot;cosineSimilarity&quot;</span>,<span class="st">&quot;connection&quot;</span>)</span>
+<span id="cb13-5"><a href="walkthrough-with-the-religion-dataset.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(religion<span class="sc">$</span>wordClass) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;christian&quot;</span>,<span class="st">&quot;human&quot;</span>,<span class="st">&quot;jewish&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;neutral&quot;</span>)</span>
+<span id="cb13-6"><a href="walkthrough-with-the-religion-dataset.html#cb13-6" aria-hidden="true" tabindex="-1"></a>muslimWords <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;imam&quot;</span>,<span class="st">&quot;islam&quot;</span>,<span class="st">&quot;mosque&quot;</span>,<span class="st">&quot;muslim&quot;</span>,<span class="st">&quot;quran&quot;</span>)</span>
+<span id="cb13-7"><a href="walkthrough-with-the-religion-dataset.html#cb13-7" aria-hidden="true" tabindex="-1"></a>muslim <span class="ot">&lt;-</span> religion <span class="sc">%&gt;%</span> <span class="fu">filter</span>(protectedWord <span class="sc">%in%</span> muslimWords)</span>
+<span id="cb13-8"><a href="walkthrough-with-the-religion-dataset.html#cb13-8" aria-hidden="true" tabindex="-1"></a>muslim<span class="sc">$</span>protectedWord <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(muslim<span class="sc">$</span>protectedWord)</span>
+<span id="cb13-9"><a href="walkthrough-with-the-religion-dataset.html#cb13-9" aria-hidden="true" tabindex="-1"></a>muslim<span class="sc">$</span>pw <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(muslim<span class="sc">$</span>protectedWord)</span>
+<span id="cb13-10"><a href="walkthrough-with-the-religion-dataset.html#cb13-10" aria-hidden="true" tabindex="-1"></a>muslim<span class="sc">$</span>con <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(muslim<span class="sc">$</span>connection)</span>
+<span id="cb13-11"><a href="walkthrough-with-the-religion-dataset.html#cb13-11" aria-hidden="true" tabindex="-1"></a>muslim<span class="sc">$</span>pwFactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">paste0</span>(muslim<span class="sc">$</span>protectedWord, muslim<span class="sc">$</span>connection))</span>
+<span id="cb13-12"><a href="walkthrough-with-the-religion-dataset.html#cb13-12" aria-hidden="true" tabindex="-1"></a>muslim<span class="sc">$</span>pwIndex <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(muslim<span class="sc">$</span>pwFactor)</span>
+<span id="cb13-13"><a href="walkthrough-with-the-religion-dataset.html#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="walkthrough-with-the-religion-dataset.html#cb13-14" aria-hidden="true" tabindex="-1"></a>islamCoefs <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb13-15"><a href="walkthrough-with-the-religion-dataset.html#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb13-16"><a href="walkthrough-with-the-religion-dataset.html#cb13-16" aria-hidden="true" tabindex="-1"></a>    cosineDistance <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb13-17"><a href="walkthrough-with-the-religion-dataset.html#cb13-17" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> m[pw] <span class="sc">+</span> co[con],</span>
+<span id="cb13-18"><a href="walkthrough-with-the-religion-dataset.html#cb13-18" aria-hidden="true" tabindex="-1"></a>    m[pw] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),</span>
+<span id="cb13-19"><a href="walkthrough-with-the-religion-dataset.html#cb13-19" aria-hidden="true" tabindex="-1"></a>    co[con] <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,.<span class="dv">5</span>),</span>
+<span id="cb13-20"><a href="walkthrough-with-the-religion-dataset.html#cb13-20" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb13-21"><a href="walkthrough-with-the-religion-dataset.html#cb13-21" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb13-22"><a href="walkthrough-with-the-religion-dataset.html#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> muslim,</span>
+<span id="cb13-23"><a href="walkthrough-with-the-religion-dataset.html#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">chains=</span><span class="dv">2</span> , <span class="at">iter=</span><span class="dv">10000</span> , <span class="at">warmup=</span><span class="dv">1000</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb13-24"><a href="walkthrough-with-the-religion-dataset.html#cb13-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-25"><a href="walkthrough-with-the-religion-dataset.html#cb13-25" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Let’s take a look at the coefficients:</p>
 <pre><code>##                mean        sd       5.5%      94.5%    n_eff    Rhat4
 ## co[1] -0.1979930035 0.1708785 -0.4682696 0.07634977 1789.894 1.003445
 ## co[2] -0.0334215769 0.1687587 -0.3021954 0.23720938 1738.720 1.003575
 ## co[3] -0.0192492753 0.1675754 -0.2840596 0.24860974 1732.907 1.003755
 ## co[4] -0.0003911363 0.1670610 -0.2661047 0.26815172 1723.758 1.003837</code></pre>
-
-
-
 <p>While muslim words were unusual in the sense that the disparity between associated attributes and others is stronger, the evidence is still not conclusive. This is because the variation even within islam-related words is large enough (and sample sizes sufficiently small) for all the highest posterior density invervals to still include zeros.</p>
 <p>So, it seems, taking a closer look does seem to make a difference. The question is, what happens if we do take a close look at the level of protected words?</p>
 </div>
@@ -395,6 +439,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -427,7 +472,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

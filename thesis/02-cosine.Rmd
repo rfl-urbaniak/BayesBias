@@ -141,6 +141,7 @@ We have prepared a table presenting the values of cosine distance for each prote
 religion <- read.csv("../datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
+religion$wordClass <- as.factor(religion$wordClass)
 levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
 head(religion)  %>%  kable(format = "latex",booktabs=T,
                       linesep = "",  escape = FALSE, 
