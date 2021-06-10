@@ -1,44 +1,51 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
-\documentclass[12pt,dvipsnames,enabledeprecatedfontcommands]{scrartcl}
+\documentclass[
+  12pt,
+  dvipsnames,enabledeprecatedfontcommands]{scrartcl}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\usepackage{hyperref}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            colorlinks=true,
-            linkcolor=Maroon,
-            filecolor=Maroon,
-            citecolor=Blue,
-            urlcolor=blue,
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{graphicx,grffile}
+  colorlinks=true,
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -47,25 +54,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 %\documentclass{article}
 
 % %packages
@@ -241,6 +237,29 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \author{}
 \date{\vspace{-2.5em}}
@@ -253,9 +272,11 @@
 
 \vspace{1mm}
 
+\todo{czy konieczne jest pisanie "number vectors"? jeżeli tak, to w licencjacie musze pozmieniac, bo tam czasami jest samo vectors, a czasami "they are assigned numerical values"}
+
 A considerable amount of literature exists on bias detection and
 mitigation in NLP models, especially word2vec embeddings, which
-represent words as number vectors (see e.g.~{[}1{]} and {[}4{]} and
+represent words as number vectors (see e.g. {[}1{]} and {[}4{]} and
 references therein). The most common method used compares cosine
 similarity between words from protected groups and attributes that are
 considered to be stereotypical or harmful in some way, and this method
@@ -313,20 +334,23 @@ thus obtained means for all the protected words.
 
 Such methods are statistically problematic. One issue, specific to
 {[}6{]}, is that no distinction is made based on whether given a
-protected word a class of attributes is stereotypically associated with
-this protected word or with a different protected word. A related,
+protected word and a class of attributes is stereotypically associated
+with this protected word or a different protected word. A related,
 general problem, is that all the authors ignore the step of comparing
 their results with control groups, especially control groups of
-stereotype-neutral human attributes. That such a move is important is
-suggested for instance by Figure 1 prepared using the original word list
-for religion-related protected words extended with control attributes,
-where such human attributes are also closer to protected classes than 1.
+stereotype-neutral human attributes.
+\todo{nie wiem, czy nie przeredagowałabym tego zdania, chodzi mi o końcówkę, "closer than 1", moze zamiast than 1 powiedziec, "than neutral non-human words"? albo jakoś podobnie}
+That such a move is important is suggested for instance by Figure 1
+prepared using the original word list for religion-related protected
+words extended with control attributes, where such human attributes are
+also closer to protected classes than 1.
 
 Another, also serious problem, is that all the authors calculate means
-of means and their authors run statistical tests on sets of means.
-Unforutnately, by pre-averaging the data they throw away information
-about sample sizes, and they remove variation, and so pre-averaging
-tends to manufacture false confidence.
+of means and their authors
+\todo{jak rozumiec drugi raz powtorzone their authors?} run statistical
+tests on sets of means. Unfortunately, by pre-averaging the data they
+throw away information about sample sizes, and they remove variation,
+and so pre-averaging tends to manufacture false confidence.
 
 All such approaches come up with rather short lists of protected words
 and rather short lists of stereotypical attributes. Clearly, these are
@@ -334,6 +358,7 @@ not complete list. So let's treat them as samples from richer pools of
 stereotypical predicates and let's take the uncertainty and variation
 involved seriously. To illustrate, let's employ the formulas used by
 {[}2{]} in a simple simulation.
+\todo{początek zdania "two protected classes" bez wstepu typu "We created..", nie wiem czy tak miało być?}
 
 \noindent
 
@@ -351,7 +376,9 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 \end{tabular}
 }
 \end{minipage}& \begin{minipage}[c]{0.6\linewidth}
-Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard devation  (code available upon request).
+
+Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard deviation  (code available upon request).
+
 \end{minipage}
 \end{tabular}
 
@@ -404,14 +431,14 @@ different embeddings (Google, and hard-debiased Reddit). The general
 conclusion is that once we proceed this way, the situation is much less
 obvious. The word list sizes are small, sample sizes are small, and so
 posterior density intervals are wide. Some stronger bias can be
-discerned in the gender case. Moreover, sometimes the difference between
-associated, different and human, are not very impressive. The cost of
-debiasing turns out sometimes to be that neutral human predicates get
-closer to protected classes (in religion), change in gender after
-debiasing is really minor with zero still out out of HPDI range, and
-debiasing improvement for race is a small improvement achieved at the
-price of moving neutral terms closer to protected words (there is no
-space to visualise these results in this abstract).
+discerned in the gender case. Moreover, sometimes the differences
+between associated, different and human, are not very impressive. The
+cost of debiasing turns out sometimes to be that neutral human
+predicates get closer to protected classes (in religion), change in
+gender after debiasing is really minor with zero still out out of HPDI
+range, and debiasing improvement for race is a small improvement
+achieved at the price of moving neutral terms closer to protected words
+(there is no space to visualise these results in this abstract).
 
 The bottom line is that if we want to take bias seriously, so should we
 approach the uncertainty involved in our estimations. There is no
@@ -463,51 +490,62 @@ on a means of means.
 \vspace{-4mm}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
 \leavevmode\hypertarget{ref-bolukbasi2016man}{}%
-{[}1{]} Tolga Bolukbasi, Kai-Wei Chang, James Zou, Venkatesh Saligrama,
-and Adam Kalai. 2016. Man is to computer programmer as woman is to
-homemaker? Debiasing word embeddings. Retrieved from
-\url{http://arxiv.org/abs/1607.06520}
+\CSLLeftMargin{{[}1{]} }
+\CSLRightInline{Tolga Bolukbasi, Kai-Wei Chang, James Zou, Venkatesh
+Saligrama, and Adam Kalai. 2016. Man is to computer programmer as woman
+is to homemaker? Debiasing word embeddings. Retrieved from
+\url{http://arxiv.org/abs/1607.06520}}
 
 \leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
-{[}2{]} Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan. 2017.
-Semantics derived automatically from language corpora contain human-like
-biases. \emph{Science} 356, 6334 (April 2017), 183--186.
-DOI:\url{https://doi.org/10.1126/science.aal4230}
+\CSLLeftMargin{{[}2{]} }
+\CSLRightInline{Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan.
+2017. Semantics derived automatically from language corpora contain
+human-like biases. \emph{Science} 356, 6334 (April 2017), 183--186.
+DOI:https://doi.org/\href{https://doi.org/10.1126/science.aal4230}{10.1126/science.aal4230}}
 
 \leavevmode\hypertarget{ref-Garg2018years}{}%
-{[}3{]} Nikhil Garg, Londa Schiebinger, Dan Jurafsky, and James Zou.
-2018. Word embeddings quantify 100 years of gender and ethnic
+\CSLLeftMargin{{[}3{]} }
+\CSLRightInline{Nikhil Garg, Londa Schiebinger, Dan Jurafsky, and James
+Zou. 2018. Word embeddings quantify 100 years of gender and ethnic
 stereotypes. \emph{Proceedings of the National Academy of Sciences} 115,
 16 (April 2018), E3635--E3644.
-DOI:\url{https://doi.org/10.1073/pnas.1720347115}
+DOI:https://doi.org/\href{https://doi.org/10.1073/pnas.1720347115}{10.1073/pnas.1720347115}}
 
 \leavevmode\hypertarget{ref-Gonen2019lipstick}{}%
-{[}4{]} Hila Gonen and Yoav Goldberg. 2019. Lipstick on a pig: Debiasing
-methods cover up systematic gender biases in word embeddings but do not
-remove them. In \emph{Proceedings of the 2019 conference of the north
-American chapter of the association for computational linguistics: Human
-language technologies, volume 1 (long and short papers)}, Association
-for Computational Linguistics, Minneapolis, Minnesota, 609--614.
-DOI:\url{https://doi.org/10.18653/v1/N19-1061}
+\CSLLeftMargin{{[}4{]} }
+\CSLRightInline{Hila Gonen and Yoav Goldberg. 2019. Lipstick on a pig:
+{D}ebiasing methods cover up systematic gender biases in word embeddings
+but do not remove them. In \emph{Proceedings of the 2019 conference of
+the north {A}merican chapter of the association for computational
+linguistics: Human language technologies, volume 1 (long and short
+papers)}, Association for Computational Linguistics, Minneapolis,
+Minnesota, 609--614.
+DOI:https://doi.org/\href{https://doi.org/10.18653/v1/N19-1061}{10.18653/v1/N19-1061}}
 
 \leavevmode\hypertarget{ref-Lauscher2019multidimensional}{}%
-{[}5{]} Anne Lauscher and Goran Glavas. 2019. Are we consistently
-biased? Multidimensional analysis of biases in distributional word
-vectors. \emph{CoRR} abs/1904.11783, (2019). Retrieved from
-\url{http://arxiv.org/abs/1904.11783}
+\CSLLeftMargin{{[}5{]} }
+\CSLRightInline{Anne Lauscher and Goran Glavas. 2019. Are we
+consistently biased? Multidimensional analysis of biases in
+distributional word vectors. \emph{CoRR} abs/1904.11783, (2019).
+Retrieved from \url{http://arxiv.org/abs/1904.11783}}
 
 \leavevmode\hypertarget{ref-Manzini2019blackToCriminal}{}%
-{[}6{]} Thomas Manzini, Yao Chong Lim, Yulia Tsvetkov, and Alan W Black.
-2019. Black is to criminal as caucasian is to police: Detecting and
-removing multiclass bias in word embeddings. Retrieved from
-\url{http://arxiv.org/abs/1904.04047}
+\CSLLeftMargin{{[}6{]} }
+\CSLRightInline{Thomas Manzini, Yao Chong Lim, Yulia Tsvetkov, and Alan
+W Black. 2019. Black is to criminal as caucasian is to police: Detecting
+and removing multiclass bias in word embeddings. Retrieved from
+\url{http://arxiv.org/abs/1904.04047}}
 
 \leavevmode\hypertarget{ref-Nosek2002harvesting}{}%
-{[}7{]} Brian A. Nosek, Mahzarin R. Banaji, and Anthony G. Greenwald.
-2002. Harvesting implicit group attitudes and beliefs from a
+\CSLLeftMargin{{[}7{]} }
+\CSLRightInline{Brian A. Nosek, Mahzarin R. Banaji, and Anthony G.
+Greenwald. 2002. Harvesting implicit group attitudes and beliefs from a
 demonstration web site. \emph{Group Dynamics: Theory, Research, and
 Practice} 6, 1 (2002), 101--115.
-DOI:\url{https://doi.org/10.1037/1089-2699.6.1.101}
+DOI:https://doi.org/\href{https://doi.org/10.1037/1089-2699.6.1.101}{10.1037/1089-2699.6.1.101}}
+
+\end{CSLReferences}
 
 \end{document}

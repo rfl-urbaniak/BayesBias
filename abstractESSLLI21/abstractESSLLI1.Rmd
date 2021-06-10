@@ -61,13 +61,7 @@ In one well-known approach, @Caliskan2017semanticsBiases proposed the Word Embed
 \normalsize 
 \noindent That is, for each protected word  and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. 
 
-<<<<<<< HEAD
-Such methods are statistically problematic. One issue, specific to @Manzini2019blackToCriminal, is that no distinction is made based on whether given a protected word a  class of attributes is stereotypically associated with this  protected word or with a different protected word. A related, general problem, is that all the authors ignore the step of comparing their results with control groups, especially control groups of stereotype-neutral human attributes. That such a move is important is suggested for instance by Figure 1 prepared using the original word list for religion-related protected words extended with control attributes, where such human attributes are also closer to protected classes than 1.
-=======
 Such methods are statistically problematic. One issue, specific to @Manzini2019blackToCriminal, is that no distinction is made based on whether given a protected word and a  class of attributes is stereotypically associated with this  protected word or a different protected word. A related, general problem, is that all the authors ignore the step of comparing their results with control groups, especially control groups of stereotype-neutral human attributes. \todo{nie wiem, czy nie przeredagowałabym tego zdania, chodzi mi o końcówkę, "closer than 1", moze zamiast than 1 powiedziec, "than neutral non-human words"? albo jakoś podobnie} That such a move is important is suggested for instance by Figure 1 prepared using the original word list for religion-related protected words extended with control attributes, where such human attributes are also closer to protected classes than 1.
->>>>>>> 70a9956ccbb94dc470d1941b8d0c56a409e8abff
-
-
 
 Another, also serious problem, is that  all the authors calculate means of means and their authors \todo{jak rozumiec drugi raz powtorzone their authors?} run statistical tests on sets of means. Unfortunately, by pre-averaging the data they throw away information about sample sizes, and  they remove variation, and so pre-averaging  tends to manufacture false confidence.
 
@@ -89,23 +83,16 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 \end{tabular}
 }
 \end{minipage}& \begin{minipage}[c]{0.6\linewidth}
-<<<<<<< HEAD
-Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard devation  (code available upon request).
-=======
 
-Two protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal, two cases in which they are different, and the underlying variances are different (code available upon request).
->>>>>>> 70a9956ccbb94dc470d1941b8d0c56a409e8abff
+Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard deviation  (code available upon request).
+
 \end{minipage}
 \end{tabular}
 
 \vspace{1mm}
 
-<<<<<<< HEAD
-The following observations are worthwhile. (1) For points randomly drawn from distributions where there is no difference in means the calculated effect size can easily be  1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81. (2) For samples from distributions where the means are different, the (absolute) effect sizes can easily be lower than in the first two simulations.  As Figure 2. illustrates,  quite some uncertainty is involved, far more than what systematically low mean-based p-values reported in the papers might suggest. Part of the problem is random variation unaccounted for in the original approach (see Figures 3 and 4 for an example), and part of the problem is that    non-negligible changes in effect size can result from a shift in the standard deviation of the original process, because with the decrease of standard deviation the numerator in (WEAT) decreases. 
-=======
-The following observations are worthwhile. (1) For points randomly drawn from distributions where there is no difference in means the calculated effect size can easily be  1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81. (2) For samples from distributions where the means are different, the (absolute) effect sizes can easily be lower than in the first two simulations.  As Figure 2. illustrates,  quite some uncertainty is involved, far from what systematically low mean-based p-values reported in the papers might suggest. Part of the problem is random variation unaccounted for in the original approach (see Figures 3 and 4 for an example), and part of the problem is that non-negligible changes in effect size can result from a shift in the standard deviation of the original process, because with the decrease of standard deviation the numerator in (WEAT) decreases. 
->>>>>>> 70a9956ccbb94dc470d1941b8d0c56a409e8abff
 
+The following observations are worthwhile. (1) For points randomly drawn from distributions where there is no difference in means the calculated effect size can easily be  1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81. (2) For samples from distributions where the means are different, the (absolute) effect sizes can easily be lower than in the first two simulations.  As Figure 2. illustrates,  quite some uncertainty is involved, far more than what systematically low mean-based p-values reported in the papers might suggest. Part of the problem is random variation unaccounted for in the original approach (see Figures 3 and 4 for an example), and part of the problem is that    non-negligible changes in effect size can result from a shift in the standard deviation of the original process, because with the decrease of standard deviation the numerator in (WEAT) decreases. 
 
 To improve on the situation, we  build  Bayesian models to estimate the biases involved using the raw datapoints, actually using control groups,  distinguishing the connection types,  and taking the uncertainty involved seriously.
 For the general impact of being associated, we build  models using STAN according to the following specification (linear categorical model and the priors):
