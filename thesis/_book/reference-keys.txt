@@ -5,11 +5,6 @@ cosine-similarity-and-distance
 cosine-distance-in-a-one-class-bias-detection
 cosine-distance-in-a-multi-class-bias-detection
 limitations-of-the-approach
-selection-and-number-of-attributes
-no-control-groups
-means-of-means
-interpretability-issues
-the-curse-of-dimensionality
 walkthrough-with-the-religion-dataset
 loading-and-understanding-the-dataset
 first-look-at-the-empirical-distributions
