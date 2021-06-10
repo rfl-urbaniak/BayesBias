@@ -1,0 +1,13 @@
+base
+ggplot2
+ggthemes
+gridExtra
+kableExtra
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
