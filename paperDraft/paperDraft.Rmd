@@ -27,7 +27,6 @@ library(gridExtra)
 
 
 
-test
 
 
 # Cosine-based measures of bias
@@ -43,7 +42,7 @@ The use of projections has been ciriticized for instance by @Gonen2019lipstick, 
 
 
 To measure bias in word embeddings, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.
-Let $f$ be a distance or similarity measure (usually, cosine similarity). The association difference for a term $t$ is:
+Let $f$ be a similarity measure (usually, cosine similarity). The association difference for a term $t$ is:
 \begin{align}
 s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
 \end{align}
@@ -67,43 +66,57 @@ A similar methodology is employed by @Garg2018years, who employ word embeddings 
 \begin{align}
 \textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
 \end{align}
-\noindent where the norm used is Euclidean, and $v_X$ and $x_Y$ are average vectors for sets $X$ and $Y$ respectively.
+\noindent where the norm used is Euclidean, and $v_X$ and $x_Y$ are average vectors for sets $X$ and $Y$ respectively. 
+
+
+@Manzini2019blackToCriminal modify WEAT to a multi-class setting, introducing Mean Average Cosine similarity as a measure of bias (in fact, in the paper  they report distances rather than similarities). Let $T = \{t_1, \dots, t_k\}$ be a class of protected word embeddings, and let each $A_j\in A$ be a set of attributes stereotypically associated with a protected word). Then:
+\begin{align}
+S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align}
+That is, for each protected word $T and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. The t-tests they employ are run on average cosines used to calculate MAC.
 
 
 
-There is a problem with taking means of means in the calculations, though. By pre-averaging data we throw away information about sample size. For instance, think about proportions: 10 out of 20 and 2 out of 4 give the same mean, but you would obtain more information by making the former observation rather than by making the latter. Connectedly, when we pre-average, we remove variation, and so pre-averaging  tend to manufacture false confidence.
+## The problem with means of means
 
-To illustrate let's employ the formulas used by @Caliskan2017semanticsBiases and go through an example. Conceptually, all such tests come up with rather short lists of protected words and rather short lists of stereotypical attributes. Clearly, these are not complete list. So let's treat them as  samples from richer pools of stereotypical predicates and let's take the uncertainty and variation involved seriously. 
 
-Consider a situation in which there are two protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$ and two five-element sets $A$ and $B$. 
+The measures described all calculate means of means and their authors run statistical tests on sets of means. This, however, is problematic for two related reasons. One, by pre-averaging data we throw away information about sample sizes. For the former point, think about proportions: 10 out of 20 and 2 out of 4 give the same mean, but you would obtain more information by making the former observation rather than by making the latter.  Two, when we pre-average, we remove variation, and so pre-averaging  tend to manufacture false confidence. We will have more to say about whether this happens in the case of applications of MAC, for now let's go over a simple example to make the conceptual point clear.
 
-First, we play around with a scenario in which all the protected terms are on average equally distant from both sets ($\mu =1$) with standard deviation of $.05$. First, let's randomly draw distances and plot the results with group means plotted as vertical lines.
+To illustrate let's employ the formulas used by @Caliskan2017semanticsBiases in a simple example. Conceptually, all such tests come up with rather short lists of protected words and rather short lists of stereotypical attributes. Clearly, these are not complete list. So let's treat them as  samples from richer pools of stereotypical predicates and let's take the uncertainty and variation involved seriously. 
+
+Consider a simple situation in which there are two protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$ and two five-element attribute sets $A$ and $B$. 
+
+First, we play around with a scenario in which all the protected terms are on average equally unsimilar to both sets ($\mu =0$) with standard deviation of $.05$. Let's randomly draw similarity scores and plot the results with group means plotted as vertical lines.
 
 \footnotesize
 ```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
 set.seed(123)
-t1 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
-t2 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
-t3 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
-t4 <- data.frame(A  = rnorm(5,1,0.05), B = rnorm(5,1,0.05))
+t1 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t3 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t4 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
 ```
 \normalsize
 
 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t1 in X")
+xlimits <- c(-.3,.3)
 
-t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t2 in X")
+t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
-t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t3 in Y")
 
-t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t4 in Y")
+t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+
+t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+
+t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
 grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
 ```
 
 
-When you look at the datapoints, do you have the impression of a strong bias here? We wouldn't think so.  But now let's run the calculations from [@Caliskan2017semanticsBiases].
+\noindent When you look at the datapoints, do you have the impression of a strong bias here? We wouldn't think so.  But now let's run the calculations from [@Caliskan2017semanticsBiases].
 
 \vspace{1mm}
 \footnotesize
@@ -111,57 +124,279 @@ When you look at the datapoints, do you have the impression of a strong bias her
 s <- function (table){ mean(table$A) - mean(table$B)}
 factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
 numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
-bias <- numerator / factor
-bias
+print(list(factor = factor,numerator = numerator, bias = numerator / factor))
 ```
 \normalsize
 
-This should make us pause. We know these were points randomly drawn from distributions where there is no difference in means. Yet, the calculated effect size is 1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81!
+\noindent This should make us pause. We know these were points randomly drawn from distributions where there is no difference in means. Yet, the calculated effect size is 1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81! 
+
+Interestingly, if we repeat the drawing 10000 times, each time calculating the  bias, it turns out that with this variance and sample size, pretty much anything can happen. 
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+
+biasesNull <- numeric(10000)
+for(i in 1:10000){
+t1 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t3 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t4 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
+biasesNull[i]  <- numerator / factor
+}
+ggplot()+geom_histogram(aes(x=biasesNull, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for identical means and sd =.05")+ xlab("bias")
+```
+\normalsize
 
 
-Now, let's try sampling from distributions where there in fact is a difference in means. Terms from $X$ are on average .8 away from $A$ (and $1$ from $B$), while terms from $Y$ are $.8$ away to $B$ (and 1 to $A$). The standard deviation is 0.1 in all the cases. There is a  clear difference between $X$ and $Y$ and quick visual inspection should tell us so.
+Now, let's simulate a situation where the means are identical but the standard deviation is much smaller, .001. 
+
+
+
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+set.seed(124)
+t1v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t2v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t3v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t4v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+```
+\normalsize
+
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+xlimits <- c(-.3,.3)
+
+
+t1vPlot <- ggplot(t1v)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+
+
+t2vPlot <- ggplot(t2v)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+
+t3vPlot <- ggplot(t3v)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+
+t4vPlot <- ggplot(t4v)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+
+grid.arrange(t1vPlot,t2vPlot, t3vPlot, t4vPlot, ncol=2)
+```
+
+
+\noindent When you look at the datapoints, do you have the impression of a strong bias here? We wouldn't think so.  But now let's run the calculations from [@Caliskan2017semanticsBiases].
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+factorV <- sd(c(s(t1v),s(t2v),s(t3v),s(t4v)))
+numeratorV <-  mean(s(t1v),s(t2v)) - mean(s(t3v),s(t4v))
+print(list(factor = factorV,numerator = numeratorV, bias = numeratorV / factorV))
+```
+\normalsize
+
+
+While the numerator and the factors changed a lot, the bias actually increased. One reason bias increases is that once the standard deviation goes down, so does the factor used in the calculation of bias. 
+
+
+Again, to see whether this metric would provide us with meaningful information, let's simulate 10000 drawings.
+
 
 
 \vspace{1mm}
 \footnotesize
 ```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-set.seed(123)
-t1 <- data.frame(A  = rnorm(5,.8,0.1), B = rnorm(5,1,0.1))
-t2 <- data.frame(A  = rnorm(5,.8,0.1), B = rnorm(5,1,0.1))
-t3 <- data.frame(A  = rnorm(5,1,0.1), B = rnorm(5,.8,0.1))
-t4 <- data.frame(A  = rnorm(5,1,0.1), B = rnorm(5,.8,0.1))
+set.seed(124)
+
+biasesLowVariance <- numeric(10000)
+for(i in 1:10000){
+t1v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t2v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t3v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+t4v <- data.frame(A  = rnorm(5,0,0.001), B = rnorm(5,0,0.001))
+
+factorV <- sd(c(s(t1v),s(t2v),s(t3v),s(t4v)))
+
+numeratorV <-  mean(s(t1v),s(t2v)) - mean(s(t3v),s(t4v))
+
+biasesLowVariance[i] <- numeratorV / factorV
+}
+ggplot()+geom_histogram(aes(x=biasesLowVariance, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for identical means and sd =.001")+ xlab("bias")
+```
+\normalsize
+
+Again, not so informative. Now, let's try sampling from distributions where there in fact is a difference in means. Terms from $X$ are on average .1 similar to $A$ (and still $0$ to $B$), while terms from $Y$ are $.1$ similar to $B$ (and 0 to $A$). The standard deviation is 0.05 in all the cases. There is a  clear difference between $X$ and $Y$ and quick visual inspection should tell us so.
+
+
+
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+set.seed(766)
+t1d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
+t2d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
+t3d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
+t4d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
+```
+\normalsize
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+library(grid)
+library(gridExtra)
+t1d2Plot <- ggplot(t1d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+
+t2d2Plot <- ggplot(t2d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+
+t3d2Plot <- ggplot(t3d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+
+t4d2Plot <- ggplot(t4d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+
+grid.arrange(t1d2Plot,t2d2Plot, t3d2Plot, t4d2Plot, ncol=2,   
+      top = textGrob("Different means, sd=0.05",gp=gpar(fontsize=15,font=1)))
+```
+\normalsize
+
+\noindent  Is this clear difference mirrored in the calculations?
+
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+factorD2 <- sd(c(s(t1d2),s(t2d2),s(t3d2),s(t4d2)))
+numeratorD2 <-  mean(s(t1d2),s(t2d2)) - mean(s(t3d2),s(t4d2))
+biasD2 <- numeratorD2 / factorD2
+biasD2
+```
+\normalsize 
+
+\noindent The absolute value of the effect size is smaller than in the null case with the same standard deviation.  Let's simulate 10000 drawings:
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+biasesD2 <- numeric(10000)
+for(i in 1:10000){
+t1d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
+t2d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
+t3d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
+t4d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
+
+factorD2 <- sd(c(s(t1d2),s(t2d2),s(t3d2),s(t4d2)))
+numeratorD2 <-  mean(s(t1d2),s(t2d2)) - mean(s(t3d2),s(t4d2))
+biasesD2[i] <- numeratorD2/factorD2
+}
+
+ggplot()+geom_histogram(aes(x=biasesD2, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for different means and sd =.05")+ xlab("bias")
+```
+\normalsize
+
+
+
+
+
+
+
+
+
+
+
+
+\noindent Now suppose we keep the means the same but increase the standard deviation to .1.
+
+
+
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+set.seed(766)
+t1d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
+t2d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
+t3d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
+t4d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
 ```
 \normalsize
 
 \vspace{1mm}
 \footnotesize
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-t1Plot2 <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t1 in X")
+t1d1Plot <- ggplot(t1d1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
-t2Plot2 <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t2 in X")
+t2d1Plot <- ggplot(t2d1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
 
-t3Plot2 <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t3 in Y")
+t3d1Plot <- ggplot(t3d1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
 
-t4Plot2 <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 2, alpha = 0.7)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 2, alpha = 0.7)+theme_tufte()+xlab("distance")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Distances for term t4 in Y")
+t4d1Plot <- ggplot(t4d1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
-grid.arrange(t1Plot2,t2Plot2, t3Plot2, t4Plot2, ncol=2)
+grid.arrange(t1d1Plot,t2d1Plot, t3d1Plot, t4d1Plot, ncol=2)
 ```
 \normalsize
 
-
-Is this clear difference mirrored in the calculations?
+\noindent  Is this clear difference mirrored in the calculations?
 
 \footnotesize
-```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
-numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
-bias <- numerator / factor
-bias
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+factorD1 <- sd(c(s(t1d1),s(t2d1),s(t3d1),s(t4d1)))
+numeratorD1 <-  mean(s(t1d1),s(t2d1)) - mean(s(t3d1),s(t4d1))
+biasD1 <- numeratorD1 / factorD1
+biasD1
 ```
 \normalsize 
 
-The absolute value of the effect size is smaller than in the previous case!  
+\noindent The absolute value of the effect size is smaller than in the previous case! 
 
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+biasesD1 <- numeric(10000)
+
+for(i in 1:10000){
+t1d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
+t2d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
+t3d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
+t4d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
+
+factorD1 <- sd(c(s(t1d1),s(t2d1),s(t3d1),s(t4d1)))
+numeratorD1 <-  mean(s(t1d1),s(t2d1)) - mean(s(t3d1),s(t4d1))
+biasesD1[i] <- numeratorD1/factorD1
+}
+
+ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for different means and sd =.001")+ xlab("bias")
+```
+\normalsize
+
+This is is a bit better, but still quite some uncertainty is involved, far from what systematically low mean-based p-values reported in the papers might suggest.  Of course, this is a bit of a caricature, as our word lists were short (four protected words and 10 attributes). But the word lists used in the actually papers are not much longer.  In such a set-up the key observations are as follows:
+
+- Seemingly high bias measures might arise even if the underlying processes actually have the same mean.
+
+- Even if the mean remains the same, non-negligible changes can result from a shift in the standard deviation of the original process, and the change might go in the opposite direction than a visualisation of datapoints might suggest, because with the decrease of standard deviation, the factor decreases and the bias increases. 
+
+
+
+- Even if there is a difference in means, the bias metric can be lower, and the uncertainty about it needs to be gauged.
+
+- Even if the difference in means is the same, but the variation is different, the bias metric in the long run could tend toward a different value:
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+mean(biasesD1); mean(biasesD2)
+median(biasesD1); median(biasesD2)
+```
+
+\normalsize
+and so the point estimations of bias are sensitive to factors other than the underlying process means.
 
 
 
