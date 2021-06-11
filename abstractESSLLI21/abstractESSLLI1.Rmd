@@ -32,8 +32,8 @@ library(kableExtra)
 
 \vspace{1mm}
 
-\todo{czy konieczne jest pisanie "number vectors"? jeżeli tak, to w licencjacie musze pozmieniac, bo tam czasami jest samo vectors, a czasami "they are assigned numerical values"}
-A considerable amount of literature exists on  bias detection and mitigation in NLP models, especially word2vec embeddings, which represent words as number vectors (see e.g. @bolukbasi2016man and @Gonen2019lipstick and references therein). The most common method used compares  cosine similarity between words from protected groups and attributes that are considered to be stereotypical or harmful in some way, and this method will be in our focus.
+
+A considerable amount of literature exists on  bias detection and mitigation in NLP models, especially word2vec embeddings, which represent words as  vectors of real numbers (see e.g. @bolukbasi2016man and @Gonen2019lipstick and references therein). The most common method used compares  cosine similarity between words from protected groups and attributes that are considered to be stereotypical or harmful in some way, and this method will be in our focus.
 
 In one well-known approach, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.  The association difference for a term $t$ is $s(t,A,B)$, and the effect size is computed by normalizing the difference in means as follows ($f$ is a similarity measure, such as cosine similarity): 
 
@@ -61,12 +61,12 @@ In one well-known approach, @Caliskan2017semanticsBiases proposed the Word Embed
 \normalsize 
 \noindent That is, for each protected word  and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. 
 
-Such methods are statistically problematic. One issue, specific to @Manzini2019blackToCriminal, is that no distinction is made based on whether given a protected word and a  class of attributes is stereotypically associated with this  protected word or a different protected word. A related, general problem, is that all the authors ignore the step of comparing their results with control groups, especially control groups of stereotype-neutral human attributes. \todo{nie wiem, czy nie przeredagowałabym tego zdania, chodzi mi o końcówkę, "closer than 1", moze zamiast than 1 powiedziec, "than neutral non-human words"? albo jakoś podobnie} That such a move is important is suggested for instance by Figure 1 prepared using the original word list for religion-related protected words extended with control attributes, where such human attributes are also closer to protected classes than 1.
+Such methods are statistically problematic. Two issues, specific to @Manzini2019blackToCriminal, are that (i) no distinction is made based on whether given a protected word and a  class of attributes is stereotypically associated with this  protected word or a different protected word, and (ii) no re-scaling by standard deviation (typical in effect size measures such as  Cohen's $d$) is used, so MAC is not a good measure of effect size. A more general problem, is that all the authors ignore the step of comparing their results with control groups, especially control groups of stereotype-neutral human attributes.  That such a move is important is suggested for instance by Figure 1 prepared using the original word list for religion-related protected words extended with control attributes, where such human attributes are also closer to protected classes than neutral non-human words.
 
-Another, also serious problem, is that  all the authors calculate means of means and their authors \todo{jak rozumiec drugi raz powtorzone their authors?} run statistical tests on sets of means. Unfortunately, by pre-averaging the data they throw away information about sample sizes, and  they remove variation, and so pre-averaging  tends to manufacture false confidence.
+Another, also serious problem, is that  all the authors calculate means of means and  run statistical tests on sets of means. Unfortunately, by pre-averaging the data they throw away information about sample sizes, and  they remove variation, and so pre-averaging  tends to manufacture false confidence.
 
 All such approaches come up with rather short lists of protected words and rather short lists of stereotypical attributes. Clearly, these are not complete list. So let's treat them as  samples from richer pools of stereotypical predicates and let's take the uncertainty and variation involved seriously. To illustrate, let's employ the formulas used by @Caliskan2017semanticsBiases in a simple simulation. 
-\todo{początek zdania "two protected classes" bez wstepu typu "We created..", nie wiem czy tak miało być?}
+
 
 \noindent
 \begin{tabular}{ll}
@@ -84,7 +84,7 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 }
 \end{minipage}& \begin{minipage}[c]{0.6\linewidth}
 
-Randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simple simulation draws normally distributed values for such combinations for two cases in which the underlying mean similarities are in fact equal to zero, two cases in which they are different, with a range of choices of standard deviation  (code available upon request).
+We have randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simulation draws normally distributed values  for two situations in which the underlying mean similarities are in fact equal to zero, in two other cases  the means are different, with a range of choices of common standard deviation  accross the cases (code available upon request).
 
 \end{minipage}
 \end{tabular}
