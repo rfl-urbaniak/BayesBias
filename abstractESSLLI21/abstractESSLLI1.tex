@@ -306,17 +306,19 @@ size is computed by normalizing the difference in means as follows
 }{
 \sigma(\{s(w,A,B)\}_{w\in X\cup Y})
 } \tag{WEAT}
-\end{align} \normalsize \noindent {[}2{]} show that significant
-biases---thus measured--- similar to the ones discovered by IAT can be
-discovered in word embeddings. {[}5{]} extends the methodology to a
-multilingual and cross-lingual setting; a similar methodology is
-employed by {[}3{]}, who use word embeddings trained on corpora from
-different decades. {[}6{]} modify WEAT to a multi-class setting,
-introducing Mean Average Cosine (MAC) similarity as a measure of bias
-(in fact, in the paper they report distances rather than similarities).
-Let \(T = \{t_1, \dots, t_k\}\) be a class of protected word embeddings,
-and let each \(A_j\in A\) be a set of attributes stereotypically
-associated with a protected word). Then:
+\end{align}
+
+\normalsize
+\noindent {[}2{]} show that significant biases---thus measured---
+similar to the ones discovered by IAT can be discovered in word
+embeddings. {[}5{]} extend the methodology to a multilingual and
+cross-lingual setting; a similar methodology is employed by {[}3{]}, who
+use word embeddings trained on corpora from different decades. {[}6{]}
+modify WEAT to a multi-class setting, introducing Mean Average Cosine
+(MAC) similarity as a measure of bias (in fact, in the paper they report
+distances rather than similarities). Let \(T = \{t_1, \dots, t_k\}\) be
+a class of protected word embeddings, and let each \(A_j\in A\) be a set
+of attributes stereotypically associated with a protected word). Then:
 
 \vspace{-2mm}
 
@@ -446,10 +448,10 @@ case. Moreover, sometimes the differences between associated, different
 and human, are not very impressive. The cost of debiasing turns out
 sometimes to be that neutral human predicates get closer to protected
 classes (in religion), change in gender after debiasing is really minor
-with zero still out out of HPDI range, and debiasing improvement for
-race is a small improvement achieved at the price of moving neutral
-terms closer to protected words (there is no space to include these
-results in this abstract).
+with zero still out of HPDI range, and debiasing improvement for race is
+a small improvement achieved at the price of moving neutral terms closer
+to protected words (there is no space to include these results in this
+abstract).
 
 The bottom line is that if we want to take bias seriously, so should we
 approach the uncertainty involved in our estimations. There is no
