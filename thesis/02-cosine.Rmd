@@ -99,7 +99,7 @@ The points in the plot above result from the calculation of the inner product of
 ## Cosine distance in a multi-class bias detection
 <!-- [article https://arxiv.org/pdf/1904.04047.pdf] -->
 
-@manzini2019black present a different approach towards finding similarities between classes of words. The authors claim that texts available online are full of direct or indirect human stereotypes. As a result, word embeddings are prone to learn and maybe amplify those biases and propagate them further into AI models that are used for various applications. Cosine distance is used in the article as a measure to first argue for the existence of multi-class bias and then to show how through bias mitigation techniques the bias may be decreased. 
+@Manzini2019blackToCriminal present a different approach towards finding similarities between classes of words. The authors claim that texts available online are full of direct or indirect human stereotypes. As a result, word embeddings are prone to learn and maybe amplify those biases and propagate them further into AI models that are used for various applications. Cosine distance is used in the article as a measure to first argue for the existence of multi-class bias and then to show how through bias mitigation techniques the bias may be decreased. 
 
 <!-- The methodology used in the paper  -->
 
@@ -207,7 +207,7 @@ In the original paper words from all three religions were checked with all of th
 
 \textbf{5. Interpreting the results}
 
-Assuming for a moment that the value of multi-class cosine distance is correct, one may question the results' interpretation. In @manzini2019black Table 2, there are summarized the averages of cosine distance per group (gender, race, religion). I would like to focus  now on analyzing the values relating to religious biases. Here is the fragment of table that refers to that:
+Assuming for a moment that the value of multi-class cosine distance is correct, one may question the results' interpretation. In @Manzini2019blackToCriminal Table 2, there are summarized the averages of cosine distance per group (gender, race, religion). I would like to focus  now on analyzing the values relating to religious biases. Here is the fragment of table that refers to that:
 
 
 Religion Debiasing  | MAC

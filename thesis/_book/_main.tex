@@ -728,7 +728,7 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 \includegraphics[width=14cm]{../images/visRaceReddit.png}
 
-We first encountered the GoogleNews word embedding model in \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for their calculations as mentioned in \href{https://github.com/tolga-b/debiaswe}{Tolga Code}. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here \href{https://code.google.com/archive/p/word2vec/}{Google News model}. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
+We first encountered the GoogleNews word embedding model in \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for their calculations as written in \href{https://github.com/tolga-b/debiaswe}{Tolga Code}. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here \href{https://code.google.com/archive/p/word2vec/}{Google News model}. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
 
@@ -739,7 +739,8 @@ We first encountered the GoogleNews word embedding model in \protect\hyperlink{r
 \hypertarget{the-role-of-debiasing}{%
 \chapter{The role of debiasing}\label{the-role-of-debiasing}}
 
-We also applied to the word embeddings hard debiasing method found in (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}). After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes.
+We also applied to the word embeddings hard debiasing method found in \protect\hyperlink{ref-Manzini2019blackToCriminal}{Manzini, Lim, Tsvetkov, \& Black} (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}). As it was mentioned before, debiasing consists of two components: identifying the bias subspace and then removing this vector subspace from the chosen embeddings. The aim is to increase the cosine distance between protected words and the set of attributes.
+After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes.
 
 \hypertarget{dataset-level-coefficients-after-debiasing}{%
 \section{Dataset-level coefficients after debiasing}\label{dataset-level-coefficients-after-debiasing}}
@@ -789,18 +790,13 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
-One may notice
+One may notice that in a religion data set most of the distances for \texttt{associated} words slightly increased. Some of the distances from \texttt{different} class are still smaller than for the \texttt{associated} class. The distances for all classes seem in most cases to cluster together even after debiasing. The reason may be that uncertainty is quite high in \texttt{associated} and \texttt{different} class because the number of samples is so small. Additionally in some cases distances from \texttt{human} class are smaller than for the \texttt{assosiated} class which also makes it less clear how to interpret the results, if the distances are really able to catch the bias presence.
 
-\begin{itemize}
-\item
-  humans in religion got closer (should they?)
-\item
-  change in Gender is really minor, still zero out of HPDI range, note how different is very similar
-\item
-  small improvement in race, at the price of moving neutral terms closer
-\end{itemize}
+It is worth paying attention to the gender debiased dataset. The change is really minor, still zero out of HPDI range. The \texttt{different} attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is not able to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias.
 
-In (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}) it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
+At the same time, there is a small improvement in race dataset. In some cases the distances just cluster together. In general distances for \texttt{assosiated} class are still higher than those for the rest of classes. One may assume that there reason for so small change is that either the metric does not indicate properly biases or that the issue is more complex and subtracting subspaces is not enough.
+
+In \protect\hyperlink{ref-Manzini2019blackToCriminal}{Manzini, Lim, Tsvetkov, \& Black} (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
 
 \hypertarget{discussion}{%
 \chapter{Discussion}\label{discussion}}
@@ -815,7 +811,17 @@ It is worth diving deeper into some observations that arise while analyzing the 
   including uncertainty shows how in some cases it is not clear why a word is according to this method
   classified as anomalous
 \item
-  debiasing with the method provided by (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}) does not solve the bias issues
+  debiasing with the method provided by \protect\hyperlink{ref-Manzini2019blackToCriminal}{Manzini, Lim, Tsvetkov, \& Black} (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) does not solve the bias issues
+\end{itemize}
+
+One should remember that there is no baseline for the interpretation of the averaged cosine distances in (\protect\hyperlink{ref-Manzini2019blackToCriminalToCriminal}{\textbf{Manzini2019blackToCriminalToCriminal?}}). One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine similarity assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine similarity is equal to 80, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.
+
+\hypertarget{what-we-propose-and-how-it-can-help}{%
+\section{What we propose and how it can help:}\label{what-we-propose-and-how-it-can-help}}
+
+\begin{itemize}
+\tightlist
+\item
 \end{itemize}
 
 \hypertarget{summary}{%
@@ -828,6 +834,9 @@ It is worth diving deeper into some observations that arise while analyzing the 
 \begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-Bolukbasi2016Man}{}%
 Bolukbasi, T., Chang, K.-W., Zou, J. Y., Saligrama, V., \& Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. \emph{CoRR}, \emph{abs/1607.06520}. Retrieved from \url{http://arxiv.org/abs/1607.06520}
+
+\leavevmode\hypertarget{ref-Manzini2019blackToCriminal}{}%
+Manzini, T., Lim, Y. C., Tsvetkov, Y., \& Black, A. W. (2019). Black is to criminal as caucasian is to police: Detecting and removing multiclass bias in word embeddings. Retrieved from \url{http://arxiv.org/abs/1904.04047}
 
 \end{CSLReferences}
 

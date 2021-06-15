@@ -510,7 +510,8 @@ We first encountered the GoogleNews word embedding model in @Bolukbasi2016Man. T
 # The role of debiasing
 
 
-We also applied to the word embeddings hard debiasing method found in @manzini2019black. After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes. 
+We also applied to the word embeddings hard debiasing method found in @Manzini2019blackToCriminal. As it was mentioned before, debiasing consists of two components: identifying the bias subspace and then removing this vector subspace from the chosen embeddings. The aim is to increase the cosine distance between protected words and the set of attributes.
+After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes. 
 
 
 ## Dataset-level coefficients after debiasing
@@ -565,15 +566,13 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
 
-One may notice that in religion data set 
+One may notice that in a religion data set most of the distances for `associated` words slightly increased. Some of the distances from `different` class are still smaller than for the `associated` class. The distances for all classes seem in most cases to cluster together even after debiasing. The reason may be that uncertainty is quite high in `associated` and `different` class because the number of samples is so small. Additionally in some cases distances from `human` class are smaller than for the `assosiated` class which also makes it less clear how to interpret the results, if the distances are really able to catch the bias presence. 
 
+It is worth paying attention to the gender debiased dataset. The change is really minor, still zero out of HPDI range. The `different` attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is not able to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias. 
 
-It is worth paying attention to gender debiased dataset. The change is really minor, still zero out of HPDI range. Note how `different` attributes have high similarity value. 
+At the same time, there is a small improvement in race dataset. In some cases the distances just cluster together. In general distances for `assosiated` class are still higher than those for the rest of classes. One may assume that there reason for so small change is that either the metric does not indicate properly biases or that the issue is more complex and subtracting subspaces is not enough. 
 
-At the same time, there is a small improvement in race, at the price of moving neutral terms closer
-
-
-In @manzini2019black it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
+In @Manzini2019blackToCriminal it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
 
 
 

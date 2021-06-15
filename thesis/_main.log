@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  15 JUN 2021 12:44
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  15 JUN 2021 22:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1307,18 +1307,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [33] [34]
 Chapter 5.
-
-Underfull \hbox (badness 3019) in paragraph at lines 742--743
-\TU/lmr/m/n/12 We also applied to the word embeddings hard debiasing method fou
-nd in
- []
-
 File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 <../images/religionCoeffs.jpeg>
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedReligionRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 755--756
+Overfull \hbox (8.433pt too wide) in paragraph at lines 756--757
 [][] 
  []
 
@@ -1327,7 +1321,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedGenderRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 763--764
+Overfull \hbox (8.433pt too wide) in paragraph at lines 764--765
 [][] 
  []
 
@@ -1336,12 +1330,9 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedRaceRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 773--774
+Overfull \hbox (8.433pt too wide) in paragraph at lines 774--775
 [][] 
  []
-
-
-Underfull \vbox (badness 5607) has occurred while \output is active []
 
 [35
 
@@ -1366,20 +1357,23 @@ File: ../images/visDebRaceReddit.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[38] [39] [40]
+[38]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[39] [40]
 Chapter 6.
 [41
 
-] [42
-
-]
+] [42]
 Chapter 7.
-[43] (./_main.aux) ) 
+[43
+
+] (./_main.aux) ) 
 Here is how much of TeX's memory you used:
- 29675 strings out of 479212
- 568378 string characters out of 5875087
- 1030422 words of memory out of 5000000
- 48690 multiletter control sequences out of 15000+600000
+ 29677 strings out of 479212
+ 568421 string characters out of 5875087
+ 1029486 words of memory out of 5000000
+ 48692 multiletter control sequences out of 15000+600000
  410858 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,9n,122p,1508b,405s stack positions out of 5000i,500n,10000p,200000b,80000s

@@ -5,17 +5,17 @@ It is worth diving deeper into some observations that arise while analyzing the 
 - the distributions of cosine distances of whole population and individual words can vary enormously
 - including uncertainty shows how in some cases it is not clear why a word is according to this method
 classified as anomalous
-- debiasing with the method provided by @manzini2019black does not solve the bias issues
+- debiasing with the method provided by @Manzini2019blackToCriminal does not solve the bias issues
 
 
-What we propose and how it can help:
--
--
+One should remember that there is no baseline for the interpretation of the averaged cosine distances in @Manzini2019blackToCriminalToCriminal. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine similarity assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine similarity is equal to 80, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.
+
+We propose the use of Bayesian method to introduce the uncertainty measure in bias detection. 
 
 # Summary 
 
-Future work:
-- 
+The aim of this paper was to show the analysis of bias detection methods used in modern natural language processing projects. 
+In the further research it is worth to dive deeper into some issues or to examine new ideas that occurred during our work. 
 
 <!-- 
 remarks:
