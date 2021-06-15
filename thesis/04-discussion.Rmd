@@ -2,7 +2,24 @@
 
 It is worth diving deeper into some observations that arise while analyzing the results. 
 
+- the distributions of cosine distances of whole population and individual words can vary enormously
+- including uncertainty shows how in some cases it is not clear why a word is according to this method
+classified as anomalous
+- debiasing with the method provided by @manzini2019black does not solve the bias issues
 
 
-- 89% highest posterior density intervals
+What we propose and how it can help:
+-
+-
 
+# Summary 
+
+Future work:
+- 
+
+<!-- 
+remarks:
+- delete papers from github/hide them
+- 
+
+-->

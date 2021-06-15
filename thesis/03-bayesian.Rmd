@@ -495,7 +495,8 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 
 
-We first encountered the GoogleNews-vectors-negative300 word embedding model in @Bolukbasi2016Man. They use it for their calculations as mentioned in "https://github.com/tolga-b/debiaswe". We decided to compare the results obtained with the use of Reddit model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here "https://code.google.com/archive/p/word2vec/". One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of hyperparameters to train them. 
+We first encountered the GoogleNews word embedding model in @Bolukbasi2016Man. They use it for their calculations as written in [Tolga Code](https://github.com/tolga-b/debiaswe). We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here [Google News model](https://code.google.com/archive/p/word2vec/). One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
+
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
 
@@ -508,15 +509,13 @@ We first encountered the GoogleNews-vectors-negative300 word embedding model in 
 
 # The role of debiasing
 
-\todo{describe which debiasing you used and how it was advertised in the paper}
+
+We also applied to the word embeddings hard debiasing method found in @manzini2019black. After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes. 
+
 
 ## Dataset-level coefficients after debiasing
 
 First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:
-
-
-
-
  
 \begin{center}
 \begin{figure}[!htb]\centering
@@ -548,6 +547,7 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 
 \end{center}
 
+One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words. 
 
 ## Protected classes  after debiasing
 
@@ -565,14 +565,15 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
 
-
-- humans in religion got closer (should they?)
-
-- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
-
-- small improvement in race, at the price of moving neutral terms closer
+One may notice that in religion data set 
 
 
+It is worth paying attention to gender debiased dataset. The change is really minor, still zero out of HPDI range. Note how `different` attributes have high similarity value. 
+
+At the same time, there is a small improvement in race, at the price of moving neutral terms closer
+
+
+In @manzini2019black it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
 
 
 

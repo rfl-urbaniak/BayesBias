@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  15 JUN 2021 11:16
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  15 JUN 2021 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1307,8 +1307,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [33] [34]
 Chapter 5.
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 742.
+
+Underfull \hbox (badness 3019) in paragraph at lines 742--743
+\TU/lmr/m/n/12 We also applied to the word embeddings hard debiasing method fou
+nd in
+ []
+
 File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 <../images/religionCoeffs.jpeg>
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type bmp)
@@ -1336,10 +1340,8 @@ Overfull \hbox (8.433pt too wide) in paragraph at lines 773--774
 [][] 
  []
 
-File: ../images/visDebReligionReddit.png Graphic file (type bmp)
-<../images/visDebReligionReddit.png>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5607) has occurred while \output is active []
 
 [35
 
@@ -1351,6 +1353,8 @@ LaTeX Warning: Text page 36 contains only floats.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [36]
+File: ../images/visDebReligionReddit.png Graphic file (type bmp)
+<../images/visDebReligionReddit.png>
 File: ../images/visDebGenderReddit.png Graphic file (type bmp)
 <../images/visDebGenderReddit.png>
 
@@ -1362,18 +1366,22 @@ File: ../images/visDebRaceReddit.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[38] [39] [40
+[38] [39] [40]
+Chapter 6.
+[41
+
+] [42
 
 ]
-Chapter 6.
-[41] (./_main.aux) ) 
+Chapter 7.
+[43] (./_main.aux) ) 
 Here is how much of TeX's memory you used:
- 29776 strings out of 479212
- 570781 string characters out of 5875087
- 1030496 words of memory out of 5000000
- 48791 multiletter control sequences out of 15000+600000
+ 29675 strings out of 479212
+ 568378 string characters out of 5875087
+ 1030422 words of memory out of 5000000
+ 48690 multiletter control sequences out of 15000+600000
  410858 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,9n,122p,1508b,935s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,9n,122p,1508b,405s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on _main.pdf (41 pages).
+Output written on _main.pdf (43 pages).

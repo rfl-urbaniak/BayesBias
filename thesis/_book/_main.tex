@@ -728,7 +728,7 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 \includegraphics[width=14cm]{../images/visRaceReddit.png}
 
-We first encountered the GoogleNews-vectors-negative300 word embedding model in \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for their calculations as mentioned in \url{https://github.com/tolga-b/debiaswe}. We decided to compare the results obtained with the use of Reddit model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here \url{https://code.google.com/archive/p/word2vec/}. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of hyperparameters to train them.
+We first encountered the GoogleNews word embedding model in \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for their calculations as mentioned in \href{https://github.com/tolga-b/debiaswe}{Tolga Code}. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here \href{https://code.google.com/archive/p/word2vec/}{Google News model}. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
 
@@ -739,7 +739,7 @@ We first encountered the GoogleNews-vectors-negative300 word embedding model in 
 \hypertarget{the-role-of-debiasing}{%
 \chapter{The role of debiasing}\label{the-role-of-debiasing}}
 
-\todo{describe which debiasing you used and how it was advertised in the paper}
+We also applied to the word embeddings hard debiasing method found in (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}). After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes.
 
 \hypertarget{dataset-level-coefficients-after-debiasing}{%
 \section{Dataset-level coefficients after debiasing}\label{dataset-level-coefficients-after-debiasing}}
@@ -776,6 +776,8 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 
 \end{center}
 
+One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words.
+
 \hypertarget{protected-classes-after-debiasing}{%
 \section{Protected classes after debiasing}\label{protected-classes-after-debiasing}}
 
@@ -787,6 +789,8 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
+One may notice
+
 \begin{itemize}
 \item
   humans in religion got closer (should they?)
@@ -796,6 +800,8 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
   small improvement in race, at the price of moving neutral terms closer
 \end{itemize}
 
+In (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}) it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
+
 \hypertarget{discussion}{%
 \chapter{Discussion}\label{discussion}}
 
@@ -804,8 +810,19 @@ It is worth diving deeper into some observations that arise while analyzing the 
 \begin{itemize}
 \tightlist
 \item
-  89\% highest posterior density intervals
+  the distributions of cosine distances of whole population and individual words can vary enormously
+\item
+  including uncertainty shows how in some cases it is not clear why a word is according to this method
+  classified as anomalous
+\item
+  debiasing with the method provided by (\protect\hyperlink{ref-manzini2019black}{\textbf{manzini2019black?}}) does not solve the bias issues
 \end{itemize}
+
+\hypertarget{summary}{%
+\chapter{Summary}\label{summary}}
+
+\hypertarget{future-work}{%
+\section{Future work:}\label{future-work}}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
