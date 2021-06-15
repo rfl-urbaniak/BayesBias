@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 
 
@@ -32,7 +37,7 @@ We will use the choice of protected words and stereotypical predicates used in R
 
 Let's load, clean a bit and inspect the head of the religion dataset we prepared.  In order to obtain this  dataset, we  calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added  as control groups.  For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).  
 
-We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300\todo{FIX later} more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a  more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate  whether the smaller cosine distance between protected words and stereotypes can result  simply from the fact that the stereotype predicates  are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. \todo{describe once the words are selected}
+We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 230 neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a  more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate  whether the smaller cosine distance between protected words and stereotypes can result  simply from the fact that the stereotype predicates  are associated with humans. For two control groups, we have randomly drawn 230 words that do not express any property usually attributed to humans, and human related attributes.
 
 <!-- In other words, we took each protected word and in nested iteration calculated all of the cosine distances between the word and all available harmful stereotypes, neutral words, and human ones, which resulted with approximately 333 cosine distances per each protected word. -->
 
@@ -77,7 +82,7 @@ ggplot(religionNoHumans, aes(x =  cosineDistance, fill = connection, color = con
 ```
 \normalsize
 
-The first impression is that while  there is a  shift for  associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover,  the empirical distributions overlap to alarge extent and the  means grouped by connection type do not seem too far from each other. In fact, as there is a lot of  variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and  to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes.   Now, let's add the human attributes to the picture:
+The first impression is that while  there is a  shift for  associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover,  the empirical distributions overlap to alarge extent and the  means grouped by connection type do not seem too far from each other. In fact, as there is a lot of  variety in the cosine distances (as we will soon see), we need to gauge the uncertainty involved, and  to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes.   Now, let's add the human attributes to the picture:
 
 
 \vspace{1mm}
@@ -187,15 +192,15 @@ visualiseProtected(priestVis,"priest")
 
 \noindent Here you can see that some human attributes are closer than stereotype attributes, and that there is no clear reason to claim that `associated` attributes are closer than `different`  or `human` attributes. This, again, illustrates the need of case-by-case analysis with  control groups. 
 
-The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates. 
+The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertainty involved and the sample sizes should have clear impact on our estimates. 
 
 ## Bayesian model structure and assumptions
 
 
 We will now think of cosine distance as the output variable, and 
-will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.
+will build a few Bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words might in general have different relations to all the attributes and these relations should be our point of departure.
 
-Here is the intution behind the mathematical Bayesian model involved. Our outcome variable is `cosine difference`, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest  model specification is:
+Here is the intuition behind the mathematical Bayesian model involved. Our outcome variable is `cosine difference`, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest  model specification is:
 
 \begin{align}
 cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
@@ -543,19 +548,6 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 \end{figure}
 
 \end{center}
-
-
-
-
-\todo{comment on this}
-
-Some points to discuss: 
-
-- humans in religion got closer (should they?)
-
-- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
-
-- small improvement in race, at the price of moving neutral terms closer
 
 
 ## Protected classes  after debiasing
