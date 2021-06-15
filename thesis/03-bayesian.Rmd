@@ -556,7 +556,6 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 
 
-
 \includegraphics[width=14cm]{../images/visDebReligionReddit.png}
 
 
