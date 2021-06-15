@@ -495,8 +495,7 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 
 
-\todo{Explain where you took the embedding from, cite publications first announcing it.}
-
+We first encountered the GoogleNews-vectors-negative300 word embedding model in @Bolukbasi2016Man. They use it for their calculations as mentioned in "https://github.com/tolga-b/debiaswe". We decided to compare the results obtained with the use of Reddit model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here "https://code.google.com/archive/p/word2vec/". One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of hyperparameters to train them. 
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
 
@@ -555,7 +554,6 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 Now, perhaps, the effects of debiasing will be better appreciated if we look at the level of protected words. After all, the hope is, the situation of extremely ill-positioned protected words have improved?
 
 
-
 \includegraphics[width=14cm]{../images/visDebReligionReddit.png}
 
 
@@ -566,6 +564,13 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
+
+
+- humans in religion got closer (should they?)
+
+- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
+
+- small improvement in race, at the price of moving neutral terms closer
 
 
 

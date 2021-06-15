@@ -115,6 +115,26 @@
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Conceptual and methodological problems with bias detection and avoidance in natural language processing}
 \author{Alicja Dobrzeniecka}
@@ -240,7 +260,7 @@ First let's take a look at the empirical distribution of distances by the connec
 \begin{center}\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-2-1} \end{center}
 \normalsize
 
-The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let's add the human attributes to the picture:
+The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the cosine distances (as we will soon see), we need to gauge the uncertainty involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let's add the human attributes to the picture:
 
 \vspace{1mm}
 \footnotesize
@@ -424,15 +444,15 @@ Note that the distance between the grey point and the other points is proportion
 
 \noindent Here you can see that some human attributes are closer than stereotype attributes, and that there is no clear reason to claim that \texttt{associated} attributes are closer than \texttt{different} or \texttt{human} attributes. This, again, illustrates the need of case-by-case analysis with control groups.
 
-The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates.
+The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertainty involved and the sample sizes should have clear impact on our estimates.
 
 \hypertarget{bayesian-model-structure-and-assumptions}{%
 \section{Bayesian model structure and assumptions}\label{bayesian-model-structure-and-assumptions}}
 
 We will now think of cosine distance as the output variable, and
-will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.
+will build a few Bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words might in general have different relations to all the attributes and these relations should be our point of departure.
 
-Here is the intution behind the mathematical Bayesian model involved. Our outcome variable is \texttt{cosine\ difference}, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest model specification is:
+Here is the intuition behind the mathematical Bayesian model involved. Our outcome variable is \texttt{cosine\ difference}, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest model specification is:
 
 \begin{align}
 cosineDistance_i  & \sim dnorm(\mu_i, \sigma) \\
@@ -708,7 +728,7 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 \includegraphics[width=14cm]{../images/visRaceReddit.png}
 
-\todo{Explain where you took the embedding from, cite publications first announcing it.}
+We first encountered the GoogleNews-vectors-negative300 word embedding model in \protect\hyperlink{ref-Bolukbasi2016Man}{Bolukbasi, Chang, Zou, Saligrama, \& Kalai} (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for their calculations as mentioned in \url{https://github.com/tolga-b/debiaswe}. We decided to compare the results obtained with the use of Reddit model and the ones that we got by GoogleNews model. The details of GoogleNews model can be found here \url{https://code.google.com/archive/p/word2vec/}. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of hyperparameters to train them.
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
 
@@ -756,19 +776,6 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 
 \end{center}
 
-\todo{comment on this}
-
-Some points to discuss:
-
-\begin{itemize}
-\item
-  humans in religion got closer (should they?)
-\item
-  change in Gender is really minor, still zero out of HPDI range, note how different is very similar
-\item
-  small improvement in race, at the price of moving neutral terms closer
-\end{itemize}
-
 \hypertarget{protected-classes-after-debiasing}{%
 \section{Protected classes after debiasing}\label{protected-classes-after-debiasing}}
 
@@ -780,7 +787,31 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 \includegraphics[width=14cm]{../images/visDebRaceReddit.png}
 
+\begin{itemize}
+\item
+  humans in religion got closer (should they?)
+\item
+  change in Gender is really minor, still zero out of HPDI range, note how different is very similar
+\item
+  small improvement in race, at the price of moving neutral terms closer
+\end{itemize}
+
 \hypertarget{discussion}{%
 \chapter{Discussion}\label{discussion}}
+
+It is worth diving deeper into some observations that arise while analyzing the results.
+
+\begin{itemize}
+\tightlist
+\item
+  89\% highest posterior density intervals
+\end{itemize}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-Bolukbasi2016Man}{}%
+Bolukbasi, T., Chang, K.-W., Zou, J. Y., Saligrama, V., \& Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. \emph{CoRR}, \emph{abs/1607.06520}. Retrieved from \url{http://arxiv.org/abs/1607.06520}
+
+\end{CSLReferences}
 
 \end{document}

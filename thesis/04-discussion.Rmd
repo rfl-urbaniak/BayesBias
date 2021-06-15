@@ -1,14 +1,8 @@
 # Discussion
 
+It is worth diving deeper into some observations that arise while analyzing the results. 
 
 
-Some points to discuss: 
-
-- humans in religion got closer (should they?)
-
-- change in Gender is really minor, still zero out of HPDI range, note how different is very similar
-
-- small improvement in race, at the price of moving neutral terms closer
 
 - 89% highest posterior density intervals
 
