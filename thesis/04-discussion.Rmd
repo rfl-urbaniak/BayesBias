@@ -1,25 +1,114 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Discussion
 
 It is worth diving deeper into some observations that arise while analyzing the results. 
 
-- the distributions of cosine distances of whole population and individual words can vary enormously
-- including uncertainty shows how in some cases it is not clear why a word is according to this method
-classified as anomalous
-- debiasing with the method provided by @Manzini2019blackToCriminal does not solve the bias issues
+<!-- Looking into specific values -->
+As we pointed out, if there is no control of what cosine distance values individual word pairs have, then there is less
+understanding of the exact relations between words. If the protected words that we chose do not have high similarity with harmful stereotypes, then one should consider at least two scenarios. The first one is that the choice of protected words and attributes may be corrupted. The second one is that the metric is not able to catch the hidden bias properly. In both cases it is essential to take a look at the individual values before averaging them or aggregating in other ways. 
 
 
+<!-- Problem with gender words --> 
+One has to remember also about the specific situation present in gender dataset. There surprisingly one could observe high cosine distances values between some female stereotypical professions and male protected words. This leads to new ideas of how to understand the bias origins and its detection. To start with, cosine distance seems to catch the information from the vectors of words co-occurrence and not the semantic similarity. If word stereotypically associated with females has high cosine distance value for male protected words, then the metric is not proper to establish the bias presence as it can be misleading. What we mean is that in same cases it can unnecessarily label words as biased while omitting other more harmful associations. What is more, this highlights again the need for control group. One could check each stereotypical attribute with each protected word but not in order to average the values. One should rather plot the distributions and investigate how the metric measures vectors geometry and hidden semantic information.
+
+
+<!-- debiasing and uncertainty -->
+Debiasing with the method provided by @Manzini2019blackToCriminal shows how it is unpredictable in terms of the results. 
+In some cases the final cosine distance is indeed close to neutral words, but in other cases the change is minor. What is more, including uncertainty shows how in some cases it is not clear why a word is according to this method
+classified as anomalous. The fact that uncertainty for `assosiated` and `different` class is so high leads to the situation where in the boundaries of an uncertainty of some attributes cosine distance, one can find the neutral words as well. It makes the usage and interpretation of this metric extremely complicated and unclear. 
+
+<!-- debiasing --> 
+Additionally, one cannot be sure if the bias is still preserved after the debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved to the right, does not mean that the bias is removed. One could argue that maybe it is not clear how to measure bias presence and removal but the method for debiasing works fine. Notwithstanding, it is showed in researches such as @Gonen2019Lipstick, that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods. Therefore it seems to not be justified to claim that the method works properly without precise methods to verify this. 
+
+<!-- no baseline for the interpretation of the results -->
 One should remember that there is no baseline for the interpretation of the averaged cosine distances in @Manzini2019blackToCriminalToCriminal. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine similarity assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine similarity is equal to 80, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.
 
+
+<!-- Baysian method --> 
 We propose the use of Bayesian method to introduce the uncertainty measure in bias detection. 
+
+// see the chapter 3 to write more 
+
+
 
 # Summary 
 
 The aim of this paper was to show the analysis of bias detection methods used in modern natural language processing projects. 
+
+
 In the further research it is worth to dive deeper into some issues or to examine new ideas that occurred during our work. 
 
 <!-- 
 remarks:
 - delete papers from github/hide them
-- 
+- should we quote "debiasing" or without quoting
 
+-->
+
+<!-- textbf{Control group} 
+
+How to properly prepare control group in terms of quality and quantity?
+<!-- + check if it may be proved in the code --> 
+
+<!--  \textbf{Verifying other similarity meaures} 
+
+Besides cosine similarity, there are other methods used to find the similarity between vectors.  
+
+a) TS-SS 
+todo: check if it makes sense to calculate for all of the datasets; interpretations etc.
+https://www.researchgate.net/publication/303513110_A_Hybrid_Geometric_Approach_for_Measuring_Similarity_Level_Among_Documents_and_Document_Clustering
+
+b) WEAT test 
+<!-- https://docs.responsibly.ai/word-embedding-bias.html#module-responsibly.we.weat -->
+
+<!-- [to check https://github.com/taki0112/Vector_Similarity] -->
+
+<!-- TODO: check in code if they make more sense -->
+
+
+
+<!-- ## Bibliography
+- https://www.amazon.com/Language-Processing-Synthesis-Lectures-Technologies/dp/1627052984/ref=as_li_ss_tl?ie=UTF8&qid=1502062931&sr=8-1&keywords=Neural+Network+Methods+in+Natural+Language+Processing&linkCode=sl1&tag=inspiredalgor-20&linkId=d63df073fea3ebe2d405820570b3ff03 ->
+
+
+<!-- ## *** Additional -->
+
+<!-- ### Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings" -->
+<!-- [article https://arxiv.org/pdf/1607.06520.pdf] -->
+
+<!-- Assumptions: -->
+<!-- "We assume there is a set of gender neutral words $N\subseteq W$ such as flight attendant or shoes, which, by definition, are not specific to any gender." -->
+
+<!-- TODO: check if it is useful for the analysis of black is .. -->
+
+
+<!-- ### Identifying the bias subspace  -->
+
+<!-- Interesting analysis about limits o subspace and research [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html] -->
+
+<!-- Resources to analyze: -->
+<!-- 1. https://arxiv.org/pdf/2005.00965.pdf -->
+<!-- 2. https://arxiv.org/pdf/2009.09435.pdf -->
+<!-- 3. https://arxiv.org/pdf/1904.04047.pdf -->
+<!-- 4. https://www.aclweb.org/anthology/P19-1166.pdf -->
+
+
+<!-- ### How is cosine similarity entangled with analogy topic in NLP (is it??) -->
+
+<!-- article:  https://arxiv.org/pdf/1905.09866.pdf -->
+
+<!-- Critique of the usage of analogies as a proof for gender biases -->
+
+<!-- TODO: check if there is other argument than that algorithm does not allow it -->
+
+<!-- general thoughts 
+https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of_Gender_Bias_Assessment_in_Word_Embeddings_The_Role_of_Base_Pairs
+
+-
+-
+-
 -->

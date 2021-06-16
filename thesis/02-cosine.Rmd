@@ -63,6 +63,9 @@ In what follows, it is important to distinguish between cosine similarity and co
 
 The greater the similarity between two vectors, the smaller the distance between them. The cosine distance ranges between 0 and 2. If the vectors are in an opposite direction to each other, the cosine distance is 2. And if the vectors are extremely similar then the cosine distance is very close to 0. 
 
+One should note that cosine distance is not exactly a distance measure while it does not meet triangle inequality requirements. The triangle inequality formula says that for any triangle, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side. As shown in [Statexchange.com](https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u) in the case of cosine distance it would have to fulfill this equation 1+cos-sim(𝐴,𝐶) < cos-sim(𝐴,𝐵) + cos-sim(𝐵,𝐶). If one chooses specific unit vectors it is easy to demonstrate that the triangle inequality is not preserved. 
+
+
 ## Cosine distance in a one-class bias detection
 <!-- https://arxiv.org/pdf/1607.06520.pdf -->
 <!-- source of plot https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings -->
@@ -156,7 +159,7 @@ head(religion)  %>%  kable(format = "latex",booktabs=T,
 
 \pagebreak 
 
-In the article there was no analysis of individual distances but the general look at the data through the usage of mean. The authors introduced a metric that tries to generalize the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.
+In the article there was no analysis of individual distances but the general look at the data through the usage of mean. The authors introduced a metric that tries to generalize the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in the case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.
 
 
 In the article the authors also try to remove previously defined biases from word embedding. First they identify the bias subspace using Principal Component Analysis (PCA) which is a technique for dimensionality reduction. It is applied here to choose the subspace that contains the greatest amount of information. There can be many subspaces found in a given group, for example in terms of religion one can identify at least a few sets that are to grasp the concept of religion in general:
@@ -217,93 +220,15 @@ Hard Debiased | 0.934
 Soft Debiased ($\lambda$ = 0.2) | 0.894
 
 
-MAC stand for mean average cosine similarity, although in reality the values of cosine distance are given. What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before "debiasing". High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it somewhat larger. Methodologically there is a question on what basis this small similarity is still considered as a proof of bias presence.
-
-This is in general the problem of scale and the lack of universal intervals that could be applied to know whether the cosine similarity is high enough to considered given words more similar that if we chose them on random. It seems like similar practice could be beneficial for metrics aimed at measuring similarity between words. 
-
-<!-- TODO: numerical test if this distance is significant? check mean mean cosine distances of some random words? -->
+MAC stand for mean average cosine similarity, although in reality the values of cosine distance are given. What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it somewhat larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of a bias presence, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. Proper intervals could be used to decide whether given cosine similarity is high enough to consider the words to be more similar than if we choose them at random.
 
 \textbf{6. The curse of dimensionality}
 
-<!-- TODO: -->
-<!-- 1. https://www.cs.princeton.edu/courses/archive/fall13/cos521/lecnotes/lec11.pdf -->
-<!-- 2. https://stats.stackexchange.com/questions/341535/curse-of-dimensionality-does-cosine-similarity-work-better-and-if-so-why -->
-<!-- 3. https://stats.stackexchange.com/questions/21547/distance-metric-and-curse-of-dimensions -->
-<!-- + check if it may be proved in the code -->
+In our case, the curse of dimensionality may take place when there is an increase in volume of data that results in adding extra dimensions to the Euclidean space. According to the article 
+[Analyticsindiamag Curse of dimensionality](https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/) as the number of features increases, it may be harder and harder to obtain useful information from the data with the usage of available algorithms. One may notice that more data should contribute to greater amount of information but more information also means greater risk of noise and distractions in data. At the same time, many times modern solutions are adapted to smaller dimensions and their results in higher ones are not intuitive or may be prone to be mistaken. 
 
-Curse of dimensionality may take place when there is an increase in volume of data that results in adding extra dimensions to the Euclidean space. According to the article 
-"https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/"
-as the number of features increases, it may be harder and harder to obtain useful information from the data with the usage of available algorithms. One may notice that more data should contribute to greater amount of information but more information also means greater risk of noise and distractions in data. At the same time, many times modern solutions are adapted to smaller dimensions and their results in higher ones are not intuitive or may be prone to be mistaken. 
-
-Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to this article "https://www.researchgate.net/publication/327498046_The_Curse_of_Dimensionality_Inside_Out"
-there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. 
-
-<!-- Add more information on the experiment -->
-
-In the article an experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase, the first one is that effort required to measure cosine similarity will be greater and the second one is that the similarity between data will blur out and have less variation. In details, the authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. According to some researches the cosine similarity in high dimensions is not reliable enough to trust it as it may be the case that choosing words on random may result in getting similar values as when picking them consciously. 
+Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to @Venkat2018Curse there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. According to some researches the cosine similarity in high dimensions is not reliable enough to trust it as it may be the case that choosing words on random may result in getting similar values as when picking them consciously. 
 
 ![curse of dimensionality,  number of dimensions on the x axis,  standard deviation of similarity on the y axis](../images/curseOfDimensionality.png)
 
-<!-- textbf{Control group} 
 
-How to properly prepare control group in terms of quality and quantity?
-<!-- + check if it may be proved in the code --> 
-
-<!--  \textbf{Verifying other similarity meaures} 
-
-Besides cosine similarity, there are other methods used to find the similarity between vectors.  
-
-a) TS-SS 
-todo: check if it makes sense to calculate for all of the datasets; interpretations etc.
-https://www.researchgate.net/publication/303513110_A_Hybrid_Geometric_Approach_for_Measuring_Similarity_Level_Among_Documents_and_Document_Clustering
-
-b) WEAT test 
-<!-- https://docs.responsibly.ai/word-embedding-bias.html#module-responsibly.we.weat -->
-
-<!-- [to check https://github.com/taki0112/Vector_Similarity] -->
-
-<!-- TODO: check in code if they make more sense -->
-
-
-
-<!-- ## Bibliography
-- https://www.amazon.com/Language-Processing-Synthesis-Lectures-Technologies/dp/1627052984/ref=as_li_ss_tl?ie=UTF8&qid=1502062931&sr=8-1&keywords=Neural+Network+Methods+in+Natural+Language+Processing&linkCode=sl1&tag=inspiredalgor-20&linkId=d63df073fea3ebe2d405820570b3ff03 ->
-
-
-<!-- ## *** Additional -->
-
-<!-- ### Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings" -->
-<!-- [article https://arxiv.org/pdf/1607.06520.pdf] -->
-
-<!-- Assumptions: -->
-<!-- "We assume there is a set of gender neutral words $N\subseteq W$ such as flight attendant or shoes, which, by definition, are not specific to any gender." -->
-
-<!-- TODO: check if it is useful for the analysis of black is .. -->
-
-
-<!-- ### Identifying the bias subspace  -->
-
-<!-- Interesting analysis about limits o subspace and research [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html] -->
-
-<!-- Resources to analyze: -->
-<!-- 1. https://arxiv.org/pdf/2005.00965.pdf -->
-<!-- 2. https://arxiv.org/pdf/2009.09435.pdf -->
-<!-- 3. https://arxiv.org/pdf/1904.04047.pdf -->
-<!-- 4. https://www.aclweb.org/anthology/P19-1166.pdf -->
-
-
-<!-- ### How is cosine similarity entangled with analogy topic in NLP (is it??) -->
-
-<!-- article:  https://arxiv.org/pdf/1905.09866.pdf -->
-
-<!-- Critique of the usage of analogies as a proof for gender biases -->
-
-<!-- TODO: check if there is other argument than that algorithm does not allow it -->
-
-<!-- general thoughts 
-https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of_Gender_Bias_Assessment_in_Word_Embeddings_The_Role_of_Base_Pairs
-
--
--
--
--->
