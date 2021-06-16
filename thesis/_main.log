@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  15 JUN 2021 22:13
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  16 JUN 2021 12:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1163,71 +1163,117 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 
 ]
 Chapter 1.
-[5] [6
+[5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[6] [7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[8] [9] [10
 
 ]
 Chapter 2.
-[7] [8
+[11] [12]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[14] [15]
+Underfull \hbox (badness 1831) in paragraph at lines 276--277
+[]\TU/lmr/m/n/12 Occupations associated with masculine: \TU/lmr/bx/n/12 ”maestr
+o”, ”skipper”, ”protege”,
+ []
+
+
+Underfull \hbox (badness 1527) in paragraph at lines 276--277
+\TU/lmr/bx/n/12 ”philosopher”, ”captain”, ”architect”, ”financier”, ”warrior”, 
+”broad-
+ []
+
+File: _main_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
+<use _main_files/figure-latex/unnamed-chunk-1-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[16] [17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[18] [19] [20] [21] [22]
+File: ../images/curseOfDimensionality.png Graphic file (type bmp)
+<../images/curseOfDimensionality.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[23] [24]
+Chapter 3.
+[25
 
 ]
-Chapter 3.
-[9]
-Underfull \vbox (badness 2401) detected at line 228
+Underfull \vbox (badness 2401) detected at line 488
  []
 
 
 Underfull \vbox (badness 1237) has occurred while \output is active []
 
-[10]
+[26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[11]
-File: _main_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
-<use _main_files/figure-latex/unnamed-chunk-2-1.pdf>
-[12]
+[27]
 File: _main_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/unnamed-chunk-3-1.pdf>
-[13]
-Overfull \hbox (0.1757pt too wide) in paragraph at lines 333--334
+[28]
+File: _main_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+<use _main_files/figure-latex/unnamed-chunk-4-1.pdf>
+[29]
+Overfull \hbox (0.1757pt too wide) in paragraph at lines 593--594
 \TU/lmr/m/n/12 “muslim,” and “quran”). The word list associates with islam four
  stereotypical attributes
  []
 
-[14]
-File: _main_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use _main_files/figure-latex/unnamed-chunk-6-1.pdf>
-[15]
+[30]
+File: _main_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use _main_files/figure-latex/unnamed-chunk-7-1.pdf>
+[31]
 File: _main_files/figure-latex/tableMuslimActive-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/tableMuslimActive-1.pdf>
+[32]
+File: _main_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use _main_files/figure-latex/unnamed-chunk-8-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16] [17]
-File: _main_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
-<use _main_files/figure-latex/unnamed-chunk-7-1.pdf>
-[18]
+[33]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[34]
 File: _main_files/figure-latex/priorsVis-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/priorsVis-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[19]
+[35]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 481.
-[20]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 719.
+[36]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 502.
+(Font)              scaled to size 5.0pt on input line 740.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 502.
+(Font)              scaled to size 5.00046pt on input line 740.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 502.
-[21]
+(Font)              scaled to size 4.99947pt on input line 740.
+[37]
 File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 <../images/religionCoeffs.jpeg>
 File: ../images/religionGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/religionGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 575--576
+Overfull \hbox (8.433pt too wide) in paragraph at lines 813--814
 [][] 
  []
 
@@ -1236,7 +1282,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/genderGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/genderGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 583--584
+Overfull \hbox (8.433pt too wide) in paragraph at lines 821--822
 [][] 
  []
 
@@ -1245,30 +1291,30 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/raceGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/raceGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 593--594
+Overfull \hbox (8.433pt too wide) in paragraph at lines 831--832
 [][] 
  []
 
-[22]
+[38]
 
-LaTeX Warning: Text page 23 contains only floats.
+LaTeX Warning: Text page 39 contains only floats.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[23]
-Underfull \vbox (badness 10000) detected at line 635
+[39]
+Underfull \vbox (badness 10000) detected at line 873
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[24]
+[40]
 File: ../images/islamCoeffs.jpeg Graphic file (type bmp)
 <../images/islamCoeffs.jpeg>
-[25] [26]
+[41] [42]
 Chapter 4.
-[27
+[43
 
 ]
 File: ../images/visReligionReddit.png Graphic file (type bmp)
@@ -1276,22 +1322,22 @@ File: ../images/visReligionReddit.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[28]
+[44]
 File: ../images/visGenderReddit.png Graphic file (type bmp)
 <../images/visGenderReddit.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[29]
+[45]
 File: ../images/visRaceReddit.png Graphic file (type bmp)
 <../images/visRaceReddit.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[30]
+[46]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[31]
+[47]
 File: ../images/visReligionGoogle.png Graphic file (type bmp)
 <../images/visReligionGoogle.png>
 File: ../images/visGenderGoogle.png Graphic file (type bmp)
@@ -1299,20 +1345,20 @@ File: ../images/visGenderGoogle.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[32]
+[48]
 File: ../images/visRaceGoogle.png Graphic file (type bmp)
 <../images/visRaceGoogle.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[33] [34]
+[49] [50]
 Chapter 5.
 File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 <../images/religionCoeffs.jpeg>
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedReligionRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 756--757
+Overfull \hbox (8.433pt too wide) in paragraph at lines 994--995
 [][] 
  []
 
@@ -1321,7 +1367,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedGenderRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 764--765
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1002--1003
 [][] 
  []
 
@@ -1330,20 +1376,20 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedRaceRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 774--775
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1012--1013
 [][] 
  []
 
-[35
+[51
 
 ]
 
-LaTeX Warning: Text page 36 contains only floats.
+LaTeX Warning: Text page 52 contains only floats.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[36]
+[52]
 File: ../images/visDebReligionReddit.png Graphic file (type bmp)
 <../images/visDebReligionReddit.png>
 File: ../images/visDebGenderReddit.png Graphic file (type bmp)
@@ -1351,31 +1397,31 @@ File: ../images/visDebGenderReddit.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[37]
+[53]
 File: ../images/visDebRaceReddit.png Graphic file (type bmp)
 <../images/visDebRaceReddit.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[38]
+[54]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[39] [40]
+[55] [56]
 Chapter 6.
-[41
+[57
 
-] [42]
+] [58]
 Chapter 7.
-[43
+[59
 
-] (./_main.aux) ) 
+] [60] (./_main.aux) ) 
 Here is how much of TeX's memory you used:
- 29677 strings out of 479212
- 568421 string characters out of 5875087
- 1029486 words of memory out of 5000000
- 48692 multiletter control sequences out of 15000+600000
- 410858 words of font info for 88 fonts, out of 8000000 for 9000
+ 29753 strings out of 479212
+ 570983 string characters out of 5875087
+ 1032659 words of memory out of 5000000
+ 48752 multiletter control sequences out of 15000+600000
+ 410922 words of font info for 96 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,9n,122p,1508b,405s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,9n,122p,1508b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on _main.pdf (43 pages).
+Output written on _main.pdf (60 pages).
