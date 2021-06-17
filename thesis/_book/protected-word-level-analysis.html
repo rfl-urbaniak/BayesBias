@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-10" />
+<meta name="date" content="2021-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>6</b> Discussion</a></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
 </ul>
 
       </nav>
@@ -183,10 +184,16 @@ compareBaselineCoefsSeparate</code></pre></div>
 <p>Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).</p>
 
 
+<p>We first encountered the GoogleNews word embedding model in <span class="citation">Bolukbasi et al. (<a href="#ref-Bolukbasi2016Man">2016</a>)</span>. They use it for their calculations as written in <a href="https://github.com/tolga-b/debiaswe">Tolga Code</a>. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here <a href="https://code.google.com/archive/p/word2vec/">Google News model</a>. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.</p>
 
 
 
-
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bolukbasi2016Man">
+<p>Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520" class="uri">http://arxiv.org/abs/1607.06520</a></p>
 </div>
 </div>
             </section>

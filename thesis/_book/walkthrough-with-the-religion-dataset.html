@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-10" />
+<meta name="date" content="2021-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>6</b> Discussion</a></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
 </ul>
 
       </nav>
@@ -162,7 +163,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <p>We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure, not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here can fairly easily be run for different stereotypization patterns. Let's start with explaining the method and its deployment using a dataset obtained for the religion-related protected words.</p>
 <p>Let's load, clean a bit and inspect the head of the religion dataset we prepared. In order to obtain this dataset, we calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added as control groups. For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).</p>
-<p>We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 300 more or less neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans. For two control groups, we have randomly drawn 300 words that do not express any property usually attributed to humans, and human attributes. </p>
+<p>We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 230 neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans. For two control groups, we have randomly drawn 230 words that do not express any property usually attributed to humans, and human related attributes.</p>
 <!-- In other words, we took each protected word and in nested iteration calculated all of the cosine distances between the word and all available harmful stereotypes, neutral words, and human ones, which resulted with approximately 333 cosine distances per each protected word. -->
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
@@ -187,7 +188,7 @@ religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span c
 <h2><span class="header-section-number">3.2</span> First look at the empirical distributions</h2>
 <p>First let's take a look at the empirical distribution of distances by the connection type, initially ignoring the human control class for now.</p>
 <p>  </p>
-<p>The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the consine distances (as we will soon see), abd we need to gauge the uncertaintly involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let's add the human attributes to the picture:</p>
+<p>The first impression is that while there is a shift for associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover, the empirical distributions overlap to alarge extent and the means grouped by connection type do not seem too far from each other. In fact, as there is a lot of variety in the cosine distances (as we will soon see), we need to gauge the uncertainty involved, and to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes. Now, let's add the human attributes to the picture:</p>
 <p>  </p>
 <p>Notice that the distribution for <code>human</code> (even though we did our best not to include in it any stereotype-related atributes) is left-skewed, with much overlap with <code>associated</code> and <code>different</code>, which illustrates the need to take being associated with humans as an important predictor.</p>
 <p>Our focus lies in <code>connection</code> as a predictor. Morever, later on we'll be interested in looking at the protected words separately, and at protected words split by connection. For technical reasons it is useful to represent these factors as integer vectors.</p>
@@ -248,12 +249,12 @@ priestVis &lt;-<span class="st"> </span><span class="kw">rbind</span>(priestVis,
 <span class="kw">visualiseProtected</span>(priestVis,<span class="st">&quot;priest&quot;</span>)</code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /> </p>
 <p>Here you can see that some human attributes are closer than stereotype attributes, and that there is no clear reason to claim that <code>associated</code> attributes are closer than <code>different</code> or <code>human</code> attributes. This, again, illustrates the need of case-by-case analysis with control groups.</p>
-<p>The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertaintly involved and the sample sizes should have clear impact on our estimates.</p>
+<p>The general idea now is that the word lists provided in different pieces of research are just samples of attributes associates with various stereotypes and should be treated as such: the uncertainty involved and the sample sizes should have clear impact on our estimates.</p>
 </div>
 <div id="bayesian-model-structure-and-assumptions" class="section level2">
 <h2><span class="header-section-number">3.4</span> Bayesian model structure and assumptions</h2>
-<p>We will now think of cosine distance as the output variable, and will build a few bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words migh in general have different relations to all the attributes and this relations should be our point of departure.</p>
-<p>Here is the intution behind the mathematical Bayesian model involved. Our outcome variable is <code>cosine difference</code>, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest model specification is:</p>
+<p>We will now think of cosine distance as the output variable, and will build a few Bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words might in general have different relations to all the attributes and these relations should be our point of departure.</p>
+<p>Here is the intuition behind the mathematical Bayesian model involved. Our outcome variable is <code>cosine difference</code>, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest model specification is:</p>
 <span class="math display">\[\begin{align}
 cosineDistance_i  &amp; \sim dnorm(\mu_i, \sigma) \\
 \mu_i &amp; = m_{pw} \\

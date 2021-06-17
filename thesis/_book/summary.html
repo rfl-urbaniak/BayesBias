@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Discussion | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
-  <meta name="description" content="6 Discussion | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <title>7 Summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
+  <meta name="description" content="7 Summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Discussion | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta property="og:title" content="7 Summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Discussion | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
+  <meta name="twitter:title" content="7 Summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-role-of-debiasing.html"/>
-<link rel="next" href="summary.html"/>
+<link rel="prev" href="discussion.html"/>
+
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -145,28 +145,83 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="discussion" class="section level1">
-<h1><span class="header-section-number">6</span> Discussion</h1>
-<p>It is worth diving deeper into some observations that arise while analyzing the results. <!-- Looking into specific values --> As we pointed out, if there is no control of what cosine distance values individual word pairs have, then there is less understanding of the exact relations between words. If the protected words that we chose do not have high similarity with harmful stereotypes, then one should consider at least two scenarios. The first one is that the choice of protected words and attributes may be corrupted. The second one is that the metric is not able to catch the hidden bias properly. In both cases it is essential to take a look at the individual values before averaging them or aggregating in other ways.</p>
-<!-- Problem with gender words -->
-<p>One has to also remember about the specific situation present in gender dataset. Surprisingly one could observe there high cosine distances values between some female stereotypical professions and male protected words. This leads to new ideas of how to understand the bias origins and its proper detection. To start with, cosine distance seems to catch the information regarding words co-occurrence and not the semantic similarity. If a word stereotypically associated with females has high cosine distance value for male protected words, then the metric is not proper to establish the bias presence as it can be misleading. What we mean is that in same cases it can unnecessarily label words as biased while omitting other more harmful associations. What is more, this highlights again the need for control group. One could check each stereotypical attribute with each protected word but not in order to average the values. One should rather plot the distributions and investigate how the metric measures vectors geometry and hidden semantic information.</p>
-<!-- debiasing and uncertainty -->
-<p>Debiasing with the method provided by <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> shows how it is unpredictable in terms of the results. In some cases the final cosine distance is indeed close to neutral words, but in other cases the change is minor. What is more, the inclusion of the uncertainty shows how in some cases it is not clear why a word is according to this method classified as anomalous. The fact that uncertainty for <code>assosiated</code> and <code>different</code> class is so high leads to the situation where in the boundaries of an uncertainty of some attributes, one can find the neutral words as well. It makes the usage and interpretation of this dataset and metric extremely complicated and unclear.</p>
-<!-- debiasing -->
-<p>Additionally, one cannot be sure if the bias is still preserved after the debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved to the right, does not mean that the bias is removed. One could argue that maybe it is not clear how to measure bias presence and removal but the method for debiasing works fine. Notwithstanding, it is showed in researches such as <span class="citation">Gonen &amp; Goldberg (<a href="#ref-Gonen2019Lipstick">2019</a>)</span>, that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods. Therefore it seems to not be justified to claim that the method works properly without precise methods to verify this.</p>
-<!-- no baseline for the interpretation of the results -->
-<p>One should remember that there is no baseline for the interpretation of the averaged cosine distances in <span class="citation">(<span class="citeproc-not-found" data-reference-id="Manzini2019blackToCriminalToCriminal"><strong>???</strong></span>)</span>. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine distance assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine distance is equal to 80, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.</p>
-<!-- Baysian method -->
-<p>We propose the use of Bayesian method to introduce the uncertainty measure in bias detection. There are a few advantages when including this method in the bias analysis. As noted before in our example with religion dataset, one may obtain new insight into the bias issue after analyzing the mean estimates of the coeﬀicients. There seems to be a minor difference for the mean concerning the <code>assosiated</code> class. This can lead to the conclusions that we do not have strong reasons to perceive lower cosine distance as significantly related to the fact that the attribute is associated.</p>
-<p>One may dive deeper into this idea by investigating the connection coefficients for individual words with the use of the visualization. There one observes that indeed most of the words are clustered together independently of the class that they belong to. It is of course partly due to the fact that we include uncertainty now. This example shows how understanding of the bias measurement may differ when switching to Bayesian method. One could argue that after this analysis one obtains more information on the dataset and can pursue with the further research more cautiously.</p>
-</div>
-<h3>References</h3>
+<div id="summary" class="section level1">
+<h1><span class="header-section-number">7</span> Summary</h1>
+<p>The aim of this paper was to show the analysis of bias detection methods used in modern natural language processing projects.</p>
+<p>In the further research it is worth to dive deeper into some issues or to examine new ideas that occurred during our work.</p>
+<!-- 
+remarks:
+- delete papers from github/hide them
+- should we quote "debiasing" or without quoting
+
+-->
+<!-- textbf{Control group} 
+
+How to properly prepare control group in terms of quality and quantity?
+<!-- + check if it may be proved in the code -->
+<!--  \textbf{Verifying other similarity meaures} 
+
+Besides cosine similarity, there are other methods used to find the similarity between vectors.  
+
+a) TS-SS 
+todo: check if it makes sense to calculate for all of the datasets; interpretations etc.
+https://www.researchgate.net/publication/303513110_A_Hybrid_Geometric_Approach_for_Measuring_Similarity_Level_Among_Documents_and_Document_Clustering
+
+b) WEAT test 
+<!-- https://docs.responsibly.ai/word-embedding-bias.html#module-responsibly.we.weat -->
+<!-- [to check https://github.com/taki0112/Vector_Similarity] -->
+<!-- TODO: check in code if they make more sense -->
+<!-- ## Bibliography
+- https://www.amazon.com/Language-Processing-Synthesis-Lectures-Technologies/dp/1627052984/ref=as_li_ss_tl?ie=UTF8&qid=1502062931&sr=8-1&keywords=Neural+Network+Methods+in+Natural+Language+Processing&linkCode=sl1&tag=inspiredalgor-20&linkId=d63df073fea3ebe2d405820570b3ff03 ->
+
+
+<!-- ## *** Additional -->
+<!-- ### Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings" -->
+<!-- [article https://arxiv.org/pdf/1607.06520.pdf] -->
+<!-- Assumptions: -->
+<!-- "We assume there is a set of gender neutral words $N\subseteq W$ such as flight attendant or shoes, which, by definition, are not specific to any gender." -->
+<!-- TODO: check if it is useful for the analysis of black is .. -->
+<!-- ### Identifying the bias subspace  -->
+<!-- Interesting analysis about limits o subspace and research [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html] -->
+<!-- Resources to analyze: -->
+<!-- 1. https://arxiv.org/pdf/2005.00965.pdf -->
+<!-- 2. https://arxiv.org/pdf/2009.09435.pdf -->
+<!-- 3. https://arxiv.org/pdf/1904.04047.pdf -->
+<!-- 4. https://www.aclweb.org/anthology/P19-1166.pdf -->
+<!-- ### How is cosine similarity entangled with analogy topic in NLP (is it??) -->
+<!-- article:  https://arxiv.org/pdf/1905.09866.pdf -->
+<!-- Critique of the usage of analogies as a proof for gender biases -->
+<!-- TODO: check if there is other argument than that algorithm does not allow it -->
+<!-- general thoughts 
+https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of_Gender_Bias_Assessment_in_Word_Embeddings_The_Role_of_Base_Pairs
+
+-
+-
+-
+-->
+
 <div id="refs" class="references">
-<div id="ref-Gonen2019Lipstick">
+<div>
+<p>Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520" class="uri">http://arxiv.org/abs/1607.06520</a></p>
+</div>
+<div>
 <p>Gonen, H., &amp; Goldberg, Y. (2019). Lipstick on a pig: Debiasing methods cover up systematic gender biases in word embeddings but do not remove them. <em>CoRR</em>, <em>abs/1903.03862</em>. Retrieved from <a href="http://arxiv.org/abs/1903.03862" class="uri">http://arxiv.org/abs/1903.03862</a></p>
 </div>
-<div id="ref-Manzini2019blackToCriminal">
+<div>
+<p>Islam, A. C., Bryson, J. J., &amp; Narayanan, A. (2016). Semantics derived automatically from language corpora necessarily contain human biases. <em>CoRR</em>, <em>abs/1608.07187</em>. Retrieved from <a href="http://arxiv.org/abs/1608.07187" class="uri">http://arxiv.org/abs/1608.07187</a></p>
+</div>
+<div>
 <p>Manzini, T., Lim, Y. C., Tsvetkov, Y., &amp; Black, A. W. (2019). Black is to criminal as caucasian is to police: Detecting and removing multiclass bias in word embeddings.</p>
+</div>
+<div>
+<p>Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., &amp; Galstyan, A. (2019). A survey on bias and fairness in machine learning. <em>CoRR</em>, <em>abs/1908.09635</em>. Retrieved from <a href="http://arxiv.org/abs/1908.09635" class="uri">http://arxiv.org/abs/1908.09635</a></p>
+</div>
+<div>
+<p>Nissim, M., Noord, R. van, &amp; Goot, R. van der. (2019). Fair is better than sensational: Man is to doctor as woman is to doctor. <em>CoRR</em>, <em>abs/1905.09866</em>. Retrieved from <a href="http://arxiv.org/abs/1905.09866" class="uri">http://arxiv.org/abs/1905.09866</a></p>
+</div>
+<div>
+<p>Venkat, N. (2018). The curse of dimensionality: Inside out.</p>
+</div>
 </div>
 </div>
             </section>
@@ -174,8 +229,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="the-role-of-debiasing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="discussion.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
