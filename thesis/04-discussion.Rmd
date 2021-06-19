@@ -28,6 +28,12 @@ black remarks then:
 
 
 
+
+
+
+
+<!-- OLD AND NOT GOLD --> 
+
 It is worth diving deeper into some observations that arise while analyzing the results. 
 <!-- Looking into specific values -->
 As we pointed out, if there is no control of what cosine distance values individual word pairs have, then there is less
