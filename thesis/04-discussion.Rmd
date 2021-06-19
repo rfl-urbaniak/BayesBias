@@ -5,6 +5,29 @@ output:
 ---
 # Discussion
 
+1. Our proposition - Bayesian method (red) comment on remarks from chapter2 and then; what we do better
+- general insights - estimeated coefficients mean - general HPDI and general different similar - after debiasing the same almost for reddit
+- details from the words view - questions: analyzing table features; when human slightly closer - unexpected;
+describe the features; 3 small csvs; reddit, google reddit-debiased;general human moved closer- not in table but in sentences; 
+comments and values that refer to them: (blue and green)
+a) google scale
+b) associated females
+debiased: question about the change
+- better but not for muslims
+- corpus frequency maybe?
+- better for male
+- when in gender different and associated together maybe it is better - gender is very specific, words are about professions; 
+- when in religion it is bad different and associated
+-  in race it is not obvious - mixed sentiments 
+
+black remarks then:
+- mess, change protected words; relative differences stay the same, by the way lipstick on a pig
+- word lists are strange, not enough words, large HPDI
+
+4. Summary (how abstract ends)
+
+
+
 It is worth diving deeper into some observations that arise while analyzing the results. 
 <!-- Looking into specific values -->
 As we pointed out, if there is no control of what cosine distance values individual word pairs have, then there is less
@@ -32,12 +55,6 @@ We propose the use of Bayesian method to introduce the uncertainty measure in bi
 
 One may dive deeper into this idea by investigating the connection coefficients for individual words with the use of the visualization. There one observes that indeed most of the words are clustered together independently of the class that they belong to. It is of course partly due to the fact that we include uncertainty now. This example shows how understanding of the bias measurement may differ when switching to Bayesian method. One could argue that after this analysis one obtains more information on the dataset and can pursue with the further research more cautiously.
 
-# Summary 
-
-The aim of this paper was to show the analysis of bias detection methods used in modern natural language processing projects. 
-
-
-In the further research it is worth to dive deeper into some issues or to examine new ideas that occurred during our work. 
 
 <!-- 
 remarks:
