@@ -126,3 +126,17 @@ https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of
 -
 -
 -->
+
+<!--### Articles:
+
+  1. "Are We Consistently Biased? Multidimensional Analysis of Biases in Distributional Word Vectors"
+  https://www.aclweb.org/anthology/S19-1010.pdf 
+
+  2. Proving the harmfullness of biases in models 
+[source https://poseidon01.ssrn.com/delivery.php?ID=004020091089126117028081015085009075120015077012021005105005104113074127101113104030041107053119007034112081087110119071025006053026022082043000071011123067077124004027040024008122116091025075126111098104007096110113089007070120009111119015084097017092&EXT=pdf&INDEX=TRUE]
+
+  3. Summary what causes bias short article
+  [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html]-->
+
+<!-- Men Also Like Shopping: Reducing Gender Bias Amplification using Corpus-level Constraint -->
+<!-- Bias in Bios: A Case Study of Semantic Representation Bias in a High-Stakes Setting -->
