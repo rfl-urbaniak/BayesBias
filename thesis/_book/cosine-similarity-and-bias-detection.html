@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-10" />
+<meta name="date" content="2021-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>6</b> Discussion</a></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
 </ul>
 
       </nav>
@@ -255,13 +256,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tbody>
 </table>
 <p>One of the advantages of using a distributed representation is that one is able to represent an enormous number of concepts with a smaller number of units. It is also possible to better capture similarities as words of similar meanings can have similar numeric vectors.</p>
-<p>The numbers occurring in such representations are not random. They are learned in a process that uses a very shallow neural network. There are various types of techniques used for learning the vectors representations. One of the most straightforward ones is a skip-gram model. Given a word the models tries to predict its neighboring words from the sentence. The mathematics behind the process relies on the idea that the prediction concerns the conditional probability of the adjacent words. The algorithm tries to minimize the loss function, which penalizes the system for discrepancy with actual co-occurrence frequencies in the corpus. One can choose various parameters of the model, such as the window size that determines how many surrounding words the model should predict. After preparing such a fitted model one takes only the learned weights from a neural network, and uses them as vectors in a word embeddings representation.</p>
+<p>The numbers occurring in such representations are not random. They are learned in a process that uses a very shallow neural network. There are various types of techniques used for learning the vectors representations. One of the most straightforward ones is a skip-gram model. Given a word the model tries to predict its neighboring words from the sentence. The mathematics behind the process relies on the idea that the prediction concerns the conditional probability of the adjacent words. The algorithm tries to minimize the loss function, which penalizes the system for discrepancy with actual co-occurrence frequencies in the corpus. One can choose various parameters of the model, such as the window size that determines how many surrounding words the model should predict. After preparing such a fitted modeln=, one takes only the learned weights from a neural network, and uses them as vectors in a word embeddings representation.</p>
 <p>Word embeddings have many applications in natural language processing. They are handy in document search and information retrieval. They also play their part in improving automatic translations. Well learned word representations may also contribute to the improvement of sentiment analysis or spam detection.</p>
 </div>
 <div id="cosine-similarity-and-distance" class="section level2">
 <h2><span class="header-section-number">2.2</span> Cosine similarity and distance</h2>
 <!-- [based on https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity] -->
-Cosine similarity is often used as a method of finding out whether vector representations for two words suggest that they are similar or somehow connected. Cosine similarity is the cosine of the angle between two vectors: the result of dividing their inner product (dot product usually) by the product of their magnitudes.
+<p>Cosine similarity is often used as a method of finding out whether vector representations for two words suggest that they are similar or somehow connected. Cosine similarity is the cosine of the angle between two vectors: the result of dividing their inner product (dot product usually) by the product of their magnitudes.</p>
+<p>It is worth mentioning one more point concerning cosine similarity. After the vectors are normalized to have length equal to 1, inner product itself (often dot product) is used to measure the similarity.</p>
 <span class="math display">\[\begin{align} \tag{Sim}
 \mathsf{cosineSimilarity}(A,B) &amp; = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
 \end{align}\]</span>
@@ -275,16 +277,20 @@ In what follows, it is important to distinguish between cosine similarity and co
  &amp;  = 1 - \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert} \nonumber
 \end{align}\]</span>
 <p>The greater the similarity between two vectors, the smaller the distance between them. The cosine distance ranges between 0 and 2. If the vectors are in an opposite direction to each other, the cosine distance is 2. And if the vectors are extremely similar then the cosine distance is very close to 0.</p>
-<p>It is worth mentioning one more point concerning cosine similarity. After the vectors are normalized to have length equal to 1, inner product itself (often dot product) is used to measure the similarity.</p>
+<p>One should note that cosine distance is not exactly a distance measure while it does not meet triangle inequality requirements. The triangle inequality formula says that for any triangle, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side. As shown in <a href="https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u">Statexchange.com</a> in the case of cosine distance it would have to fulfill this equation 1+cos-sim(𝐴,𝐶) &lt; cos-sim(𝐴,𝐵) + cos-sim(𝐵,𝐶). If one chooses specific unit vectors it is easy to demonstrate that the triangle inequality is not preserved.</p>
 </div>
 <div id="cosine-distance-in-a-one-class-bias-detection" class="section level2">
 <h2><span class="header-section-number">2.3</span> Cosine distance in a one-class bias detection</h2>
 <!-- https://arxiv.org/pdf/1607.06520.pdf -->
 <!-- source of plot https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings -->
 <p><span class="citation">Bolukbasi et al. (<a href="#ref-Bolukbasi2016Man">2016</a>)</span> define similarity between words as the outcome inner product of their normalized vectors. They focus on examining what the geometry of word embedding is in regard to &quot;he&quot; and &quot;she&quot; words. In other words, whether the similarity between those concepts and other words reflects expected gender stereotypes. They test this hypothesis by investigating whether there is a connection between word embeddings representing certain professions and words referring to gender. They also evaluate whether automatically produced analogies between words reflect the stereotypes as well.</p>
-<p>A very vivid way to follow their method of arguing that bias in word embeddings is real is to plot the values of inner product of chosen words. The plot below does not originate from the original paper (it is from <a href="https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings" class="uri">https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings</a>) but similar visualization may be found there. Data used to create our plot is as follows. </p>
-<p>Occupations associated with feminine:  </p>
-<p>Occupations associated with masculine:  </p>
+Here the gender bias of a word <span class="math inline">\(w\)</span> is understood as its projection on the gender direction <span class="math inline">\(\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})\)</span> (the gender direction is the top principal compontent of ten gender pair difference vectors). The underlying idea is that no bias is present if non-explicitly gender words are in equal distance to both elements in all explicitly gender pairs. Given the (ideally) gender neutral words <span class="math inline">\(N\)</span> and the gender direction <span class="math inline">\(g\)</span> the direct direct gender bias is defined as the average distance of the words in <span class="math inline">\(N\)</span> from <span class="math inline">\(g\)</span> (<span class="math inline">\(c\)</span> is a parameter determining how strict we want to be):
+<span class="math display">\[\begin{align}
+\mathsf{directBias_c(N,g)} &amp; = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
+\end{align}\]</span>
+<p>A very vivid way to follow their method of arguing that bias in word embeddings is real is to plot the values of inner product of chosen words. The plot below does not originate from the original paper (it is from <a href="https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings" class="uri">https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings</a>) but similar visualization may be found there. Data used to create our plot is as follows.</p>
+<p>Occupations associated with feminine: </p>
+<p>Occupations associated with masculine: </p>
 <p>  </p>
 <p>The points in the plot above result from the calculation of the inner product of a chosen vector for a profession word and a vector for a gender word (she or he). Inner product of two vectors expresses similarity between words. This assumption originates from the geometry and properties of a vector space.</p>
 <!-- todo: shortly describe what they do later and how they verify if it was removed - analogies etc. -->
@@ -292,25 +298,22 @@ In what follows, it is important to distinguish between cosine similarity and co
 <div id="cosine-distance-in-a-multi-class-bias-detection" class="section level2">
 <h2><span class="header-section-number">2.4</span> Cosine distance in a multi-class bias detection</h2>
 <!-- [article https://arxiv.org/pdf/1904.04047.pdf] -->
-<p><span class="citation">Manzini et al. (<a href="#ref-manzini2019black">2019</a>)</span> present a different approach towards finding similarities between classes of words. The authors claim that texts available online are full of direct or indirect human stereotypes. As a result, word embeddings are prone to learn and maybe amplify those biases and propagate them further into AI models that are used for various applications. Cosine distance is used in the article as a measure to first argue for the existence of multi-class bias and then to show how through bias mitigation techniques the bias may be decreased.</p>
-<!-- The methodology used in the paper  -->
+<p><span class="citation">Manzini, Lim, Tsvetkov, &amp; Black (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> present a different approach towards finding similarities between classes of words. The authors claim that texts available online are full of direct or indirect human stereotypes. As a result, word embeddings are prone to learn and maybe amplify those biases and propagate them further into AI models that are used for various applications. Cosine distance is used in the article as a measure to first argue for the existence of multi-class bias and then to show how through bias mitigation techniques the bias may be decreased.</p>
+They modify WEAT to a multi-class setting, introducing Mean Average Cosine similarity as a measure of bias (in fact, in the paper they report distances rather than similarities). Let <span class="math inline">\(T = \{t_1, \dots, t_k\}\)</span> be a class of protected word embeddings, and let each <span class="math inline">\(A_j\in A\)</span> be a set of attributes stereotypically associated with a protected word). Then:
+<span class="math display">\[\begin{align}
+S(t_i, A_j) &amp; = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) &amp; = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align}\]</span>
 <p>As the code has been provided by the authors we were able to reconstruct their results. The main steps in the procedure are as follows. Let us go through an example that refers to the process of hard debiasing on religious attributes.</p>
-<p>The example refers to the process of hard debiasing on religious attributes.</p>
-<ol style="list-style-type: decimal">
-<li>First we load word embeddings from reddit.US.txt.tok.clean.cleanedforw2v.w2v dataset</li>
-</ol>
-<ul>
-<li>The word embeddings have only 50 dimensions</li>
-<li>The number of individual words from the dataset is 44895</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>The protected group the authors assume should ideally not have high cosine similarity to stereotypical words. The word embeddings geometry should not place this group close to harmful stereotypes, if it is to be bias-free. </li>
-</ol>
-<p>For instance, let's look at the religion-related words.</p>
+<p>First we load word embeddings from reddit.US.txt.tok.clean.cleanedforw2v.w2v dataset. The word embeddings have only 50 dimensions and the number of individual words from the dataset is 44895. The authors assume that the protected group should ideally not have high cosine similarity to stereotypical words. The word embeddings geometry should not place this group close to harmful stereotypes, if it is to be bias-free. For instance, let's look at the religion-related words.</p>
 <p>Protected words by religion type:</p>
-<p>   </p>
+
+
+
 <p>Stereotypical words by religion type:</p>
-<p>   </p>
+
+
+
 <p>We have prepared a table presenting the values of cosine distance for each protected word with each attribute (stereotype). The part of the results is shown below.</p>
 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">religion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/religionReddit.csv&quot;</span>)[<span class="op">-</span><span class="dv">1</span>]
@@ -325,18 +328,14 @@ religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span c
 
 
 
-<p>In the article there was no analysis of individual distances but the general look at the data through the usage of mean. The authors introduced a metric that tries to generalize the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>In the article the authors also try to remove previously defined biases from word embedding.</li>
-</ol>
-<p>First they identify the bias subspace using Principal Component Analysis (PCA) which is a technique for dimensionality reduction. It is applied here to choose the subspace that contains the greatest amount of information. There can be many subspaces found in a given group, for example in terms of religion one can identify at least a few sets that are to grasp the concept of religion in general:    </p>
-<p>The idea is to find a set that provides enough information to create from it a vector representing the concept of religion among words. This strategy is based on the idea that different dimensions of vectors contain different types of information and in some words in vector layers (subspaces) the information about religiousness is implicitly conveyed. In some cases this knowledge is useful but in the case of harmful stereotypes one does not want to have religion concept in stereotypical words.</p>
-<p>After finding bias subspace, they use it to modify the vector values individually so that their cosine distances towards certain words are changed. In the case of stereotypes the aim is to make the cosine distances larger so that the association between protected word and harmful stereotype is smaller.</p>
-<!-- go through it again -->
-<ol start="4" style="list-style-type: decimal">
-<li>In the final step there is an evaluation of the results. The cosine distances are calculated again but this time using debiased vocabulary. After taking the mean of all distances one final value is obtained and then it is compared with the average value from the beginning. If the cosine distances are on average greater than before then it leads the authors to the conclusion that improvement was made. As the cosine distance increases it is assumed that the association between protected and stereotypical words decreases.</li>
-</ol>
-<!-- add more information on the source of words used -->
+<p>In the article there was no analysis of individual distances but the general look at the data through the usage of mean. The authors introduced a metric that tries to generalize the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in the case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.</p>
+<p>In the article the authors also try to remove previously defined biases from word embedding. First they identify the bias subspace using Principal Component Analysis (PCA) which is a technique for dimensionality reduction. It is applied here to choose the subspace that contains the greatest amount of information. There can be many subspaces found in a given group, for example in terms of religion one can identify at least a few sets that are to grasp the concept of religion in general:</p>
+
+
+
+<p>The idea is to find a set that provides enough information to create from it a vector representing the concept of religion among words. This strategy is based on the idea that different dimensions of vectors contain different types of information and in some words in vector layers (subspaces) the information about religiousness is implicitly conveyed. In some cases this knowledge is useful but in the case of harmful stereotypes one does not want to include the concept of religion in stereotypical words.</p>
+<p>After finding the bias subspace, they use it to modify the vector values individually so that their cosine distances towards certain words are changed. In the case of stereotypes the aim is to make the cosine distances larger so that the association between protected word and harmful stereotype is smaller.</p>
+<p>In the final step there is an evaluation of the results. The cosine distances are calculated again but this time using debiased vocabulary. After taking the mean of all distances one final value is obtained and then it is compared with the average value from the beginning. If the cosine distances are on average greater than before then it leads the authors to the conclusion that improvement has been achieved. As the cosine distance increases it is assumed that the association between protected and stereotypical words decreases.</p>
 </div>
 <div id="limitations-of-the-approach" class="section level2">
 <h2><span class="header-section-number">2.5</span> Limitations of the approach</h2>
@@ -345,13 +344,13 @@ religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span c
 <p>The attributes are taken from different sources, there is no principled justification for their choice. From our analysis it will become clear that the list is rather uneven.</p>
 <p>There is no mention of methodology for deciding on the number of attributes necessary to decide a hypothesis on the given size of dataset. There are however some ways to estimate how many samples we need to make sure that the result is significant. Our research will show that the numbers used are rather insufficient.</p>
 
-<p>The authors use the mean average cosine similarity to check on multi-class similarity between protected word and harmful stereotypes. They average the results until they obtain one final value to represent the mean cosine distance between protected word from a given class and the attributes of that class. As there is no control of the individual values of cosine distances, one can observe values that have cosine distances greater than 1 which would suggest that these compare words do not have significant similarity. However, as there is a lack of control, even such words are taken into the account for calculations.</p>
+<p>The authors use the mean average cosine similarity to check on multi-class similarity between protected word and harmful stereotypes. They average the results until they obtain one final value to represent the mean cosine distance between protected word from a given class and the attributes of that class.</p>
 
-<p>A mean hides this issue and as there are pairs having negative and small similarities and there are those that have similarity equal to 0.5, the resulting calculation seems to be in norm. Additionally in such method the uncertainty is also not included which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results.</p>
+<p>A mean hides issue and as there are pairs having negative and small similarities and there are those that have similarity equal to 0.5, the resulting calculation seems to be in norm. Additionally in such method the uncertainty is also not included which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results.</p>
 
-<p>In the original paper words from all three religions were checked with all of the stereotypes which means that there was no distinction on whether the stereotype is associated with given religion or with the other. Not all of the stereotypical words should be considered as harmful for all of the religions. In our analysis we distinguished between associated stereotypes, not associated (stereotype is valid but for different religion than currently checked) and none (meaning neutral words).</p>
+<p>In the original paper words from all three religions were checked with all of the stereotypes which means that there was no distinction between classes in which the stereotype is associated with a given religion, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the religions. In our analysis we distinguished between stereotypes associated with a given group, stereotype associated with different groups and control groups; neutral words and stereotypes-free human predicates.</p>
 
-<p>Assuming for a moment that the value of multi-class cosine distance is correct, one may question the results' interpretation. In <span class="citation">Manzini et al. (<a href="#ref-manzini2019black">2019</a>)</span> Table 2, there are summarized the averages of cosine distance per group (gender, race, religion). I would like to focus now on analyzing the values relating to religious biases. Here is the fragment of table that refers to that:</p>
+<p>Assuming for a moment that the value of multi-class cosine distance is correct, one may question the interpretation. <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> summarize the averages of cosine distance per group (gender, race, religion). We would like to focus now on analyzing the values relating to religious biases. Here is the relevant fragment of table:</p>
 <table>
 <thead>
 <tr class="header">
@@ -374,77 +373,27 @@ religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span c
 </tr>
 </tbody>
 </table>
-<p>MAC stand for mean average cosine similarity although in reality the values of cosine distance are stored there. What may attract attention is the fact that the value of cosine distance in &quot;Biased&quot; category is already quite high even before &quot;debiasing&quot;. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as biased. However the authors aim to mitigate &quot;biases&quot; in vectors with such great distance to make it even larger. Methodologically there is a question on what basis this small similarity is still considered as a proof of bias presence.</p>
-<p>This is in general the problem of scale and the lack of universal intervals that could be applied to know whether the cosine similarity is high enough to considered given words more similar that if we chose them on random. It seems like similar practice could be beneficial for metrics aimed at measuring similarity between words.</p>
-<!-- TODO: numerical test if this distance is significant? check mean mean cosine distances of some random words? -->
+<p>MAC stand for mean average cosine similarity, although in reality the values of cosine distance are given. What may attract attention is the fact that the value of cosine distance in &quot;Biased&quot; category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate &quot;biases&quot; in vectors with such great distance to make it somewhat larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of a bias presence, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. Proper intervals could be used to decide whether given cosine similarity is high enough to consider the words to be more similar than if we choose them at random.</p>
 
-<!-- TODO: -->
-<!-- 1. https://www.cs.princeton.edu/courses/archive/fall13/cos521/lecnotes/lec11.pdf -->
-<!-- 2. https://stats.stackexchange.com/questions/341535/curse-of-dimensionality-does-cosine-similarity-work-better-and-if-so-why -->
-<!-- 3. https://stats.stackexchange.com/questions/21547/distance-metric-and-curse-of-dimensions -->
-<!-- + check if it may be proved in the code -->
-<p>Curse of dimensionality may take place when there is an increase in volume of data that results in adding extra dimensions to the Euclidean space. According to the article &quot;<a href="https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/" class="uri">https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/</a>&quot; as the number of features increases, it may be harder and harder to obtain useful information from the data with the usage of available algorithms. One may notice that more data should contribute to greater amount of information but more information also means greater risk of noise and distractions in data. At the same time, many times modern solutions are adapted to smaller dimensions and their results in higher ones are not intuitive or may be prone to be mistaken.</p>
-<p>Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to this article &quot;<a href="https://www.researchgate.net/publication/327498046_The_Curse_of_Dimensionality_Inside_Out" class="uri">https://www.researchgate.net/publication/327498046_The_Curse_of_Dimensionality_Inside_Out</a>&quot; there are reasons to consider this phenomenon when searching for word similarities in higher dimensions.</p>
-<!-- Add more information on the experiment -->
-<p>In the article an experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase, the first one is that effort required to measure cosine similarity will be greater and the second one is that the similarity between data will blur out and have less variation. In details, the authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. According to some researches the cosine similarity in high dimensions is not reliable enough to trust it as it may be the case that choosing words on random may result in getting similar values as when picking them consciously.</p>
+<p>In our case, the curse of dimensionality may take place when there is an increase in volume of data that results in adding extra dimensions to the Euclidean space. According to the article <a href="https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/">Analyticsindiamag Curse of dimensionality</a> as the number of features increases, it may be harder and harder to obtain useful information from the data with the usage of available algorithms. One may notice that more data should contribute to greater amount of information but more information also means greater risk of noise and distractions in data. At the same time, many times modern solutions are adapted to smaller dimensions and their results in higher ones are not intuitive or may be prone to be mistaken.</p>
+<p>Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to <span class="citation">Venkat (<a href="#ref-Venkat2018Curse">2018</a>)</span> there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. According to some researches the cosine similarity in high dimensions is not reliable enough to trust it as it may be the case that choosing words on random may result in getting similar values as when picking them consciously.</p>
 <div class="figure">
 <img src="../images/curseOfDimensionality.png" alt="curse of dimensionality, number of dimensions on the x axis, standard deviation of similarity on the y axis" />
 <p class="caption">curse of dimensionality, number of dimensions on the x axis, standard deviation of similarity on the y axis</p>
 </div>
-<!-- textbf{Control group} 
-
-How to properly prepare control group in terms of quality and quantity?
-<!-- + check if it may be proved in the code -->
-<!--  \textbf{Verifying other similarity meaures} 
-
-Besides cosine similarity, there are other methods used to find the similarity between vectors.  
-
-a) TS-SS 
-todo: check if it makes sense to calculate for all of the datasets; interpretations etc.
-https://www.researchgate.net/publication/303513110_A_Hybrid_Geometric_Approach_for_Measuring_Similarity_Level_Among_Documents_and_Document_Clustering
-
-b) WEAT test 
-<!-- https://docs.responsibly.ai/word-embedding-bias.html#module-responsibly.we.weat -->
-<!-- [to check https://github.com/taki0112/Vector_Similarity] -->
-<!-- TODO: check in code if they make more sense -->
-<!-- ## Bibliography
-- https://www.amazon.com/Language-Processing-Synthesis-Lectures-Technologies/dp/1627052984/ref=as_li_ss_tl?ie=UTF8&qid=1502062931&sr=8-1&keywords=Neural+Network+Methods+in+Natural+Language+Processing&linkCode=sl1&tag=inspiredalgor-20&linkId=d63df073fea3ebe2d405820570b3ff03 ->
-
-
-<!-- ## *** Additional -->
-<!-- ### Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings" -->
-<!-- [article https://arxiv.org/pdf/1607.06520.pdf] -->
-<!-- Assumptions: -->
-<!-- "We assume there is a set of gender neutral words $N\subseteq W$ such as flight attendant or shoes, which, by definition, are not specific to any gender." -->
-<!-- TODO: check if it is useful for the analysis of black is .. -->
-<!-- ### Identifying the bias subspace  -->
-<!-- Interesting analysis about limits o subspace and research [source https://kawine.github.io/blog/nlp/2019/09/23/bias.html] -->
-<!-- Resources to analyze: -->
-<!-- 1. https://arxiv.org/pdf/2005.00965.pdf -->
-<!-- 2. https://arxiv.org/pdf/2009.09435.pdf -->
-<!-- 3. https://arxiv.org/pdf/1904.04047.pdf -->
-<!-- 4. https://www.aclweb.org/anthology/P19-1166.pdf -->
-<!-- ### How is cosine similarity entangled with analogy topic in NLP (is it??) -->
-<!-- article:  https://arxiv.org/pdf/1905.09866.pdf -->
-<!-- Critique of the usage of analogies as a proof for gender biases -->
-<!-- TODO: check if there is other argument than that algorithm does not allow it -->
-<!-- general thoughts 
-https://www.researchgate.net/publication/349408535_Robustness_and_Reliability_of_Gender_Bias_Assessment_in_Word_Embeddings_The_Role_of_Base_Pairs
-
--
--
--
--->
 
 </div>
 </div>
-<h3> Discussion</h3>
+<h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-Bolukbasi2016Man">
 <p>Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520" class="uri">http://arxiv.org/abs/1607.06520</a></p>
 </div>
-<div id="ref-manzini2019black">
+<div id="ref-Manzini2019blackToCriminal">
 <p>Manzini, T., Lim, Y. C., Tsvetkov, Y., &amp; Black, A. W. (2019). Black is to criminal as caucasian is to police: Detecting and removing multiclass bias in word embeddings.</p>
+</div>
+<div id="ref-Venkat2018Curse">
+<p>Venkat, N. (2018). The curse of dimensionality: Inside out.</p>
 </div>
 </div>
             </section>
