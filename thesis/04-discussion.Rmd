@@ -47,11 +47,20 @@ Let's summarize the results of the bias detection methods analysis.
 
 <!-- black remarks then: -->
 <!-- - mess, change protected words; relative differences stay the same, by the way lipstick on a pig -->
+
+
+<!-- debiasing -->
+Additionally, one cannot be sure if the bias is still preserved after the debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved to the right, does not mean that the bias is removed. It is shown in articles such as @Gonen2019Lipstick, that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods.
+
 <!-- - word lists are strange, not enough words, large HPDI -->
 
 
-<!-- where to put this ? --> 
 
+
+
+
+<!-- interpretation issues -->
+One should remember that there is no clear interpretation for the values obtained with MAC metric from @Manzini2019blackToCriminal. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine distance assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine distance is equal to 0.8, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.
 
 
 <!-- summary --> 
@@ -62,29 +71,7 @@ The bottom line is that if we want to take bias seriously, so should we approach
 
 
 
-
-
-
-
-
-
-What we mean is that in same cases it can unnecessarily label words as biased while omitting other more harmful associations. What is more, this highlights again the need for control group. One could check each stereotypical attribute with each protected word but not in order to average the values. One should rather plot the distributions and investigate how the metric measures vectors geometry and hidden semantic information.
-
-
-<!-- debiasing and uncertainty -->
-Debiasing with the method provided by @Manzini2019blackToCriminal shows how it is unpredictable in terms of the results.
-In some cases the final cosine distance is indeed close to neutral words, but in other cases the change is minor. What is more, the inclusion of the uncertainty shows how in some cases it is not clear why a word is according to this method
-classified as anomalous. The fact that uncertainty for `assosiated` and `different` class is so high leads to the situation where in the boundaries of an uncertainty of some attributes, one can find the neutral words as well. It makes the usage and interpretation of this dataset and metric extremely complicated and unclear.
-
-<!-- debiasing -->
-Additionally, one cannot be sure if the bias is still preserved after the debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved to the right, does not mean that the bias is removed. One could argue that maybe it is not clear how to measure bias presence and removal but the method for debiasing works fine. Notwithstanding, it is showed in researches such as @Gonen2019Lipstick, that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods. Therefore it seems to not be justified to claim that the method works properly without precise methods to verify this.
-
-<!-- no baseline for the interpretation of the results -->
-One should remember that there is no baseline for the interpretation of the averaged cosine distances in @Manzini2019blackToCriminalToCriminal. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine distance assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine distance is equal to 80, then should we still debiase it? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.
-
-
-
-
+Bibliography:
 
 <!--
 
