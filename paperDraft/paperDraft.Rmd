@@ -27,9 +27,11 @@ library(gridExtra)
 
 
 
-
+\tableofcontents
 
 # Cosine-based measures of bias
+
+\todo{two introductory}
 
 One of the first measures in the discussion has been developed by @bolukbasi2016man. There, the gender bias of a word $w$ is understood as its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ (the gender direction is the top principal compontent of ten gender pair difference vectors). The underlying idea is that no bias is present if non-explicitly gendered words are in equal distance to both elements in all explicitly gender pairs. Given the (ideally) gender neutral words $N$ and the gender direction $g$ the direct direct gender bias is defined as the average distance of the words in $N$ from $g$ ($c$ is a parameter determining how strict we want to be):
 \begin{align}
@@ -76,8 +78,10 @@ MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \i
 That is, for each protected word $T and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. The t-tests they employ are run on average cosines used to calculate MAC.
 
 
+# Some methodological problems
 
-## The problem with means of means
+
+# The problem with means of means
 
 
 The measures described all calculate means of means and their authors run statistical tests on sets of means. This, however, is problematic for two related reasons. One, by pre-averaging data we throw away information about sample sizes. For the former point, think about proportions: 10 out of 20 and 2 out of 4 give the same mean, but you would obtain more information by making the former observation rather than by making the latter.  Two, when we pre-average, we remove variation, and so pre-averaging  tend to manufacture false confidence. We will have more to say about whether this happens in the case of applications of MAC, for now let's go over a simple example to make the conceptual point clear.
@@ -413,6 +417,28 @@ quantile(biasesD1, probs = c(0.275,0.975))
 ```
 \normalsize
 
+# Bayesian estimation 
+
+- reddit i google, ogolnie i z podzialem na protected words
+
+- dokladniej gender, reszta na koniec w zalaczniku
+
+# Effects of debiasing
+
+
+
+# Discussion 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -423,6 +449,7 @@ quantile(biasesD1, probs = c(0.275,0.975))
 \noindent \huge  \textbf{Appendix} \normalsize
 
 \noindent \Large \textbf{Word lists, including human and neutral predicates} \normalsize
+
 
 
 
