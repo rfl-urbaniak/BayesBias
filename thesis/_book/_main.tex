@@ -25,10 +25,14 @@
 }{}
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 \usepackage[unicode=true]{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{
             pdftitle={Conceptual and methodological problems with bias detection and avoidance in natural language processing},
             pdfauthor={Alicja Dobrzeniecka},
-            pdfborder={0 0 0},
+            colorlinks=true,
+            linkcolor=Maroon,
+            citecolor=Blue,
+            urlcolor=blue,
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage[left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, asymmetric,
@@ -115,12 +119,13 @@ includeheadfoot]{geometry}
 \title{Conceptual and methodological problems with bias detection and avoidance
 in natural language processing}
 \author{Alicja Dobrzeniecka}
-\date{2021-06-21}
+\date{2021-06-22}
 
 \begin{document}
 \maketitle
 
 {
+\hypersetup{linkcolor=black}
 \setcounter{tocdepth}{5}
 \tableofcontents
 }
@@ -139,17 +144,15 @@ stereotypical thinking still present in modern societies. There are many
 different types of models in NLP depending on a task that they are
 supposed to solve. However, all of them need as an input words
 represented by means of numbers and this is accomplished with word
-embeddings. The word embeddings are usually assigned the values based on
-the context in which the words appear. This means that the input data
-can have an enormous influence on the outcome. The biases seem to have
-their primary source in the way the words are assigned numerical values.
-One can find methods that aim at identifying and measuring hidden biases
-and/or try to remove them by for example modifying the word embeddings
-directly.
+embeddings. Word embeddings are usually assigned the values based on the
+context in which the words appear. This means that the input data can
+have an enormous influence on the outcome. One can find methods that aim
+at identifying and measuring hidden biases and/or try to remove them by,
+for example, modifying the word embeddings directly.
 
 One can find various definitions trying to capture what bias and
 fairness actually are. With the choice of the definition, implications
-into the real-life applications may change as well. Mehrabi, Morstatter,
+for the real-life applications may change as well. Mehrabi, Morstatter,
 Saxena, Lerman, \& Galstyan
 (\protect\hyperlink{ref-Mehrabi2019Survey}{2019}) mark out that there
 exist different types of biases such as historical bias, representation
@@ -175,11 +178,11 @@ skills, but not yet so much work experience. Systemic discrimination
 takes place when policies, customs or behaviors that result from certain
 culture or organizational structure lead to discrimination against some
 groups of people. Finally, statistical discrimination consists in
-relying on group statistics to judge person belonging to a given group.
-The topic of discrimination is entangled with another concept; fairness.
-It is essential to grasp some concepts of fairness to take them into
-consideration while designing implementation of some machine learning
-model. In Mehrabi et al.
+relying on group statistics to judge a person belonging to a given
+group. The topic of discrimination is entangled with another concept;
+fairness. It is essential to grasp some concepts of fairness to take
+them into consideration while designing implementation of some machine
+learning model. In Mehrabi et al.
 (\protect\hyperlink{ref-Mehrabi2019Survey}{2019}) one may notice that
 depending on the context and application different definitions may be
 applied.
@@ -187,36 +190,36 @@ applied.
 There is a considerable amount of literature available on the topic of
 bias detection and mitigation in NLP models. Bolukbasi, Chang, Zou,
 Saligrama, \& Kalai (\protect\hyperlink{ref-Bolukbasi2016Man}{2016})
-focus on gender biases that may be observable while investigating the
-representation of job occupations and gender in terms of their assigned
-numerical values. The authors apply cosine similarity measurement to
-investigate the phenomenon where (the vectors corresponding to) words
-related to jobs that are stereotypically associated with a given gender
-are in fact in the model situated closer to this gender. They also use
-analogy tasks to evaluate if bias is present in a word embedding model.
-They check analogies by comparing pairs of word vectors. For example
-they search for the word complementing the puzzle: man is to doctor as
-woman is to \ldots{}? First they subtract the word ``man'' from the word
-``woman''\footnote{This is pointwise subtraction of vectors, but for the
-  simplicity we will often talk about words while really meaning
-  vectors. What is meant should be clear from the context.} and then
-they search for the ranked list of other words pairs that have similar
-vector difference. They also include in the formula a threshold to
-ensure that the resulting pairs could not be randomly picked.
+focus on gender biases that may be observable in the representation of
+job occupations and gender in terms of numerical values. The authors
+apply cosine similarity measurement to investigate the phenomenon where
+(the vectors corresponding to) words related to jobs that are
+stereotypically associated with a given gender are in fact in the model
+situated closer to this gender. They also use analogy tasks to evaluate
+if a bias is present in a word embedding model. They check analogies by
+comparing pairs of word vectors. For example they search for the word
+complementing the puzzle: man is to doctor as woman is to \ldots{}?
+First they subtract the word ``man'' from the word ``woman''\footnote{This
+  is pointwise subtraction of vectors, but for the simplicity we will
+  often talk about words while really meaning vectors. What is meant
+  should be clear from the context.} and then they search for the ranked
+list of other words pairs that have similar vector difference. They also
+include in the formula a threshold to ensure that the resulting pairs
+could not be randomly picked.
 
 However, as Nissim, Noord, \& Goot
 (\protect\hyperlink{ref-Nissim2019Fair}{2019}) points out, there are
 some limitations to this approach. In practice, most of analogies
 implementations do not return any input words. This means that it does
 not make sense to expect the algorithm to return the same profession for
-both woman and man. Therefore, this method seems to be limited in terms
-of bias detection. Other problems are related for example to the choice
-of pairs and words that are used to detect the presence of
-discrimination, as it is often subjective and without proper
-justification. Additionally, the choice of the parameter used in
-Bolukbasi et al. (\protect\hyperlink{ref-Bolukbasi2016Man}{2016})
-formula to ensure that word pairs are not picked by random, is also not
-justified and changing it drastically influences the results.
+both woman and man. Therefore, this method of bias detection seems
+limited. Other problems are related for example to the choice of pairs
+and words that are used to detect the presence of discrimination, as it
+is often subjective and without proper justification. Additionally, the
+choice of the parameter used in Bolukbasi et al.
+(\protect\hyperlink{ref-Bolukbasi2016Man}{2016}) formula to ensure that
+word pairs are not picked by random, is also not justified and changing
+it drastically influences the results.
 
 Islam, Bryson, \& Narayanan
 (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}) touch upon the
@@ -231,10 +234,10 @@ Manzini, Lim, Tsvetkov, \& Black
 (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) propose a
 novel way of using cosine similarity to verify if the assumed
 resemblance between protected words and harmful attributes exists. They
-investigate an approach that enables them to measure the bias for a
-class (such as gender, religion or race) and express the final result
-with a single metric. Their approach will be analyzed in details in the
-next chapter.
+develop an approach that enables them to measure the bias for a class
+(such as gender, religion or race) and express the final result with a
+single metric. Their approach will be analyzed in details in the next
+chapter.
 
 Islam et al. (\protect\hyperlink{ref-Caliskan2017Semantics}{2016}) refer
 to Implicit Association Test (Greenwald et al., 1998) that measures the
@@ -243,7 +246,7 @@ human reaction time for special tasks. Humans naturally exhibit some
 biases which do not always cause social concern. One can imagine the
 intuitive associations between for example insects and flowers, and the
 feelings of pleasantness or unpleasantness. In general, people would
-rather associate flowers with feeling pleasant than insects, and this
+rather associate flowers than insects with feeling pleasant, and this
 preference in a sense is a bias or prejudice in some direction. However,
 this type of preference does not cause an uproar and is a rather morally
 neutral case. This example is rather used to show that the methodology
@@ -257,16 +260,16 @@ lives and therefore they should be taken care of.
 The most common bias detection methods in the literature focus on
 comparing the similarity between words from protected groups and those
 that are considered to be stereotypical or harmful in some way. One can
-find in this group methods such as euclidean distance or cosine
+find in this group methods such as Euclidean distance or cosine
 similarity (which is equivalent to dot product if the vectors are
 normalized). There are also other ways to detect the effects of biases.
 One can investigate the model performance on certain downstream tasks
 and validate if the model uses the gender or race information to
-complete the task. The currently used methods employing cosine
-similarity, often aggregate the similarity values often aggregated in a
-way that may lead to hasty conclusions. The averaging of values and the
-lack of attention to uncertainty involved in such aggregation may lead
-to the incomplete picture of the situation.
+complete the task. Unfortunately, the currently used methods employing
+cosine similarity, often aggregate the similarity values in a way that
+may lead to hasty conclusions. The averaging of values and the lack of
+attention to uncertainty involved in such aggregation may lead to an
+incomplete picture of the situation.
 
 In the paper we indicate how current methods used to detect biases in
 natural language models are limited, if we investigate them from the
@@ -341,7 +344,7 @@ The numbers occurring in such representations are not random. They are
 learned in a process that uses a very shallow neural network. There are
 various types of techniques used for learning the vectors
 representations. One of the most straightforward ones is a skip-gram
-model. Given a word the model tries to predict its neighboring words
+model. Given a word, the model tries to predict its neighboring words
 from the sentence. The mathematics behind the process relies on the idea
 that the prediction concerns the conditional probability of the adjacent
 words. The algorithm tries to minimize the loss function, which
@@ -385,8 +388,8 @@ are aligned perpendicularly to each other, their similarity equals 0
 similarity between the vectors is small. As the angle between vectors
 decreases, cosine similarity approaches one, which stands for the
 greatest similarity. It is also possible to obtain negative cosine
-similarity, if the value approaches -1 it means that the words are
-contrary to each other.
+similarity. If the value approaches -1, this intuitively means that the
+words are contrary to each other.
 
 One of the limitations of this measure is that it informs us only about
 similarities between vectors in terms of their orientation. However, it
@@ -414,17 +417,18 @@ inequality formula says that for any triangle, the sum of the lengths of
 any two sides must be greater than or equal to the length of the
 remaining side. As shown in
 \href{https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u}{discussion
-in stats.stackexchange.com} in the case of cosine distance it would have
-to fulfill this equation 1+cos-sim(𝐴,𝐶) \textless{} cos-sim(𝐴,𝐵) +
-cos-sim(𝐵,𝐶). If one chooses specific unit vectors it is easy to
-demonstrate that the triangle inequality is not preserved.
+in stats.stackexchange.com}\footnote{\url{https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u}}
+in the case of cosine distance it would have to fulfill this equation
+1+cos-sim(𝐴,𝐶) \textless{} cos-sim(𝐴,𝐵) + cos-sim(𝐵,𝐶). If one chooses
+specific unit vectors it is easy to demonstrate that the triangle
+inequality is not preserved.
 
 \section{Cosine distance in a one-class bias
 detection}\label{cosine-distance-in-a-one-class-bias-detection}
 
 Bolukbasi et al. (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}) define
 similarity between words as the outcome inner product of their
-normalized vectors. They focus on examining what the geometry of word
+normalized vectors. They focus on examining what the geometry of a word
 embedding is in regard to ``he'' and ``she'' words. In other words,
 whether the similarity between those concepts and other words reflects
 expected gender stereotypes. They test this hypothesis by investigating
@@ -454,8 +458,9 @@ words. The plot below does not originate from the original paper but
 from
 \href{https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings}{kaggle.com
 R notebook using data from GloVe: Global Vectors for Word
-Representation}. However, similar visualization may be found there. Data
-used to create our plot is as follows.
+Representation}.\footnote{\url{https://www.kaggle.com/rtatman/gender-bias-in-word-embeddings}.}
+However, similar visualization may be found there. Data used to create
+our plot is as follows.
 
 Occupations associated with feminine:
 \textbf{"homemaker", "nurse", "receptionist", "librarian", "socialite", "hairdresser", "nanny", "bookkeeper", "stylist", "housekeeper", "interior designer", "guidance counselor"}
@@ -486,13 +491,9 @@ detection}\label{cosine-distance-in-a-multi-class-bias-detection}
 Manzini et al.
 (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) present a
 different approach towards finding similarities between classes of
-words. The authors claim that texts available online are full of direct
-or indirect human stereotypes. As a result, word embeddings are prone to
-learn and maybe amplify those biases and propagate them further into AI
-models that are used for various applications. Cosine distance is used
-in the article as a measure to first argue for the existence of
-multi-class bias and then to show how through bias mitigation techniques
-the bias may be decreased.
+words. Cosine distance is used in the article as a measure to first
+argue for the existence of multi-class bias and then to show how through
+bias mitigation techniques the bias may be decreased.
 
 They modify WEAT to a multi-class setting, introducing Mean Average
 Cosine similarity as a measure of bias (in fact, in the paper they
@@ -603,6 +604,8 @@ found in a given group. For example in terms of religion one can
 identify at least a few sets that are to grasp the concept of religion
 in general:
 
+\pagebreak 
+
 \textbf{["judaism", "christianity", "islam"]}
 
 \textbf{["jew", "christian", "muslim"]}
@@ -624,14 +627,16 @@ changed. In the case of stereotypes the aim is to make the cosine
 distances larger so that the association between protected word and
 stereotype is smaller.
 
-In the final step there is an evaluation of the results. The cosine
-distances are calculated again but this time using debiased vocabulary.
-After taking the mean of all distances one final value is obtained and
-then it is compared with the average value from the beginning. If the
-cosine distances are on average greater than before then it leads the
-authors to the conclusion that improvement has been achieved. As the
-cosine distance increases, it is assumed that the association between
-protected and stereotypical words decreases.
+In the final step they evaluate the results. The cosine distances are
+calculated again but this time using the debiased vocabulary. After
+taking the mean of all distances one final value is obtained and then it
+is compared with the average value from the beginning. If the cosine
+distances are on average greater than before then it leads the authors
+to the conclusion that improvement has been achieved. As the cosine
+distance increases, it is assumed that the association between protected
+and stereotypical words decreases.
+
+\newpage
 
 \section{Limitations of the approach}\label{limitations-of-the-approach}
 
@@ -657,26 +662,34 @@ the attributes of that class. If one takes closer look at the individual
 values that are taken for the calculations it turns out that there is a
 bunch of outliers and surprisingly dissimilar words. We approach this
 issue by providing the tables and visualizations of individual cosine
-distances to make sure that we get the proper insight into the data.
+distances to make sure that we obtain a proper insight into the data.
 
 \textbf{3. Hiding the impact of uncertainty}
 
-With such a method the uncertainty is not included which makes it even
-more difficult to give reasonable interpretations of the results. We
-propose the use of Bayesian method to obtain some understanding of the
-influence the uncertainty has on the interpretation of final results.
+With such a method the uncertainty involved is not really considered
+which makes it even more difficult to give reasonable interpretations of
+the results. We propose the use of Bayesian method to obtain some
+understanding of the influence the uncertainty has on the interpretation
+of final results.
 
-\textbf{4. No word class distinction}
+\pagebreak 
+
+\textbf{4. No word class distinction and no control group}
 
 In the original paper, words from all three religions were compared
 against all of the stereotypes, which means that there was no
 distinction between cases in which the stereotype is associated with a
 given religion, as opposed to the situation in which it is associated
 with another one. Not all of the stereotypical words have to be
-considered as harmful for all of the religions. In our analysis, we
-distinguish between stereotypes associated with a given group,
-stereotypes associated with different groups, and control groups:
-neutral words and stereotypes-free human predicates.
+considered as harmful for all of the religions. One should investigate
+the religions separately as some of them may have stronger harmful
+associations that others. One should also include control groups to have
+a way of comparing the stereotypical results with neutral or human-like
+words. Later in the text we will explain in details reasons for
+introducing control groups. In our analysis, we distinguish between
+stereotypes associated with a given group, stereotypes associated with
+different groups, and control groups: neutral words and stereotypes-free
+human predicates.
 
 \textbf{5. Interpreting the results}
 
@@ -709,10 +722,11 @@ vectors with such great distance to make it even larger.
 Methodologically the question is, on what basis is this small similarity
 still considered as a proof of the presence of bias, and whether these
 small changes are meaningful. This is in general the problem of scale
-and the lack of universal intervals. In contrast, proper intervals
-decide whether given cosine similarity is high enough to consider the
-words to be more similar than if we chose them at random. We will use
-highest posterior density intervals.
+and the lack of universal intervals. In contrast, statistical intervals
+will help us decide whether a given cosine similarity is high enough to
+consider the words to be more similar than if we chose them at random.
+We will use highest posterior density intervals, in line with Bayesian
+methodology.
 
 \textbf{6. The curse of dimensionality}
 
@@ -786,13 +800,16 @@ We start with loading the libraries needed for the analysis.
 \normalsize 
 
 We will use the choice of protected words and stereotypical predicates
-used in REF. This is a decent point of departure, not only we want to
-compare our method to that of REF, but also because this data format is
-fairly general (as contrasted, say, with a set up for binary
-stereotypes). Note also that the method we develop here can fairly
-easily be run for different stereotypization patterns. Let's start with
-explaining the method and its deployment using a dataset obtained for
-the religion-related protected words.
+used in Manzini et al.
+(\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}). This is a
+decent point of departure, as not only we want to compare our method to
+that of Manzini et al.
+(\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}), but also
+because this data format is fairly general (as contrasted, say, with a
+set up for binary stereotypes). Note also that the method we develop
+here can fairly easily be run for different stereotypization patterns.
+Let's start with explaining the method and its deployment using a
+dataset obtained for the religion-related protected words.
 
 Let's load, clean a bit and inspect the head of the religion dataset we
 prepared. In order to obtain this dataset, we calculated the cosine
@@ -800,8 +817,10 @@ distance between each protected word and each word from both the
 bias-related attribute groups, which were used in the original study,
 and to neutral and human control attributes which we added as control
 groups. For instance, for religion, the bias-related predicates (coming
-from the original study in REF) include muslim bias attributes, jew bias
-attributes, christian bias attributes (see a list in the APPENDIX).
+from the original study in Manzini et al.
+(\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019})) include
+muslim bias attributes, jew bias attributes, christian bias attributes
+(see a list in the Appendix).
 
 We decided to add control groups in the form of two classes --- neutral
 words and human-related words. Without a proper control group it is
@@ -818,26 +837,7 @@ humans. For two control groups, we have randomly drawn 230 words that do
 not express any property usually attributed to humans, and human related
 attributes.
 
-\vspace{1mm} \footnotesize
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{religion <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../datasets/religionReddit.csv"}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
-\KeywordTok{colnames}\NormalTok{(religion) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"protectedWord"}\NormalTok{,}\StringTok{"wordToCompare"}\NormalTok{,}\StringTok{"wordClass"}\NormalTok{,}
-                        \StringTok{"cosineDistance"}\NormalTok{,}\StringTok{"cosineSimilarity"}\NormalTok{,}\StringTok{"connection"}\NormalTok{)}
-\CommentTok{#head(religion)}
-\CommentTok{#library(plyr)}
-\NormalTok{religion}\OperatorTok{$}\NormalTok{wordClass <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass)}
-\CommentTok{#levels(religion$wordClass)}
-\CommentTok{#religion$wordClass <- mapvalues(religion$wordClass, }
-\CommentTok{#                          from = levels(religion$wordClass),}
-\CommentTok{#                          to = c("christian","human","jewish","muslim","neutral"))}
-\KeywordTok{levels}\NormalTok{(religion}\OperatorTok{$}\NormalTok{wordClass) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"christian"}\NormalTok{,}\StringTok{"human"}\NormalTok{,}\StringTok{"jewish"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"neutral"}\NormalTok{)}
-\KeywordTok{head}\NormalTok{(religion)  }\OperatorTok{%>%}\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{format =} \StringTok{"latex"}\NormalTok{,}\DataTypeTok{booktabs=}\NormalTok{T,}
-                      \DataTypeTok{linesep =} \StringTok{""}\NormalTok{,  }\DataTypeTok{escape =} \OtherTok{FALSE}\NormalTok{, }
-                      \DataTypeTok{caption =} \StringTok{"Head of the religion dataset."}\NormalTok{) }\OperatorTok{%>%}\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+\pagebreak  \vspace{1mm} \footnotesize
 
 \begin{table}
 
@@ -899,7 +899,7 @@ The first impression is that while there is a shift for associated words
 towards smaller cosine distances as compared to the neutral words,
 slightly surprisingly a slightly weaker shift in the same direction is
 visible for attributes associated with different stereotypes. Moreover,
-the empirical distributions overlap to alarge extent and the means
+the empirical distributions overlap to a large extent and the means
 grouped by connection type do not seem too far from each other. In fact,
 as there is a lot of variety in the cosine distances (as we will soon
 see), we need to gauge the uncertainty involved, and to look more
@@ -964,20 +964,6 @@ the empirical distributions for these protected words.
 
 \vspace{1mm} \footnotesize
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\NormalTok{muslimWords <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"imam"}\NormalTok{,}\StringTok{"islam"}\NormalTok{,}\StringTok{"mosque"}\NormalTok{,}\StringTok{"muslim"}\NormalTok{,}\StringTok{"quran"}\NormalTok{)}
-\NormalTok{muslim <-}\StringTok{ }\NormalTok{religion }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(protectedWord }\OperatorTok{%in%}\StringTok{ }\NormalTok{muslimWords)}
-\KeywordTok{ggplot}\NormalTok{(muslim, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{  cosineDistance, }\DataTypeTok{fill =}\NormalTok{ connection, }\DataTypeTok{color =}\NormalTok{ connection))}\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.6}\NormalTok{,}\DataTypeTok{size =} \FloatTok{.2}\NormalTok{)}\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"orangered4"}\NormalTok{,}\StringTok{"chartreuse4"}\NormalTok{, }\StringTok{"skyblue"}\NormalTok{, }\StringTok{"gray"}\NormalTok{))}\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.1}\NormalTok{))}\OperatorTok{+}\KeywordTok{xlab}\NormalTok{(}\StringTok{"cosine distance"}\NormalTok{)}\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"orangered4"}\NormalTok{,}\StringTok{"chartreuse4"}\NormalTok{,}\StringTok{"skyblue"}\NormalTok{,}\StringTok{"gray"}\NormalTok{))}\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{()}\OperatorTok{+}\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Empirical distribution of distances (muslim)"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{center}\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 \normalsize
@@ -993,22 +979,6 @@ control groups of those for the visualisation purposes.
 
 \vspace{1mm} \footnotesize
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\NormalTok{muslimClass <-}\StringTok{ }\NormalTok{muslim }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(protectedWord }\OperatorTok{==}\StringTok{ "muslim"}\NormalTok{)}
-\NormalTok{neutralSample <-}\StringTok{ }\KeywordTok{sample_n}\NormalTok{(}\KeywordTok{filter}\NormalTok{(muslimClass,connection }\OperatorTok{==}\StringTok{ "none"}\NormalTok{), }\DecValTok{5}\NormalTok{)}
-\NormalTok{humanSample <-}\StringTok{ }\KeywordTok{sample_n}\NormalTok{(}\KeywordTok{filter}\NormalTok{(muslimClass,connection }\OperatorTok{==}\StringTok{ "human"}\NormalTok{), }\DecValTok{5}\NormalTok{)}
-\NormalTok{muslimVis <-}\StringTok{ }\NormalTok{muslimClass }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(connection }\OperatorTok{!=}\StringTok{ "none"} \OperatorTok{&}\StringTok{ }\NormalTok{connection }\OperatorTok{!=}\StringTok{"human"}\NormalTok{)}
-\NormalTok{muslimVis <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(muslimVis,neutralSample,humanSample)}
-
-\CommentTok{#we plug in our visualisation script}
-\KeywordTok{source}\NormalTok{(}\StringTok{"../functions/visualisationTools.R"}\NormalTok{)}
-\CommentTok{#two arguments: dataset and protected word}
-\KeywordTok{visualiseProtected}\NormalTok{(muslimVis,}\StringTok{"muslim"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{center}\includegraphics[width=1\linewidth]{_main_files/figure-latex/tableMuslimActive-1} \end{center}
 
 \normalsize
@@ -1022,22 +992,6 @@ taste of how uneven the dataset is, compare this to what happens with
 \texttt{priest}.
 
 \vspace{1mm} \footnotesize
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\NormalTok{priestClass <-}\StringTok{ }\NormalTok{religion }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(protectedWord }\OperatorTok{==}\StringTok{ "priest"}\NormalTok{)}
-\NormalTok{neutralSample <-}\StringTok{ }\KeywordTok{sample_n}\NormalTok{(}\KeywordTok{filter}\NormalTok{(priestClass,connection }\OperatorTok{==}\StringTok{ "none"}\NormalTok{), }\DecValTok{5}\NormalTok{)}
-\NormalTok{humanSample <-}\StringTok{ }\KeywordTok{sample_n}\NormalTok{(}\KeywordTok{filter}\NormalTok{(priestClass,connection }\OperatorTok{==}\StringTok{ "human"}\NormalTok{), }\DecValTok{5}\NormalTok{)}
-\NormalTok{priestVis <-}\StringTok{ }\NormalTok{priestClass }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(connection }\OperatorTok{!=}\StringTok{ "none"} \OperatorTok{&}\StringTok{ }\NormalTok{connection }\OperatorTok{!=}\StringTok{"human"}\NormalTok{)}
-\NormalTok{priestVis <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(priestVis,neutralSample,humanSample)}
-
-\CommentTok{#we plug in our visualisation script}
-\KeywordTok{source}\NormalTok{(}\StringTok{"../functions/visualisationTools.R"}\NormalTok{)}
-\CommentTok{#two arguments: dataset and protected word}
-\KeywordTok{visualiseProtected}\NormalTok{(priestVis,}\StringTok{"priest"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
@@ -1062,7 +1016,9 @@ build a few Bayesian models to compare. First, we just build a baseline
 model which estimates cosine distance to the attributes separately for
 each protected word. The underlying idea is that different protected
 words might in general have different relations to all the attributes
-and these relations should be our point of departure.
+and these relations should be our point of departure.\footnote{The
+  construction of the Bayesian models and code for visualisations is due
+  to Rafal Urbaniak.}
 
 Here is the intuition behind the mathematical Bayesian model involved.
 Our outcome variable is \texttt{cosine\ difference}, which we take to me
@@ -1120,6 +1076,7 @@ Carlo methods (STAN) available through the \texttt{rethinking} package.
 \end{Highlighting}
 \end{Shaded}
 
+\normalsize
 The only reason we need it is the evaluation of connection as a
 predictor. Does including it in o the model improve the situation? To
 investigate this, let's now build a model according to the following
@@ -1189,7 +1146,8 @@ value. Let's take a look at the coefficient estimates:
 
 \normalsize
 
-\section{Dataset-level coefficients}\label{dataset-level-coefficients}
+\section{\texorpdfstring{Dataset-level coefficients
+\label{sec:datasetsLevelCoeffs}}{Dataset-level coefficients }}\label{dataset-level-coefficients}
 
 \noindent Let's plot them together with their highest posterior density
 invervals, for the three topic groups.
@@ -1317,7 +1275,7 @@ analysis}\label{protected-word-level-analysis}
 assumptions}\label{model-structure-and-assumptions}
 
 Let's turn then to data analysis that takes a look at protected words
-separately. This time for each combination of a protected word and a
+separately. This time, for each combination of a protected word and a
 connection status we will have a separate mean cosine distance estimate,
 each coming with its own highest posterior density interval. This means
 we will use indices that are result from all such combinations (and then
@@ -1391,15 +1349,16 @@ analogous).
 We first encountered the GoogleNews word embedding model in Bolukbasi et
 al. (\protect\hyperlink{ref-Bolukbasi2016Man}{2016}). They use it for
 their calculations as written in
-\href{https://github.com/tolga-b/debiaswe}{Tolga Code}. We decided to
+\href{https://github.com/tolga-b/debiaswe}{Tolga Bolukbasi
+code}\footnote{\url{https://github.com/tolga-b/debiaswe}}. We decided to
 compare the results obtained with the use of Reddit L2 model and the
 ones that we got by GoogleNews model. The details of the model can be
 found here \href{https://code.google.com/archive/p/word2vec/}{Google
 News model}. One of the main differences between the models is that
 Reddit word embeggings have 50 dimensions and GoogleNews word embeddings
-have 300 dimensions. As the dimension is increasing, the vector can
-capture much more information but this is not always the case. According
-to some researchers the amount of dimensions should be chosen by taking
+have 300 dimensions. As the dimension increases, the vectors can capture
+much more information, but this is not always the case. According to
+some researchers, the amount of dimensions should be chosen by taking
 into account the type of corpus and its features. In our case both
 Reddit and GoogleNews models are already trained and ready to use so we
 do not analyse further the choice of their hyperparameters.
@@ -1409,6 +1368,9 @@ do not analyse further the choice of their hyperparameters.
 \includegraphics[width=14cm]{../images/visGenderGoogle.png}
 
 \includegraphics[width=14cm]{../images/visRaceGoogle.png}
+
+We leave a discussion of these results for later, for now let us also
+inspect the impact of debiasing.
 
 \chapter{The role of debiasing}\label{the-role-of-debiasing}
 
@@ -1427,7 +1389,10 @@ words and the attributes.
 debiasing}\label{dataset-level-coefficients-after-debiasing}
 
 First, let's look at coefficient estimated for the whole datasets, as
-compared to their estimation prior to debiasing:
+compared to their estimation prior to debiasing. One may observe very
+slight changes in the estimated coeﬀicients. It seems that in religion
+dataset the changes are the most significant as the mean moves towards
+zero which stands for no similarity between words.
 
 \begin{center}
 \begin{figure}[!htb]\centering
@@ -1459,11 +1424,6 @@ compared to their estimation prior to debiasing:
 
 \end{center}
 
-One may observe very slight changes in the estimated coeﬀicients. It
-seems that in religion dataset the changes are the most significant as
-the mean moves towards zero which stands for no similarity between
-words.
-
 \section{Protected classes after
 debiasing}\label{protected-classes-after-debiasing}
 
@@ -1490,15 +1450,15 @@ interpret the results, if the distances are really able to catch the
 bias presence.
 
 It is worth paying attention to the gender debiased dataset. The change
-is really minor, still zero out of HPDI range. The \texttt{different}
-attributes still have high similarity value. It seems that the distances
-for gender protected words are still clustered together which suggests
-that this method is not able to catch the complex bias presence. One
-could conclude that co-occurrence of certain terms does not always mean
-direct connection in terms of terms associations. The fact that some of
-stereotypically associated with female attributes still have high
-similarity with male protected words suggest that other techniques
-should be applied to detect and remove the bias.
+is really minor, still with zero out of the HPDI range. The
+\texttt{different} attributes still have high similarity value. It seems
+that the distances for gender protected words are still clustered
+together which suggests that this method is unable to catch the complex
+bias presence. One could conclude that co-occurrence of certain terms
+does not always mean direct connection in terms of terms associations.
+The fact that some of stereotypically associated with female attributes
+still have high similarity with male protected words suggest that other
+techniques should be applied to detect and remove the bias.
 
 At the same time, there is a small improvement in race dataset. In some
 cases the distances just cluster together. In general distances for
@@ -1506,13 +1466,6 @@ cases the distances just cluster together. In general distances for
 classes. One may assume that there reason for so small change is that
 either the metric does not indicate properly biases or that the issue is
 more complex and subtracting subspaces is not enough.
-
-In Manzini et al.
-(\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) it is
-mentioned that debiasing with this method that is based on bias
-component removal may be insufficient. The reason is that words
-containing similar biases may still cluster together even after
-debiasing.
 
 \chapter{Discussion and summary}\label{discussion-and-summary}
 
@@ -1522,7 +1475,7 @@ that including uncertainty enables one to directly observe the influence
 of sample sizes. Analyzing individual words and connection coefficients,
 one may notice how \texttt{neutral} words have smaller uncertainty
 intervals and \texttt{different} or \texttt{associated} quite the
-opposite. One of the reasons for such outcome is that we used
+opposite. One of the reasons for such an outcome is that we used
 approximately 230 neutral words and only between 11-25 (the number
 varies from class to class) stereotypical attributes from Manzini et al.
 (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) article. In
@@ -1531,53 +1484,128 @@ regarding anomalous values. With the use of simple visualizations that
 we introduced before, we were able to indicate suspicious cosine
 distance values. Additionally, we compare in details how the cosine
 distance values and uncertainty change after the debiasing. One can
-verify then how the individual vectors changed and if it is what was
-expected. Our analysis with the use of Bayesian method gave us new ideas
-and hypothesis concerning not only the bias detection method but also
-the efficiency of debiasing itself.
+investigate then how the individual vectors changed and if it is what
+was expected. Our analysis with the use of Bayesian method gave us new
+ideas and hypothesis concerning not only the bias detection method but
+also the efficiency of debiasing itself. We created summary tables for
+each of the datasets: Google word embeddings (Table \ref{tab:dTabG}),
+Reddit (Table \ref{tab:dTabR}), and Reddit Debiased (Table
+\ref{tab:dTabRD}).
 
-We created a summary table for each of the datasets: Reddit, Reddit
-Debiased, and Google word embeddings. Let us first analyse the general
-observations from estimated coefficients mean introduced in 3.6.
-DATASET-LEVEL COEFFICIENTS. For Google embeddings the HPDI for all
-classes coefficients (associated, different, human, and none) has an
-interval that includes zero. This can lead one to a conclusion that the
-impact for associated, different, human and neutral attribute is, when
-averaged, quite similar. This indicates how including the uncertainty
-may change the use and interpretation of Manzini et al.
+\vspace{1mm} \footnotesize
+
+\begin{table}
+
+\caption{\label{tab:dTabG}Overview statistics  (GoogleNews embedding)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llll}
+\toprule
+  & Religion (percent) & Gender (percent) & Race (percent)\\
+\midrule
+A close to N & 66.67 & 14.29 & 80\\
+A close to H & 66.67 & 21.43 & 100\\
+H closer than A & 20 & 21.43 & 50\\
+D similar with A & 93.33 & 42.86 & 100\\
+D closer than A & 33.33 & 21.43 & 30\\
+General HPDI outside of  0 & no & no & no\\
+General D similar to A & slightly not & slightly not & slightly not\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+\vspace{1mm} \footnotesize
+
+\begin{table}
+
+\caption{\label{tab:dTabR}Overview statistics  (Reddit embedding)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llll}
+\toprule
+  & Religion (percent) & Gender (percent) & Race (percent)\\
+\midrule
+A close to N & 66.67 & 0 & 40\\
+A close to H & 60 & 21.43 & 50\\
+H closer than A & 33.33 & 0 & 0\\
+D similar with A & 100 & 92.86 & 90\\
+D closer than A & 33.33 & 42.86 & 30\\
+General HPDI outside of 0 & no & yes & no\\
+General D similar to A & slightly not & yes & slightly not\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+\vspace{1mm} \footnotesize
+
+\begin{table}
+
+\caption{\label{tab:dTabRD}Overview statistics  (Reddit embedding, debiased)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llll}
+\toprule
+  & Religion (percent) & Gender (percent) & Race (percent)\\
+\midrule
+A close to N & 73.33 & 7.14 & 50\\
+A close to H & 46.67 & 21.43 & 70\\
+H closer than A & 66.67 & 0 & 20\\
+D similar with A & 100 & 100 & 80\\
+D closer than A & 66.67 & 50 & 30\\
+General HPDI outside of 0 & no & yes & no\\
+General D similar to A & yes & yes & yes\\
+General H moved closer to A & yes & no & no\\
+General N moved closer & no & yes & yes\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+Let us first analyse the general observations from estimated
+coefficients mean introduced in Section \ref{sec:datasetsLevelCoeffs} on
+dataset-level coefficients. For Google embeddings the HPDIs for all
+class coefficients (associated, different, human, and none) include
+zero. This can lead one to a conclusion that the impact for associated,
+different, human and neutral attribute is, when averaged, quite similar.
+This indicates how including the uncertainty may change the use and
+interpretation of Manzini et al.
 (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}) MAC metric.
 It seems that if one focuses only on differences between means of means,
-it is too simplistic. In case of Reddit word embeddings the situation is
-similar although HPDI interval is below 0 for Gender class when looking
-at \texttt{associated} and \texttt{different} mean coefficient. This can
+this is too simplistic. In case of Reddit word embeddings the situation
+is similar although HPDI is below 0 for Gender class when looking at
+\texttt{associated} and \texttt{different} mean coefficient. This can
 suggest that there is indeed slightly stronger impact of these
 attributes. One should also notice how in general \texttt{associated}
 and \texttt{different} coefficients have quite similar HPDI range, the
 highest observed absolute difference is equal to only 0.1. This suggests
-that again the impact of associated attributes and difference ones is
-not clear at first sight when looking at averaged coefficients. Finally,
-let's compare the HPDI intervals for Reddit and Reddit debiased
-datasets. For Religion and Race dataset there is a minor shift (in
-absolute values the highest change is equal to approximately 0.1) of the
-mean coefficients towards zero. However for Gender dataset there is no
-significant change. This is of course the general look at the data,
-let's now analyze the individual words.
+that again the impact of associated attributes and different ones is not
+clear at first sight. Finally, let's compare the HPDIs for Reddit and
+Reddit debiased datasets. For Religion and Race dataset there is a minor
+shift (in absolute values the highest change is equal to approximately
+0.1) of the mean coefficients towards zero. However for Gender dataset
+there is no significant change. This is of course a general look at the
+group coefficients. Let's now analyze the individual words.
 
-In Reddit table one can observe that for Religion class the cosine
-distance results for the associated attributes are for approximately
-60\% of the words close to human attributes as well. This can suggest
-that in some cases words concerning humans can have higher similarity
-with some protected words independently if they are stereotypical or
+In Reddit table one can observe that for Religion the cosine distance
+results for the associated attributes are for approximately 60\% of the
+words close to human attributes as well. This can suggest that in some
+cases words concerning humans can have higher similarity with some
+protected words independently of whether they are stereotypical or
 neutral-human words. One should also pay attention to the fact that for
 all of the \texttt{associated} and \texttt{different} attributes in
-Religion class the uncertainty interval overlaps at some point. What is
-even more surprising is that for protected words, such as ``torah'' the
+Religion, the uncertainty intervals overlap at some point. What is even
+more surprising is that for protected words, such as ``torah'' the
 \texttt{associated} attribute has the the cosine distance slightly over
 1, which means no positive similarity! If the protected words that we
 chose do not have high similarity with harmful associated attributes,
 then one should consider at least three scenarios. The first one is that
 the choice of the protected words and attributes may be corrupted. The
-second one is that the metric is not able to catch the hidden bias
+second one is that the metric is unable to catch the hidden bias
 properly. The third one is that there is actually no bias between the
 words. Regardless of which scenario one considers, it is essential to
 take a look at the individual values before averaging them or
@@ -1585,9 +1613,9 @@ aggregating in other ways. It seems that using Bayesian method can
 enhance the process of verifying the hypotheses concerning the choice of
 protected words and attributes.
 
-Surprisingly in Gender class one can observe high cosine similarity
-values between some female stereotypical professions and male protected
-words. If a word stereotypically associated with females has low cosine
+Surprisingly in Gender one can observe high cosine similarity values
+between some female stereotypical professions and male protected words.
+If a word stereotypically associated with females has low cosine
 distance to male protected words, then one should investigate the issue
 further. The reasons for this unexpected cosine distance may lie in the
 frequency of appearance of the protected words in the raw data. Some of
@@ -1602,77 +1630,75 @@ general and occur close to much more concepts. Cosine distance seems to
 capture the information on the co-occurrence of words and not on the
 semantic similarity strictly speaking.
 
-In Google table one may notice interesting observations as well.
-Although GoogleNews dataset is larger, trained on different data sources
-and with the use of more dimensions, some of the results are similar to
-the ones obtained for the Reddit corpus. For Religion case almost all of
-the values for \texttt{associated} class have an intersection with
-\texttt{different} class as well. In the case of Race it is 100\% of the
-available words. This indicates again that it is not clear how the
-metric should be used. Quite different situation takes place for Gender
-data where the similarity between \texttt{associated} and
-\texttt{different} is present mostly for the male protected words. This
-means that male words have high similarity with both male stereotypical
-professions and female ones. However, for females the similarity is high
-mostly only for the female stereotypical professions. This observation
-could not be make when using MAC metric only as it requires
-investigating the individual words.
+In Google, one may notice interesting phenomena as well. Although the
+GoogleNews dataset is larger, trained on different data sources and with
+the use of more dimensions, some of the results are similar to the ones
+obtained for the Reddit corpus. For Religion almost all of the values
+for \texttt{associated} class intersect with \texttt{different} class as
+well. In the case of Race it is 100\% of the available words. This
+indicates again that it is not clear how the metric should be used.
+Quite a different situation takes place for Gender, where the similarity
+between \texttt{associated} and \texttt{different} is present mostly for
+the male protected words. This means that male words have high
+similarity with both male stereotypical professions and female ones.
+However, for females, the similarity is high mostly only for the female
+stereotypical professions. This observation could not be made when using
+MAC metric only, as it requires investigating the individual words, and
+providing uncertainty,
 
-When analyzing the Reddit debiased results one should ask a question of
-the change of the cosine distance values. It seems that not all of the
+When analyzing the Reddit debiased results one should investigate the
+change of the cosine distance values. It seems that not all of the
 protected words are treated equally when performing debiasing. In
-religion data the values for \texttt{associated} class moved towards 0
-for most of the words except the ones for Islam religion where still the
+religion, the values for \texttt{associated} class moved towards 0 for
+most of the words except for the ones for Islam, where still the
 \texttt{associated} class has quite lower cosine distance than the
-\texttt{different} one. Similar situation takes place in Gender data
-where female words have still much lower cosine distance values for
+\texttt{different} one. Similar situation takes place in Gender, where
+female words have still much lower cosine distance values for
 \texttt{associated} class than for the \texttt{different} one. In the
-case of males it is mostly almost the same interval for
+case of male protected words it is mostly almost the same interval for
 \texttt{associated} and \texttt{different}. As the Gender data is quite
 specific as the attributes are not harmful adjectives but (in an ideal
 world) neutral professions, the aim (if we follow MAC assumptions)
 should actually be to make the cosine distance same for both female and
 male protected words. However, as we pointed out the situation after
-debiasing can sometimes be better only for one protected group which is
-not the desired outcome. In the case of Religion data even after
-debiasing, all of the protected words have intersections between
+debiasing can sometimes be better only for one protected group, which is
+not the desired outcome. In the case of Religion, even after debiasing,
+all of the protected words have intersections between
 \texttt{associated} and \texttt{different} class and similarity greater
 than 0. As all of the attributes in religion data are negative and
 harmful stereotypes, one should not aim at making the distance between
 protected words and \texttt{associated}, and \texttt{different} class
-the same but rather to move it towards 0.
+the same but rather to move it towards 1.
 
 Let's summarize the results of the bias detection methods analysis. As
 it was presented above, using the bias detection methods without
 involving the uncertainty may bring the risk of limited insight into the
 data. One should be concerned with the limitations of the metric that
-evaluates the debiasing by the mean of the averaged mean approach.
+evaluates the debiasing by means of the averaged mean approach.
 Additionally, one cannot be sure if the bias is still preserved after
 debiasing. The fact that all of the cosine distances for protected words
-and harmful attributes moved slightly to the right, does not mean that
-the bias is removed. It is shown in articles such as Gonen \& Goldberg
-(\protect\hyperlink{ref-Gonen2019Lipstick}{2019}), that the bias can
-hide in the vector geometry and preserve even after applying popular
+and harmful attributes moved slightly to the right does not mean that
+the bias is removed. Gonen \& Goldberg
+(\protect\hyperlink{ref-Gonen2019Lipstick}{2019}) argue that the bias
+can hide in the vector geometry and preserve even after applying popular
 debiasing methods. One of the reasons for that may be the fact that
 relative differences between words may be preserved even after
 debiasing. Another thing is that the choice of word lists used to verify
 the metric effectiveness is not well justified. The sample size is very
-small which leads to large HPDI. Some of the protected words and
-attributes originate from old articles and it seems that the bias
-phenomenon is quite dynamic and the data should be as up-to-date as it
-is possible. One could for example research the IAT examples to verify
-the effectiveness of MAC metric. One should remember that there is no
-clear interpretation for the values obtained with MAC metric from
-Manzini et al.
+small, which leads to large HPDIs. Some of the protected words and
+attributes originate from somewhat old articles and it seems that the
+bias phenomenon is quite dynamic and the data should be as up-to-date as
+it is possible. Moreover, recall that there is no clear interpretation
+for the values obtained with MAC metric from Manzini et al.
 (\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019}). One may
 assume that if the cosine distance is close to 1 then it is a desired
 outcome as it means, according to cosine distance assumptions, that
 there is almost no similarity between the words. However what does it
 mean to be close to 0? If the averaged cosine distance is equal to 0.8,
-then should we still debias it? It is unclear what the criteria are. On
-one hand, it seems to be beneficial when the outcome is simplified as it
-is easier to compare results with one value per set. On the other hand,
-it is prone to misunderstanding of how to interpret the results and what
+then should we still debias? It is unclear what the criteria are. On one
+hand, it seems to be beneficial when the outcome is simplified as it is
+easier to compare results with one value per set. On the other hand, it
+is prone to misunderstanding of how to interpret the results and what
 threshold to assume.
 
 The bottom line is that if we want to take bias seriously, so should we
@@ -1683,7 +1709,216 @@ needed, and visualization of the results for particular protected
 classes provides much better guidance than chasing a single metric based
 on a means of means.
 
-Bibliography:
+\chapter*{Appendix}\label{appendix}
+\addcontentsline{toc}{chapter}{Appendix}
+
+\section*{\texorpdfstring{Original wordlist from (Manzini et al.,
+\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019})}{Original wordlist from (Manzini et al., 2019)}}\label{original-wordlist-from-manzini2019blacktocriminal}
+\addcontentsline{toc}{section}{Original wordlist from (Manzini et al.,
+\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019})}
+
+Definite sets are the protected words, analogy templates assign
+stereotypical attributes to protected words, test terms were included
+but are not used in the original MAC calculations.
+
+\subsection*{Religion}\label{religion}
+\addcontentsline{toc}{subsection}{Religion}
+
+\vspace{1mm} \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{\{}
+    \StringTok{"definite_sets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"judaism"}\NormalTok{, }\StringTok{"christianity"}\NormalTok{, }\StringTok{"islam"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"jew"}\NormalTok{, }\StringTok{"christian"}\NormalTok{, }\StringTok{"muslim"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"synagogue"}\NormalTok{, }\StringTok{"church"}\NormalTok{, }\StringTok{"mosque"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"torah"}\NormalTok{, }\StringTok{"bible"}\NormalTok{, }\StringTok{"quran"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"rabbi"}\NormalTok{, }\StringTok{"priest"}\NormalTok{, }\StringTok{"imam"}\NormalTok{]}
+\NormalTok{    ],}
+    \StringTok{"analogy_templates"}\OperatorTok{:}
+\StringTok{    }\NormalTok{\{}
+        \StringTok{"attribute"}\OperatorTok{:}\StringTok{ }\NormalTok{\{}
+            \StringTok{"jew"}       \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"greedy"}\NormalTok{, }\StringTok{"cheap"}\NormalTok{, }\StringTok{"hairy"}\NormalTok{, }\StringTok{"liberal"}\NormalTok{],}
+            \StringTok{"christian"} \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"judgemental"}\NormalTok{, }\StringTok{"conservative"}\NormalTok{, }\StringTok{"familial"}\NormalTok{],}
+            \StringTok{"muslim"}    \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"violent"}\NormalTok{, }\StringTok{"terrorist"}\NormalTok{, }\StringTok{"dirty"}\NormalTok{, }\StringTok{"uneducated"}\NormalTok{]}
+\NormalTok{        \}}
+\NormalTok{    \},}
+    \StringTok{"eval_targets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"judaism"}\NormalTok{, }\StringTok{"christianity"}\NormalTok{, }\StringTok{"islam"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"jew"}\NormalTok{, }\StringTok{"christian"}\NormalTok{, }\StringTok{"muslim"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"synagogue"}\NormalTok{, }\StringTok{"church"}\NormalTok{, }\StringTok{"mosque"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"torah"}\NormalTok{, }\StringTok{"bible"}\NormalTok{, }\StringTok{"quran"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"rabbi"}\NormalTok{, }\StringTok{"priest"}\NormalTok{, }\StringTok{"imam"}\NormalTok{]}
+\NormalTok{    ], }
+    \StringTok{"testTerms"}\OperatorTok{:}\NormalTok{[}\StringTok{"chair"}\NormalTok{, }\StringTok{"house"}\NormalTok{, }\StringTok{"greedy"}\NormalTok{, }\StringTok{"terrorist"}\NormalTok{, }\StringTok{"dirty"}\NormalTok{, }\StringTok{"greedy"}\NormalTok{]}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\subsection*{Gender}\label{gender}
+\addcontentsline{toc}{subsection}{Gender}
+
+\vspace{1mm} \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{\{}
+    \StringTok{"definite_sets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"he"}\NormalTok{, }\StringTok{"she"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"his"}\NormalTok{, }\StringTok{"hers"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"son"}\NormalTok{, }\StringTok{"daughter"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"father"}\NormalTok{, }\StringTok{"mother"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"male"}\NormalTok{, }\StringTok{"female"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"boy"}\NormalTok{, }\StringTok{"girl"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"uncle"}\NormalTok{, }\StringTok{"aunt"}\NormalTok{]}
+\NormalTok{    ],}
+    \StringTok{"analogy_templates"}\OperatorTok{:}
+\StringTok{    }\NormalTok{\{}
+        \StringTok{"role"}\OperatorTok{:}\StringTok{ }\NormalTok{\{}
+            \StringTok{"man"}   \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"manager"}\NormalTok{, }\StringTok{"executive"}\NormalTok{, }\StringTok{"doctor"}\NormalTok{, }\StringTok{"lawyer"}\NormalTok{, }\StringTok{"programmer"}\NormalTok{, }
+                       \StringTok{"scientist"}\NormalTok{, }\StringTok{"soldier"}\NormalTok{, }\StringTok{"supervisor"}\NormalTok{, }\StringTok{"rancher"}\NormalTok{, }\StringTok{"janitor"}\NormalTok{,}
+                       \StringTok{"firefighter"}\NormalTok{, }\StringTok{"officer"}\NormalTok{],}
+            \StringTok{"woman"} \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"secretary"}\NormalTok{, }\StringTok{"nurse"}\NormalTok{, }\StringTok{"clerk"}\NormalTok{, }\StringTok{"artist"}\NormalTok{, }\StringTok{"homemaker"}\NormalTok{, }\StringTok{"dancer"}\NormalTok{,}
+                       \StringTok{"singer"}\NormalTok{, }\StringTok{"librarian"}\NormalTok{, }\StringTok{"maid"}\NormalTok{, }\StringTok{"hairdresser"}\NormalTok{, }\StringTok{"stylist"}\NormalTok{,}
+                       \StringTok{"receptionist"}\NormalTok{, }\StringTok{"counselor"}\NormalTok{]}
+\NormalTok{        \}}
+\NormalTok{    \}, }
+    \StringTok{"eval_targets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"he"}\NormalTok{, }\StringTok{"she"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"his"}\NormalTok{, }\StringTok{"hers"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"son"}\NormalTok{, }\StringTok{"daughter"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"father"}\NormalTok{, }\StringTok{"mother"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"male"}\NormalTok{, }\StringTok{"female"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"boy"}\NormalTok{, }\StringTok{"girl"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"uncle"}\NormalTok{, }\StringTok{"aunt"}\NormalTok{]}
+\NormalTok{    ], }
+    \StringTok{"testTerms"}\OperatorTok{:}\NormalTok{[}\StringTok{"chair"}\NormalTok{, }\StringTok{"house"}\NormalTok{, }\StringTok{"supervisor"}\NormalTok{, }\StringTok{"secretary"}\NormalTok{, }\StringTok{"loud"}\NormalTok{, }\StringTok{"weak"}\NormalTok{]}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\subsection*{Race}\label{race}
+\addcontentsline{toc}{subsection}{Race}
+
+\vspace{1mm} \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{\{}
+    \StringTok{"definite_sets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"black"}\NormalTok{, }\StringTok{"caucasian"}\NormalTok{, }\StringTok{"asian"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"african"}\NormalTok{, }\StringTok{"caucasian"}\NormalTok{, }\StringTok{"asian"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"black"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"asian"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"africa"}\NormalTok{, }\StringTok{"america"}\NormalTok{, }\StringTok{"asia"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"africa"}\NormalTok{, }\StringTok{"america"}\NormalTok{, }\StringTok{"china"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"africa"}\NormalTok{, }\StringTok{"europe"}\NormalTok{, }\StringTok{"asia"}\NormalTok{]}
+\NormalTok{    ],}
+    \StringTok{"analogy_templates"}\OperatorTok{:}
+\StringTok{    }\NormalTok{\{}
+        \StringTok{"role"}\OperatorTok{:}\StringTok{ }\NormalTok{\{}
+            \StringTok{"caucasian"}\OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"manager"}\NormalTok{, }\StringTok{"executive"}\NormalTok{, }\StringTok{"redneck"}\NormalTok{, }\StringTok{"hillbilly"}\NormalTok{, }\StringTok{"leader"}\NormalTok{, }\StringTok{"farmer"}\NormalTok{],}
+            \StringTok{"asian"}    \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"doctor"}\NormalTok{, }\StringTok{"engineer"}\NormalTok{, }\StringTok{"laborer"}\NormalTok{, }\StringTok{"teacher"}\NormalTok{],}
+            \StringTok{"black"}    \OperatorTok{:}\StringTok{ }\NormalTok{[}\StringTok{"slave"}\NormalTok{, }\StringTok{"musician"}\NormalTok{, }\StringTok{"runner"}\NormalTok{, }\StringTok{"criminal"}\NormalTok{, }\StringTok{"homeless"}\NormalTok{]}
+\NormalTok{        \}}
+\NormalTok{    \}, }
+    \StringTok{"eval_targets"}\OperatorTok{:}\NormalTok{[}
+\NormalTok{        [}\StringTok{"black"}\NormalTok{, }\StringTok{"caucasian"}\NormalTok{, }\StringTok{"asian"}\NormalTok{],}
+\NormalTok{        [}\StringTok{"africa"}\NormalTok{, }\StringTok{"america"}\NormalTok{, }\StringTok{"asia"}\NormalTok{]}
+\NormalTok{    ], }
+    \StringTok{"testTerms"}\OperatorTok{:}\NormalTok{[}\StringTok{"chair"}\NormalTok{, }\StringTok{"house"}\NormalTok{, }\StringTok{"smart"}\NormalTok{, }\StringTok{"criminal"}\NormalTok{, }\StringTok{"executive"}\NormalTok{, }\StringTok{"farmer"}\NormalTok{]}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\section*{Our control groups}\label{our-control-groups}
+\addcontentsline{toc}{section}{Our control groups}
+
+\section*{Human neutral attributes}\label{human-neutral-attributes}
+\addcontentsline{toc}{section}{Human neutral attributes}
+
+\vspace{1mm} \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{human_words =}\StringTok{ }\NormalTok{[}\StringTok{'wear'}\NormalTok{, }\StringTok{'walk'}\NormalTok{, }\StringTok{'visitor'}\NormalTok{, }\StringTok{'toy'}\NormalTok{, }\StringTok{'tissue'}\NormalTok{, }\StringTok{'throw'}\NormalTok{, }\StringTok{'talk'}\NormalTok{, }
+               \StringTok{'speak'}\NormalTok{, }\StringTok{'sleep'}\NormalTok{, }\StringTok{'eye'}\NormalTok{, }\StringTok{'enjoy'}\NormalTok{, }\StringTok{'blogger'}\NormalTok{, }\StringTok{'character'}\NormalTok{, }
+               \StringTok{'candidate'}\NormalTok{, }\StringTok{'breakfast'}\NormalTok{, }\StringTok{'supper'}\NormalTok{, }\StringTok{'dinner'}\NormalTok{, }\StringTok{'eat'}\NormalTok{, }\StringTok{'drink'}\NormalTok{,}
+               \StringTok{"carry"}\NormalTok{, }\StringTok{"run"}\NormalTok{, }\StringTok{"cast"}\NormalTok{, }\StringTok{"ask"}\NormalTok{, }\StringTok{"awake"}\NormalTok{, }\StringTok{"ear"}\NormalTok{, }\StringTok{"nose"}\NormalTok{, }\StringTok{"lunch"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\section*{Non-human neutral
+attributes}\label{non-human-neutral-attributes}
+\addcontentsline{toc}{section}{Non-human neutral attributes}
+
+\vspace{1mm} \footnotesize
+
+\normalsize
+
+\vspace{1mm} \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{neutral_words =}\StringTok{ }\NormalTok{[}\StringTok{'liquor'}\NormalTok{, }\StringTok{'pow'}\NormalTok{, }\StringTok{'ballpark'}\NormalTok{, }\StringTok{'glitchy'}\NormalTok{, }\StringTok{'billy'}\NormalTok{, }\StringTok{'dallas'}\NormalTok{, }
+                 \StringTok{'rip'}\NormalTok{, }\StringTok{'called'}\NormalTok{, }\StringTok{'outlooks'}\NormalTok{, }\StringTok{'viet'}\NormalTok{, }\StringTok{'floater'}\NormalTok{, }\StringTok{'rattlesnake'}\NormalTok{, }\StringTok{'exports'}\NormalTok{,}
+                 \StringTok{'peruvian'}\NormalTok{, }\StringTok{'recursion'}\NormalTok{, }\StringTok{'shortfall'}\NormalTok{, }\StringTok{'corrected'}\NormalTok{, }\StringTok{'amicable'}\NormalTok{,}
+                 \StringTok{'solutions'}\NormalTok{, }\StringTok{'diagnostic'}\NormalTok{, }\StringTok{'patently'}\NormalTok{, }\StringTok{'flops'}\NormalTok{, }\StringTok{'approx'}\NormalTok{, }\StringTok{'percents'}\NormalTok{,}
+                \StringTok{'lox'}\NormalTok{, }\StringTok{'catapults'}\NormalTok{, }\StringTok{'hamburger'}\NormalTok{, }\StringTok{'engulfed'}\NormalTok{, }\StringTok{'households'}\NormalTok{, }\StringTok{'north'}\NormalTok{,}
+                \StringTok{'snubbed'}\NormalTok{, }\StringTok{'playtest'}\NormalTok{, }\StringTok{'replayability'}\NormalTok{, }\StringTok{'glottal'}\NormalTok{, }\StringTok{'parable'}\NormalTok{, }\StringTok{'gingers'}\NormalTok{,}
+                \StringTok{'anachronism'}\NormalTok{, }\StringTok{'organizing'}\NormalTok{, }\StringTok{'reach'}\NormalTok{, }\StringTok{'shtick'}\NormalTok{, }\StringTok{'eleventh'}\NormalTok{, }\StringTok{'cpu'}\NormalTok{, }\StringTok{'ranked'}\NormalTok{,}
+                \StringTok{'irreversibly'}\NormalTok{, }\StringTok{'ponce'}\NormalTok{, }\StringTok{'velociraptor'}\NormalTok{, }\StringTok{'rubber'}\NormalTok{, }\StringTok{'defects'}\NormalTok{, }\StringTok{'puzzle'}\NormalTok{,}
+                \StringTok{'smasher'}\NormalTok{, }\StringTok{'northside'}\NormalTok{, }\StringTok{'heft'}\NormalTok{, }\StringTok{'observation'}\NormalTok{, }\StringTok{'rectum'}\NormalTok{, }\StringTok{'mystical'}\NormalTok{,}
+                \StringTok{'telltale'}\NormalTok{, }\StringTok{'remnants'}\NormalTok{, }\StringTok{'inquiry'}\NormalTok{, }\StringTok{'indisputable'}\NormalTok{, }\StringTok{'boatload'}\NormalTok{, }\StringTok{'lessening'}\NormalTok{,}
+                \StringTok{'uselessness'}\NormalTok{, }\StringTok{'observes'}\NormalTok{, }\StringTok{'fictitious'}\NormalTok{, }\StringTok{'repatriation'}\NormalTok{, }\StringTok{'duh'}\NormalTok{,}
+                \StringTok{'attic'}\NormalTok{, }\StringTok{'schilling'}\NormalTok{, }\StringTok{'charges'}\NormalTok{, }\StringTok{'chatter'}\NormalTok{, }\StringTok{'pad'}\NormalTok{, }\StringTok{'smurfing'}\NormalTok{,}
+                \StringTok{'worthiness'}\NormalTok{, }\StringTok{'definitive'}\NormalTok{, }\StringTok{'neat'}\NormalTok{, }\StringTok{'homogenized'}\NormalTok{,}\StringTok{'lexicon'}\NormalTok{,}
+                \StringTok{'nationalized'}\NormalTok{, }\StringTok{'earpiece'}\NormalTok{, }\StringTok{'specializations'}\NormalTok{, }\StringTok{'lapse'}\NormalTok{,}
+                \StringTok{'concludes'}\NormalTok{, }\StringTok{'weaving'}\NormalTok{, }\StringTok{'apprentices'}\NormalTok{, }\StringTok{'fri'}\NormalTok{, }\StringTok{'younglings'}\NormalTok{,}
+                \StringTok{'militias'}\NormalTok{, }\StringTok{'inscriptions'}\NormalTok{, }\StringTok{'gouda'}\NormalTok{, }\StringTok{'lift'}\NormalTok{, }\StringTok{'laboring'}\NormalTok{, }
+                \StringTok{'adaptive'}\NormalTok{, }\StringTok{'lecture'}\NormalTok{, }\StringTok{'hogging'}\NormalTok{, }\StringTok{'thorne'}\NormalTok{, }\StringTok{'fud'}\NormalTok{, }\StringTok{'skews'}\NormalTok{,}
+                \StringTok{'epistles'}\NormalTok{, }\StringTok{'tagging'}\NormalTok{, }\StringTok{'crud'}\NormalTok{, }\StringTok{'two'}\NormalTok{, }\StringTok{'rebalanced'}\NormalTok{, }\StringTok{'payroll'}\NormalTok{,}
+                \StringTok{'damned'}\NormalTok{, }\StringTok{'approve'}\NormalTok{, }\StringTok{'reason'}\NormalTok{, }\StringTok{'formally'}\NormalTok{, }\StringTok{'releasing'}\NormalTok{, }\StringTok{'muddled'}\NormalTok{,}
+                \StringTok{'mineral'}\NormalTok{, }\StringTok{'shied'}\NormalTok{, }\StringTok{'capital'}\NormalTok{, }\StringTok{'nodded'}\NormalTok{, }\StringTok{'escrow'}\NormalTok{, }\StringTok{'unscientific'}\NormalTok{,}
+                \StringTok{'recognizable'}\NormalTok{, }\StringTok{'entitlement'}\NormalTok{, }\StringTok{'disconnecting'}\NormalTok{, }\StringTok{'marshals'}\NormalTok{,}
+                \StringTok{'winamp'}\NormalTok{, }\StringTok{'forceful'}\NormalTok{, }\StringTok{'lowes'}\NormalTok{, }\StringTok{'ptr'}\NormalTok{, }\StringTok{'sip'}\NormalTok{, }\StringTok{'pencils'}\NormalTok{, }\StringTok{'stomachs'}\NormalTok{,}
+                \StringTok{'goff'}\NormalTok{, }\StringTok{'cg'}\NormalTok{, }\StringTok{'backyard'}\NormalTok{, }\StringTok{'uprooting'}\NormalTok{, }\StringTok{'merging'}\NormalTok{,}
+                \StringTok{'helpful'}\NormalTok{, }\StringTok{'eid'}\NormalTok{, }\StringTok{'trenchcoat'}\NormalTok{, }\StringTok{'airlift'}\NormalTok{, }\StringTok{'frothing'}\NormalTok{,}
+                \StringTok{'pulls'}\NormalTok{, }\StringTok{'volta'}\NormalTok{, }\StringTok{'guinness'}\NormalTok{, }\StringTok{'viewership'}\NormalTok{,}
+                \StringTok{'eruption'}\NormalTok{, }\StringTok{'peeves'}\NormalTok{, }\StringTok{'goat'}\NormalTok{, }\StringTok{'goofy'}\NormalTok{, }\StringTok{'disbanding'}\NormalTok{, }
+                \StringTok{'relented'}\NormalTok{, }\StringTok{'ratings'}\NormalTok{, }\StringTok{'disputed'}\NormalTok{, }\StringTok{'vitamins'}\NormalTok{, }\StringTok{'singled'}\NormalTok{,}
+                \StringTok{'hydroxide'}\NormalTok{, }\StringTok{'telegraphed'}\NormalTok{, }\StringTok{'mercantile'}\NormalTok{, }\StringTok{'headache'}\NormalTok{, }
+                \StringTok{'muppets'}\NormalTok{, }\StringTok{'petal'}\NormalTok{, }\StringTok{'arrange'}\NormalTok{, }\StringTok{'donovan'}\NormalTok{, }\StringTok{'scrutinized'}\NormalTok{,}
+                \StringTok{'spoil'}\NormalTok{, }\StringTok{'examiner'}\NormalTok{, }\StringTok{'ironed'}\NormalTok{, }\StringTok{'maia'}\NormalTok{, }\StringTok{'condensation'}\NormalTok{,}
+                \StringTok{'receipt'}\NormalTok{, }\StringTok{'solider'}\NormalTok{, }\StringTok{'tattooing'}\NormalTok{, }\StringTok{'encoded'}\NormalTok{,}
+                \StringTok{'compartmentalize'}\NormalTok{, }\StringTok{'lain'}\NormalTok{, }\StringTok{'the'}\NormalTok{, }\StringTok{'gov'}\NormalTok{,}
+                \StringTok{'printers'}\NormalTok{, }\StringTok{'hiked'}\NormalTok{, }\StringTok{'resentment'}\NormalTok{, }\StringTok{'revisionism'}\NormalTok{, }\StringTok{'tavern'}\NormalTok{,}
+                \StringTok{'backpacking'}\NormalTok{, }\StringTok{'pestering'}\NormalTok{, }\StringTok{'gassed'}\NormalTok{, }\StringTok{'acknowledges'}\NormalTok{,}
+                \StringTok{'testimonies'}\NormalTok{, }\StringTok{'parlance'}\NormalTok{, }\StringTok{'hallucinate'}\NormalTok{, }\StringTok{'speeches'}\NormalTok{,}
+                \StringTok{'engaging'}\NormalTok{, }\StringTok{'solder'}\NormalTok{, }\StringTok{'perceptive'}\NormalTok{, }\StringTok{'microbiology'}\NormalTok{, }\StringTok{'reconnaissance'}\NormalTok{, }\StringTok{'garlic'}\NormalTok{,}
+                \StringTok{'neutrals'}\NormalTok{, }\StringTok{'width'}\NormalTok{, }\StringTok{'literaly'}\NormalTok{, }\StringTok{'guild'}\NormalTok{, }\StringTok{'despicable'}\NormalTok{, }\StringTok{'dion'}\NormalTok{,}
+                \StringTok{'option'}\NormalTok{, }\StringTok{'transistors'}\NormalTok{, }\StringTok{'chiropractic'}\NormalTok{, }\StringTok{'tattered'}\NormalTok{, }\StringTok{'consolidating'}\NormalTok{,}
+                \StringTok{'olds'}\NormalTok{, }\StringTok{'garmin'}\NormalTok{, }\StringTok{'shift'}\NormalTok{, }\StringTok{'granted'}\NormalTok{, }\StringTok{'intramural'}\NormalTok{, }\StringTok{'allie'}\NormalTok{, }\StringTok{'cylinders'}\NormalTok{,}
+                \StringTok{'wishlist'}\NormalTok{, }\StringTok{'crank'}\NormalTok{, }\StringTok{'wrongly'}\NormalTok{, }\StringTok{'workshop'}\NormalTok{, }\StringTok{'yesterday'}\NormalTok{, }\StringTok{'wooden'}\NormalTok{, }
+                \StringTok{'without'}\NormalTok{, }\StringTok{'wheel'}\NormalTok{, }\StringTok{'weather'}\NormalTok{, }\StringTok{'watch'}\NormalTok{, }\StringTok{'wage'}\NormalTok{, }\StringTok{'version'}\NormalTok{, }\StringTok{'usually'}\NormalTok{,}
+                \StringTok{'twice'}\NormalTok{, }\StringTok{'tomato'}\NormalTok{, }\StringTok{'ticket'}\NormalTok{, }\StringTok{'text'}\NormalTok{, }\StringTok{'switch'}\NormalTok{, }\StringTok{'studio'}\NormalTok{, }\StringTok{'stick'}\NormalTok{,}
+                \StringTok{'soup'}\NormalTok{, }\StringTok{'sometimes'}\NormalTok{, }\StringTok{'signal'}\NormalTok{, }\StringTok{'prior'}\NormalTok{, }\StringTok{'plant'}\NormalTok{, }\StringTok{'photo'}\NormalTok{,}
+                \StringTok{'path'}\NormalTok{, }\StringTok{'park'}\NormalTok{, }\StringTok{'near'}\NormalTok{, }\StringTok{'menu'}\NormalTok{, }\StringTok{'latter'}\NormalTok{, }\StringTok{'grass'}\NormalTok{, }\StringTok{'clock'}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\chapter*{References}\label{references}
+\addcontentsline{toc}{chapter}{References}
 
 \hypertarget{refs}{}
 \hypertarget{ref-Bolukbasi2016Man}{}

@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-21" />
+<meta name="date" content="2021-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -116,7 +116,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#looking-at-the-islam-related-words"><i class="fa fa-check"></i><b>3.3</b> Looking at the islam-related words</a></li>
 <li class="chapter" data-level="3.4" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#bayesian-model-structure-and-assumptions"><i class="fa fa-check"></i><b>3.4</b> Bayesian model structure and assumptions</a></li>
 <li class="chapter" data-level="3.5" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#choosing-predictors"><i class="fa fa-check"></i><b>3.5</b> Choosing predictors</a></li>
-<li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients</a></li>
+<li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients </a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#model-structure-and-assumptions"><i class="fa fa-check"></i><b>4.1</b> Model structure and assumptions</a></li>
@@ -127,6 +127,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion-and-summary.html"><a href="discussion-and-summary.html"><i class="fa fa-check"></i><b>6</b> Discussion and summary</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
+<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(Manzini et al., <a href="#ref-Manzini2019blackToCriminal">2019</a>)</span></a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#religion"><i class="fa fa-check"></i>Religion</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#gender"><i class="fa fa-check"></i>Gender</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#race"><i class="fa fa-check"></i>Race</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#our-control-groups"><i class="fa fa-check"></i>Our control groups</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#human-neutral-attributes"><i class="fa fa-check"></i>Human neutral attributes</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#non-human-neutral-attributes"><i class="fa fa-check"></i>Non-human neutral attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -149,9 +160,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We also applied to the word embeddings hard debiasing method found in <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span>. As it was mentioned before, debiasing consists of two components: identifying the bias subspace and then removing this vector subspace from the chosen embeddings. The aim is to increase the cosine distance between protected words and the set of attributes. After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes.</p>
 <div id="dataset-level-coefficients-after-debiasing" class="section level2">
 <h2><span class="header-section-number">5.1</span> Dataset-level coefficients after debiasing</h2>
-<p>First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:</p>
+<p>First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing. One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words.</p>
 
-<p>One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words.</p>
 </div>
 <div id="protected-classes-after-debiasing" class="section level2">
 <h2><span class="header-section-number">5.2</span> Protected classes after debiasing</h2>
@@ -160,9 +170,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <p>One may notice that in a religion data set most of the distances for <code>associated</code> words slightly increased. Some of the distances from <code>different</code> class are still smaller than for the <code>associated</code> class. The distances for all classes seem in most cases to cluster together even after debiasing. The reason may be that uncertainty is quite high in <code>associated</code> and <code>different</code> class because the number of samples is so small. Additionally in some cases distances from <code>human</code> class are smaller than for the <code>assosiated</code> class which also makes it less clear how to interpret the results, if the distances are really able to catch the bias presence.</p>
-<p>It is worth paying attention to the gender debiased dataset. The change is really minor, still zero out of HPDI range. The <code>different</code> attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is not able to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias.</p>
+<p>It is worth paying attention to the gender debiased dataset. The change is really minor, still with zero out of the HPDI range. The <code>different</code> attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is unable to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias.</p>
 <p>At the same time, there is a small improvement in race dataset. In some cases the distances just cluster together. In general distances for <code>assosiated</code> class are still higher than those for the rest of classes. One may assume that there reason for so small change is that either the metric does not indicate properly biases or that the issue is more complex and subtracting subspaces is not enough.</p>
-<p>In <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.</p>
 
 </div>
 </div>

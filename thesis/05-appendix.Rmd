@@ -1,0 +1,220 @@
+# Appendix {-}
+
+## Original wordlist from [@Manzini2019blackToCriminal] {-}
+
+Definite sets are the protected words, analogy templates assign stereotypical attributes to protected words, test terms were included but are not  used in the original MAC calculations.
+
+
+### Religion  {-}
+
+
+
+
+\vspace{1mm}
+\scriptsize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+{
+	"definite_sets":[
+		["judaism", "christianity", "islam"],
+		["jew", "christian", "muslim"],
+        ["synagogue", "church", "mosque"],
+        ["torah", "bible", "quran"],
+        ["rabbi", "priest", "imam"]
+	],
+	"analogy_templates":
+	{
+		"attribute": {
+			"jew"       : ["greedy", "cheap", "hairy", "liberal"],
+    		"christian" : ["judgemental", "conservative", "familial"],
+    		"muslim"    : ["violent", "terrorist", "dirty", "uneducated"]
+		}
+	},
+	"eval_targets":[
+		["judaism", "christianity", "islam"],
+		["jew", "christian", "muslim"],
+        ["synagogue", "church", "mosque"],
+        ["torah", "bible", "quran"],
+        ["rabbi", "priest", "imam"]
+	], 
+	"testTerms":["chair", "house", "greedy", "terrorist", "dirty", "greedy"]
+}
+```
+\normalsize
+
+
+### Gender  {-}
+
+
+\vspace{1mm}
+\scriptsize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+{
+	"definite_sets":[
+		["he", "she"],
+		["his", "hers"],
+		["son", "daughter"],
+		["father", "mother"],
+		["male", "female"],
+		["boy", "girl"],
+		["uncle", "aunt"]
+	],
+	"analogy_templates":
+	{
+		"role": {
+			"man"   : ["manager", "executive", "doctor", "lawyer", "programmer", 
+			           "scientist", "soldier", "supervisor", "rancher", "janitor",
+			           "firefighter", "officer"],
+			"woman" : ["secretary", "nurse", "clerk", "artist", "homemaker", "dancer",
+			           "singer", "librarian", "maid", "hairdresser", "stylist",
+			           "receptionist", "counselor"]
+		}
+	}, 
+	"eval_targets":[
+		["he", "she"],
+		["his", "hers"],
+		["son", "daughter"],
+		["father", "mother"],
+		["male", "female"],
+		["boy", "girl"],
+		["uncle", "aunt"]
+	], 
+	"testTerms":["chair", "house", "supervisor", "secretary", "loud", "weak"]
+}
+```
+\normalsize
+
+### Race  {-}
+
+
+
+\vspace{1mm}
+\scriptsize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+{
+	"definite_sets":[
+		["black", "caucasian", "asian"],
+		["african", "caucasian", "asian"],
+		["black", "white", "asian"],
+		["africa", "america", "asia"],
+		["africa", "america", "china"],
+		["africa", "europe", "asia"]
+    ],
+	"analogy_templates":
+	{
+		"role": {
+			"caucasian": ["manager", "executive", "redneck", "hillbilly", "leader", "farmer"],
+			"asian"    : ["doctor", "engineer", "laborer", "teacher"],
+			"black"    : ["slave", "musician", "runner", "criminal", "homeless"]
+		}
+	}, 
+	"eval_targets":[
+		["black", "caucasian", "asian"],
+		["africa", "america", "asia"]
+	], 
+	"testTerms":["chair", "house", "smart", "criminal", "executive", "farmer"]
+}
+```
+\normalsize
+
+
+## Our control groups {-}
+
+
+## Human neutral attributes {-}
+
+
+\vspace{1mm}
+\scriptsize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+human_words = ['wear', 'walk', 'visitor', 'toy', 'tissue', 'throw', 'talk', 
+               'speak', 'sleep', 'eye', 'enjoy', 'blogger', 'character', 
+               'candidate', 'breakfast', 'supper', 'dinner', 'eat', 'drink',
+               "carry", "run", "cast", "ask", "awake", "ear", "nose", "lunch"]
+```
+\normalsize
+
+## Non-human neutral attributes {-}
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 10), tidy = TRUE)
+```
+\normalsize
+
+
+\vspace{1mm}
+\scriptsize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+neutral_words = ['liquor', 'pow', 'ballpark', 'glitchy', 'billy', 'dallas', 
+                 'rip', 'called', 'outlooks', 'viet', 'floater', 'rattlesnake', 'exports',
+                 'peruvian', 'recursion', 'shortfall', 'corrected', 'amicable',
+                 'solutions', 'diagnostic', 'patently', 'flops', 'approx', 'percents',
+                'lox', 'catapults', 'hamburger', 'engulfed', 'households', 'north',
+                'snubbed', 'playtest', 'replayability', 'glottal', 'parable', 'gingers',
+                'anachronism', 'organizing', 'reach', 'shtick', 'eleventh', 'cpu', 'ranked',
+                'irreversibly', 'ponce', 'velociraptor', 'rubber', 'defects', 'puzzle',
+                'smasher', 'northside', 'heft', 'observation', 'rectum', 'mystical',
+                'telltale', 'remnants', 'inquiry', 'indisputable', 'boatload', 'lessening',
+                'uselessness', 'observes', 'fictitious', 'repatriation', 'duh',
+                'attic', 'schilling', 'charges', 'chatter', 'pad', 'smurfing',
+                'worthiness', 'definitive', 'neat', 'homogenized','lexicon',
+                'nationalized', 'earpiece', 'specializations', 'lapse',
+                'concludes', 'weaving', 'apprentices', 'fri', 'younglings',
+                'militias', 'inscriptions', 'gouda', 'lift', 'laboring', 
+                'adaptive', 'lecture', 'hogging', 'thorne', 'fud', 'skews',
+                'epistles', 'tagging', 'crud', 'two', 'rebalanced', 'payroll',
+                'damned', 'approve', 'reason', 'formally', 'releasing', 'muddled',
+                'mineral', 'shied', 'capital', 'nodded', 'escrow', 'unscientific',
+                'recognizable', 'entitlement', 'disconnecting', 'marshals',
+                'winamp', 'forceful', 'lowes', 'ptr', 'sip', 'pencils', 'stomachs',
+                'goff', 'cg', 'backyard', 'uprooting', 'merging',
+                'helpful', 'eid', 'trenchcoat', 'airlift', 'frothing',
+                'pulls', 'volta', 'guinness', 'viewership',
+                'eruption', 'peeves', 'goat', 'goofy', 'disbanding', 
+                'relented', 'ratings', 'disputed', 'vitamins', 'singled',
+                'hydroxide', 'telegraphed', 'mercantile', 'headache', 
+                'muppets', 'petal', 'arrange', 'donovan', 'scrutinized',
+                'spoil', 'examiner', 'ironed', 'maia', 'condensation',
+                'receipt', 'solider', 'tattooing', 'encoded',
+                'compartmentalize', 'lain', 'the', 'gov',
+                'printers', 'hiked', 'resentment', 'revisionism', 'tavern',
+                'backpacking', 'pestering', 'gassed', 'acknowledges',
+                'testimonies', 'parlance', 'hallucinate', 'speeches',
+                'engaging', 'solder', 'perceptive', 'microbiology', 'reconnaissance', 'garlic',
+                'neutrals', 'width', 'literaly', 'guild', 'despicable', 'dion',
+                'option', 'transistors', 'chiropractic', 'tattered', 'consolidating',
+                'olds', 'garmin', 'shift', 'granted', 'intramural', 'allie', 'cylinders',
+                'wishlist', 'crank', 'wrongly', 'workshop', 'yesterday', 'wooden', 
+                'without', 'wheel', 'weather', 'watch', 'wage', 'version', 'usually',
+                'twice', 'tomato', 'ticket', 'text', 'switch', 'studio', 'stick',
+                'soup', 'sometimes', 'signal', 'prior', 'plant', 'photo',
+                'path', 'park', 'near', 'menu', 'latter', 'grass', 'clock']
+```
+\normalsize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# References {-}

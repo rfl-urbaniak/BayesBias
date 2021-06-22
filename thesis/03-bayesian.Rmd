@@ -33,18 +33,20 @@ library(cowplot)
 \normalsize 
 
 
-We will use the choice of protected words and stereotypical predicates used in REF. This is a decent point of departure,  not only we want to compare our method to that of REF, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here  can fairly easily be  run  for different stereotypization patterns.  Let's start  with  explaining the method and its deployment using a dataset obtained for the religion-related protected words.
+We will use the choice of protected words and stereotypical predicates used in @Manzini2019blackToCriminal. This is a decent point of departure, as not only we want to compare our method to that of @Manzini2019blackToCriminal, but also because this data format is fairly general (as contrasted, say, with a set up for binary stereotypes). Note also that the method we develop here  can fairly easily be  run  for different stereotypization patterns.  Let's start  with  explaining the method and its deployment using a dataset obtained for the religion-related protected words.
 
-Let's load, clean a bit and inspect the head of the religion dataset we prepared.  In order to obtain this  dataset, we  calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added  as control groups.  For instance, for religion, the bias-related predicates (coming from the original study in REF) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the APPENDIX).  
+Let's load, clean a bit and inspect the head of the religion dataset we prepared.  In order to obtain this  dataset, we  calculated the cosine distance between each protected word and each word from both the bias-related attribute groups, which were used in the original study, and to neutral and human control attributes which we added  as control groups.  For instance, for religion, the bias-related predicates (coming from the original study in @Manzini2019blackToCriminal) include muslim bias attributes, jew bias attributes, christian bias attributes (see a list in the Appendix).
 
 We decided to add control groups in the form of two classes --- neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 230 neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a  more reliable point of reference. Moreover, we added human attributes that are associated with people in general to investigate  whether the smaller cosine distance between protected words and stereotypes can result  simply from the fact that the stereotype predicates  are associated with humans. For two control groups, we have randomly drawn 230 words that do not express any property usually attributed to humans, and human related attributes.
 
 <!-- In other words, we took each protected word and in nested iteration calculated all of the cosine distances between the word and all available harmful stereotypes, neutral words, and human ones, which resulted with approximately 333 cosine distances per each protected word. -->
 
+
+\pagebreak 
 \vspace{1mm}
 \footnotesize
 
-```{r religionTableHead,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
+```{r religionTableHead,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
 religion <- read.csv("../datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
@@ -58,7 +60,8 @@ religion$wordClass <- as.factor(religion$wordClass)
 levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
 head(religion)  %>%  kable(format = "latex",booktabs=T,
                       linesep = "",  escape = FALSE, 
-                      caption = "Head of the religion dataset.") %>%      kable_styling(latex_options=c("scale_down"))
+                      caption = "Head of the religion dataset.") %>%  
+                      kable_styling(latex_options=c("scale_down"))
 ```
 \normalsize
 
@@ -82,7 +85,7 @@ ggplot(religionNoHumans, aes(x =  cosineDistance, fill = connection, color = con
 ```
 \normalsize
 
-The first impression is that while  there is a  shift for  associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover,  the empirical distributions overlap to alarge extent and the  means grouped by connection type do not seem too far from each other. In fact, as there is a lot of  variety in the cosine distances (as we will soon see), we need to gauge the uncertainty involved, and  to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes.   Now, let's add the human attributes to the picture:
+The first impression is that while  there is a  shift for  associated words towards smaller cosine distances as compared to the neutral words, slightly surprisingly a slightly weaker shift in the same direction is visible for attributes associated with different stereotypes. Moreover,  the empirical distributions overlap to a large extent and the  means grouped by connection type do not seem too far from each other. In fact, as there is a lot of  variety in the cosine distances (as we will soon see), we need to gauge the uncertainty involved, and  to look more carefully at individual protected words to get a better idea of how the cosine distance distribution changes for different attribute groups and different protected classes.   Now, let's add the human attributes to the picture:
 
 
 \vspace{1mm}
@@ -135,7 +138,7 @@ For now, let's focus on five protected words related to islam ("imam", "islam", 
 
 \vspace{1mm}
 \footnotesize
-```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE}
 library(tidyverse)
 muslimWords <- c("imam","islam","mosque","muslim","quran")
 muslim <- religion %>% filter(protectedWord %in% muslimWords)
@@ -156,7 +159,7 @@ Now, say we want to look at a single protected word. Since the dataset also cont
 
 \vspace{1mm}
 \footnotesize
-```{r tableMuslimActive,echo=TRUE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+```{r tableMuslimActive,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
 library(tidyverse)
 muslimClass <- muslim %>% filter(protectedWord == "muslim")
 neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
@@ -175,7 +178,7 @@ Note that the distance between the grey point and the other points is proportion
 
 \vspace{1mm}
 \footnotesize
-```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
 library(tidyverse)
 priestClass <- religion %>% filter(protectedWord == "priest")
 neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
@@ -198,7 +201,7 @@ The general idea now is that the word lists provided in different pieces of rese
 
 
 We will now think of cosine distance as the output variable, and 
-will build a few Bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words might in general have different relations to all the attributes and these relations should be our point of departure.
+will build a few Bayesian models to compare. First, we just build a baseline model which estimates cosine distance to the attributes separately for each protected word. The underlying idea is that different protected words might in general have different relations to all the attributes and these relations should be our point of departure.^[The construction of the Bayesian models and code for visualisations is due to Rafal Urbaniak.]
 
 Here is the intuition behind the mathematical Bayesian model involved. Our outcome variable is `cosine difference`, which we take to me normally distributed around the predicted mean for a given protected word (that is, we assume the residuals are normally distributed). The simplest  model specification is:
 
@@ -263,7 +266,7 @@ religionBaseline <- ulam(
 
 
 
-
+\normalsize
 The only reason we need it is the evaluation of connection as a predictor. Does including it in o the model improve the situation? To investigate this, let's now build a model according to the following specification: 
 
 
@@ -325,7 +328,7 @@ precisCoefs
 ```
  \normalsize
 
-## Dataset-level coefficients
+## Dataset-level coefficients \label{sec:datasetsLevelCoeffs}
 
 
 \noindent Let's plot them together with their highest posterior density invervals, for the three topic groups.
@@ -438,7 +441,7 @@ So, it seems, taking a closer look does seem to make a difference. The question 
 
 ## Model structure and assumptions
 
-Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the `visualiseStats.R` script for details).
+Let's turn then to data analysis that takes a look at protected words separately. This time, for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the `visualiseStats.R` script for details).
 
 \vspace{1mm}
 \footnotesize
@@ -495,7 +498,7 @@ Before we move on, let's perform analogous analyses for the remaining types of s
 
 
 
-We first encountered the GoogleNews word embedding model in @Bolukbasi2016Man. They use it for their calculations as written in [Tolga Code](https://github.com/tolga-b/debiaswe). We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here [Google News model](https://code.google.com/archive/p/word2vec/). One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
+We first encountered the GoogleNews word embedding model in @Bolukbasi2016Man. They use it for their calculations as written in [Tolga Bolukbasi code](https://github.com/tolga-b/debiaswe)^[https://github.com/tolga-b/debiaswe]. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here [Google News model](https://code.google.com/archive/p/word2vec/). One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension increases, the vectors can capture much more information, but this is not always the case. According to some researchers, the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.
 
 
 \includegraphics[width=14cm]{../images/visReligionGoogle.png}
@@ -506,6 +509,8 @@ We first encountered the GoogleNews word embedding model in @Bolukbasi2016Man. T
 \includegraphics[width=14cm]{../images/visRaceGoogle.png}
 
 
+We leave a discussion of these results for later, for now let us also inspect the impact of debiasing.
+
 
 # The role of debiasing
 
@@ -514,9 +519,10 @@ We also applied to the word embeddings hard debiasing method found in @Manzini20
 After debiasing the Reddit word embeddings we calculated the cosine distance again to see if there are any significant changes in terms of the similarity between protected words and the attributes. 
 
 
-## Dataset-level coefficients after debiasing
+## Dataset-level coefficients after debiasing 
 
-First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing:
+First, let's look at coefficient estimated for the whole datasets, as compared to their estimation prior to debiasing. One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words. 
+ 
  
 \begin{center}
 \begin{figure}[!htb]\centering
@@ -548,7 +554,7 @@ First, let's look at coefficient estimated for the whole datasets, as compared t
 
 \end{center}
 
-One may observe very slight changes in the estimated coeﬀicients. It seems that in religion dataset the changes are the most significant as the mean moves towards zero which stands for no similarity between words. 
+
 
 ## Protected classes  after debiasing
 
@@ -568,11 +574,8 @@ Now, perhaps, the effects of debiasing will be better appreciated if we look at 
 
 One may notice that in a religion data set most of the distances for `associated` words slightly increased. Some of the distances from `different` class are still smaller than for the `associated` class. The distances for all classes seem in most cases to cluster together even after debiasing. The reason may be that uncertainty is quite high in `associated` and `different` class because the number of samples is so small. Additionally in some cases distances from `human` class are smaller than for the `assosiated` class which also makes it less clear how to interpret the results, if the distances are really able to catch the bias presence. 
 
-It is worth paying attention to the gender debiased dataset. The change is really minor, still zero out of HPDI range. The `different` attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is not able to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias. 
+It is worth paying attention to the gender debiased dataset. The change is really minor, still with zero out of the HPDI range. The `different` attributes still have high similarity value. It seems that the distances for gender protected words are still clustered together which suggests that this method is unable to catch the complex bias presence. One could conclude that co-occurrence of certain terms does not always mean direct connection in terms of terms associations. The fact that some of stereotypically associated with female attributes still have high similarity with male protected words suggest that other techniques should be applied to detect and remove the bias. 
 
 At the same time, there is a small improvement in race dataset. In some cases the distances just cluster together. In general distances for `assosiated` class are still higher than those for the rest of classes. One may assume that there reason for so small change is that either the metric does not indicate properly biases or that the issue is more complex and subtracting subspaces is not enough. 
-
-In @Manzini2019blackToCriminal it is mentioned that debiasing with this method that is based on bias component removal may be insufficient. The reason is that words containing similar biases may still cluster together even after debiasing.
-
 
 

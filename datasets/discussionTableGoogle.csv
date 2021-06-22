@@ -1,8 +1,8 @@
-,Religion,Gender,Race
-A close to N,66.67%,14.29%,80.00%
-A close to H,66.67%,21.43%,100.00%
-H closer than A,20.00%,21.43%,50.00%
-D similar with A,93.33%,42.86%,100.00%
-D closer than A,33.33%,21.43%,30.00%
-General HPDI =! 0,no,no,no
+,Religion,Gender ,Race
+A close to N,66.67,14.29,80
+A close to H,66.67,21.43,100
+H closer than A,20,21.43,50
+D similar with A,93.33,42.86,100
+D closer than A,33.33,21.43,30
+General HPDI outside of  0,no,no,no
 General D similar to A,slightly not,slightly not,slightly not

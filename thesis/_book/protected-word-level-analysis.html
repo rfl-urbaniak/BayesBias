@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-21" />
+<meta name="date" content="2021-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -116,7 +116,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#looking-at-the-islam-related-words"><i class="fa fa-check"></i><b>3.3</b> Looking at the islam-related words</a></li>
 <li class="chapter" data-level="3.4" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#bayesian-model-structure-and-assumptions"><i class="fa fa-check"></i><b>3.4</b> Bayesian model structure and assumptions</a></li>
 <li class="chapter" data-level="3.5" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#choosing-predictors"><i class="fa fa-check"></i><b>3.5</b> Choosing predictors</a></li>
-<li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients</a></li>
+<li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients </a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#model-structure-and-assumptions"><i class="fa fa-check"></i><b>4.1</b> Model structure and assumptions</a></li>
@@ -127,6 +127,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion-and-summary.html"><a href="discussion-and-summary.html"><i class="fa fa-check"></i><b>6</b> Discussion and summary</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
+<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(Manzini et al., <a href="#ref-Manzini2019blackToCriminal">2019</a>)</span></a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#religion"><i class="fa fa-check"></i>Religion</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#gender"><i class="fa fa-check"></i>Gender</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#race"><i class="fa fa-check"></i>Race</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#our-control-groups"><i class="fa fa-check"></i>Our control groups</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#human-neutral-attributes"><i class="fa fa-check"></i>Human neutral attributes</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#non-human-neutral-attributes"><i class="fa fa-check"></i>Non-human neutral attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -148,7 +159,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">4</span> Protected-word level analysis</h1>
 <div id="model-structure-and-assumptions" class="section level2">
 <h2><span class="header-section-number">4.1</span> Model structure and assumptions</h2>
-<p>Let's turn then to data analysis that takes a look at protected words separately. This time for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the <code>visualiseStats.R</code> script for details).</p>
+<p>Let's turn then to data analysis that takes a look at protected words separately. This time, for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the <code>visualiseStats.R</code> script for details).</p>
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> ) <span class="co">#removes install pop-up request</span>
 religion<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(religion<span class="op">$</span>protectedWord, <span class="st">&quot;-&quot;</span>, religion<span class="op">$</span>connection))
@@ -183,10 +194,11 @@ compareBaselineCoefsSeparate</code></pre></div>
 <p>Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).</p>
 
 
-<p>We first encountered the GoogleNews word embedding model in <span class="citation">Bolukbasi et al. (<a href="#ref-Bolukbasi2016Man">2016</a>)</span>. They use it for their calculations as written in <a href="https://github.com/tolga-b/debiaswe">Tolga Code</a>. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here <a href="https://code.google.com/archive/p/word2vec/">Google News model</a>. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension is increasing, the vector can capture much more information but this is not always the case. According to some researchers the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.</p>
+<p>We first encountered the GoogleNews word embedding model in <span class="citation">Bolukbasi et al. (<a href="#ref-Bolukbasi2016Man">2016</a>)</span>. They use it for their calculations as written in <a href="https://github.com/tolga-b/debiaswe">Tolga Bolukbasi code</a><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here <a href="https://code.google.com/archive/p/word2vec/">Google News model</a>. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension increases, the vectors can capture much more information, but this is not always the case. According to some researchers, the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.</p>
 
 
 
+<p>We leave a discussion of these results for later, for now let us also inspect the impact of debiasing.</p>
 </div>
 </div>
 <h3>References</h3>
@@ -194,6 +206,12 @@ compareBaselineCoefsSeparate</code></pre></div>
 <div id="ref-Bolukbasi2016Man">
 <p>Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520" class="uri">http://arxiv.org/abs/1607.06520</a></p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p><a href="https://github.com/tolga-b/debiaswe" class="uri">https://github.com/tolga-b/debiaswe</a><a href="protected-word-level-analysis.html#fnref5">↩</a></p></li>
+</ol>
 </div>
             </section>
 
