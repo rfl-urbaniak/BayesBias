@@ -159,7 +159,7 @@ Now, say we want to look at a single protected word. Since the dataset also cont
 
 \vspace{1mm}
 \footnotesize
-```{r tableMuslimActive,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%"}
+```{r tableMuslimActive,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
 library(tidyverse)
 muslimClass <- muslim %>% filter(protectedWord == "muslim")
 neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
@@ -178,7 +178,7 @@ Note that the distance between the grey point and the other points is proportion
 
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%", warning = FALSE, message = FALSE}
 library(tidyverse)
 priestClass <- religion %>% filter(protectedWord == "priest")
 neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)

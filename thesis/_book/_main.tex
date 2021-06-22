@@ -419,9 +419,9 @@ remaining side. As shown in
 \href{https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u}{discussion
 in stats.stackexchange.com}\footnote{\url{https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u}}
 in the case of cosine distance it would have to fulfill this equation
-1+cos-sim(𝐴,𝐶) \textless{} cos-sim(𝐴,𝐵) + cos-sim(𝐵,𝐶). If one chooses
-specific unit vectors it is easy to demonstrate that the triangle
-inequality is not preserved.
+\(1+\mathsf{cos-sim}(A,C) < \mathsf{cos-sim}(A,B) + \mathsf{cos-sim}(B,C)\).
+If one chooses specific unit vectors it is easy to demonstrate that the
+triangle inequality is not preserved.
 
 \section{Cosine distance in a one-class bias
 detection}\label{cosine-distance-in-a-one-class-bias-detection}
@@ -523,19 +523,23 @@ religion-related words.
 
 Protected words by religion type:
 
-\textbf{"jew"       : ["judaism", "jew", "synagogue", "torah", "rabbi"]}
+\begin{minipage}{1.0\textwidth}
+\textbf{"jew"       : ["judaism", "jew", "synagogue", "torah", "rabbi"]} 
 
 \textbf{"christian" : ["christianity", "christian", "church", "bible", "priest"]}
 
 \textbf{"muslim"    : ["islam", "muslim", "mosque", "quran", "imam"]}
+\end{minipage}
 
 Stereotypical words by religion type:
 
+\begin{minipage}{1.0\textwidth}
 \textbf{"jew"       : ["greedy", "cheap", "hairy", "liberal"]}
 
 \textbf{"christian"       : ["judgemental", "conservative", "familial"]}
 
 \textbf{"muslim"       : ["violent", "terrorist", "dirty", "uneducated"]}
+\end{minipage}
 
 We have prepared a table presenting the values of cosine distance for
 each protected word with each attribute (stereotype). The part of the
@@ -604,13 +608,14 @@ found in a given group. For example in terms of religion one can
 identify at least a few sets that are to grasp the concept of religion
 in general:
 
-\pagebreak 
-
+\begin{minipage}{1.0\textwidth}
 \textbf{["judaism", "christianity", "islam"]}
 
 \textbf{["jew", "christian", "muslim"]}
 
+
 \textbf{["synagogue", "church", "mosque"]}
+\end{minipage}
 
 The idea is to find a set that provides enough information to create
 from it a vector representing the concept of religion among words. This
@@ -635,8 +640,6 @@ distances are on average greater than before then it leads the authors
 to the conclusion that improvement has been achieved. As the cosine
 distance increases, it is assumed that the association between protected
 and stereotypical words decreases.
-
-\newpage
 
 \section{Limitations of the approach}\label{limitations-of-the-approach}
 

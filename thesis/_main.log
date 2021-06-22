@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.16)  22 JUN 2021 11:13
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.16)  22 JUN 2021 11:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1353,12 +1353,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 420--420
 ][][][][][] [][] [][][][][][][][] [][] [][][][][][][][] [][]
  []
 
-Missing character: There is no 𝐴 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝐶 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝐴 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝐵 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝐵 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝐶 in font [lmroman12-regular]:mapping=tex-text;!
 
 Package xcolor Warning: Incompatible color definition on input line 429.
 
@@ -1389,35 +1383,35 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [17] [18]
 
-Package xcolor Warning: Incompatible color definition on input line 546.
+Package xcolor Warning: Incompatible color definition on input line 550.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 548.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 552.
 
-Package xcolor Warning: Incompatible color definition on input line 558.
+Package xcolor Warning: Incompatible color definition on input line 562.
 
 
-Package xcolor Warning: Incompatible color definition on input line 558.
+Package xcolor Warning: Incompatible color definition on input line 562.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [19]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4303) has occurred while \output is active []
 
 [20] [21]
-Underfull \vbox (badness 1147) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
 
-Package xcolor Warning: Incompatible color definition on input line 698.
+Package xcolor Warning: Incompatible color definition on input line 701.
 
 
 Underfull \vbox (badness 2269) has occurred while \output is active []
 
 [23]
 
-Package xcolor Warning: Incompatible color definition on input line 747.
+Package xcolor Warning: Incompatible color definition on input line 750.
 
 [24]
 File: ../images/curseOfDimensionality.png Graphic file (type bmp)
@@ -1427,23 +1421,23 @@ File: ../images/curseOfDimensionality.png Graphic file (type bmp)
 ]
 Chapter 3.
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 789.
 
 
-Package xcolor Warning: Incompatible color definition on input line 798.
+Package xcolor Warning: Incompatible color definition on input line 801.
 
 
-Package xcolor Warning: Incompatible color definition on input line 798.
-
-
-Package xcolor Warning: Incompatible color definition on input line 804.
+Package xcolor Warning: Incompatible color definition on input line 801.
 
 
 Package xcolor Warning: Incompatible color definition on input line 807.
 
+
+Package xcolor Warning: Incompatible color definition on input line 810.
+
 [27]
 
-Package xcolor Warning: Incompatible color definition on input line 821.
+Package xcolor Warning: Incompatible color definition on input line 824.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1458,29 +1452,29 @@ File: _main_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 File: _main_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/unnamed-chunk-4-1.pdf>
 
-Package xcolor Warning: Incompatible color definition on input line 930.
+Package xcolor Warning: Incompatible color definition on input line 933.
 
 
 Underfull \vbox (badness 1052) has occurred while \output is active []
 
 [31]
 
-Package xcolor Warning: Incompatible color definition on input line 937.
+Package xcolor Warning: Incompatible color definition on input line 940.
 
 
-Package xcolor Warning: Incompatible color definition on input line 937.
+Package xcolor Warning: Incompatible color definition on input line 940.
 
 
-Package xcolor Warning: Incompatible color definition on input line 946.
+Package xcolor Warning: Incompatible color definition on input line 949.
 
 
-Package xcolor Warning: Incompatible color definition on input line 952.
+Package xcolor Warning: Incompatible color definition on input line 955.
 
 
-Package xcolor Warning: Incompatible color definition on input line 952.
+Package xcolor Warning: Incompatible color definition on input line 955.
 
 
-Overfull \hbox (0.1757pt too wide) in paragraph at lines 959--964
+Overfull \hbox (0.1757pt too wide) in paragraph at lines 962--967
 \TU/lmr/m/n/12 “muslim”, and “quran”). The word list associates with islam four
  stereotypical attributes
  []
@@ -1501,7 +1495,7 @@ File: _main_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/unnamed-chunk-8-1.pdf>
 [34]
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1514,42 +1508,42 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [36]
 
-Package xcolor Warning: Incompatible color definition on input line 1057.
+Package xcolor Warning: Incompatible color definition on input line 1060.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1077.
+Package xcolor Warning: Incompatible color definition on input line 1080.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1077.
+Package xcolor Warning: Incompatible color definition on input line 1080.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1077.
+Package xcolor Warning: Incompatible color definition on input line 1080.
 
 [37]
 
-Package xcolor Warning: Incompatible color definition on input line 1077.
+Package xcolor Warning: Incompatible color definition on input line 1080.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1077.
+Package xcolor Warning: Incompatible color definition on input line 1080.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1099.
+Package xcolor Warning: Incompatible color definition on input line 1102.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1116.
+Package xcolor Warning: Incompatible color definition on input line 1119.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1116.
+Package xcolor Warning: Incompatible color definition on input line 1119.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1116.
+Package xcolor Warning: Incompatible color definition on input line 1119.
 
 [38]
 
-Package xcolor Warning: Incompatible color definition on input line 1116.
+Package xcolor Warning: Incompatible color definition on input line 1119.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1116.
+Package xcolor Warning: Incompatible color definition on input line 1119.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1560,7 +1554,7 @@ File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 File: ../images/religionGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/religionGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1161--1162
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1164--1165
 [][] 
  []
 
@@ -1569,7 +1563,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/genderGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/genderGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1169--1170
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1172--1173
 [][] 
  []
 
@@ -1578,21 +1572,21 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/raceGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/raceGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1179--1180
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1182--1183
 [][] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1209.
+Package xcolor Warning: Incompatible color definition on input line 1212.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1240.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1240.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1240.
 
 [40]
 
@@ -1603,10 +1597,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [41]
 
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1240.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1240.
 
 File: ../images/islamCoeffs.jpeg Graphic file (type bmp)
 <../images/islamCoeffs.jpeg>
@@ -1618,32 +1612,32 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 Chapter 4.
 
-Package xcolor Warning: Incompatible color definition on input line 1287.
+Package xcolor Warning: Incompatible color definition on input line 1290.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1305.
+Package xcolor Warning: Incompatible color definition on input line 1308.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1305.
+Package xcolor Warning: Incompatible color definition on input line 1308.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1305.
+Package xcolor Warning: Incompatible color definition on input line 1308.
 
 [45]
 
-Package xcolor Warning: Incompatible color definition on input line 1305.
+Package xcolor Warning: Incompatible color definition on input line 1308.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1305.
+Package xcolor Warning: Incompatible color definition on input line 1308.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1315.
+Package xcolor Warning: Incompatible color definition on input line 1318.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1320.
+Package xcolor Warning: Incompatible color definition on input line 1323.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1320.
+Package xcolor Warning: Incompatible color definition on input line 1323.
 
 File: ../images/visReligionReddit.png Graphic file (type bmp)
 <../images/visReligionReddit.png>
@@ -1664,10 +1658,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [48]
 
-Package xcolor Warning: Incompatible color definition on input line 1350.
-
-
 Package xcolor Warning: Incompatible color definition on input line 1353.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1356.
 
 [49]
 File: ../images/visReligionGoogle.png Graphic file (type bmp)
@@ -1686,14 +1680,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [51] [52]
 Chapter 5.
 
-Package xcolor Warning: Incompatible color definition on input line 1379.
+Package xcolor Warning: Incompatible color definition on input line 1382.
 
 File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 <../images/religionCoeffs.jpeg>
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedReligionRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1403--1404
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1406--1407
 [][] 
  []
 
@@ -1702,7 +1696,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedGenderRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1411--1412
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1414--1415
 [][] 
  []
 
@@ -1711,7 +1705,7 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedRaceRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 1421--1422
+Overfull \hbox (8.433pt too wide) in paragraph at lines 1424--1425
 [][] 
  []
 
@@ -1741,16 +1735,16 @@ Underfull \vbox (badness 5475) has occurred while \output is active []
 [57] [58]
 Chapter 6.
 
-Package xcolor Warning: Incompatible color definition on input line 1481.
+Package xcolor Warning: Incompatible color definition on input line 1484.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1491.
+Package xcolor Warning: Incompatible color definition on input line 1494.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1492.
+Package xcolor Warning: Incompatible color definition on input line 1495.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1493.
+Package xcolor Warning: Incompatible color definition on input line 1496.
 
 
 Underfull \vbox (badness 3668) has occurred while \output is active []
@@ -1759,10 +1753,10 @@ Underfull \vbox (badness 3668) has occurred while \output is active []
 
 ]
 
-Package xcolor Warning: Incompatible color definition on input line 1570.
+Package xcolor Warning: Incompatible color definition on input line 1573.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1577.
+Package xcolor Warning: Incompatible color definition on input line 1580.
 
 [60]
 Underfull \vbox (badness 3514) has occurred while \output is active []
@@ -1772,10 +1766,10 @@ Underfull \vbox (badness 3690) has occurred while \output is active []
 
 [62]
 
-Package xcolor Warning: Incompatible color definition on input line 1682.
+Package xcolor Warning: Incompatible color definition on input line 1685.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1693.
+Package xcolor Warning: Incompatible color definition on input line 1696.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1784,105 +1778,105 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-Package xcolor Warning: Incompatible color definition on input line 1716.
+Package xcolor Warning: Incompatible color definition on input line 1719.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 1718.
+(hyperref)                removing `\<let>-command' on input line 1721.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1718.
+(hyperref)                removing `\@ifnextchar' on input line 1721.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1729.
+Package xcolor Warning: Incompatible color definition on input line 1732.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1732.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1735.
 
-Package xcolor Warning: Incompatible color definition on input line 1757.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1757.
+Package xcolor Warning: Incompatible color definition on input line 1760.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1757.
+Package xcolor Warning: Incompatible color definition on input line 1760.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1760.
 
 [67]
 
-Package xcolor Warning: Incompatible color definition on input line 1757.
+Package xcolor Warning: Incompatible color definition on input line 1760.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1757.
+Package xcolor Warning: Incompatible color definition on input line 1760.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1766.
+Package xcolor Warning: Incompatible color definition on input line 1769.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1801.
+Package xcolor Warning: Incompatible color definition on input line 1804.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1801.
+Package xcolor Warning: Incompatible color definition on input line 1804.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1801.
+Package xcolor Warning: Incompatible color definition on input line 1804.
 
 [68]
 
-Package xcolor Warning: Incompatible color definition on input line 1801.
+Package xcolor Warning: Incompatible color definition on input line 1804.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1801.
+Package xcolor Warning: Incompatible color definition on input line 1804.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1810.
+Package xcolor Warning: Incompatible color definition on input line 1813.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1836.
+Package xcolor Warning: Incompatible color definition on input line 1839.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1836.
+Package xcolor Warning: Incompatible color definition on input line 1839.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1848.
+Package xcolor Warning: Incompatible color definition on input line 1851.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [69]
 
-Package xcolor Warning: Incompatible color definition on input line 1855.
+Package xcolor Warning: Incompatible color definition on input line 1858.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1855.
+Package xcolor Warning: Incompatible color definition on input line 1858.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1869.
+Package xcolor Warning: Incompatible color definition on input line 1872.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1916.
+Package xcolor Warning: Incompatible color definition on input line 1919.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1916.
+Package xcolor Warning: Incompatible color definition on input line 1919.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1916.
+Package xcolor Warning: Incompatible color definition on input line 1919.
 
 [70]
 
-Package xcolor Warning: Incompatible color definition on input line 1916.
+Package xcolor Warning: Incompatible color definition on input line 1919.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1916.
+Package xcolor Warning: Incompatible color definition on input line 1919.
 
 [71] [72
 
 ] [73] [74]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1962.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1962.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1965.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1965.
 (./_main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1962.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1962.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1965.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1965.
  ) 
 Here is how much of TeX's memory you used:
  33148 strings out of 493007

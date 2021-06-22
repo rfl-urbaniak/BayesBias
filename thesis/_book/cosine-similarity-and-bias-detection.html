@@ -287,7 +287,7 @@ In what follows, it is important to distinguish between cosine similarity and co
  &amp;  = 1 - \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert} \nonumber
 \end{align}\]</span>
 <p>The greater the similarity between two vectors, the smaller the distance between them. The cosine distance ranges between 0 and 2. If the vectors are in an opposite directions, the cosine distance is 2. And if the vectors are extremely similar then the cosine distance is very close to 0.</p>
-<p>One should note that cosine distance is not exactly a distance measure, as it does not meet triangle inequality requirements. The triangle inequality formula says that for any triangle, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side. As shown in <a href="https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u">discussion in stats.stackexchange.com</a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> in the case of cosine distance it would have to fulfill this equation 1+cos-sim(𝐴,𝐶) &lt; cos-sim(𝐴,𝐵) + cos-sim(𝐵,𝐶). If one chooses specific unit vectors it is easy to demonstrate that the triangle inequality is not preserved.</p>
+<p>One should note that cosine distance is not exactly a distance measure, as it does not meet triangle inequality requirements. The triangle inequality formula says that for any triangle, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side. As shown in <a href="https://stats.stackexchange.com/questions/198080/proving-that-cosine-distance-function-defined-by-cosine-similarity-between-two-u">discussion in stats.stackexchange.com</a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> in the case of cosine distance it would have to fulfill this equation <span class="math inline">\(1+\mathsf{cos-sim}(A,C) &lt; \mathsf{cos-sim}(A,B) + \mathsf{cos-sim}(B,C)\)</span>. If one chooses specific unit vectors it is easy to demonstrate that the triangle inequality is not preserved.</p>
 </div>
 <div id="cosine-distance-in-a-one-class-bias-detection" class="section level2">
 <h2><span class="header-section-number">2.3</span> Cosine distance in a one-class bias detection</h2>
@@ -318,11 +318,7 @@ MAC(T,A) &amp; = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_
 <p>First we load word embeddings from reddit.US.txt.tok.clean.cleanedforw2v.w2v dataset. The word embeddings have only 50 dimensions and the number of individual words from the dataset is 44895. The authors assume that the protected group should ideally not have high cosine similarity to stereotypical words. The word embeddings geometry should not place this group close to harmful stereotypes, if it is to be bias-free. For instance, let's look at the religion-related words.</p>
 <p>Protected words by religion type:</p>
 
-
-
 <p>Stereotypical words by religion type:</p>
-
-
 
 <p>We have prepared a table presenting the values of cosine distance for each protected word with each attribute (stereotype). The part of the results is shown in Table 2.3</p>
 
@@ -341,13 +337,9 @@ religion<span class="op">$</span>wordClass &lt;-<span class="st"> </span><span c
 <p>In the article there was no analysis of individual distances, but the general look at the means. The authors introduced a metric that tries to generalize WEAT in measuring the presence of bias through the classification of multi-class bias in groups of words connected with gender, religion or race. In the process they first take the mean of cosine distances between a given protected word and attributes assigned to each stereotype. They do not differentiate between stereotypes associated with a word and stereotypes associated with different words (in the case of religion, stereotypes characteristic for Christianity has also cosine distance measured with for instance, Judaism or Islam). Then, after collecting the list of mean cosine distances, they average the list to obtain one final value representing the whole group, in this example religion, for which the final mean of all mean distances is equal to 0.859.</p>
 <p>In the article the authors also try to remove biases, as previously defined, from a word embedding. First they identify the bias subspace using Principal Component Analysis (PCA) which is a technique for dimensionality reduction. It is applied here to choose the subspace that contains the greatest amount of information. There can be many subspaces found in a given group. For example in terms of religion one can identify at least a few sets that are to grasp the concept of religion in general:</p>
 
-
-
-
 <p>The idea is to find a set that provides enough information to create from it a vector representing the concept of religion among words. This strategy is based on the idea that different dimensions of vectors contain different types of information and in some words in vector layers (subspaces) the information about religiousness is implicitly conveyed. In some cases this knowledge is useful, but in the case of harmful stereotypes one does not want to include the concept of religion in stereotypical words.</p>
 <p>After finding the bias subspace, they use it to modify the vector values individually so that their cosine distances towards certain words are changed. In the case of stereotypes the aim is to make the cosine distances larger so that the association between protected word and stereotype is smaller.</p>
 <p>In the final step they evaluate the results. The cosine distances are calculated again but this time using the debiased vocabulary. After taking the mean of all distances one final value is obtained and then it is compared with the average value from the beginning. If the cosine distances are on average greater than before then it leads the authors to the conclusion that improvement has been achieved. As the cosine distance increases, it is assumed that the association between protected and stereotypical words decreases.</p>
-
 </div>
 <div id="limitations-of-the-approach" class="section level2">
 <h2><span class="header-section-number">2.5</span> Limitations of the approach</h2>
