@@ -18,5 +18,4 @@ protected-classes-in-reddit-and-google-embeddings
 the-role-of-debiasing
 dataset-level-coefficients-after-debiasing
 protected-classes-after-debiasing
-discussion
-summary
+discussion-and-summary
