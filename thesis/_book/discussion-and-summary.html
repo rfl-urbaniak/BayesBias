@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Discussion and summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
   <meta name="description" content="6 Discussion and summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Discussion and summary | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-22" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="the-role-of-debiasing.html"/>
 <link rel="next" href="appendix.html"/>
+<script src="book_assets/header-attrs-2.8/header-attrs.js"></script>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,44 +51,96 @@
 
 
 
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -103,14 +156,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a><ul>
+<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#word-embeddings"><i class="fa fa-check"></i><b>2.1</b> Word embeddings</a></li>
 <li class="chapter" data-level="2.2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-similarity-and-distance"><i class="fa fa-check"></i><b>2.2</b> Cosine similarity and distance</a></li>
 <li class="chapter" data-level="2.3" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-one-class-bias-detection"><i class="fa fa-check"></i><b>2.3</b> Cosine distance in a one-class bias detection</a></li>
 <li class="chapter" data-level="2.4" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-multi-class-bias-detection"><i class="fa fa-check"></i><b>2.4</b> Cosine distance in a multi-class bias detection</a></li>
 <li class="chapter" data-level="2.5" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#limitations-of-the-approach"><i class="fa fa-check"></i><b>2.5</b> Limitations of the approach</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a><ul>
+<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#loading-and-understanding-the-dataset"><i class="fa fa-check"></i><b>3.1</b> Loading and understanding the dataset</a></li>
 <li class="chapter" data-level="3.2" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#first-look-at-the-empirical-distributions"><i class="fa fa-check"></i><b>3.2</b> First look at the empirical distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#looking-at-the-islam-related-words"><i class="fa fa-check"></i><b>3.3</b> Looking at the islam-related words</a></li>
@@ -118,17 +173,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#choosing-predictors"><i class="fa fa-check"></i><b>3.5</b> Choosing predictors</a></li>
 <li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients </a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a><ul>
+<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#model-structure-and-assumptions"><i class="fa fa-check"></i><b>4.1</b> Model structure and assumptions</a></li>
 <li class="chapter" data-level="4.2" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#protected-classes-in-reddit-and-google-embeddings"><i class="fa fa-check"></i><b>4.2</b> Protected classes in Reddit and Google embeddings</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a><ul>
+<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#dataset-level-coefficients-after-debiasing"><i class="fa fa-check"></i><b>5.1</b> Dataset-level coefficients after debiasing</a></li>
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion-and-summary.html"><a href="discussion-and-summary.html"><i class="fa fa-check"></i><b>6</b> Discussion and summary</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(Manzini et al., <a href="#ref-Manzini2019blackToCriminal">2019</a>)</span></a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a>
+<ul>
+<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(<span>Manzini, Lim, Tsvetkov, &amp; Black, 2019</span>)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#religion"><i class="fa fa-check"></i>Religion</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#gender"><i class="fa fa-check"></i>Gender</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#race"><i class="fa fa-check"></i>Race</a></li>
@@ -155,26 +214,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="discussion-and-summary" class="section level1">
+<div id="discussion-and-summary" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Discussion and summary</h1>
 <!-- Bayesian method -->
-<p>We propose the use of Bayesian methods to measure uncertainty in bias detection. There are a few advantages of this method. One of them is that including uncertainty enables one to directly observe the influence of sample sizes. Analyzing individual words and connection coefficients, one may notice how <code>neutral</code> words have smaller uncertainty intervals and <code>different</code> or <code>associated</code> quite the opposite. One of the reasons for such an outcome is that we used approximately 230 neutral words and only between 11-25 (the number varies from class to class) stereotypical attributes from <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> article. In our approach, we also pay attention to the distribution and details regarding anomalous values. With the use of simple visualizations that we introduced before, we were able to indicate suspicious cosine distance values. Additionally, we compare in details how the cosine distance values and uncertainty change after the debiasing. One can investigate then how the individual vectors changed and if it is what was expected. Our analysis with the use of Bayesian method gave us new ideas and hypothesis concerning not only the bias detection method but also the efficiency of debiasing itself. We created summary tables for each of the datasets: Google word embeddings (Table <a href="#tab:dTabG"><strong>??</strong></a>), Reddit (Table <a href="#tab:dTabR"><strong>??</strong></a>), and Reddit Debiased (Table <a href="#tab:dTabRD"><strong>??</strong></a>).</p>
- 
-
-
- 
-
-
- 
-
-
-<p>Let us first analyse the general observations from estimated coefficients mean introduced in Section  on dataset-level coefficients. For Google embeddings the HPDIs for all class coefficients (associated, different, human, and none) include zero. This can lead one to a conclusion that the impact for associated, different, human and neutral attribute is, when averaged, quite similar. This indicates how including the uncertainty may change the use and interpretation of <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span> MAC metric. It seems that if one focuses only on differences between means of means, this is too simplistic. In case of Reddit word embeddings the situation is similar although HPDI is below 0 for Gender class when looking at <code>associated</code> and <code>different</code> mean coefficient. This can suggest that there is indeed slightly stronger impact of these attributes. One should also notice how in general <code>associated</code> and <code>different</code> coefficients have quite similar HPDI range, the highest observed absolute difference is equal to only 0.1. This suggests that again the impact of associated attributes and different ones is not clear at first sight. Finally, let's compare the HPDIs for Reddit and Reddit debiased datasets. For Religion and Race dataset there is a minor shift (in absolute values the highest change is equal to approximately 0.1) of the mean coefficients towards zero. However for Gender dataset there is no significant change. This is of course a general look at the group coefficients. Let's now analyze the individual words.</p>
+<p>We propose the use of Bayesian methods to measure uncertainty in bias detection. There are a few advantages of this method. One of them is that including uncertainty enables one to directly observe the influence of sample sizes. Analyzing individual words and connection coefficients, one may notice how <code>neutral</code> words have smaller uncertainty intervals and <code>different</code> or <code>associated</code> quite the opposite. One of the reasons for such an outcome is that we used approximately 230 neutral words and only between 11-25 (the number varies from class to class) stereotypical attributes from <span class="citation"><a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">Manzini, Lim, Tsvetkov, &amp; Black</a> (<a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">2019</a>)</span> article. In our approach, we also pay attention to the distribution and details regarding anomalous values. With the use of simple visualizations that we introduced before, we were able to indicate suspicious cosine distance values. Additionally, we compare in details how the cosine distance values and uncertainty change after the debiasing. One can investigate then how the individual vectors changed and if it is what was expected. Our analysis with the use of Bayesian method gave us new ideas and hypothesis concerning not only the bias detection method but also the efficiency of debiasing itself.
+We created summary tables for each of the datasets: Google word embeddings (Table <a href="#tab:dTabG"><strong>??</strong></a>), Reddit (Table <a href="#tab:dTabR"><strong>??</strong></a>), and Reddit Debiased (Table <a href="#tab:dTabRD"><strong>??</strong></a>).</p>
+<p>Let us first analyse the general observations from estimated coefficients mean introduced in Section  on dataset-level coefficients. For Google embeddings the HPDIs for all class coefficients (associated, different, human, and none) include zero. This can lead one to a conclusion that the impact for associated, different, human and neutral attribute is, when averaged, quite similar. This indicates how including the uncertainty may change the use and interpretation of <span class="citation"><a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">Manzini, Lim, Tsvetkov, &amp; Black</a> (<a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">2019</a>)</span> MAC metric. It seems that if one focuses only on differences between means of means, this is too simplistic. In case of Reddit word embeddings the situation is similar although HPDI is below 0 for Gender class when looking at <code>associated</code> and <code>different</code> mean coefficient. This can suggest that there is indeed slightly stronger impact of these attributes. One should also notice how in general <code>associated</code> and <code>different</code> coefficients have quite similar HPDI range, the highest observed absolute difference is equal to only 0.1. This suggests that again the impact of associated attributes and different ones is not clear at first sight. Finally, let’s compare the HPDIs for Reddit and Reddit debiased datasets. For Religion and Race dataset there is a minor shift (in absolute values the highest change is equal to approximately 0.1) of the mean coefficients towards zero. However for Gender dataset there is no significant change. This is of course a general look at the group coefficients. Let’s now analyze the individual words.</p>
 <!-- Details from the table -->
-<p>In Reddit table one can observe that for Religion the cosine distance results for the associated attributes are for approximately 60% of the words close to human attributes as well. This can suggest that in some cases words concerning humans can have higher similarity with some protected words independently of whether they are stereotypical or neutral-human words. One should also pay attention to the fact that for all of the <code>associated</code> and <code>different</code> attributes in Religion, the uncertainty intervals overlap at some point. What is even more surprising is that for protected words, such as &quot;torah&quot; the <code>associated</code> attribute has the the cosine distance slightly over 1, which means no positive similarity! If the protected words that we chose do not have high similarity with harmful associated attributes, then one should consider at least three scenarios. The first one is that the choice of the protected words and attributes may be corrupted. The second one is that the metric is unable to catch the hidden bias properly. The third one is that there is actually no bias between the words. Regardless of which scenario one considers, it is essential to take a look at the individual values before averaging them or aggregating in other ways. It seems that using Bayesian method can enhance the process of verifying the hypotheses concerning the choice of protected words and attributes.</p>
+<p>In Reddit table one can observe that for Religion the cosine distance results for the associated attributes are for approximately 60% of the words close to human attributes as well. This can suggest that in some cases words concerning humans can have higher similarity with some protected words independently of whether they are stereotypical or neutral-human words. One should also pay attention to the fact that for all of the <code>associated</code> and <code>different</code> attributes in Religion, the uncertainty intervals overlap at some point. What is even more surprising is that for protected words, such as “torah” the <code>associated</code> attribute has the the cosine distance slightly over 1, which means no positive similarity! If the protected words that we chose do not have high similarity with harmful associated attributes, then one should consider at least three scenarios. The first one is that the choice of the protected words and attributes may be corrupted. The second one is that the metric is unable to catch the hidden bias properly. The third one is that there is actually no bias between the words. Regardless of which scenario one considers, it is essential to take a look at the individual values before averaging them or aggregating in other ways. It seems that using Bayesian method can enhance the process of verifying the hypotheses concerning the choice of protected words and attributes.</p>
 <p>Surprisingly in Gender one can observe high cosine similarity values between some female stereotypical professions and male protected words. If a word stereotypically associated with females has low cosine distance to male protected words, then one should investigate the issue further. The reasons for this unexpected cosine distance may lie in the frequency of appearance of the protected words in the raw data. Some of the groups (like Muslim people or females) may have less representation in the data that is taken as an input for word embeddings. Therefore, if we assume that the MAC detects actually co-occurrence only, it makes sense that they can have high similarity with associated attributes and lower similarity with different ones. At the same time male protected words and other religions can have high similarity with different attributes because they have greater representation in the dataset in general and occur close to much more concepts. Cosine distance seems to capture the information on the co-occurrence of words and not on the semantic similarity strictly speaking.</p>
 <p>In Google, one may notice interesting phenomena as well. Although the GoogleNews dataset is larger, trained on different data sources and with the use of more dimensions, some of the results are similar to the ones obtained for the Reddit corpus. For Religion almost all of the values for <code>associated</code> class intersect with <code>different</code> class as well. In the case of Race it is 100% of the available words. This indicates again that it is not clear how the metric should be used. Quite a different situation takes place for Gender, where the similarity between <code>associated</code> and <code>different</code> is present mostly for the male protected words. This means that male words have high similarity with both male stereotypical professions and female ones. However, for females, the similarity is high mostly only for the female stereotypical professions. This observation could not be made when using MAC metric only, as it requires investigating the individual words, and providing uncertainty,</p>
 <p>When analyzing the Reddit debiased results one should investigate the change of the cosine distance values. It seems that not all of the protected words are treated equally when performing debiasing. In religion, the values for <code>associated</code> class moved towards 0 for most of the words except for the ones for Islam, where still the <code>associated</code> class has quite lower cosine distance than the <code>different</code> one. Similar situation takes place in Gender, where female words have still much lower cosine distance values for <code>associated</code> class than for the <code>different</code> one. In the case of male protected words it is mostly almost the same interval for <code>associated</code> and <code>different</code>. As the Gender data is quite specific as the attributes are not harmful adjectives but (in an ideal world) neutral professions, the aim (if we follow MAC assumptions) should actually be to make the cosine distance same for both female and male protected words. However, as we pointed out the situation after debiasing can sometimes be better only for one protected group, which is not the desired outcome. In the case of Religion, even after debiasing, all of the protected words have intersections between <code>associated</code> and <code>different</code> class and similarity greater than 0. As all of the attributes in religion data are negative and harmful stereotypes, one should not aim at making the distance between protected words and <code>associated</code>, and <code>different</code> class the same but rather to move it towards 1.</p>
-<p>Let's summarize the results of the bias detection methods analysis. As it was presented above, using the bias detection methods without involving the uncertainty may bring the risk of limited insight into the data. One should be concerned with the limitations of the metric that evaluates the debiasing by means of the averaged mean approach. Additionally, one cannot be sure if the bias is still preserved after debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved slightly to the right does not mean that the bias is removed. <span class="citation">Gonen &amp; Goldberg (<a href="#ref-Gonen2019Lipstick">2019</a>)</span> argue that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods. One of the reasons for that may be the fact that relative differences between words may be preserved even after debiasing. Another thing is that the choice of word lists used to verify the metric effectiveness is not well justified. The sample size is very small, which leads to large HPDIs. Some of the protected words and attributes originate from somewhat old articles and it seems that the bias phenomenon is quite dynamic and the data should be as up-to-date as it is possible. Moreover, recall that there is no clear interpretation for the values obtained with MAC metric from <span class="citation">Manzini et al. (<a href="#ref-Manzini2019blackToCriminal">2019</a>)</span>. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine distance assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine distance is equal to 0.8, then should we still debias? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.</p>
+<p>Let’s summarize the results of the bias detection methods analysis. As it was presented above, using the bias detection methods without involving the uncertainty may bring the risk of limited insight into the data. One should be concerned with the limitations of the metric that evaluates the debiasing by means of the averaged mean approach. Additionally, one cannot be sure if the bias is still preserved after debiasing. The fact that all of the cosine distances for protected words and harmful attributes moved slightly to the right does not mean that the bias is removed. <span class="citation"><a href="#ref-Gonen2019Lipstick" role="doc-biblioref">Gonen &amp; Goldberg</a> (<a href="#ref-Gonen2019Lipstick" role="doc-biblioref">2019</a>)</span> argue that the bias can hide in the vector geometry and preserve even after applying popular debiasing methods. One of the reasons for that may be the fact that relative differences between words may be preserved even after debiasing. Another thing is that the choice of word lists used to verify the metric effectiveness is not well justified. The sample size is very small, which leads to large HPDIs. Some of the protected words and attributes originate from somewhat old articles and it seems that the bias phenomenon is quite dynamic and the data should be as up-to-date as it is possible. Moreover, recall that there is no clear interpretation for the values obtained with MAC metric from <span class="citation"><a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">Manzini, Lim, Tsvetkov, &amp; Black</a> (<a href="#ref-Manzini2019blackToCriminal" role="doc-biblioref">2019</a>)</span>. One may assume that if the cosine distance is close to 1 then it is a desired outcome as it means, according to cosine distance assumptions, that there is almost no similarity between the words. However what does it mean to be close to 0? If the averaged cosine distance is equal to 0.8, then should we still debias? It is unclear what the criteria are. On one hand, it seems to be beneficial when the outcome is simplified as it is easier to compare results with one value per set. On the other hand, it is prone to misunderstanding of how to interpret the results and what threshold to assume.</p>
 <p>The bottom line is that if we want to take bias seriously, so should we approach the uncertainty involved in our estimations. There is no replacement for proper statistical evaluation that does not discard information about the uncertainty involved, larger word lists are needed, and visualization of the results for particular protected classes provides much better guidance than chasing a single metric based on a means of means.</p>
 <!--
 
@@ -189,12 +240,12 @@ Articles:
 
 </div>
 <h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Gonen2019Lipstick">
-<p>Gonen, H., &amp; Goldberg, Y. (2019). Lipstick on a pig: Debiasing methods cover up systematic gender biases in word embeddings but do not remove them. <em>CoRR</em>, <em>abs/1903.03862</em>. Retrieved from <a href="http://arxiv.org/abs/1903.03862" class="uri">http://arxiv.org/abs/1903.03862</a></p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-Gonen2019Lipstick" class="csl-entry">
+Gonen, H., &amp; Goldberg, Y. (2019). Lipstick on a pig: Debiasing methods cover up systematic gender biases in word embeddings but do not remove them. <em>CoRR</em>, <em>abs/1903.03862</em>. Retrieved from <a href="http://arxiv.org/abs/1903.03862">http://arxiv.org/abs/1903.03862</a>
 </div>
-<div id="ref-Manzini2019blackToCriminal">
-<p>Manzini, T., Lim, Y. C., Tsvetkov, Y., &amp; Black, A. W. (2019). Black is to criminal as caucasian is to police: Detecting and removing multiclass bias in word embeddings.</p>
+<div id="ref-Manzini2019blackToCriminal" class="csl-entry">
+Manzini, T., Lim, Y. C., Tsvetkov, Y., &amp; Black, A. W. (2019). Black is to criminal as caucasian is to police: Detecting and removing multiclass bias in word embeddings. Retrieved from <a href="http://arxiv.org/abs/1904.04047">http://arxiv.org/abs/1904.04047</a>
 </div>
 </div>
             </section>
@@ -226,6 +277,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -258,7 +310,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

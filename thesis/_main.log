@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  22 JUN 2021 11:43
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/Debian) (preloaded format=xelatex 2021.6.8)  23 JUN 2021 23:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1225,16 +1225,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [18]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[19] [20] [21]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[22] [23]
-Underfull \vbox (badness 1092) has occurred while \output is active []
-
-[24]
+[19] [20] [21] [22] [23]
 File: ../images/curseOfDimensionality.png Graphic file (type bmp)
 <../images/curseOfDimensionality.png>
-[25] [26
+[24] [25] [26
 
 ]
 Chapter 3.
@@ -1254,7 +1248,7 @@ Underfull \vbox (badness 7814) has occurred while \output is active []
 File: _main_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use _main_files/figure-latex/unnamed-chunk-4-1.pdf>
 [31]
-Overfull \hbox (0.1757pt too wide) in paragraph at lines 564--565
+Overfull \hbox (0.1757pt too wide) in paragraph at lines 562--563
 \TU/lmr/m/n/12 “muslim,” and “quran”). The word list associates with islam four
  stereotypical attributes
  []
@@ -1287,9 +1281,9 @@ Underfull \vbox (badness 4024) has occurred while \output is active []
 
 [36]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 626.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 624.
 [37]
-Underfull \vbox (badness 2197) detected at line 679
+Underfull \vbox (badness 2197) detected at line 677
  []
 
 
@@ -1301,7 +1295,7 @@ File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 File: ../images/religionGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/religionGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 722--723
+Overfull \hbox (8.433pt too wide) in paragraph at lines 720--721
 [][] 
  []
 
@@ -1310,7 +1304,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/genderGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/genderGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 730--731
+Overfull \hbox (8.433pt too wide) in paragraph at lines 728--729
 [][] 
  []
 
@@ -1319,7 +1313,7 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/raceGoogleCoeffs.jpeg Graphic file (type bmp)
 <../images/raceGoogleCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 740--741
+Overfull \hbox (8.433pt too wide) in paragraph at lines 738--739
 [][] 
  []
 
@@ -1379,7 +1373,7 @@ File: ../images/religionCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedReligionRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 905--906
+Overfull \hbox (8.433pt too wide) in paragraph at lines 903--904
 [][] 
  []
 
@@ -1388,7 +1382,7 @@ File: ../images/genderCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedGenderRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 913--914
+Overfull \hbox (8.433pt too wide) in paragraph at lines 911--912
 [][] 
  []
 
@@ -1397,7 +1391,7 @@ File: ../images/raceCoeffs.jpeg Graphic file (type bmp)
 File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type bmp)
 <../images/debiasedRaceRedditCoeffs.jpeg>
 
-Overfull \hbox (8.433pt too wide) in paragraph at lines 923--924
+Overfull \hbox (8.433pt too wide) in paragraph at lines 921--922
 [][] 
  []
 
@@ -1448,14 +1442,14 @@ Underfull \vbox (badness 2809) has occurred while \output is active []
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 1043.
+(hyperref)                removing `\<let>-command' on input line 1041.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1043.
+(hyperref)                removing `\@ifnextchar' on input line 1041.
 
 [67]
-Overfull \vbox (0.6323pt too high) detected at line 1128
+Overfull \vbox (0.6323pt too high) detected at line 1126
  []
 
 [68]

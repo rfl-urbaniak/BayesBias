@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing</title>
   <meta name="description" content="4 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Protected-word level analysis | Conceptual and methodological problems with bias detection and avoidance in natural language processing" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alicja Dobrzeniecka" />
 
 
-<meta name="date" content="2021-06-22" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="walkthrough-with-the-religion-dataset.html"/>
 <link rel="next" href="the-role-of-debiasing.html"/>
+<script src="book_assets/header-attrs-2.8/header-attrs.js"></script>
 <script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
 <link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,44 +51,96 @@
 
 
 
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -103,14 +156,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a><ul>
+<li class="chapter" data-level="2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html"><i class="fa fa-check"></i><b>2</b> Cosine similarity and bias detection</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#word-embeddings"><i class="fa fa-check"></i><b>2.1</b> Word embeddings</a></li>
 <li class="chapter" data-level="2.2" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-similarity-and-distance"><i class="fa fa-check"></i><b>2.2</b> Cosine similarity and distance</a></li>
 <li class="chapter" data-level="2.3" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-one-class-bias-detection"><i class="fa fa-check"></i><b>2.3</b> Cosine distance in a one-class bias detection</a></li>
 <li class="chapter" data-level="2.4" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#cosine-distance-in-a-multi-class-bias-detection"><i class="fa fa-check"></i><b>2.4</b> Cosine distance in a multi-class bias detection</a></li>
 <li class="chapter" data-level="2.5" data-path="cosine-similarity-and-bias-detection.html"><a href="cosine-similarity-and-bias-detection.html#limitations-of-the-approach"><i class="fa fa-check"></i><b>2.5</b> Limitations of the approach</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a><ul>
+<li class="chapter" data-level="3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html"><i class="fa fa-check"></i><b>3</b> Walkthrough with the religion dataset</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#loading-and-understanding-the-dataset"><i class="fa fa-check"></i><b>3.1</b> Loading and understanding the dataset</a></li>
 <li class="chapter" data-level="3.2" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#first-look-at-the-empirical-distributions"><i class="fa fa-check"></i><b>3.2</b> First look at the empirical distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#looking-at-the-islam-related-words"><i class="fa fa-check"></i><b>3.3</b> Looking at the islam-related words</a></li>
@@ -118,17 +173,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#choosing-predictors"><i class="fa fa-check"></i><b>3.5</b> Choosing predictors</a></li>
 <li class="chapter" data-level="3.6" data-path="walkthrough-with-the-religion-dataset.html"><a href="walkthrough-with-the-religion-dataset.html#dataset-level-coefficients"><i class="fa fa-check"></i><b>3.6</b> Dataset-level coefficients </a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a><ul>
+<li class="chapter" data-level="4" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html"><i class="fa fa-check"></i><b>4</b> Protected-word level analysis</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#model-structure-and-assumptions"><i class="fa fa-check"></i><b>4.1</b> Model structure and assumptions</a></li>
 <li class="chapter" data-level="4.2" data-path="protected-word-level-analysis.html"><a href="protected-word-level-analysis.html#protected-classes-in-reddit-and-google-embeddings"><i class="fa fa-check"></i><b>4.2</b> Protected classes in Reddit and Google embeddings</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a><ul>
+<li class="chapter" data-level="5" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html"><i class="fa fa-check"></i><b>5</b> The role of debiasing</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#dataset-level-coefficients-after-debiasing"><i class="fa fa-check"></i><b>5.1</b> Dataset-level coefficients after debiasing</a></li>
 <li class="chapter" data-level="5.2" data-path="the-role-of-debiasing.html"><a href="the-role-of-debiasing.html#protected-classes-after-debiasing"><i class="fa fa-check"></i><b>5.2</b> Protected classes after debiasing</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="discussion-and-summary.html"><a href="discussion-and-summary.html"><i class="fa fa-check"></i><b>6</b> Discussion and summary</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(Manzini et al., <a href="#ref-Manzini2019blackToCriminal">2019</a>)</span></a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a>
+<ul>
+<li><a href="appendix.html#original-wordlist-from-manzini2019blacktocriminal">Original wordlist from <span class="citation">(<span>Manzini, Lim, Tsvetkov, &amp; Black, 2019</span>)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#religion"><i class="fa fa-check"></i>Religion</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#gender"><i class="fa fa-check"></i>Gender</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#race"><i class="fa fa-check"></i>Race</a></li>
@@ -155,62 +214,58 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="protected-word-level-analysis" class="section level1">
+<div id="protected-word-level-analysis" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Protected-word level analysis</h1>
-<div id="model-structure-and-assumptions" class="section level2">
+<div id="model-structure-and-assumptions" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Model structure and assumptions</h2>
-<p>Let's turn then to data analysis that takes a look at protected words separately. This time, for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the <code>visualiseStats.R</code> script for details).</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">buildtools.check =</span> <span class="cf">function</span>(action) <span class="ot">TRUE</span> ) <span class="co">#removes install pop-up request</span>
-religion<span class="op">$</span>pwFactor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">paste0</span>(religion<span class="op">$</span>protectedWord, <span class="st">&quot;-&quot;</span>, religion<span class="op">$</span>connection))
-religion<span class="op">$</span>pwIndex &lt;-<span class="st"> </span><span class="kw">as.integer</span>(religion<span class="op">$</span>pwFactor)
-
-religionSeparate &lt;-<span class="st"> </span><span class="kw">ulam</span>(
-  <span class="kw">alist</span>(
-    cosineDistance <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(mu,sigma),
-    mu &lt;-<span class="st"> </span>c[pwIndex],
-    c[pwIndex] <span class="op">~</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),
-    sigma <span class="op">~</span><span class="st"> </span><span class="kw">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)
-  ),
-  <span class="dt">data =</span> religion,
-  <span class="dt">chains=</span><span class="dv">2</span> , <span class="dt">iter=</span><span class="dv">10000</span> , <span class="dt">warmup=</span><span class="dv">1000</span>,
-  <span class="dt">start=</span><span class="kw">list</span>(<span class="dt">no =</span> <span class="dv">1</span>, <span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">d =</span> <span class="dv">0</span>, <span class="dt">sigma=</span> <span class="fl">.3</span>), <span class="dt">log_lik =</span>  <span class="ot">TRUE</span>
-)</code></pre></div>
-
-<p>Let's see if the individualized model does better than the previous models in light of WAIC which does add penalty for the number of parameters.</p>
-<p> </p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compareBaselineCoefsSeparate&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;../datasets/compareBaselineCoefsSeparate.rds&quot;</span>)
-compareBaselineCoefsSeparate</code></pre></div>
+<p>Let’s turn then to data analysis that takes a look at protected words separately. This time, for each combination of a protected word and a connection status we will have a separate mean cosine distance estimate, each coming with its own highest posterior density interval. This means we will use indices that are result from all such combinations (and then we will split them up in the model precis to build visualisation, feel free to look at the <code>visualiseStats.R</code> script for details).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="protected-word-level-analysis.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">buildtools.check =</span> <span class="cf">function</span>(action) <span class="cn">TRUE</span> ) <span class="co">#removes install pop-up request</span></span>
+<span id="cb11-2"><a href="protected-word-level-analysis.html#cb11-2" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>pwFactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">paste0</span>(religion<span class="sc">$</span>protectedWord, <span class="st">&quot;-&quot;</span>, religion<span class="sc">$</span>connection))</span>
+<span id="cb11-3"><a href="protected-word-level-analysis.html#cb11-3" aria-hidden="true" tabindex="-1"></a>religion<span class="sc">$</span>pwIndex <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(religion<span class="sc">$</span>pwFactor)</span>
+<span id="cb11-4"><a href="protected-word-level-analysis.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="protected-word-level-analysis.html#cb11-5" aria-hidden="true" tabindex="-1"></a>religionSeparate <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb11-6"><a href="protected-word-level-analysis.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb11-7"><a href="protected-word-level-analysis.html#cb11-7" aria-hidden="true" tabindex="-1"></a>    cosineDistance <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb11-8"><a href="protected-word-level-analysis.html#cb11-8" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> c[pwIndex],</span>
+<span id="cb11-9"><a href="protected-word-level-analysis.html#cb11-9" aria-hidden="true" tabindex="-1"></a>    c[pwIndex] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,.<span class="dv">5</span>),</span>
+<span id="cb11-10"><a href="protected-word-level-analysis.html#cb11-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dcauchy</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb11-11"><a href="protected-word-level-analysis.html#cb11-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb11-12"><a href="protected-word-level-analysis.html#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> religion,</span>
+<span id="cb11-13"><a href="protected-word-level-analysis.html#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">chains=</span><span class="dv">2</span> , <span class="at">iter=</span><span class="dv">10000</span> , <span class="at">warmup=</span><span class="dv">1000</span>,</span>
+<span id="cb11-14"><a href="protected-word-level-analysis.html#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">start=</span><span class="fu">list</span>(<span class="at">no =</span> <span class="dv">1</span>, <span class="at">a =</span> <span class="dv">0</span>, <span class="at">d =</span> <span class="dv">0</span>, <span class="at">sigma=</span> .<span class="dv">3</span>), <span class="at">log_lik =</span>  <span class="cn">TRUE</span></span>
+<span id="cb11-15"><a href="protected-word-level-analysis.html#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Let’s see if the individualized model does better than the previous models in light of WAIC which does add penalty for the number of parameters.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="protected-word-level-analysis.html#cb12-1" aria-hidden="true" tabindex="-1"></a>compareBaselineCoefsSeparate<span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;../datasets/compareBaselineCoefsSeparate.rds&quot;</span>)</span>
+<span id="cb12-2"><a href="protected-word-level-analysis.html#cb12-2" aria-hidden="true" tabindex="-1"></a>compareBaselineCoefsSeparate</span></code></pre></div>
 <pre><code>##                   WAIC SE dWAIC dSE pWAIC weight
 ## religionSeparate -2400 93     0  NA    60      1
 ## religionCoefs    -2328 93    72  29    20      0
 ## religionBaseline -2283 95   117  37    16      0</code></pre>
-
 </div>
-<div id="protected-classes-in-reddit-and-google-embeddings" class="section level2">
+<div id="protected-classes-in-reddit-and-google-embeddings" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Protected classes in Reddit and Google embeddings</h2>
-<p>It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let's visualise the predicted means together with 89% highest posterior density intervals.</p>
-
-<p>Before we move on, let's perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).</p>
-
-
-<p>We first encountered the GoogleNews word embedding model in <span class="citation">Bolukbasi et al. (<a href="#ref-Bolukbasi2016Man">2016</a>)</span>. They use it for their calculations as written in <a href="https://github.com/tolga-b/debiaswe">Tolga Bolukbasi code</a><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here <a href="https://code.google.com/archive/p/word2vec/">Google News model</a>. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension increases, the vectors can capture much more information, but this is not always the case. According to some researchers, the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.</p>
-
-
-
+<p>It seems that we do want to prefer this model, despite its relative complication. Now, what does it tell us about the protected words? Let’s visualise the predicted means together with 89% highest posterior density intervals.</p>
+<p></p>
+<p>Before we move on, let’s perform analogous analyses for the remaining types of supposed bias: gender and race (the model building is analogous).</p>
+<p></p>
+<p></p>
+<p>We first encountered the GoogleNews word embedding model in <span class="citation"><a href="#ref-Bolukbasi2016Man" role="doc-biblioref">Bolukbasi, Chang, Zou, Saligrama, &amp; Kalai</a> (<a href="#ref-Bolukbasi2016Man" role="doc-biblioref">2016</a>)</span>. They use it for their calculations as written in <a href="https://github.com/tolga-b/debiaswe">Tolga Bolukbasi code</a><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. We decided to compare the results obtained with the use of Reddit L2 model and the ones that we got by GoogleNews model. The details of the model can be found here <a href="https://code.google.com/archive/p/word2vec/">Google News model</a>. One of the main differences between the models is that Reddit word embeggings have 50 dimensions and GoogleNews word embeddings have 300 dimensions. As the dimension increases, the vectors can capture much more information, but this is not always the case. According to some researchers, the amount of dimensions should be chosen by taking into account the type of corpus and its features. In our case both Reddit and GoogleNews models are already trained and ready to use so we do not analyse further the choice of their hyperparameters.</p>
+<p></p>
+<p></p>
+<p></p>
 <p>We leave a discussion of these results for later, for now let us also inspect the impact of debiasing.</p>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Bolukbasi2016Man">
-<p>Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520" class="uri">http://arxiv.org/abs/1607.06520</a></p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-Bolukbasi2016Man" class="csl-entry">
+Bolukbasi, T., Chang, K.-W., Zou, J. Y., Saligrama, V., &amp; Kalai, A. (2016). Man is to computer programmer as woman is to homemaker? Debiasing word embeddings. <em>CoRR</em>, <em>abs/1607.06520</em>. Retrieved from <a href="http://arxiv.org/abs/1607.06520">http://arxiv.org/abs/1607.06520</a>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="5">
-<li id="fn5"><p><a href="https://github.com/tolga-b/debiaswe" class="uri">https://github.com/tolga-b/debiaswe</a><a href="protected-word-level-analysis.html#fnref5">↩</a></p></li>
+<li id="fn5"><p><a href="https://github.com/tolga-b/debiaswe" class="uri">https://github.com/tolga-b/debiaswe</a><a href="protected-word-level-analysis.html#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -242,6 +297,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -274,7 +330,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
