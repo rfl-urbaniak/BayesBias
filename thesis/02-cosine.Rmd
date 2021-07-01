@@ -198,7 +198,7 @@ The authors use the mean of mean average cosine similarities to measure multi-cl
 
 With such a method the uncertainty involved is not really considered which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results. 
 
-\pagebreak 
+
 
 \textbf{4. No word class distinction and no control group}
 
