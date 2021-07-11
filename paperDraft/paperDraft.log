@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  28 JUN 2021 13:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  11 JUL 2021 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1652,7 +1652,7 @@ LaTeX Font Info:    Trying to load font information for T1+pcr on input line 45
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf, id=77, 469.755pt x 325.21
+<paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf, id=76, 469.755pt x 325.21
 5pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
 f)
@@ -1661,7 +1661,7 @@ Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf  u
 sed on input line 462.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [3 <./paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf, id=94, 469.755pt x 325.21
+<paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf, id=93, 469.755pt x 325.21
 5pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pd
 f)
@@ -1670,7 +1670,7 @@ Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf  u
 sed on input line 523.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [4 <./paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf, id=107, 469.755pt x 325.2
+<paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf, id=106, 469.755pt x 325.2
 15pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pd
 f)
@@ -1679,7 +1679,7 @@ Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf  u
 sed on input line 543.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [5 <./paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf, id=121, 469.755pt x 325.2
+<paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf, id=120, 469.755pt x 325.2
 15pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pd
 f)
@@ -1687,7 +1687,7 @@ f)
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf  u
 sed on input line 605.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-<paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf, id=122, 469.755pt x 325.
+<paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf, id=121, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
@@ -1696,7 +1696,7 @@ Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf
 used on input line 633.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [6 <./paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf, id=135, 469.755pt x 325.
+<paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf, id=134, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type p
 df)
@@ -1705,7 +1705,7 @@ Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf
 used on input line 681.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [7 <./paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf, id=151, 469.755pt x 325.
+<paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf, id=150, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type p
 df)
@@ -1715,7 +1715,7 @@ used on input line 705.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
 [8 <./paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf> <./paperDraft_files
 /figure-latex/unnamed-chunk-14-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf, id=174, 469.755pt x 325.
+<paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf, id=173, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type p
 df)
@@ -1727,32 +1727,84 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
 65.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [9 <./paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>] [10] [11] (./pap
-erDraft.aux) ) 
+) [9 <./paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>] [10]
+<../images/religionCoeffs.jpeg, id=191, 477.28313pt x 432.86719pt>
+File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
+<use ../images/religionCoeffs.jpeg>
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 908.
+
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/religionGoogleCoeffs.jpeg, id=192, 477.28313pt x 432.86719pt>
+File: ../images/religionGoogleCoeffs.jpeg Graphic file (type jpg)
+<use ../images/religionGoogleCoeffs.jpeg>
+Package pdftex.def Info: ../images/religionGoogleCoeffs.jpeg  used on input lin
+e 911.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 911--912
+[][] 
+ []
+
+<../images/genderCoeffs.jpeg, id=193, 477.28313pt x 432.86719pt>
+File: ../images/genderCoeffs.jpeg Graphic file (type jpg)
+<use ../images/genderCoeffs.jpeg>
+Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 916.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/genderGoogleCoeffs.jpeg, id=194, 477.28313pt x 432.86719pt>
+File: ../images/genderGoogleCoeffs.jpeg Graphic file (type jpg)
+<use ../images/genderGoogleCoeffs.jpeg>
+Package pdftex.def Info: ../images/genderGoogleCoeffs.jpeg  used on input line 
+919.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 919--920
+[][] 
+ []
+
+<../images/raceCoeffs.jpeg, id=195, 477.28313pt x 432.86719pt>
+File: ../images/raceCoeffs.jpeg Graphic file (type jpg)
+<use ../images/raceCoeffs.jpeg>
+Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 926.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/raceGoogleCoeffs.jpeg, id=196, 477.28313pt x 432.86719pt>
+File: ../images/raceGoogleCoeffs.jpeg Graphic file (type jpg)
+<use ../images/raceGoogleCoeffs.jpeg>
+Package pdftex.def Info: ../images/raceGoogleCoeffs.jpeg  used on input line 92
+9.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 929--930
+[][] 
+ []
+
+[11 <../images/religionCoeffs.jpeg> <../images/religionGoogleCoeffs.jpeg> <../i
+mages/genderCoeffs.jpeg> <../images/genderGoogleCoeffs.jpeg> <../images/raceCoe
+ffs.jpeg> <../images/raceGoogleCoeffs.jpeg>] [12] [13] [14] (./paperDraft.aux) 
+) 
 Here is how much of TeX's memory you used:
- 31831 strings out of 481252
- 573396 string characters out of 5915889
- 1035493 words of memory out of 5000000
- 47798 multiletter control sequences out of 15000+600000
- 500739 words of font info for 323 fonts, out of 8000000 for 9000
+ 31884 strings out of 481252
+ 574693 string characters out of 5915889
+ 1036493 words of memory out of 5000000
+ 47829 multiletter control sequences out of 15000+600000
+ 499086 words of font info for 331 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 111i,14n,116p,10633b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/kpfonts/jkpssmn8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
-w/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uh
-vb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/font
-s/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paperDraft.pdf (11 pages, 186680 bytes).
+ 111i,14n,116p,10633b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/kpfonts/jkpssmn8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucr
+r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paperDraft.pdf (14 pages, 456159 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 235 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
- 90317 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 318 PDF objects out of 1000 (max. 8388607)
+ 248 compressed objects within 3 object streams
+ 47 named destinations out of 1000 (max. 500000)
+ 86251 words of extra memory for PDF output out of 89155 (max. 10000000)
 

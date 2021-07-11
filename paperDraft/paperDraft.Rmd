@@ -420,13 +420,116 @@ quantile(biasesD1, probs = c(0.275,0.975))
 
 # Bayesian estimation 
 
-- reddit i google, ogolnie i z podzialem na protected words
+We noticed that in @Manzini2019blackToCriminal words from all three sub-classes (in the case of religion by sub-class we mean Christianity, Judaism, Islam) were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given sub-class, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the sub-groups. One should investigate the sub-groups separately as some of them may have stronger harmful associations than others. 
 
-- dokladniej gender, reszta na koniec w zalaczniku
+
+We decided to add control groups in the form of two classes — neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 230 neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover,
+we added human attributes that are associated with people in general to investigate whether the smaller cosine distance between protected words and stereotypes can result simply from the fact that the stereotype predicates are associated with humans.
+
+
+One may consider improving the bias detection method presented in @Manzini2019blackToCriminal. As the chosen protected words and attributes do not represent the whole biased population but only a sample, it is justified to introduce the uncertainty measure to the method. We decided to use Bayesian estimation to make the cosine distance method more methodologically correct.
+
+
+Our priors distributions for the Bayesian model reflect our knowledge about the data. The distribution for mean distance (cosine distance) is set to be between 0 and 2 with the mean equal to 1. We assume that most of the cosine distances may be considered neutral and therefore their similarity will be small. The distribution for prior for standard deviation is mostly between 0 and 1 with mean around 0. Finally the distribution for prior for coefficients is mostly between -1 and 1, with mean around 0. One should remember that the cosine distance values have range between 0 and 2 therefore the choice of the prior distributions should reflect this constraint. As we want to verify as objectively as possible the assumptions present in @Manzini2019blackToCriminal we decided to use fairly weak and slightly skeptical regularizing priors. The models parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the rethinking package. 
+
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/religionGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/genderGoogleCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/raceGoogleCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+
+\end{center}
+
+
+Let's analyse dataset-level coeﬀicients together with their highest posterior density intervals, for the three topic groups. We compare the results for two different word emebeddings corpuses - RedditL2 and GoogleNews. For Google embeddings the HPDIs
+for all class coeﬀicients (associated, different, human, and none) include zero. This can lead one to a conclusion that the impact for associated, different, human and neutral attribute is, when averaged, quite similar. This indicates how including the uncertainty
+may change the use and interpretation of Manzini, Lim, Tsvetkov, & Black (2019) MAC metric. It seems that if one focuses only on differences between means of means, this is too simplistic.
+
+
+In the case of Reddit word embeddings the situation is similar although HPDI is below 0 for Gender class when looking at `associated` and `different` mean coeﬀicient. This can suggest that there is indeed slightly stronger impact of these attributes. One should also notice how in general associated and different coeﬀicients have quite similar HPDI range, the highest observed absolute difference is equal to only 0.1. This suggests that again the impact of associated attributes and different ones is not clear at first sight. Finally, let’s compare the HPDIs for Reddit and Reddit debiased datasets. For Religion and Race dataset there is a minor shift (in absolute values the highest change is equal to approximately 0.1) of the mean coeﬀicients towards zero. However for Gender dataset there is no significant change. This is of course a general look at the group coeﬀicients. Let’s now analyze the individual words.
+
+
+Looking at Reddit individual words one can observe that for Religion the cosine distance results for the associated attributes are for most of the words close to human attributes as well. This can suggest that in some cases words concerning humans can have higher
+similarity with some protected words independently of whether they are stereotypical or neutral-human words. One should also pay attention to the fact that for all of the associated and different attributes in Religion, the uncertainty intervals overlap at
+some point. What is even more surprising is that for protected words, such as “torah” the associated attribute has the the cosine distance slightly over 1, which means no positive similarity! If the protected words that we chose do not have high similarity
+with harmful associated attributes, then one should consider at least three scenarios. The first one is that the choice of the protected words and attributes may be corrupted. The second one is that the metric is unable to catch the hidden bias properly. The third one is that there is actually no bias between the words. Regardless of which scenario one considers, it is essential to take a look at the individual values before averaging them or aggregating in other ways. It seems that using Bayesian method can enhance
+the process of verifying the hypotheses concerning the choice of protected words and attributes.
+
+
+Surprisingly in Gender one can observe high cosine similarity values between some female stereotypical professions and male protected words. If a word stereotypically associated with females has low cosine distance to male protected words, then one should investigate the issue further. The reasons for this unexpected cosine distance may lie in the frequency of appearance of the protected words in the raw data. Some of the groups (like Muslim people or females) may have less representation in the data that is taken as an input for word embeddings. Therefore, if we assume that the MAC detects actually co-occurrence only, it makes sense that they can have high similarity with associated attributes and lower similarity with different ones. At the same time male protected words and other religions can have high similarity with different attributes because they have greater representation in the dataset in general and occur close to much more concepts. Cosine distance seems to capture the information on the co-occurrence of words and not on the semantic similarity strictly speaking.
+
+
+In Google, one may notice interesting phenomena as well. Although the GoogleNews dataset is larger, trained on different data sources and with the use of more dimensions, some of the results are similar to the ones obtained for the Reddit corpus. For Religion
+almost all of the values for associated class intersect with different class as well. In the case of Race it is 100% of the available words. This indicates again that it is not clear how the metric should be used. Quite a different situation takes place for
+Gender, where the similarity between associated and different is present mostly for the male protected words. This means that male words have high similarity with both male stereotypical professions and female ones. However, for females, the similarity is
+high mostly only for the female stereotypical professions. This observation could not be made when using MAC metric only, as it requires investigating the individual words, and providing uncertainty.
+
 
 # Effects of debiasing
 
+One may verify if the dataset-level coefficients changed after the debiasing method used in @Manzini2019blackToCriminal. 
 
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedReligionRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedGenderRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedRaceRedditCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+\end{center}
+
+
+
+When analyzing the Reddit debiased results one should investigate the change of the individual cosine distance values as well. It seems that not all of the protected words are treated equally when performing debiasing. In religion, the values for associated class moved towards 0 for most of the words except for the ones for Islam, where still the associated class has quite lower cosine distance than the different one. Similar situation takes place in Gender, where female words have still much lower cosine distance values for
+associated class than for the different one. In the case of male protected words it is mostly almost the same interval for associated and different. As the Gender data is quite specific as the attributes are not harmful adjectives but (in an ideal world)
+neutral professions, the aim (if we follow MAC assumptions) should actually be to make the cosine distance same for both female and male protected words. However, as we pointed out the situation after debiasing can sometimes be better only for one protected
+group, which is not the desired outcome. In the case of Religion, even after debiasing, all of the protected words have intersections between associated and different class and similarity greater than 0. As all of the attributes in religion data are negative
+and harmful stereotypes, one should not aim at making the distance between protected words and associated, and different class the same but rather to move it towards 1.
 
 # Discussion 
 
