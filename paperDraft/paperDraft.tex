@@ -87,6 +87,16 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -412,6 +422,136 @@ run on average cosines used to calculate MAC.
 \hypertarget{some-methodological-problems}{%
 \section{Some methodological
 problems}\label{some-methodological-problems}}
+
+\textbf{1. Selection of attributes}
+
+The attributes are taken from different sources, there is no principled
+justification for their choice. From our analysis it will become clear
+that the list is rather uneven.
+
+There is no mention of methodology for deciding on the number of
+attributes necessary to decide a hypothesis on the given size of
+dataset. There are however some ways to estimate sample sizes needed to
+ensure that the results are meaningful if the effect is present. Our
+research will show that the numbers used are rather insufficient.
+
+\textbf{2. No attention to distributions and details}
+
+The authors use the mean of mean average cosine similarities to measure
+multi-class similarity between protected word and harmful stereotypes.
+They average the results until they obtain one final value to represent
+the mean cosine distance between protected word from a given class and
+the attributes of that class. If one takes closer look at the individual
+values that are taken for the calculations it turns out that there is a
+bunch of outliers and surprisingly dissimilar words. We approach this
+issue by providing the tables and visualizations of individual cosine
+distances to make sure that we obtain a proper insight into the data.
+
+\textbf{3. Hiding the impact of uncertainty}
+
+With such a method the uncertainty involved is not really considered
+which makes it even more difficult to give reasonable interpretations of
+the results. We propose the use of Bayesian method to obtain some
+understanding of the influence the uncertainty has on the interpretation
+of final results.
+
+\textbf{4. No word class distinction and no control group}
+
+In the original paper, words from all three religions were compared
+against all of the stereotypes, which means that there was no
+distinction between cases in which the stereotype is associated with a
+given religion, as opposed to the situation in which it is associated
+with another one. Not all of the stereotypical words have to be
+considered as harmful for all of the religions. One should investigate
+the religions separately as some of them may have stronger harmful
+associations that others. One should also include control groups to have
+a way of comparing the stereotypical results with neutral or human-like
+words. Later in the text we will explain in details reasons for
+introducing control groups. In our analysis, we distinguish between
+stereotypes associated with a given group, stereotypes associated with
+different groups, and control groups: neutral words and stereotypes-free
+human predicates.
+
+\textbf{5. Interpreting the results}
+
+Assuming for a moment that the value of multi-class cosine distance is
+correct, one may question the interpretation. Manzini, Lim, Tsvetkov, \&
+Black (2019) summarize the averages of cosine distance per group
+(gender, race, religion). For now let us focus now on analyzing the
+values relating to religious biases. Here is the relevant fragment of
+table:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Religion Debiasing & MAC \\
+\midrule
+\endhead
+Biased & 0.859 \\
+Hard Debiased & 0.934 \\
+Soft Debiased (\(\lambda\) = 0.2) & 0.894 \\
+\bottomrule
+\end{longtable}
+
+MAC stand for mean average cosine similarity, although in reality the
+the table contains mean distances. What may attract attention is the
+fact that the value of cosine distance in ``Biased'' category is already
+quite high even before debiasing. High cosine distance indicates low
+cosine similarity between values. One could think that average cosine
+similarity equal to approximately 0.141 is not significant enough to
+consider it as bias. However the authors aim to mitigate ``biases'' in
+vectors with such great distance to make it even larger.
+Methodologically the question is, on what basis is this small similarity
+still considered as a proof of the presence of bias, and whether these
+small changes are meaningful. This is in general the problem of scale
+and the lack of universal intervals. In contrast, statistical intervals
+will help us decide whether a given cosine similarity is high enough to
+consider the words to be more similar than if we chose them at random.
+We will use highest posterior density intervals, in line with Bayesian
+methodology.
+
+\textbf{6. The curse of dimensionality}
+
+In our case, the curse of dimensionality may take place when there is an
+increase in the volume of data that results in adding extra dimensions
+to the Euclidean space. According to the article
+\href{https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/}{Curse
+of dimensionality at analyticsindiamag.com} as the number of features
+increases, it may be harder and harder to obtain useful information from
+the data using the available algorithms. One may notice that more data
+should contribute to greater amount of information, but more information
+also means greater risk of noise and distractions in data. At the same
+time, modern solutions are often adapted to smaller dimensions and their
+results in higher ones are not intuitive, or may be prone to error.
+
+Using cosine similarity in high dimensions in word embeddings may also
+be prone to the curse of dimensionality. According to Venkat (2018)
+there are reasons to consider this phenomenon when searching for word
+similarities in higher dimensions. An experiment is conducted that aims
+at showing how the similarity values and variation change as the number
+of dimensions increases. The hypothesis made in the paper states that
+two things will happen as the number of dimensions increase. First, the
+effort required to measure cosine similarity will be greater, and two,
+the similarity between data will blur out and have less variation. The
+authors generate random points with increasing number of dimensions
+where each dimension of a data point is given a value between 0 and 1.
+Then they pick one vector at random from each dimension class and
+calculate the cosine similarity between the chosen vector and the rest
+of the data. Then they check how the variation of values changes as the
+number of dimensions increases. It seems like the more dimensions there
+are, the smaller the variance and therefore it is less obvious how to
+interpret the resulting cosine similarities. Maybe the scale should be
+adjusted to the number of dimensions and variance so that it still gives
+us sensible information about data. Yet, according to some articles
+cosine similarity in high dimensions is not reliable enough as it may be
+the case that choosing words at random may result in similar values as
+when picking them consciously.
+
+\begin{figure}
+\centering
+\includegraphics{../images/curseOfDimensionality.png}
+\caption{curse of dimensionality, number of dimensions on the x axis,
+standard deviation of similarity on the y axis}
+\end{figure}
 
 \hypertarget{the-problem-with-means-of-means}{%
 \section{The problem with means of
@@ -1016,18 +1156,58 @@ investigating the individual words, and providing uncertainty.
 \hypertarget{effects-of-debiasing}{%
 \section{Effects of debiasing}\label{effects-of-debiasing}}
 
+One may verify if the dataset-level coefficients changed after the
+debiasing method used in Manzini, Lim, Tsvetkov, \& Black (2019). In
+some cases there is a minor change to the right, the mean value is
+closer to 0. The \texttt{associated} and \texttt{differen} attributes
+are now more overlapping than before. However, the uncertainty intervals
+are still high and therefore the significance of the change cannot be
+considered as enormous. The surprising obervation is that in the case of
+\texttt{Gender} and \texttt{Race} groups, the neutral words shifted to
+the left, further from the neutral position.
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedReligionRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedGenderRedditCoeffs.jpeg}
+   \end{minipage}
+   
+   
+   
+   
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/raceCoeffs.jpeg}
+\end{minipage}
+   \begin {minipage}{0.43\textwidth}
+    \includegraphics[width=7cm]{../images/debiasedRaceRedditCoeffs.jpeg}
+   \end{minipage}
+\end{figure}
+
+\end{center}
+
 When analyzing the Reddit debiased results one should investigate the
-change of the cosine distance values. It seems that not all of the
-protected words are treated equally when performing debiasing. In
-religion, the values for associated class moved towards 0 for most of
-the words except for the ones for Islam, where still the associated
-class has quite lower cosine distance than the different one. Similar
-situation takes place in Gender, where female words have still much
-lower cosine distance values for associated class than for the different
-one. In the case of male protected words it is mostly almost the same
-interval for associated and different. As the Gender data is quite
-specific as the attributes are not harmful adjectives but (in an ideal
-world) neutral professions, the aim (if we follow MAC assumptions)
+change of the individual cosine distance values as well. It seems that
+not all of the protected words are treated equally when performing
+debiasing. In religion, the values for associated class moved towards 0
+for most of the words except for the ones for Islam, where still the
+associated class has quite lower cosine distance than the different one.
+Similar situation takes place in Gender, where female words have still
+much lower cosine distance values for associated class than for the
+different one. In the case of male protected words it is mostly almost
+the same interval for associated and different. As the Gender data is
+quite specific as the attributes are not harmful adjectives but (in an
+ideal world) neutral professions, the aim (if we follow MAC assumptions)
 should actually be to make the cosine distance same for both female and
 male protected words. However, as we pointed out the situation after
 debiasing can sometimes be better only for one protected group, which is
@@ -1110,6 +1290,9 @@ implicit group attitudes and beliefs from a demonstration web site.
 \emph{Group Dynamics: Theory, Research, and Practice}, \emph{6}(1),
 101--115. American Psychological Association ({APA}). Retrieved from
 \url{https://doi.org/10.1037/1089-2699.6.1.101}
+
+\leavevmode\hypertarget{ref-Venkat2018Curse}{}%
+Venkat, N. (2018). The curse of dimensionality: Inside out.
 
 \end{CSLReferences}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  11 JUL 2021 12:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  12 JUL 2021 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -492,6 +492,73 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \fb@frh=\dimen154
 \FrameRule=\dimen155
 \FrameSep=\dimen156
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
+\LTleft=\skip69
+\LTright=\skip70
+\LTpre=\skip71
+\LTpost=\skip72
+\LTchunksize=\count280
+\LTcapwidth=\dimen157
+\LT@head=\box52
+\LT@firsthead=\box53
+\LT@foot=\box54
+\LT@lastfoot=\box55
+\LT@cols=\count281
+\LT@rows=\count282
+\c@LT@tables=\count283
+\c@LT@chunks=\count284
+\LT@p@ftn=\toks24
+)
+Class scrartcl Info: longtable captions redefined on input line 91.
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen158
+\lightrulewidth=\dimen159
+\cmidrulewidth=\dimen160
+\belowrulesep=\dimen161
+\belowbottomsep=\dimen162
+\aboverulesep=\dimen163
+\abovetopsep=\dimen164
+\cmidrulesep=\dimen165
+\cmidrulekern=\dimen166
+\defaultaddspace=\dimen167
+\@cmidla=\count285
+\@cmidlb=\count286
+\@aboverulesep=\dimen168
+\@belowrulesep=\dimen169
+\@thisruleclass=\count287
+\@lastruleclass=\count288
+\@thisrulewidth=\dimen170
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen171
+\ar@mcellbox=\box56
+\extrarowheight=\dimen172
+\NC@list=\toks25
+\extratabsurround=\skip73
+\backup@length=\skip74
+\ar@cellbox=\box57
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count289
+\calc@Bcount=\count290
+\calc@Adimen=\dimen173
+\calc@Bdimen=\dimen174
+\calc@Askip=\skip75
+\calc@Bskip=\skip76
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count291
+\calc@Cskip=\skip77
+) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count292
+) (/usr/share/texlive/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
+Package: footnotehyper 2021/02/04 v1.1d hyperref aware footnote.sty (JFB)
+\FNH@notes=\box58
+\FNH@width=\dimen175
+\FNH@toks=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
@@ -503,71 +570,33 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 105.
 )
-\Gin@req@height=\dimen157
-\Gin@req@width=\dimen158
-) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen159
-\lightrulewidth=\dimen160
-\cmidrulewidth=\dimen161
-\belowrulesep=\dimen162
-\belowbottomsep=\dimen163
-\aboverulesep=\dimen164
-\abovetopsep=\dimen165
-\cmidrulesep=\dimen166
-\cmidrulekern=\dimen167
-\defaultaddspace=\dimen168
-\@cmidla=\count280
-\@cmidlb=\count281
-\@aboverulesep=\dimen169
-\@belowrulesep=\dimen170
-\@thisruleclass=\count282
-\@lastruleclass=\count283
-\@thisrulewidth=\dimen171
+\Gin@req@height=\dimen176
+\Gin@req@width=\dimen177
 ) (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/01/29 v2.7 Span multiple rows of a table
-\multirow@colwidth=\skip69
-\multirow@cntb=\count284
-\multirow@dima=\skip70
-\bigstrutjot=\dimen172
-) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
-\LTleft=\skip71
-\LTright=\skip72
-\LTpre=\skip73
-\LTpost=\skip74
-\LTchunksize=\count285
-\LTcapwidth=\dimen173
-\LT@head=\box52
-\LT@firsthead=\box53
-\LT@foot=\box54
-\LT@lastfoot=\box55
-\LT@cols=\count286
-\LT@rows=\count287
-\c@LT@tables=\count288
-\c@LT@chunks=\count289
-\LT@p@ftn=\toks24
-)
-Class scrartcl Info: longtable captions redefined on input line 116.
-(/usr/share/texlive/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+\multirow@colwidth=\skip78
+\multirow@cntb=\count293
+\multirow@dima=\skip79
+\bigstrutjot=\dimen178
+) (/usr/share/texlive/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2019/07/28 v2.2 ragged2e Package (MS)
 (/usr/share/texlive/texmf-dist/tex/latex/everysel/everysel.sty
 Package: everysel 2021/01/20 v2.1 EverySelectfont Package (MS)
 (/usr/share/texlive/texmf-dist/tex/latex/everysel/everysel-2011-10-28.sty))
-\CenteringLeftskip=\skip75
-\RaggedLeftLeftskip=\skip76
-\RaggedRightLeftskip=\skip77
-\CenteringRightskip=\skip78
-\RaggedLeftRightskip=\skip79
-\RaggedRightRightskip=\skip80
-\CenteringParfillskip=\skip81
-\RaggedLeftParfillskip=\skip82
-\RaggedRightParfillskip=\skip83
-\JustifyingParfillskip=\skip84
-\CenteringParindent=\skip85
-\RaggedLeftParindent=\skip86
-\RaggedRightParindent=\skip87
-\JustifyingParindent=\skip88
+\CenteringLeftskip=\skip80
+\RaggedLeftLeftskip=\skip81
+\RaggedRightLeftskip=\skip82
+\CenteringRightskip=\skip83
+\RaggedLeftRightskip=\skip84
+\RaggedRightRightskip=\skip85
+\CenteringParfillskip=\skip86
+\RaggedLeftParfillskip=\skip87
+\RaggedRightParfillskip=\skip88
+\JustifyingParfillskip=\skip89
+\CenteringParindent=\skip90
+\RaggedLeftParindent=\skip91
+\RaggedRightParindent=\skip92
+\JustifyingParindent=\skip93
 ) (/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
 Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
 
@@ -581,10 +610,10 @@ Package etex Warning: Extended allocation already in use.
 Package: marvosym 2011/07/20 v2.2 Martin Vogel's Symbols font definitions
 ) (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/kpfonts.sty
 Package: kpfonts  2010/08/20 v3.31
-\c@mv@rm=\count290
-\c@mv@boldrm=\count291
-\c@mv@sf=\count292
-\c@mv@boldsf=\count293
+\c@mv@rm=\count294
+\c@mv@boldrm=\count295
+\c@mv@sf=\count296
+\c@mv@boldsf=\count297
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 354.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> OT1/jkp/m/n on input line 354.
@@ -875,62 +904,62 @@ LaTeX Font Info:    Overwriting symbol font `largesymbolsA' in version `boldsf'
 LaTeX Info: Redefining \not on input line 1580.
 ) (/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
 Package: nicefrac 1998/08/04 v0.9b Nice fractions
-\L@UnitsRaiseDisplaystyle=\skip89
-\L@UnitsRaiseTextstyle=\skip90
-\L@UnitsRaiseScriptstyle=\skip91
+\L@UnitsRaiseDisplaystyle=\skip94
+\L@UnitsRaiseTextstyle=\skip95
+\L@UnitsRaiseScriptstyle=\skip96
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )) (/usr/share/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
 Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
-\captionmargin=\dimen174
-\captionmargin@=\dimen175
-\captionwidth=\dimen176
-\caption@tempdima=\dimen177
-\caption@indent=\dimen178
-\caption@parindent=\dimen179
-\caption@hangindent=\dimen180
+\captionmargin=\dimen179
+\captionmargin@=\dimen180
+\captionwidth=\dimen181
+\caption@tempdima=\dimen182
+\caption@indent=\dimen183
+\caption@parindent=\dimen184
+\caption@hangindent=\dimen185
 Package caption Info: KOMA-Script document class detected.
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption-koma.sto
 File: caption-koma.sto 2020/09/21 v2.0b Adaption of the caption package to the 
 KOMA-Script document classes (AR)
 ))
-\c@float@type=\count294
-\float@exts=\toks25
-\float@box=\box56
-\@floatcapt=\box57
+\c@float@type=\count298
+\float@exts=\toks27
+\float@box=\box59
+\@floatcapt=\box60
 Package floatrow Info: Modified float package code loaded on input line 455.
 Package floatrow Info: Modified rotfloat package code loaded on input line 473.
 
-\FR@everyfloat=\toks26
+\FR@everyfloat=\toks28
 \flrow@foot=\insert252
-\FB@wd=\dimen181
-\FBo@wd=\dimen182
-\FBc@wd=\dimen183
-\FBo@ht=\skip92
-\FBc@ht=\skip93
-\FBf@ht=\skip94
-\FBo@max=\skip95
-\FBc@max=\skip96
-\FBf@max=\skip97
-\c@FBl@b=\count295
-\floatbox@depth=\count296
-\c@FRobj=\count297
-\c@FRsobj=\count298
-\Xhsize=\skip98
-\sXhsize=\skip99
-\Zhsize=\skip100
-\sZhsize=\skip101
-\flrow@rowbox=\box58
-\FR@Zunitlength=\dimen184
-\c@FBcnt=\count299
-\FPOScnt=\count300
-\LTleft=\skip102
-\LTright=\skip103
-\LTleft=\skip104
-\LTright=\skip105
-\flrow@types=\toks27
+\FB@wd=\dimen186
+\FBo@wd=\dimen187
+\FBc@wd=\dimen188
+\FBo@ht=\skip97
+\FBc@ht=\skip98
+\FBf@ht=\skip99
+\FBo@max=\skip100
+\FBc@max=\skip101
+\FBf@max=\skip102
+\c@FBl@b=\count299
+\floatbox@depth=\count300
+\c@FRobj=\count301
+\c@FRsobj=\count302
+\Xhsize=\skip103
+\sXhsize=\skip104
+\Zhsize=\skip105
+\sZhsize=\skip106
+\flrow@rowbox=\box61
+\FR@Zunitlength=\dimen189
+\c@FBcnt=\count303
+\FPOScnt=\count304
+\LTleft=\skip107
+\LTright=\skip108
+\LTleft=\skip109
+\LTright=\skip110
+\flrow@types=\toks29
 ) (/usr/share/texlive/texmf-dist/tex/latex/todonotes/todonotes.sty
 Package: todonotes 2020/08/18 v1.1.3 Todonotes source and documentation.
 Package: todonotes 2018/11/22
@@ -938,22 +967,22 @@ Package: todonotes 2018/11/22
 Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/share/texl
 ive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks28
-\XKV@tempa@toks=\toks29
+\XKV@toks=\toks30
+\XKV@tempa@toks=\toks31
 )
-\XKV@depth=\count301
+\XKV@depth=\count305
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/sh
 are/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texlive/tex
 mf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/texmf-dist/tex/g
 eneric/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks30
-\pgfutil@tempdima=\dimen185
-\pgfutil@tempdimb=\dimen186
+\pgfutil@everybye=\toks32
+\pgfutil@tempdima=\dimen190
+\pgfutil@tempdimb=\dimen191
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
 ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box59
+\pgfutil@abb=\box62
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/us
 r/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2020/12/27 v3.1.8b (3.1.8b)
@@ -964,33 +993,33 @@ Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
 xmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks31
-\pgfkeys@temptoks=\toks32
+\pgfkeys@pathtoks=\toks33
+\pgfkeys@temptoks=\toks34
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
 ex
-\pgfkeys@tmptoks=\toks33
+\pgfkeys@tmptoks=\toks35
 ))
-\pgf@x=\dimen187
-\pgf@y=\dimen188
-\pgf@xa=\dimen189
-\pgf@ya=\dimen190
-\pgf@xb=\dimen191
-\pgf@yb=\dimen192
-\pgf@xc=\dimen193
-\pgf@yc=\dimen194
-\pgf@xd=\dimen195
-\pgf@yd=\dimen196
+\pgf@x=\dimen192
+\pgf@y=\dimen193
+\pgf@xa=\dimen194
+\pgf@ya=\dimen195
+\pgf@xb=\dimen196
+\pgf@yb=\dimen197
+\pgf@xc=\dimen198
+\pgf@yc=\dimen199
+\pgf@xd=\dimen256
+\pgf@yd=\dimen257
 \w@pgf@writea=\write4
 \r@pgf@reada=\read3
-\c@pgf@counta=\count302
-\c@pgf@countb=\count303
-\c@pgf@countc=\count304
-\c@pgf@countd=\count305
-\t@pgf@toka=\toks34
-\t@pgf@tokb=\toks35
-\t@pgf@tokc=\toks36
-\pgf@sys@id@count=\count306
+\c@pgf@counta=\count306
+\c@pgf@countb=\count307
+\c@pgf@countc=\count308
+\c@pgf@countd=\count309
+\t@pgf@toka=\toks36
+\t@pgf@tokb=\toks37
+\t@pgf@tokc=\toks38
+\pgf@sys@id@count=\count310
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2020/12/27 v3.1.8b (3.1.8b)
 )
@@ -1005,8 +1034,8 @@ File: pgfsys-common-pdf.def 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfsyssoftpath@smallbuffer@items=\count307
-\pgfsyssoftpath@bigbuffer@items=\count308
+\pgfsyssoftpath@smallbuffer@items=\count311
+\pgfsyssoftpath@bigbuffer@items=\count312
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -1017,12 +1046,12 @@ Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
 e/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texl
 ive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/t
 exmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen197
-\pgfmath@count=\count309
-\pgfmath@box=\box60
-\pgfmath@toks=\toks37
-\pgfmath@stack@operand=\toks38
-\pgfmath@stack@operation=\toks39
+\pgfmath@dimen=\dimen258
+\pgfmath@count=\count313
+\pgfmath@box=\box63
+\pgfmath@toks=\toks39
+\pgfmath@stack@operand=\toks40
+\pgfmath@stack@operation=\toks41
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
@@ -1042,57 +1071,57 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmat
 hfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count310
+\c@pgfmathroundto@lastzeros=\count314
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
 x
 File: pgfcorepoints.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@picminx=\dimen198
-\pgf@picmaxx=\dimen199
-\pgf@picminy=\dimen256
-\pgf@picmaxy=\dimen257
-\pgf@pathminx=\dimen258
-\pgf@pathmaxx=\dimen259
-\pgf@pathminy=\dimen260
-\pgf@pathmaxy=\dimen261
-\pgf@xx=\dimen262
-\pgf@xy=\dimen263
-\pgf@yx=\dimen264
-\pgf@yy=\dimen265
-\pgf@zx=\dimen266
-\pgf@zy=\dimen267
+\pgf@picminx=\dimen259
+\pgf@picmaxx=\dimen260
+\pgf@picminy=\dimen261
+\pgf@picmaxy=\dimen262
+\pgf@pathminx=\dimen263
+\pgf@pathmaxx=\dimen264
+\pgf@pathminy=\dimen265
+\pgf@pathmaxy=\dimen266
+\pgf@xx=\dimen267
+\pgf@xy=\dimen268
+\pgf@yx=\dimen269
+\pgf@yy=\dimen270
+\pgf@zx=\dimen271
+\pgf@zy=\dimen272
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
 code.tex
 File: pgfcorepathconstruct.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@path@lastx=\dimen268
-\pgf@path@lasty=\dimen269
+\pgf@path@lastx=\dimen273
+\pgf@path@lasty=\dimen274
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
 .tex
 File: pgfcorepathusage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@shorten@end@additional=\dimen270
-\pgf@shorten@start@additional=\dimen271
+\pgf@shorten@end@additional=\dimen275
+\pgf@shorten@start@additional=\dimen276
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
 x
 File: pgfcorescopes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfpic=\box61
-\pgf@hbox=\box62
-\pgf@layerbox@main=\box63
-\pgf@picture@serial@count=\count311
+\pgfpic=\box64
+\pgf@hbox=\box65
+\pgf@layerbox@main=\box66
+\pgf@picture@serial@count=\count315
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
 File: pgfcoregraphicstate.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgflinewidth=\dimen272
+\pgflinewidth=\dimen277
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
 s.code.tex
 File: pgfcoretransformations.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@pt@x=\dimen273
-\pgf@pt@y=\dimen274
-\pgf@pt@temp=\dimen275
+\pgf@pt@x=\dimen278
+\pgf@pt@y=\dimen279
+\pgf@pt@temp=\dimen280
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2020/12/27 v3.1.8b (3.1.8b)
@@ -1108,13 +1137,13 @@ File: pgfcorepathprocessing.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
 x
 File: pgfcorearrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfarrowsep=\dimen276
+\pgfarrowsep=\dimen281
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@max=\dimen277
-\pgf@sys@shading@range@num=\count312
-\pgf@shadingcount=\count313
+\pgf@max=\dimen282
+\pgf@sys@shading@range@num=\count316
+\pgf@shadingcount=\count317
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
@@ -1122,7 +1151,7 @@ File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
 tex
 File: pgfcoreexternal.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfexternal@startupbox=\box64
+\pgfexternal@startupbox=\box67
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
 x
@@ -1140,15 +1169,15 @@ File: pgfcorerdf.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfnodeparttextbox=\box65
+\pgfnodeparttextbox=\box68
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
 .sty
 Package: pgfcomp-version-0-65 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@nodesepstart=\dimen278
-\pgf@nodesepend=\dimen279
+\pgf@nodesepstart=\dimen283
+\pgf@nodesepend=\dimen284
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
 .sty
@@ -1161,10 +1190,10 @@ xmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texlive/texmf
 lities/pgffor.code.tex
 Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen280
-\pgffor@skip=\dimen281
-\pgffor@stack=\toks40
-\pgffor@toks=\toks41
+\pgffor@iter=\dimen285
+\pgffor@skip=\dimen286
+\pgffor@stack=\toks42
+\pgffor@toks=\toks43
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
@@ -1172,33 +1201,33 @@ Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@plot@mark@count=\count314
-\pgfplotmarksize=\dimen282
+\pgf@plot@mark@count=\count318
+\pgfplotmarksize=\dimen287
 )
-\tikz@lastx=\dimen283
-\tikz@lasty=\dimen284
-\tikz@lastxsaved=\dimen285
-\tikz@lastysaved=\dimen286
-\tikz@lastmovetox=\dimen287
-\tikz@lastmovetoy=\dimen288
-\tikzleveldistance=\dimen289
-\tikzsiblingdistance=\dimen290
-\tikz@figbox=\box66
-\tikz@figbox@bg=\box67
-\tikz@tempbox=\box68
-\tikz@tempbox@bg=\box69
-\tikztreelevel=\count315
-\tikznumberofchildren=\count316
-\tikznumberofcurrentchild=\count317
-\tikz@fig@count=\count318
+\tikz@lastx=\dimen288
+\tikz@lasty=\dimen289
+\tikz@lastxsaved=\dimen290
+\tikz@lastysaved=\dimen291
+\tikz@lastmovetox=\dimen292
+\tikz@lastmovetoy=\dimen293
+\tikzleveldistance=\dimen294
+\tikzsiblingdistance=\dimen295
+\tikz@figbox=\box69
+\tikz@figbox@bg=\box70
+\tikz@tempbox=\box71
+\tikz@tempbox@bg=\box72
+\tikztreelevel=\count319
+\tikznumberofchildren=\count320
+\tikznumberofcurrentchild=\count321
+\tikz@fig@count=\count322
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfmatrixcurrentrow=\count319
-\pgfmatrixcurrentcolumn=\count320
-\pgf@matrix@numberofcolumns=\count321
+\pgfmatrixcurrentrow=\count323
+\pgfmatrixcurrentcolumn=\count324
+\pgf@matrix@numberofcolumns=\count325
 )
-\tikz@expandcount=\count322
+\tikz@expandcount=\count326
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -1219,20 +1248,8 @@ File: tikzlibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code
 .tex
 File: pgflibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-))) (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count323
-\calc@Bcount=\count324
-\calc@Adimen=\dimen291
-\calc@Bdimen=\dimen292
-\calc@Askip=\skip106
-\calc@Bskip=\skip107
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count325
-\calc@Cskip=\skip108
-)
-\c@@todonotes@numberoftodonotes=\count326
+)))
+\c@@todonotes@numberoftodonotes=\count327
 ) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.sty
@@ -1324,31 +1341,28 @@ LaTeX Info: Redefining \hbar on input line 50.
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
 ) (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks42
-\thm@bodyfont=\toks43
-\thm@headfont=\toks44
-\thm@notefont=\toks45
-\thm@headpunct=\toks46
-\thm@preskip=\skip109
-\thm@postskip=\skip110
-\thm@headsep=\skip111
-\dth@everypar=\toks47
+\thm@style=\toks44
+\thm@bodyfont=\toks45
+\thm@headfont=\toks46
+\thm@notefont=\toks47
+\thm@headpunct=\toks48
+\thm@preskip=\skip111
+\thm@postskip=\skip112
+\thm@headsep=\skip113
+\dth@everypar=\toks49
 ) (/usr/share/texlive/texmf-dist/tex/latex/xpatch/xpatch.sty (/usr/share/texliv
 e/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2021-01-09 L3 programming layer (loader) 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-01-29 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count327
-\l__pdf_internal_box=\box70
+\l__color_backend_stack_int=\count328
+\l__pdf_internal_box=\box73
 ))
 Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2020-10-27 L3 Experimental document command parser
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.tex))
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count328
-))
+)
 Class scrartcl Info: amsthm's \deferred@thm@head patched.
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
@@ -1360,16 +1374,16 @@ LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
 \g_MT_multlinerow_int=\count329
-\l_MT_multwidth_dim=\dimen293
-\origjot=\skip112
-\l_MT_shortvdotswithinadjustabove_dim=\dimen294
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen295
-\l_MT_above_intertext_sep=\dimen296
-\l_MT_below_intertext_sep=\dimen297
-\l_MT_above_shortintertext_sep=\dimen298
-\l_MT_below_shortintertext_sep=\dimen299
-\xmathstrut@box=\box71
-\xmathstrut@dim=\dimen300
+\l_MT_multwidth_dim=\dimen296
+\origjot=\skip114
+\l_MT_shortvdotswithinadjustabove_dim=\dimen297
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen298
+\l_MT_above_intertext_sep=\dimen299
+\l_MT_below_intertext_sep=\dimen300
+\l_MT_above_shortintertext_sep=\dimen301
+\l_MT_below_shortintertext_sep=\dimen302
+\xmathstrut@box=\box74
+\xmathstrut@dim=\dimen303
 ) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -1378,15 +1392,15 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@cnth=\count330
 \Gm@cntv=\count331
 \c@Gm@tempcnt=\count332
-\Gm@bindingoffset=\dimen301
-\Gm@wd@mp=\dimen302
-\Gm@odd@mp=\dimen303
-\Gm@even@mp=\dimen304
-\Gm@layoutwidth=\dimen305
-\Gm@layoutheight=\dimen306
-\Gm@layouthoffset=\dimen307
-\Gm@layoutvoffset=\dimen308
-\Gm@dimlist=\toks48
+\Gm@bindingoffset=\dimen304
+\Gm@wd@mp=\dimen305
+\Gm@odd@mp=\dimen306
+\Gm@even@mp=\dimen307
+\Gm@layoutwidth=\dimen308
+\Gm@layoutheight=\dimen309
+\Gm@layouthoffset=\dimen310
+\Gm@layoutvoffset=\dimen311
+\Gm@dimlist=\toks50
 )
 \c@fact=\count333
 \c@q=\count334
@@ -1394,77 +1408,77 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \c@theorem=\count336
 (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
-\labelindent=\skip113
-\enit@outerparindent=\dimen309
-\enit@toks=\toks49
-\enit@inbox=\box72
+\labelindent=\skip115
+\enit@outerparindent=\dimen312
+\enit@toks=\toks51
+\enit@inbox=\box75
 \enit@count@id=\count337
 \enitdp@description=\count338
 ) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip114
-\bibsep=\skip115
+\bibhang=\skip116
+\bibsep=\skip117
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count339
 )
-\cslhangindent=\skip116
-\csllabelwidth=\skip117
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 29
+\cslhangindent=\skip118
+\csllabelwidth=\skip119
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 30
 3.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) (./paperDraft.aux)
 \openout1 = `paperDraft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/jkp/m/it on input line 293.
-LaTeX Font Info:    Trying to load font information for OML+jkp on input line 2
-93.
+LaTeX Font Info:    Checking defaults for OML/jkp/m/it on input line 303.
+LaTeX Font Info:    Trying to load font information for OML+jkp on input line 3
+03.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/omljkp.fd
 File: omljkp.fd 2006/08/15 v1.0
 )
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for OMS/jkp/m/n on input line 293.
-LaTeX Font Info:    Trying to load font information for OMS+jkp on input line 2
-93.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for OMS/jkp/m/n on input line 303.
+LaTeX Font Info:    Trying to load font information for OMS+jkp on input line 3
+03.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/omsjkp.fd
 File: omsjkp.fd 2006/08/15 v1.0
 )
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 293.
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 293.
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 293.
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for OMX/jkp/m/n on input line 293.
-LaTeX Font Info:    Trying to load font information for OMX+jkp on input line 2
-93.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 303.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 303.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 303.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for OMX/jkp/m/n on input line 303.
+LaTeX Font Info:    Trying to load font information for OMX+jkp on input line 3
+03.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/omxjkp.fd
 File: omxjkp.fd 2006/08/15 v1.0
 )
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for U/jkpexa/m/n on input line 293.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for U/jkpexa/m/n on input line 303.
 LaTeX Font Info:    Trying to load font information for U+jkpexa on input line 
-293.
+303.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpexa.fd
 File: ujkpexa.fd 2006/08/15 v1.0
 )
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 293.
-LaTeX Font Info:    ... okay on input line 293.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 293.
-LaTeX Font Info:    ... okay on input line 293.
-Package scrbase Info: activating english \contentsname on input line 293.
-Package scrbase Info: activating english \listfigurename on input line 293.
-Package scrbase Info: activating english \listtablename on input line 293.
-LaTeX Info: Redefining \microtypecontext on input line 293.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 303.
+LaTeX Font Info:    ... okay on input line 303.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 303.
+LaTeX Font Info:    ... okay on input line 303.
+Package scrbase Info: activating english \contentsname on input line 303.
+Package scrbase Info: activating english \listfigurename on input line 303.
+Package scrbase Info: activating english \listtablename on input line 303.
+LaTeX Info: Redefining \microtypecontext on input line 303.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 293.
+LaTeX Info: Redefining \showhyphens on input line 303.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1473,16 +1487,16 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 ) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count340
-\scratchdimen=\dimen310
-\scratchbox=\box73
+\scratchdimen=\dimen313
+\scratchbox=\box76
 \nofMPsegments=\count341
 \nofMParguments=\count342
-\everyMPshowfont=\toks50
+\everyMPshowfont=\toks52
 \MPscratchCnt=\count343
-\MPscratchDim=\dimen311
+\MPscratchDim=\dimen314
 \MPnumerator=\count344
 \makeMPintoPDFobject=\count345
-\everyMPtoPDFconversion=\toks51
+\everyMPtoPDFconversion=\toks53
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 (/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty
@@ -1498,7 +1512,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 293.
+Package hyperref Info: Link coloring ON on input line 303.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1508,18 +1522,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count346
 )
-LaTeX Info: Redefining \ref on input line 293.
-LaTeX Info: Redefining \pageref on input line 293.
-LaTeX Info: Redefining \nameref on input line 293.
+LaTeX Info: Redefining \ref on input line 303.
+LaTeX Info: Redefining \pageref on input line 303.
+LaTeX Info: Redefining \nameref on input line 303.
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 293.
+LaTeX Info: Redefining \selectfont on input line 303.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 (/usr/share/texlive/texmf-dist/tex/latex/floatrow/fr-longtable.sty
 Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 
-\flrow@LT@lasthead=\box74
-\flrow@LT@prelastfoot=\box75
+\flrow@LT@lasthead=\box77
+\flrow@LT@prelastfoot=\box78
 \c@FBLTpage=\count347
 )
 *geometry* driver: auto-detecting
@@ -1556,255 +1570,321 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 29
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 30
 5.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.80005pt on input line 295.
+(Font)              scaled to size 8.80005pt on input line 305.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.80005pt on input line 295.
+(Font)              scaled to size 8.80005pt on input line 305.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.2513pt on input line 295.
+(Font)              scaled to size 18.2513pt on input line 305.
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 295.
+ 305.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 295.
+ 305.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 295.
+ 305.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 295.
+ 305.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsya on input line 
-295.
+305.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsya.fd
 File: ujkpsya.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsyb on input line 
-295.
+305.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsyb.fd
 File: ujkpsyb.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpmia on input line 
-295.
+305.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpmia.fd
 File: ujkpmia.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsyc on input line 
-295.
+305.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsyc.fd
 File: ujkpsyc.fd 2006/08/15 v1.0
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-95.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
+05.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 305.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 305.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 305.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 12.67206pt on input line 296.
-Package tocbasic Info: character protrusion at toc deactivated on input line 29
+(Font)              scaled to size 12.67206pt on input line 306.
+Package tocbasic Info: character protrusion at toc deactivated on input line 30
 6.
 (./paperDraft.toc)
 \tf@toc=\write5
 \openout5 = `paperDraft.toc'.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 315.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 325.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 315.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 325.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 315.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 325.
 LaTeX Font Info:    Trying to load font information for OT1+jkpss on input line
- 325.
+ 335.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ot1jkpss.fd
 File: ot1jkpss.fd 2007/07/16 Fontinst v1.928 font definitions for OT1/jkpss.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 338.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 348.
 [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 45
+Underfull \hbox (badness 10000) in alignment at lines 484--488
+[] []
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 488--493
+[] []
+ []
+
+[3]
+<../images/curseOfDimensionality.png, id=83, 1751.54375pt x 904.37875pt>
+File: ../images/curseOfDimensionality.png Graphic file (type png)
+<use ../images/curseOfDimensionality.png>
+Package pdftex.def Info: ../images/curseOfDimensionality.png  used on input lin
+e 551.
+(pdftex.def)             Requested size: 408.27205pt x 210.80408pt.
+[4 <../images/curseOfDimensionality.png>]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 59
 1.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf, id=76, 469.755pt x 325.21
+<paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf, id=91, 469.755pt x 325.21
 5pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf  u
-sed on input line 462.
+sed on input line 602.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[3 <./paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf, id=93, 469.755pt x 325.21
-5pt>
+[5 <./paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf, id=107, 469.755pt x 325.2
+15pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf  u
-sed on input line 523.
+sed on input line 663.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[4 <./paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf, id=106, 469.755pt x 325.2
+<paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf, id=108, 469.755pt x 325.2
 15pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf  u
-sed on input line 543.
+sed on input line 683.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[5 <./paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf, id=120, 469.755pt x 325.2
+[6 <./paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf, id=121, 469.755pt x 325.2
 15pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf  u
-sed on input line 605.
+sed on input line 745.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-<paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf, id=121, 469.755pt x 325.
+[7 <./paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf, id=136, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf  
-used on input line 633.
+used on input line 773.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[6 <./paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf, id=134, 469.755pt x 325.
+[8 <./paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf, id=149, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf  
-used on input line 681.
+used on input line 821.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[7 <./paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf, id=150, 469.755pt x 325.
+[9 <./paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf, id=165, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf  
-used on input line 705.
+used on input line 845.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-[8 <./paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf> <./paperDraft_files
-/figure-latex/unnamed-chunk-14-1.pdf>]
-<paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf, id=173, 469.755pt x 325.
+[10 <./paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf> <./paperDraft_file
+s/figure-latex/unnamed-chunk-14-1.pdf>]
+<paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf, id=187, 469.755pt x 325.
 215pt>
 File: paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf  
-used on input line 753.
+used on input line 893.
 (pdftex.def)             Requested size: 408.2965pt x 282.6668pt.
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
-65.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
+05.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [9 <./paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>] [10]
-<../images/religionCoeffs.jpeg, id=191, 477.28313pt x 432.86719pt>
+) [11 <./paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>] [12]
+<../images/religionCoeffs.jpeg, id=205, 477.28313pt x 432.86719pt>
 File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionCoeffs.jpeg>
-Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 908.
-
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1048
+.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
-<../images/religionGoogleCoeffs.jpeg, id=192, 477.28313pt x 432.86719pt>
+<../images/religionGoogleCoeffs.jpeg, id=206, 477.28313pt x 432.86719pt>
 File: ../images/religionGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionGoogleCoeffs.jpeg>
 Package pdftex.def Info: ../images/religionGoogleCoeffs.jpeg  used on input lin
-e 911.
+e 1051.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 911--912
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1051--1052
 [][] 
  []
 
-<../images/genderCoeffs.jpeg, id=193, 477.28313pt x 432.86719pt>
+<../images/genderCoeffs.jpeg, id=207, 477.28313pt x 432.86719pt>
 File: ../images/genderCoeffs.jpeg Graphic file (type jpg)
 <use ../images/genderCoeffs.jpeg>
-Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 916.
+Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1056.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
-<../images/genderGoogleCoeffs.jpeg, id=194, 477.28313pt x 432.86719pt>
+<../images/genderGoogleCoeffs.jpeg, id=208, 477.28313pt x 432.86719pt>
 File: ../images/genderGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/genderGoogleCoeffs.jpeg>
 Package pdftex.def Info: ../images/genderGoogleCoeffs.jpeg  used on input line 
-919.
+1059.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 919--920
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1059--1060
 [][] 
  []
 
-<../images/raceCoeffs.jpeg, id=195, 477.28313pt x 432.86719pt>
+<../images/raceCoeffs.jpeg, id=209, 477.28313pt x 432.86719pt>
 File: ../images/raceCoeffs.jpeg Graphic file (type jpg)
 <use ../images/raceCoeffs.jpeg>
-Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 926.
+Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1066.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
-<../images/raceGoogleCoeffs.jpeg, id=196, 477.28313pt x 432.86719pt>
+<../images/raceGoogleCoeffs.jpeg, id=210, 477.28313pt x 432.86719pt>
 File: ../images/raceGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/raceGoogleCoeffs.jpeg>
-Package pdftex.def Info: ../images/raceGoogleCoeffs.jpeg  used on input line 92
-9.
+Package pdftex.def Info: ../images/raceGoogleCoeffs.jpeg  used on input line 10
+69.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 929--930
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1069--1070
 [][] 
  []
 
-[11 <../images/religionCoeffs.jpeg> <../images/religionGoogleCoeffs.jpeg> <../i
+[13 <../images/religionCoeffs.jpeg> <../images/religionGoogleCoeffs.jpeg> <../i
 mages/genderCoeffs.jpeg> <../images/genderGoogleCoeffs.jpeg> <../images/raceCoe
-ffs.jpeg> <../images/raceGoogleCoeffs.jpeg>] [12] [13] [14] (./paperDraft.aux) 
-) 
+ffs.jpeg> <../images/raceGoogleCoeffs.jpeg>] [14]
+File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
+<use ../images/religionCoeffs.jpeg>
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1172
+.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/debiasedReligionRedditCoeffs.jpeg, id=221, 477.28313pt x 432.86719pt
+>
+File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type jpg)
+<use ../images/debiasedReligionRedditCoeffs.jpeg>
+Package pdftex.def Info: ../images/debiasedReligionRedditCoeffs.jpeg  used on i
+nput line 1175.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1175--1176
+[][] 
+ []
+
+File: ../images/genderCoeffs.jpeg Graphic file (type jpg)
+<use ../images/genderCoeffs.jpeg>
+Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1180.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/debiasedGenderRedditCoeffs.jpeg, id=222, 477.28313pt x 432.86719pt>
+File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type jpg)
+<use ../images/debiasedGenderRedditCoeffs.jpeg>
+Package pdftex.def Info: ../images/debiasedGenderRedditCoeffs.jpeg  used on inp
+ut line 1183.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1183--1184
+[][] 
+ []
+
+File: ../images/raceCoeffs.jpeg Graphic file (type jpg)
+<use ../images/raceCoeffs.jpeg>
+Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1190.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+<../images/debiasedRaceRedditCoeffs.jpeg, id=223, 477.28313pt x 432.86719pt>
+File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type jpg)
+<use ../images/debiasedRaceRedditCoeffs.jpeg>
+Package pdftex.def Info: ../images/debiasedRaceRedditCoeffs.jpeg  used on input
+ line 1193.
+(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
+
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1193--1194
+[][] 
+ []
+
+[15 <../images/debiasedReligionRedditCoeffs.jpeg> <../images/debiasedGenderRedd
+itCoeffs.jpeg> <../images/debiasedRaceRedditCoeffs.jpeg>] [16] [17] (./paperDra
+ft.aux) ) 
 Here is how much of TeX's memory you used:
- 31884 strings out of 481252
- 574693 string characters out of 5915889
- 1036493 words of memory out of 5000000
- 47829 multiletter control sequences out of 15000+600000
- 499086 words of font info for 331 fonts, out of 8000000 for 9000
+ 32077 strings out of 481252
+ 578092 string characters out of 5915889
+ 1038681 words of memory out of 5000000
+ 47986 multiletter control sequences out of 15000+600000
+ 502533 words of font info for 343 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 111i,14n,116p,10633b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/kpfonts/jkpssmn8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
-w/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucr
-r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paperDraft.pdf (14 pages, 456159 bytes).
+ 111i,14n,116p,10633b,505s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/kpfonts/jkpssmn8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cou
+rier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
+mr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paperDraft.pdf (17 pages, 642284 bytes).
 PDF statistics:
- 318 PDF objects out of 1000 (max. 8388607)
- 248 compressed objects within 3 object streams
- 47 named destinations out of 1000 (max. 500000)
- 86251 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 340 PDF objects out of 1000 (max. 8388607)
+ 263 compressed objects within 3 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 90367 words of extra memory for PDF output out of 106986 (max. 10000000)
 

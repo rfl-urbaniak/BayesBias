@@ -183,8 +183,6 @@ In the final step they evaluate the results. The cosine distances are calculated
 
 \textbf{1. Selection of attributes}
 
-<!-- TODO: Universal ways to decide on the quality and type of attributes so that the research is significant? -->
-
 The attributes are taken from different sources, there is no principled justification for their choice. From our analysis it will become clear that the list is rather uneven.
 
 There is no mention of methodology for deciding on the number of attributes necessary to decide a hypothesis on the given size of dataset. There are however some ways to estimate sample sizes needed to ensure that the results are meaningful if the effect is present. Our research will show that the numbers used
