@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.7.16)  13 JUL 2021 09:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.7.16)  13 JUL 2021 10:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1983,35 +1983,35 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Underfull \hbox (badness 10000) in alignment at lines 471--475
+Underfull \hbox (badness 10000) in alignment at lines 464--468
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 475--480
+Underfull \hbox (badness 10000) in alignment at lines 468--473
 [] []
  []
 
 [3]
-<../images/curseOfDimensionality.png, id=78, 1751.54375pt x 904.37875pt>
+<../images/curseOfDimensionality.png, id=79, 1751.54375pt x 904.37875pt>
 File: ../images/curseOfDimensionality.png Graphic file (type png)
 <use ../images/curseOfDimensionality.png>
 Package pdftex.def Info: ../images/curseOfDimensionality.png  used on input lin
-e 538.
+e 531.
 (pdftex.def)             Requested size: 408.27205pt x 210.80408pt.
+
+Package xcolor Warning: Incompatible color definition on input line 569.
+
 [4 <../images/curseOfDimensionality.png>]
-
-Package xcolor Warning: Incompatible color definition on input line 576.
-
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 577.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 570.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 
-Package xcolor Warning: Incompatible color definition on input line 584.
+Package xcolor Warning: Incompatible color definition on input line 577.
 
 
-Package xcolor Warning: Incompatible color definition on input line 584.
+Package xcolor Warning: Incompatible color definition on input line 577.
 
 <paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf, id=85, 423.5825pt x 315.1
 775pt>
@@ -2019,39 +2019,43 @@ File: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf  u
-sed on input line 588.
+sed on input line 581.
 (pdftex.def)             Requested size: 408.30858pt x 303.81255pt.
+
+Package xcolor Warning: Incompatible color definition on input line 589.
+
 
 Package xcolor Warning: Incompatible color definition on input line 596.
 
 
-Package xcolor Warning: Incompatible color definition on input line 603.
+Package xcolor Warning: Incompatible color definition on input line 596.
 
 
-Package xcolor Warning: Incompatible color definition on input line 603.
+Package xcolor Warning: Incompatible color definition on input line 622.
 
 
-Package xcolor Warning: Incompatible color definition on input line 629.
+Package xcolor Warning: Incompatible color definition on input line 638.
 
 
-Package xcolor Warning: Incompatible color definition on input line 645.
+Package xcolor Warning: Incompatible color definition on input line 638.
 
 
-Package xcolor Warning: Incompatible color definition on input line 645.
-
-
-Underfull \vbox (badness 10000) detected at line 645
+Underfull \vbox (badness 10000) detected at line 638
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 645.
+Overfull \vbox (0.39215pt too high) detected at line 638
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 638.
 
 [5 <./paperDraft_files/figure-latex/unnamed-chunk-2-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 645.
+Package xcolor Warning: Incompatible color definition on input line 638.
 
 
-Package xcolor Warning: Incompatible color definition on input line 645.
+Package xcolor Warning: Incompatible color definition on input line 638.
 
 <paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf, id=103, 440.64626pt x 313
 .17pt>
@@ -2059,16 +2063,16 @@ File: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf  u
-sed on input line 647.
+sed on input line 640.
 (pdftex.def)             Requested size: 408.31084pt x 290.18901pt.
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 649.
 
 
-Package xcolor Warning: Incompatible color definition on input line 664.
+Package xcolor Warning: Incompatible color definition on input line 657.
 
 
-Package xcolor Warning: Incompatible color definition on input line 664.
+Package xcolor Warning: Incompatible color definition on input line 657.
 
 <paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf, id=104, 423.5825pt x 315.
 1775pt>
@@ -2076,26 +2080,26 @@ File: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf  u
-sed on input line 668.
+sed on input line 661.
 (pdftex.def)             Requested size: 408.30858pt x 303.81255pt.
 [6 <./paperDraft_files/figure-latex/unnamed-chunk-4-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 676.
+Package xcolor Warning: Incompatible color definition on input line 669.
 
 
-Package xcolor Warning: Incompatible color definition on input line 682.
+Package xcolor Warning: Incompatible color definition on input line 675.
 
 
-Package xcolor Warning: Incompatible color definition on input line 682.
+Package xcolor Warning: Incompatible color definition on input line 675.
 
 
-Package xcolor Warning: Incompatible color definition on input line 706.
+Package xcolor Warning: Incompatible color definition on input line 699.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 719.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 719.
 
 <paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf, id=119, 440.64626pt x 313
 .17pt>
@@ -2103,17 +2107,17 @@ File: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pd
 f)
 <use paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf  u
-sed on input line 728.
+sed on input line 721.
 (pdftex.def)             Requested size: 408.31084pt x 290.18901pt.
 [7 <./paperDraft_files/figure-latex/unnamed-chunk-6-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 741.
+Package xcolor Warning: Incompatible color definition on input line 734.
 
 
-Package xcolor Warning: Incompatible color definition on input line 749.
+Package xcolor Warning: Incompatible color definition on input line 742.
 
 
-Package xcolor Warning: Incompatible color definition on input line 749.
+Package xcolor Warning: Incompatible color definition on input line 742.
 
 <paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf, id=136, 423.5825pt x 317
 .185pt>
@@ -2121,26 +2125,26 @@ File: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf  
-used on input line 755.
+used on input line 748.
 (pdftex.def)             Requested size: 408.30858pt x 305.74763pt.
 [8 <./paperDraft_files/figure-latex/unnamed-chunk-8-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 756.
+
 
 Package xcolor Warning: Incompatible color definition on input line 763.
 
 
-Package xcolor Warning: Incompatible color definition on input line 770.
+Package xcolor Warning: Incompatible color definition on input line 763.
 
 
-Package xcolor Warning: Incompatible color definition on input line 770.
+Package xcolor Warning: Incompatible color definition on input line 777.
 
 
-Package xcolor Warning: Incompatible color definition on input line 784.
+Package xcolor Warning: Incompatible color definition on input line 794.
 
 
-Package xcolor Warning: Incompatible color definition on input line 801.
-
-
-Package xcolor Warning: Incompatible color definition on input line 801.
+Package xcolor Warning: Incompatible color definition on input line 794.
 
 <paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf, id=151, 459.7175pt x 313
 .17pt>
@@ -2148,17 +2152,17 @@ File: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf  
-used on input line 803.
+used on input line 796.
 (pdftex.def)             Requested size: 408.31955pt x 278.15654pt.
 [9 <./paperDraft_files/figure-latex/unnamed-chunk-10-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 812.
+Package xcolor Warning: Incompatible color definition on input line 805.
 
 
-Package xcolor Warning: Incompatible color definition on input line 820.
+Package xcolor Warning: Incompatible color definition on input line 813.
 
 
-Package xcolor Warning: Incompatible color definition on input line 820.
+Package xcolor Warning: Incompatible color definition on input line 813.
 
 <paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf, id=169, 444.66125pt x 31
 5.1775pt>
@@ -2166,27 +2170,27 @@ File: paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-14-1.pdf  
-used on input line 826.
+used on input line 819.
 (pdftex.def)             Requested size: 408.29947pt x 289.40413pt.
 
-Package xcolor Warning: Incompatible color definition on input line 834.
+Package xcolor Warning: Incompatible color definition on input line 827.
 
 [10 <./paperDraft_files/figure-latex/unnamed-chunk-12-1.pdf> <./paperDraft_file
 s/figure-latex/unnamed-chunk-14-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 841.
+Package xcolor Warning: Incompatible color definition on input line 834.
 
 
-Package xcolor Warning: Incompatible color definition on input line 841.
+Package xcolor Warning: Incompatible color definition on input line 834.
 
 
-Package xcolor Warning: Incompatible color definition on input line 854.
+Package xcolor Warning: Incompatible color definition on input line 847.
 
 
-Package xcolor Warning: Incompatible color definition on input line 872.
+Package xcolor Warning: Incompatible color definition on input line 865.
 
 
-Package xcolor Warning: Incompatible color definition on input line 872.
+Package xcolor Warning: Incompatible color definition on input line 865.
 
 <paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf, id=195, 440.64626pt x 31
 3.17pt>
@@ -2194,95 +2198,95 @@ File: paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type p
 df)
 <use paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf  
-used on input line 874.
+used on input line 867.
 (pdftex.def)             Requested size: 408.31084pt x 290.18901pt.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 887.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 880.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [11 <./paperDraft_files/figure-latex/unnamed-chunk-16-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 907.
+Package xcolor Warning: Incompatible color definition on input line 900.
 
 
-Package xcolor Warning: Incompatible color definition on input line 911.
+Package xcolor Warning: Incompatible color definition on input line 904.
 
 
-Package xcolor Warning: Incompatible color definition on input line 911.
+Package xcolor Warning: Incompatible color definition on input line 904.
 
 
-Package xcolor Warning: Incompatible color definition on input line 921.
+Package xcolor Warning: Incompatible color definition on input line 914.
 
 
-Package xcolor Warning: Incompatible color definition on input line 925.
+Package xcolor Warning: Incompatible color definition on input line 918.
 
 
-Package xcolor Warning: Incompatible color definition on input line 925.
+Package xcolor Warning: Incompatible color definition on input line 918.
 
 
-Package xcolor Warning: Incompatible color definition on input line 951.
+Package xcolor Warning: Incompatible color definition on input line 944.
+
+
+Package xcolor Warning: Incompatible color definition on input line 948.
+
+
+Package xcolor Warning: Incompatible color definition on input line 948.
 
 
 Package xcolor Warning: Incompatible color definition on input line 955.
 
 
-Package xcolor Warning: Incompatible color definition on input line 955.
+Package xcolor Warning: Incompatible color definition on input line 959.
 
 
-Package xcolor Warning: Incompatible color definition on input line 962.
-
-
-Package xcolor Warning: Incompatible color definition on input line 966.
-
-
-Package xcolor Warning: Incompatible color definition on input line 966.
+Package xcolor Warning: Incompatible color definition on input line 959.
 
 <../images/religionCoeffs.jpeg, id=210, 477.28313pt x 432.86719pt>
 File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionCoeffs.jpeg>
-Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1026
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1020
 .
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/religionGoogleCoeffs.jpeg, id=211, 477.28313pt x 432.86719pt>
 File: ../images/religionGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionGoogleCoeffs.jpeg>
 Package pdftex.def Info: ../images/religionGoogleCoeffs.jpeg  used on input lin
-e 1029.
+e 1023.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1029--1030
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1023--1024
 [][] 
  []
 
 <../images/genderCoeffs.jpeg, id=212, 477.28313pt x 432.86719pt>
 File: ../images/genderCoeffs.jpeg Graphic file (type jpg)
 <use ../images/genderCoeffs.jpeg>
-Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1034.
+Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1028.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/genderGoogleCoeffs.jpeg, id=213, 477.28313pt x 432.86719pt>
 File: ../images/genderGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/genderGoogleCoeffs.jpeg>
 Package pdftex.def Info: ../images/genderGoogleCoeffs.jpeg  used on input line 
-1037.
+1031.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1037--1038
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1031--1032
 [][] 
  []
 
 <../images/raceCoeffs.jpeg, id=214, 477.28313pt x 432.86719pt>
 File: ../images/raceCoeffs.jpeg Graphic file (type jpg)
 <use ../images/raceCoeffs.jpeg>
-Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1044.
+Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1038.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/raceGoogleCoeffs.jpeg, id=215, 477.28313pt x 432.86719pt>
 File: ../images/raceGoogleCoeffs.jpeg Graphic file (type jpg)
 <use ../images/raceGoogleCoeffs.jpeg>
 Package pdftex.def Info: ../images/raceGoogleCoeffs.jpeg  used on input line 10
-47.
+41.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1047--1048
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1041--1042
 [][] 
  []
 
@@ -2291,7 +2295,7 @@ Overfull \hbox (23.60414pt too wide) in paragraph at lines 1047--1048
 ceCoeffs.jpeg> <../images/raceGoogleCoeffs.jpeg>]
 File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionCoeffs.jpeg>
-Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1149
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1143
 .
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/debiasedReligionRedditCoeffs.jpeg, id=225, 477.28313pt x 432.86719pt
@@ -2299,61 +2303,61 @@ Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 1149
 File: ../images/debiasedReligionRedditCoeffs.jpeg Graphic file (type jpg)
 <use ../images/debiasedReligionRedditCoeffs.jpeg>
 Package pdftex.def Info: ../images/debiasedReligionRedditCoeffs.jpeg  used on i
-nput line 1152.
+nput line 1146.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1152--1153
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1146--1147
 [][] 
  []
 
 File: ../images/genderCoeffs.jpeg Graphic file (type jpg)
 <use ../images/genderCoeffs.jpeg>
-Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1157.
+Package pdftex.def Info: ../images/genderCoeffs.jpeg  used on input line 1151.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/debiasedGenderRedditCoeffs.jpeg, id=226, 477.28313pt x 432.86719pt>
 File: ../images/debiasedGenderRedditCoeffs.jpeg Graphic file (type jpg)
 <use ../images/debiasedGenderRedditCoeffs.jpeg>
 Package pdftex.def Info: ../images/debiasedGenderRedditCoeffs.jpeg  used on inp
-ut line 1160.
+ut line 1154.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1160--1161
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1154--1155
 [][] 
  []
 
 File: ../images/raceCoeffs.jpeg Graphic file (type jpg)
 <use ../images/raceCoeffs.jpeg>
-Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1167.
+Package pdftex.def Info: ../images/raceCoeffs.jpeg  used on input line 1161.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 <../images/debiasedRaceRedditCoeffs.jpeg, id=227, 477.28313pt x 432.86719pt>
 File: ../images/debiasedRaceRedditCoeffs.jpeg Graphic file (type jpg)
 <use ../images/debiasedRaceRedditCoeffs.jpeg>
 Package pdftex.def Info: ../images/debiasedRaceRedditCoeffs.jpeg  used on input
- line 1170.
+ line 1164.
 (pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
 
-Overfull \hbox (23.60414pt too wide) in paragraph at lines 1170--1171
+Overfull \hbox (23.60414pt too wide) in paragraph at lines 1164--1165
 [][] 
  []
 
 [14] [15 <../images/debiasedReligionRedditCoeffs.jpeg> <../images/debiasedGende
 rRedditCoeffs.jpeg> <../images/debiasedRaceRedditCoeffs.jpeg>] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1222.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1222.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1216.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1216.
 (./paperDraft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1222.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1222.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1216.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1216.
 
 Package rerunfilecheck Info: File `paperDraft.out' has not changed.
 (rerunfilecheck)             Checksum: AD64FAC4C43C40346BEB1414A58D10A8;1076.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1222.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1216.
  ) 
 Here is how much of TeX's memory you used:
- 29786 strings out of 492982
- 517953 string characters out of 6134896
+ 29789 strings out of 492982
+ 517980 string characters out of 6134896
  674255 words of memory out of 5000000
  32595 multiletter control sequences out of 15000+600000
- 98411 words of font info for 256 fonts, out of 8000000 for 9000
+ 98541 words of font info for 258 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,14n,66p,8841b,450s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -2368,7 +2372,7 @@ live/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paperDraft.pdf (16 pages, 641707 bytes).
+Output written on paperDraft.pdf (16 pages, 641288 bytes).
 PDF statistics:
  301 PDF objects out of 1000 (max. 8388607)
  233 compressed objects within 3 object streams
