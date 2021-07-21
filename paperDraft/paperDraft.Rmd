@@ -1,5 +1,5 @@
 ---
-title: "A bayesian method of cosine-based word2vec bias"
+title: "Taking uncertainty in word embedding bias estimation seriously: a  bayesian approach"
 author: "Alicja Dobrzeniecka and Rafal Urbaniak"
 output:
   pdf_document:
@@ -13,8 +13,8 @@ classoption: dvipsnames,enabledeprecatedfontcommands
 fontsize: 10pt
 documentclass: scrartcl
 urlcolor: blue
-bibliography: cosineReferences1.bib
-csl: apa-5th-edition.csl
+bibliography: [../references/bibliographyRafal.bib]
+csl: [../references/apa-6th-edition.csl] 
 ---
 
 ```{r, setup, include=FALSE}
@@ -83,14 +83,15 @@ That is, for each protected word $T and each attribute class, they first take th
 
 \textbf{1. Selection of attributes}
 
-The attributes are taken from different sources, there is no principled justification for their choice. From our analysis it will become clear that the list is rather uneven.
 
-There is no mention of methodology for deciding on the number of attributes necessary to decide a hypothesis on the given size of dataset. There are however some ways to estimate sample sizes needed to ensure that the results are meaningful if the effect is present. Our research will show that the numbers used
-are rather insufficient.
-
-\textbf{2. No attention to distributions and details}
-
-The authors use the mean of mean average cosine similarities to measure multi-class similarity between protected word and harmful stereotypes. They average the results until they obtain one final value to represent the mean cosine distance between protected word from a given class and the attributes of that class. If one takes closer look at the individual values that are taken for the calculations it turns out that there is a bunch of outliers and surprisingly dissimilar words. We approach this issue by providing the tables and visualizations of individual cosine distances to make sure that we obtain a proper insight into the data. 
+Such approaches, however, are not unproblematic. For one thing, the word lists are often fairly small, and the papers do not discuss the impact of word list sizes on the uncertainty involved. 
+ We will argue that the word list sizes are too small to yield strong conclusions, given the variances involved. 
+ 
+ Crucially, these approaches use  means of mean average cosine similarities to measure  similarity between protected word and harmful stereotypes. If one takes  a closer look at the individual values that are taken for the calculations, it turns out that there are quite a few  outliers and surprisingly dissimilar words. This issue will become transparent when  we inspect  the visualizations of individual cosine distances, following the idea that one of the first step to understand data is to look at it.
+ 
+ 
+ 
+ 
 
 \textbf{3. Hiding the impact of uncertainty}
 
@@ -308,7 +309,7 @@ t3d2Plot <- ggplot(t3d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+ge
 t4d2Plot <- ggplot(t4d2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
 grid.arrange(t1d2Plot,t2d2Plot, t3d2Plot, t4d2Plot, ncol=2,   
-      top = textGrob("Different means, sd=0.05",gp=gpar(fontsize=15,font=1)))
+      top = textGrob("different means, sd=0.05",gp=gpar(fontsize=15,font=1)))
 ```
 \normalsize
 
@@ -464,7 +465,7 @@ quantile(biasesD1, probs = c(0.275,0.975))
 
 # Bayesian estimation 
 
-We noticed that in @Manzini2019blackToCriminal words from all three sub-classes (in the case of religion by sub-class we mean Christianity, Judaism, Islam) were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given sub-class, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the sub-groups. One should investigate the sub-groups separately as some of them may have stronger harmful associations than others. 
+One thing to notice is that in @Manzini2019blackToCriminal words from all three subclasses (in the case of religion by a subclass we mean Christianity, Judaism, and Islam) were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given sub-class, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the sub-groups. One should investigate the sub-groups separately as some of them may have stronger harmful associations than others. 
 
 
 We decided to add control groups in the form of two classes — neutral words and human-related words. Without a proper control group it is quite hard to compare the resulting cosine distances and decide on their significance in bias detection. We prepared approximately 230 neutral words to double-check the prima-facie neutral hypothesis that their cosine similarity to the protected words will oscillate around 0 (that is, the distances will be around 1). This provides us with a more reliable point of reference. Moreover,
@@ -474,7 +475,7 @@ we added human attributes that are associated with people in general to investig
 One may consider improving the bias detection method presented in @Manzini2019blackToCriminal. As the chosen protected words and attributes do not represent the whole biased population but only a sample, it is justified to introduce the uncertainty measure to the method. We decided to use Bayesian estimation to make the cosine distance method more methodologically correct.
 
 
-Our priors distributions for the Bayesian model reflect our knowledge about the data. The distribution for mean distance (cosine distance) is set to be between 0 and 2 with the mean equal to 1. We assume that most of the cosine distances may be considered neutral and therefore their similarity will be small. The distribution for prior for standard deviation is mostly between 0 and 1 with mean around 0. Finally the distribution for prior for coefficients is mostly between -1 and 1, with mean around 0. One should remember that the cosine distance values have range between 0 and 2 therefore the choice of the prior distributions should reflect this constraint. As we want to verify as objectively as possible the assumptions present in @Manzini2019blackToCriminal we decided to use fairly weak and slightly skeptical regularizing priors. The models parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the rethinking package. 
+Our prior distributions for the Bayesian model reflect our first stab at what we know or expect before we see the data.  All our distributions are fairly weak. The distribution for mean distance (cosine distance) is set to fit (almost completely) between 0 and 2 with the mean equal to 1, in line with the idea that  most of the cosine distances may be considered neutral and therefore their similarity will be around 0. That is, we take it to be DISTRIBUTION. The  prior distribution for standard deviation is half-cauchy between 0 and 1, but unlikely to be as large as 1. Finally the prior distributions for  the coefficients have most of their mass between -1 and 1, with mean around 0.  As we want to put ourselves in skeptical shoes looking at   @Manzini2019blackToCriminal and asking whether the data would indeed convince us of the existence of bias, we decided to use slightly skeptical (mean 0), but  fairly weak (sd = ) as our regularizing priors. The model parameters will have a posterior distribution obtained using either Hamiltionian Monte Carlo methods (STAN) available through the rethinking package. 
 
 
 \begin{center}
@@ -509,12 +510,12 @@ Our priors distributions for the Bayesian model reflect our knowledge about the 
 \end{center}
 
 
-Let's analyse dataset-level coeﬀicients together with their highest posterior density intervals, for the three topic groups. We compare the results for two different word emebeddings corpuses - RedditL2 and GoogleNews. For Google embeddings the HPDIs
-for all class coeﬀicients (associated, different, human, and none) include zero. This can lead one to a conclusion that the impact for associated, different, human and neutral attribute is, when averaged, quite similar. This indicates how including the uncertainty
+Let's analyse dataset-level coefficients together with their highest posterior density intervals, for the three topic groups. We compare the results for two different word emebeddings corpuses - RedditL2 and GoogleNews. For Google embeddings the HPDIs
+for all class coefficients (associated, different, human, and none) include zero. This can lead one to a conclusion that the impact for associated, different, human and neutral attribute is, when averaged, quite similar. This indicates how including the uncertainty
 may change the use and interpretation of Manzini, Lim, Tsvetkov, & Black (2019) MAC metric. It seems that if one focuses only on differences between means of means, this is too simplistic.
 
 
-In the case of Reddit word embeddings the situation is similar although HPDI is below 0 for Gender class when looking at `associated` and `different` mean coeﬀicient. This can suggest that there is indeed slightly stronger impact of these attributes. One should also notice how in general associated and different coeﬀicients have quite similar HPDI range, the highest observed absolute difference is equal to only 0.1. This suggests that again the impact of associated attributes and different ones is not clear at first sight. Finally, let’s compare the HPDIs for Reddit and Reddit debiased datasets. For Religion and Race dataset there is a minor shift (in absolute values the highest change is equal to approximately 0.1) of the mean coeﬀicients towards zero. However for Gender dataset there is no significant change. This is of course a general look at the group coeﬀicients. Let’s now analyze the individual words.
+In the case of Reddit word embeddings the situation is similar although HPDI is below 0 for Gender class when looking at `associated` and `different` mean coefficient. This can suggest that there is indeed slightly stronger impact of these attributes. One should also notice how in general associated and different coefficients have quite similar HPDI range, the highest observed absolute difference is equal to only 0.1. This suggests that again the impact of associated attributes and different ones is not clear at first sight. Finally, let’s compare the HPDIs for Reddit and Reddit debiased datasets. For Religion and Race dataset there is a minor shift (in absolute values the highest change is equal to approximately 0.1) of the mean coefficients towards zero. However for Gender dataset there is no significant change. This is of course a general look at the group coefficients. Let’s now analyze the individual words.
 
 
 Looking at Reddit individual words one can observe that for Religion the cosine distance results for the associated attributes are for most of the words close to human attributes as well. This can suggest that in some cases words concerning humans can have higher
