@@ -1,20 +1,22 @@
 ---
-title: "Taking uncertainty in word embedding bias estimation seriously: a  bayesian approach"
+title: 'Taking uncertainty in word embedding bias estimation seriously: a  bayesian
+  approach'
 author: "Alicja Dobrzeniecka and Rafal Urbaniak"
 output:
   pdf_document:
-    number_sections: true
-    df_print: kable 
-    keep_tex: true
+    number_sections: yes
+    df_print: kable
+    keep_tex: yes
     includes:
-      in_header:
-        - Rafal_latex6.sty
+      in_header: Rafal_latex6.sty
+  html_document:
+    df_print: paged
 classoption: dvipsnames,enabledeprecatedfontcommands
 fontsize: 10pt
 documentclass: scrartcl
 urlcolor: blue
-bibliography: [../references/bibliographyRafal.bib]
-csl: [../references/apa-6th-edition.csl] 
+bibliography: ../references/bibliographyRafal.bib
+csl: ../references/apa-6th-edition.csl
 ---
 
 ```{r, setup, include=FALSE}
@@ -81,31 +83,21 @@ That is, for each protected word $T and each attribute class, they first take th
 
 # Some methodological problems
 
-\textbf{1. Selection of attributes}
 
-
-Such approaches, however, are not unproblematic. For one thing, the word lists are often fairly small, and the papers do not discuss the impact of word list sizes on the uncertainty involved. 
- We will argue that the word list sizes are too small to yield strong conclusions, given the variances involved. 
+Such approaches, however, are not unproblematic. One may cosinder the selection of attributes for the bias research. For one thing, the word lists are often fairly small, and the papers do not discuss the impact of word list sizes on the uncertainty involved. 
+We will argue that the word list sizes are too small to yield strong conclusions, given the variances involved. 
  
- Crucially, these approaches use  means of mean average cosine similarities to measure  similarity between protected word and harmful stereotypes. If one takes  a closer look at the individual values that are taken for the calculations, it turns out that there are quite a few  outliers and surprisingly dissimilar words. This issue will become transparent when  we inspect  the visualizations of individual cosine distances, following the idea that one of the first step to understand data is to look at it.
- 
- 
- 
+Crucially, these approaches use  means of mean average cosine similarities to measure  similarity between protected word and harmful stereotypes. If one takes  a closer look at the individual values that are taken for the calculations, it turns out that there are quite a few  outliers and surprisingly dissimilar words. This issue will become transparent when  we inspect  the visualizations of individual cosine distances, following the idea that one of the first step to understand data is to look at it.
  
 
-\textbf{3. Hiding the impact of uncertainty}
 
 With such a method the uncertainty involved is not really considered which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results. 
 
 
+We also observed that in the paper there is no word class distinction and no control group. In the original paper, words from all three religions were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given religion, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the religions. One should investigate the religions separately as some of them may have stronger harmful associations that others. One should also include control groups to have a way of comparing the stereotypical results with neutral or human-like words. Later in the text we will explain in details reasons for introducing control groups. In our analysis, we distinguish between stereotypes associated with a given group, stereotypes associated with different groups, and control groups: neutral words and stereotypes-free human predicates.
 
-\textbf{4. No word class distinction and no control group}
 
-In the original paper, words from all three religions were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given religion, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the religions. One should investigate the religions separately as some of them may have stronger harmful associations that others. One should also include control groups to have a way of comparing the stereotypical results with neutral or human-like words. Later in the text we will explain in details reasons for introducing control groups. In our analysis, we distinguish between stereotypes associated with a given group, stereotypes associated with different groups, and control groups: neutral words and stereotypes-free human predicates.
-
-\textbf{5. Interpreting the results}
-
-Assuming for a moment that the value of multi-class cosine distance is correct, one may question the interpretation. @Manzini2019blackToCriminal summarize the averages of cosine distance per group (gender, race, religion). For now let us focus now on analyzing the values relating to religious biases. Here is the relevant fragment of table:
+The interpretation of the results is also a challenge. Assuming for a moment that the value of multi-class cosine distance is correct, one may question the interpretation. @Manzini2019blackToCriminal summarize the averages of cosine distance per group (gender, race, religion). For now let us focus now on analyzing the values relating to religious biases. Here is the relevant fragment of table:
 
 
 Religion Debiasing  | MAC
@@ -117,15 +109,8 @@ Soft Debiased ($\lambda$ = 0.2) | 0.894
 
 MAC stand for mean average cosine similarity, although in reality the the table contains mean distances. What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology. 
 
-\textbf{6. The curse of dimensionality}
 
-In our case, the curse of dimensionality may take place when there is an increase in the volume of data that results in adding extra dimensions to the Euclidean space. According to the article 
-[Curse of dimensionality at analyticsindiamag.com](https://analyticsindiamag.com/curse-of-dimensionality-and-what-beginners-should-do-to-overcome-it/) as the number of features increases, it may be harder and harder to obtain useful information from the data using the available algorithms. One may notice that more data should contribute to greater amount of information, but more information also means greater risk of noise and distractions in data. At the same time, modern solutions are often adapted to smaller dimensions and their results in higher ones are not intuitive, or may be prone to error. 
-
-Using cosine similarity in high dimensions in word embeddings may also be prone to the curse of dimensionality. According to @Venkat2018Curse there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. Yet, according to some articles cosine similarity in high dimensions is not reliable enough as it may be the case that choosing words at random may result in similar values as when picking them consciously. 
-
-![curse of dimensionality,  number of dimensions on the x axis,  standard deviation of similarity on the y axis](../images/curseOfDimensionality.png)
-
+One may consider the issue of the curse of dimensionality. In our case, the curse of dimensionality may take place when there is an increase in the volume of data that results in adding extra dimensions to the Euclidean space. As the number of features increases, it may be harder and harder to obtain useful information from the data using the available algorithms. Using cosine similarity in high dimensions in word embeddings may be prone to the curse of dimensionality. According to @Venkat2018Curse there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data.
 
 # The problem with means of means
 
