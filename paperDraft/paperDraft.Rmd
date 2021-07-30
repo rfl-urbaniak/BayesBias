@@ -55,7 +55,7 @@ s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b
 s(X,Y,A,B) & = \sum_{x\in X} s(x,A,B) -  \sum_{y\in Y} s(y,A,B)
 \end{align}
 \noindent
-$s(X,Y,A,B)$ is the statistic used in the signifcance test, and the $p$-value obtained by bootstrapping: it is the frequency of $s(X_i,Y_i,A,B)>s(X,Y,A,B)$ for all equally sized partitions $X_i, Y_i$ of $X\cup Y$. The effect size is computed by normalizing the difference in means as follows:
+$s(X,Y,A,B)$ is the statistic used in the significance test, and the $p$-value obtained by bootstrapping: it is the frequency of $s(X_i,Y_i,A,B)>s(X,Y,A,B)$ for all equally sized partitions $X_i, Y_i$ of $X\cup Y$. The effect size is computed by normalizing the difference in means as follows:
 \begin{align}
 bias(A,B) & = \frac{
 \mu(\{s(x,A,B)\}_{x\in X}) -\mu(\{s(y,A,B)\}_{y\in Y}) 
@@ -114,6 +114,18 @@ One may consider the issue of the curse of dimensionality. In our case, the curs
 
 # The problem with means of means
 
+
+<!-- A <- c(1,5,10) -->
+<!-- B <- c(6, 8, 15) -->
+
+<!-- c(A,B) -->
+
+<!-- sd(c(A,B)) -->
+
+<!-- mA <- mean(A) -->
+<!-- mB <- mean(B) -->
+
+<!-- sd(c(mA,mB)) -->
 
 The measures described all calculate means of means and their authors run statistical tests on sets of means. This, however, is problematic for two related reasons. One, by pre-averaging data we throw away information about sample sizes. For the former point, think about proportions: 10 out of 20 and 2 out of 4 give the same mean, but you would obtain more information by making the former observation rather than by making the latter.  Two, when we pre-average, we remove variation, and so pre-averaging  tend to manufacture false confidence. We will have more to say about whether this happens in the case of applications of MAC, for now let's go over a simple example to make the conceptual point clear.
 

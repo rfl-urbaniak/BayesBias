@@ -28,7 +28,7 @@
 }{}
 \newif\ifbibliography
 \hypersetup{
-            pdftitle={A bayesian method of cosine-based word2vec bias estimation},
+            pdftitle={Taking uncertainty in word embedding bias estimation seriously ~a Bayesian approach},
             pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk)},
             colorlinks=true,
             linkcolor=Maroon,
@@ -36,6 +36,12 @@
             urlcolor=blue,
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
 
 % Prevent slide breaks in the middle of a paragraph:
 \widowpenalties 1 10000
@@ -67,7 +73,8 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
 
-\title{\large A bayesian method of cosine-based word2vec bias estimation}
+\title{\large Taking uncertainty in word embedding bias estimation seriously ~a
+Bayesian approach}
 \author{Alicja Dobrzeniecka \& Rafal Urbaniak \footnotesize \newline (LoPSE
 research group, University of Gdansk)}
 \date{ExpSem2021, ESSLLI}
@@ -75,494 +82,380 @@ research group, University of Gdansk)}
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}
+\begin{frame}{Cosine-based measures of bias}
 
-\frametitle{The gist of the project}
-
-\pause
-
-\begin{block}{Classical probabilism in epistemology (and in
-applications)}
-
-Represent uncertainty by a single probabilistic measure (point
-estimates).
-
-\vspace{-3mm}
-
-\begin{align*}
-\pr(\mathsf{recovery}\vert \mathsf{treatment}) & = .6\\
-\end{align*}
-
-\vspace{-6mm}
-
-\pause
-
-\end{block}
-
-\begin{block}{Imprecise probabilism}
-
-Evidence (e.g.~expert evidence) sometimes fails to warrant such
-precision.
-
-\vspace{-3mm}
-
-\begin{align*}
-\pr(\mathsf{recovery}\vert \mathsf{treatment}) & \in [.4,.6]\\
-\end{align*}
-
-\vspace{-6mm}
-
-\pause 
-
-\end{block}
-
-\begin{block}{Epistemological difficulties of imprecise probabilism}
+\begin{block}{Word embeddings}
 
 \begin{itemize}
 \item
-  hard to model the weight of and combine evidence.
+  Representation of words (or words in contexts) with vectors of real
+  numbers
 \item
-  inertia of agnosticism.
-\item
-  growth of uncertainty in light of new evidence.
+  Built to predict the probability of co-occurence
 \end{itemize}
 
-\end{block}
-
-\end{frame}
-
-\begin{frame}{The gist of the project}
-
-\begin{block}{My novel contribution}
-
-\begin{itemize}
-\item
-  Meet the desiderata motivating imprecision.
-\item
-  Avoid these difficulties.
-\item
-  Do so by using higher-order probabilities.
-\end{itemize}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-1-1} \end{center}
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+word & 1 & 2 & 3 & 4 & \ldots{}\tabularnewline
+\midrule
+\endhead
+woman & 0.456 & 0.267 & 0.675 & 0.131 & \ldots{}\tabularnewline
+man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{Motivations for imprecision \large (straighforward
-considerations)}
+\begin{frame}{Cosine-based measures of bias}
 
-\pause
-
-\begin{block}{Radical lack of information}
-
-\(\pr(\mathsf{It \,\, will \,\, snow\,\, in\,\, Boston\,\, on \,\, New\,\, Year's\,\, Eve\,\, 2026}) =\)
-?
-
-\pause
-
-\end{block}
-
-\begin{block}{Weight of evidence}
-
-\begin{itemize}
-\tightlist
-\item
-  You've seen 4/10 patients recover. \(\pr(\mathsf{recovery})=.4\)?
-\end{itemize}
-
-\pause
-\vspace{-2mm}
-
-\begin{itemize}
-\tightlist
-\item
-  You've seen 40/100 patients recover. \(\pr(\mathsf{recovery})=.4\)?
-\end{itemize}
-
-\footnotesize (You could try to use classical statistical tools, such as
-confidence intervals,\linebreak  but they have their own problems.)
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Motivations for imprecision \large (uniformity and
-agnosticism)}
-
-\begin{block}{Agnosticism preservation requirement}
-
-Agnosticism about uniquely connected variables should be the same.
-
-\vspace{-5mm}
-
-\[X \mbox{ and } Y=X+2 \mbox{ or } Z = X^2 \,\,\, \mbox{ for $10>X>0$.}\]
-
-\pause
-
-\end{block}
-
-\begin{block}{The trouble}
-
-\begin{center}\includegraphics[width=0.6\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-2-1} \end{center}
-
-\vspace{-9mm}
-
-\begin{align*}\pr(X<5) = .5 = \pr(X^2 < 25)
-\end{align*}
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Motivations for imprecision \large (uniformity and
-agnosticism)}
-
-\begin{block}{The trouble}
-
-\begin{center}\includegraphics[width=0.6\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-3-1} \end{center}
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Motivations for imprecision \large (expert evidence)}
-
-\begin{block}{Weather forecasters}
-
-\vspace{-1mm}
-
-\begin{tabular}{ll}
-Al: & $\pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow})=.6$\\
-Bert: & $\pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow})=.8$
-\end{tabular}
-
-\pause
-
-\end{block}
-
-\begin{block}{Linear pooling}
+\begin{block}{Cosine similarity \& distance}
 
 \vspace{-4mm}
 
-\begin{align*}
-\pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow}) & = 
-\alpha \times .6 + \beta \times .8 \,\,\,\,\,  (where \,\, \alpha + \beta = 1.)
-\end{align*}
-
-\pause
-
-\end{block}
-
-\begin{block}{Mathematical impossibilities}
-
-\begin{itemize}
-\item
-  Experts's agreement on independence is not preserved by linear
-  pooling. ({\textbf{???}})
-\item
-  You can't at the same time hold the following: ({\textbf{???}})
-\end{itemize}
-
-\vspace{-7mm}
-
-\begin{align}
-\pr(A=B) & <1\\
-\pr(r\vert A=a) & = a \\
-\pr(r\vert B=b) & = b \\
-\forall a,b \, \pr(r \vert A =a, B = b) & =  \alpha a + \beta b
+\begin{align} \tag{Sim}
+\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
+\\
+\tag{Distance}
+\mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)
 \end{align}
 
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Imprecise probabilism and the motivations}
-
-\begin{block}{The main claim}
-
-\justify Represent uncertainty by a set of probability measures.
-
-\vspace{1mm} \scriptsize 
-
-({\textbf{???}}, {\textbf{???}}, {\textbf{???}}, {\textbf{???}},
-{\textbf{???}}, {\textbf{???}}, {\textbf{???}}; Walley,
-\protect\hyperlink{ref-walley1991statistical}{1991})
-
-\pause
-
-\end{block}
-
-\begin{block}{Snowing in Boston?}
-
-\vspace{-1mm}
-
-Say, (.5,1).
-
-\vspace{1mm} \scriptsize 
-
-({\textbf{???}})
-
-\pause
-
-\end{block}
-
-\begin{block}{Weight of evidence?}
-
-\vspace{-1mm}
-
-The more evidence you have, the more narrow the interval.
-
-\vspace{1mm} \scriptsize 
-
-({\textbf{???}}, {\textbf{???}}, {\textbf{???}})
-
-\pause
-
-\end{block}
-
-\begin{block}{Agnosticisim?}
-
-\vspace{-1mm}
-
-{[}0,1{]} interval instead of a single uniform distribution.
-
-\pause
-
-\end{block}
-
-\begin{block}{Multiple sources?}
-
-\vspace{-1mm}
-
-Just put all those probabilities in one set.
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Epistemological challenges}
-
-\pause
-
-\begin{block}{Radical uncertainty and weight}
-
-Say one experiment observed 40/100 and another 8/15 recoveries.
-
-Simply putting the frequencies in a set won't do justice to the
-evidence.
-
-\scriptsize  \vspace{1mm}
-
-({\textbf{???}})
-
-\pause
-
-\end{block}
-
-\begin{block}{Dilation}
-
-\justify Whenever your roomate goes to the track he flips a fair coin.
-If it comes up heads he bets on Speedy. Otherwise he places no bets. He
-comes home from the track grinning. You're now more uncertain about
-\(\pr(\mathsf{heads})\) than before.
-
-\scriptsize 
-
-\vspace{1mm} ({\textbf{???}}, {\textbf{???}}, {\textbf{???}},
-{\textbf{???}}, {\textbf{???}}, {\textbf{???}}; Walley,
-\protect\hyperlink{ref-walley1991statistical}{1991})
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Epistemological challenges}
-
-\begin{block}{Belief inertia}
-
-Say you're fully agnostic about \(H\): \(P(H) = [0,1]\).
-
-\begin{center}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-4-1} \end{center}
-\end{center}
-
-Then \(\pr(H \vert E) =[0,1]\), no matter what the evidence says.
-
-\vspace{1mm} \scriptsize
-
-({\textbf{???}},({\textbf{???}}), {\textbf{???}}, {\textbf{???}},
-{\textbf{???}}, {\textbf{???}})
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Epistemological challenges}
-
-\begin{block}{Mystery coins}
-
-\begin{itemize}
-\tightlist
-\item
-  A fair draw of one of two biased coins, with biases \(.4, and .6\).
-\end{itemize}
-
-\pause
-
-\vspace{-2mm}
-
-\begin{itemize}
-\tightlist
-\item
-  Imprecise reaction: \(\{.4, .6\}\).
-\end{itemize}
-
-\pause
-
-\vspace{-2mm}
-
-\begin{itemize}
-\tightlist
-\item
-  Precise probabilism: expected bias of \(.5\).
-\end{itemize}
-
-\pause
-
-\end{block}
-
-\begin{block}{Question}
-
-As far as accuracy is concerned, why prefer the imprecise way?
-
-Say the actual bias is .4. A first stab:
-
-\vspace{-3mm}
-
-\begin{align*}
-\mathsf{inaccuracy(imprecise)} & = \frac{0 + .2}{2} = .1\\
-\mathsf{inaccuracy(precise)} & =  .1\\
-\end{align*}
-
-\vspace{-5mm} \scriptsize
-
-({\textbf{???}}, {\textbf{???}}; Schoenfield,
-\protect\hyperlink{ref-schoenfield2017AccuracyRationalityImprecise}{2017})
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Higher-order approach}
-
-\begin{block}{The mystery coin with \((.2,.8)\) and 1 head in five
-tosses}
-
-\begin{center}\includegraphics[width=0.9\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-5-1} \end{center}
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Higher-order approach}
-
-\begin{block}{Two experts, uniform prior}
-
-\begin{center}\includegraphics[width=0.9\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-6-1} \end{center}
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{The key conjecture}
-
-\begin{block}{With higher-order methods, it will be possible to:}
-
 \begin{itemize}
 \item
-  match the representation of uncertainty with the evidence,
+  Geometric interpretation: direction (not length)
 \item
-  combine various sources of uncertainty without running into the known
-  problems,
+  \(\mathsf{cosineDistance}\in (0, 2)\)
 \item
-  use existing mathematics to make sense of accuracy in such contexts,
-\item
-  capture reasoning with radical uncertainty without dilation and belief
-  inertia.
+  Naive interpretation: proximity corresponds to semantic similarity
+  (e.g.~no triangle inequality)
 \end{itemize}
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{Tasks (discussion)}
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{The worry}
+
+In the learning process these models can learn implicit biases that
+reflect harmful stereotypical thinking
+
+\pause
+
+\end{block}
+
+\begin{block}{Cosine-based bias: basic intuition}
+
+Words belonging to an intuitively harmful stereotype are cosine-close to
+each other
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Stereotypical lists}
 
 \footnotesize 
 
 \begin{itemize}
-\tightlist
 \item
-  Relate this representation to weight of evidence.
+  feminine occupations: ``homemaker'', ``nurse'', ``receptionist'',
+  ``librarian'', etc.
+\item
+  masculine occupations: ``maestro'', ``captain'', ``architect'', etc.
 \end{itemize}
 
-\vspace{-2mm}
+\normalsize 
 
-\begin{itemize}
-\item
-  Go beyond grid approximation and beta representation.
-\item
-  Represent agnosticism so that:
+\end{block}
 
-  \begin{itemize}
-  \item
-    agnosticism preservation holds, and
-  \item
-    inertia fails.
-  \end{itemize}
-\end{itemize}
+\begin{block}{Visual example}
 
-\vspace{-2mm}
+\vspace{1mm} \footnotesize
 
-\begin{itemize}
-\tightlist
-\item
-  Represent opinion aggregation more generally, compare to known
-  limitations and features of already studied opinion pooling methods.
-\end{itemize}
+\begin{center}\includegraphics[width=0.6\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-1-1} \end{center}
 
-\vspace{-2mm}
+\normalsize
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Example: direct bias}
 
 \begin{itemize}
 \tightlist
 \item
-  Investigate dilation-like phenomena in this context.
+  The gender bias of a word \(w\) is its projection on the gender
+  direction
+  \(\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})\)
 \end{itemize}
-
-\vspace{-2mm}
 
 \begin{itemize}
 \tightlist
 \item
-  Study known distance functions between probabilistic measures as
-  candidates for key elements of accuracy measures.
+  Given the (ideally) gender neutral words \(N\) and the gender
+  direction \(g\) the direct gender bias is: 
 \end{itemize}
 
 \vspace{-2mm}
 
+\begin{align}
+\mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
+\end{align}
+
+\footnotesize 
+
+(Bolukbasi, Chang, Zou, Saligrama, \& Kalai,
+\protect\hyperlink{ref-Bolukbasi2016Man}{2016})
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Example: Word Embedding Association Test (WEAT)}
+
+\begin{align*}
+s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
+\\
+WEAT(A,B) & = \frac{
+\mu\left(\{s(x,A,B)\}_{x\in X}\right) -\mu\left(\{s(y,A,B)\}_{y\in Y}\right) 
+}{
+\sigma\left(\{s(w,A,B)\}_{w\in X\cup Y}\right)
+}
+\end{align*}
+
+\begin{itemize}
+\item
+  \(t\) is a term, \(A, B\) are sets of stereotype attribute words, \$X,
+  \(Y\) are protected group words
+\item
+  For instance, \(X\) might be a set of male names, \(Y\) a set of
+  female names, \(A\) might contain stereotypically male-related career
+  words, and \(B\) stereotypically female-related family words
+\item
+  \(s\)-values are used as datapoints in statistical significance tests
+\end{itemize}
+
+\footnotesize
+
+(Caliskan, Bryson, \& Narayanan,
+\protect\hyperlink{ref-Caliskan2017semanticsBiases}{2017}) with
+extensions in (Lauscher \& Glavas,
+\protect\hyperlink{ref-Lauscher2019multidimensional}{2019}) and
+applications in (Garg, Schiebinger, Jurafsky, \& Zou,
+\protect\hyperlink{ref-Garg2018years}{2018})
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
+
+\begin{align*}
+S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align*}
+
+\begin{itemize}
+\item
+  \(T = \{t_1, \dots, t_k\}\) is a class of protected words
+\item
+  each \(A_j\in A\) is a set of attributes stereotypically associated
+  with a protected word
+\end{itemize}
+
 \begin{itemize}
 \tightlist
 \item
-  Explain away the apparent contrast between evidence-grounding and
-  accuracy considerations (Easwaran \& Fitelson,
-  \protect\hyperlink{ref-easwaranAndFitelson2015}{2015}).
+  The t-tests they employ are run on average cosines used to calculate
+  MAC
 \end{itemize}
 
-\begin{center}
-\Large Thank you for your attention!
-\end{center}
+\footnotesize 
+
+(Manzini, Lim, Tsvetkov, \& Black,
+\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019})
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
+
+\footnotesize 
+
+\begin{table}
+
+\caption{\label{tab:religionTableHeadEarly}Rows the religion dataset.}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llrr}
+\toprule
+protectedWord & wordToCompare & cosineDistance & cosineSimilarity\\
+\midrule
+jew & greedy & 0.6947042 & 0.3052958\\
+rabbi & greedy & 1.0306175 & -0.0306175\\
+rabbi & conservative & 0.7175887 & 0.2824113\\
+christian & uneducated & 0.5081939 & 0.4918061\\
+christianity & cheap & 1.2816164 & -0.2816164\\
+muslim & terrorist & 0.2726106 & 0.7273894\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Cosine-based measures of bias}
+
+\begin{block}{Known challenges}
+
+\begin{itemize}
+\item
+  Gender-direction might be an indicator of bias, but is insufficient.
+  After debiasing other non-gendered words can remain in biased
+  relations (Gonen \& Goldberg,
+  \protect\hyperlink{ref-Gonen2019lipstick}{2019})
+\item
+  Methods which involve analogies and their evaluations by human users
+  on Mechanical Turk are unreliable (Nissim, Noord, \& Goot,
+  \protect\hyperlink{ref-Nissim2020fair}{2020})
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Some methodological problems}
+
+\begin{block}{Word list choice is unprincipled}
+
+We run with it for comparison
+
+\pause
+
+\end{block}
+
+\begin{block}{No design considerations to sample size}
+
+We investigate the uncertainty that arises from raw sample sizes
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Some methodological problems}
+
+\begin{block}{No word class distinction and no control group}
+
+We make the subclasses clear, add human neutral predicates and neutral
+predicates for control
+
+\footnotesize 
+
+\begin{table}
+
+\caption{\label{tab:religionTableHeadLate}Rows from extended religion dataset.}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lllrrl}
+\toprule
+protectedWord & wordToCompare & wordClass & cosineDistance & cosineSimilarity & connection\\
+\midrule
+torah & hairy & jewish & 1.170 & -0.170 & associated\\
+christian & dirty & muslim & 0.949 & 0.051 & different\\
+judaism & cheap & jewish & 1.232 & -0.232 & associated\\
+christianity & familial & christian & 0.645 & 0.355 & associated\\
+mosque & approve & neutral & 0.995 & 0.005 & none\\
+imam & carry & human & 0.993 & 0.007 & human\\
+mosque & merging & neutral & 0.868 & 0.132 & none\\
+muslim & nationalized & neutral & 0.870 & 0.130 & none\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Some methodological problems}
+
+\begin{block}{Outliers and surprisingly dissimilar words}
+
+We study those by visualizations and uncertainty estimates
+
+\pause
+
+\end{block}
+
+\begin{block}{No principled interpretation}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Religion Debiasing & MAC (distance)\tabularnewline
+\midrule
+\endhead
+Biased & 0.859\tabularnewline
+Hard Debiased & 0.934\tabularnewline
+Soft Debiased (\(\lambda\) = 0.2) & 0.894\tabularnewline
+\bottomrule
+\end{longtable}
+
+What values are sufficient for the presence of bias and what differences
+are sign of real improvement? Low \(p\)-values are not high effect
+indicators!
+
+We compare HPDIs.
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{The problem with pre-averaging}
+
+\end{frame}
+
+\begin{frame}{Bayesian estimation}
+
+\begin{center}\includegraphics[width=1.05\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-2-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Bayesian estimation}
+
+\begin{center}\includegraphics[width=1.05\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-3-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Effects of debiasing}
+
+\begin{block}{Further work}
+
+\begin{itemize}
+\tightlist
+\item
+  downstream tasks
+\end{itemize}
+
+\end{block}
 
 \end{frame}
 
@@ -571,20 +464,49 @@ tosses}
 \tiny
 
 \hypertarget{refs}{}
-\hypertarget{ref-easwaranAndFitelson2015}{}
-Easwaran, K., \& Fitelson, B. (2015). Accuracy, coherence, and evidence.
-In T. S. Gendler \& J. Hawthorne (Eds.), \emph{Oxford studies in
-epistemology} (Vol. 5). Oxford University Press.
+\hypertarget{ref-Bolukbasi2016Man}{}
+Bolukbasi, T., Chang, K., Zou, J. Y., Saligrama, V., \& Kalai, A.
+(2016). Man is to computer programmer as woman is to homemaker?
+Debiasing word embeddings. \emph{CoRR}, \emph{abs/1607.06520}. Retrieved
+from \url{http://arxiv.org/abs/1607.06520}
 
-\hypertarget{ref-schoenfield2017AccuracyRationalityImprecise}{}
-Schoenfield, M. (2017). The Accuracy and Rationality of Imprecise
-Credences: The Accuracy and Rationality of Imprecise Credences.
-\emph{Noûs}, \emph{51}(4), 667--685.
-\url{https://doi.org/10.1111/nous.12105}
+\hypertarget{ref-Caliskan2017semanticsBiases}{}
+Caliskan, A., Bryson, J. J., \& Narayanan, A. (2017). Semantics derived
+automatically from language corpora contain human-like biases.
+\emph{Science}, \emph{356}(6334), 183--186.
+\url{https://doi.org/10.1126/science.aal4230}
 
-\hypertarget{ref-walley1991statistical}{}
-Walley, P. (1991). \emph{Statistical reasoning with imprecise
-probabilities}. Chapman; Hall London.
+\hypertarget{ref-Garg2018years}{}
+Garg, N., Schiebinger, L., Jurafsky, D., \& Zou, J. (2018). Word
+embeddings quantify 100 years of gender and ethnic stereotypes.
+\emph{Proceedings of the National Academy of Sciences}, \emph{115}(16),
+E3635--E3644. \url{https://doi.org/10.1073/pnas.1720347115}
+
+\hypertarget{ref-Gonen2019lipstick}{}
+Gonen, H., \& Goldberg, Y. (2019). Lipstick on a pig: Debiasing methods
+cover up systematic gender biases in word embeddings but do not remove
+them. \emph{Proceedings of the 2019 Conference of the North American
+Chapter of the Association for Computational Linguistics: Human Language
+Technologies, Volume 1 (Long and Short Papers)}, 609--614. Minneapolis,
+Minnesota: Association for Computational Linguistics.
+\url{https://doi.org/10.18653/v1/N19-1061}
+
+\hypertarget{ref-Lauscher2019multidimensional}{}
+Lauscher, A., \& Glavas, G. (2019). Are we consistently biased?
+Multidimensional analysis of biases in distributional word vectors.
+\emph{CoRR}, \emph{abs/1904.11783}. Retrieved from
+\url{http://arxiv.org/abs/1904.11783}
+
+\hypertarget{ref-Manzini2019blackToCriminal}{}
+Manzini, T., Lim, Y. C., Tsvetkov, Y., \& Black, A. W. (2019).
+\emph{Black is to criminal as caucasian is to police: Detecting and
+removing multiclass bias in word embeddings}.
+
+\hypertarget{ref-Nissim2020fair}{}
+Nissim, M., Noord, R. van, \& Goot, R. van der. (2020). Fair is better
+than sensational: Man is to doctor as woman is to doctor.
+\emph{Computational Linguistics}, \emph{46}(2), 487--497.
+\url{https://doi.org/10.1162/coli_a_00379}
 
 \end{frame}
 

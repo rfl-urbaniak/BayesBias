@@ -19512,15 +19512,13 @@ and all mathematicians sometimes falter because their intuitive, ...},
   primaryclass  = {cs.AI},
 }
 
-@Comment{jabref-meta: databaseType:biblatex;}
-
-@misc{manzini2019black,
-      title={Black is to Criminal as Caucasian is to Police: Detecting and Removing Multiclass Bias in Word Embeddings}, 
-      author={Thomas Manzini and Yao Chong Lim and Yulia Tsvetkov and Alan W Black},
-      year={2019},
-      eprint={1904.04047},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@Misc{Manzini2019blackToCriminal,
+  author        = {Thomas Manzini and Yao Chong Lim and Yulia Tsvetkov and Alan W Black},
+  title         = {Black is to Criminal as Caucasian is to Police: Detecting and Removing Multiclass Bias in Word Embeddings},
+  year          = {2019},
+  eprint        = {1904.04047},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL},
 }
 
 @Article{Bolukbasi2016Man,
@@ -19590,6 +19588,30 @@ and all mathematicians sometimes falter because their intuitive, ...},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
+@Comment{jabref-meta: databaseType:biblatex;}
 
+@article{Venkat2018Curse,
+author = {Venkat, Naveen},
+year = {2018},
+month = {09},
+pages = {},
+title = {The Curse of Dimensionality: Inside Out},
+doi = {10.13140/RG.2.2.29631.36006}
+}
 
+@article{Gonen2019Lipstick,
+  author    = {Hila Gonen and
+               Yoav Goldberg},
+  title     = {Lipstick on a Pig: Debiasing Methods Cover up Systematic Gender Biases
+               in Word Embeddings But do not Remove Them},
+  journal   = {CoRR},
+  volume    = {abs/1903.03862},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1903.03862},
+  archivePrefix = {arXiv},
+  eprint    = {1903.03862},
+  timestamp = {Sun, 31 Mar 2019 19:01:24 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1903-03862.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
 
