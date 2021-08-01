@@ -343,11 +343,14 @@ We compare HPDIs.
 
 ## The problem with pre-averaging
 
+- It throws away information about sample sizes
+- It removes variation which may result in false confidence
 
 
 
+##  Cosine distance and word connection visualization
 
-##  Bayesian estimation 
+### Analysis of word "muslim"
 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "105%",message =FALSE, warning = FALSE}
 library(tidyverse)
@@ -366,7 +369,9 @@ visualiseProtected(muslimVis,"muslim")+theme_tufte(base_size = 20)
 
 
 
-##  Bayesian estimation 
+## Cosine distance and word connection visualization
+
+### Analysis of word "priest"
 
 
 
@@ -386,12 +391,10 @@ visualiseProtected(priestVis,"priest")+theme_tufte(base_size = 20)
 
 
 
+## Bayesian model
 
 
-
-
-## Effects of debiasing
-
+## HPDIs
 
 
 
