@@ -454,9 +454,8 @@ ggarrange(noneG,cauG, parG, ncol = 1)
 
 ### Closer look at Religion class
 
-<!-- add religion class -->
 
-
+\includegraphics[width=8cm]{../images/visReligionReddit.png}
 
 ## Observations
 
@@ -470,7 +469,7 @@ ggarrange(noneG,cauG, parG, ncol = 1)
 - Including contrasts in Bayesian model
 - Downstream tasks
 - Applying uncertainty to WEAT metric
-- Testing AIT dataset 
+- Testing Implicit Association Test (IAT) 
 
 
 
