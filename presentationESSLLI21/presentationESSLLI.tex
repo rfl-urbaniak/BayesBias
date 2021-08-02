@@ -78,7 +78,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Taking uncertainty in word embedding bias estimation seriously ~a Bayesian approach},
+  pdftitle={Taking uncertainty in word embedding bias estimation seriously - a Bayesian approach},
   pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk)},
   colorlinks=true,
   linkcolor=Maroon,
@@ -124,7 +124,7 @@
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{\large Taking uncertainty in word embedding bias estimation
-seriously ~a Bayesian approach}
+seriously - a Bayesian approach}
 \author{Alicja Dobrzeniecka \& Rafal Urbaniak
 \footnotesize \newline (LoPSE research group, University of Gdansk)}
 \date{ExpSem2021, ESSLLI}
@@ -138,8 +138,7 @@ seriously ~a Bayesian approach}
 \protect\hypertarget{word-embeddings}{}
 \begin{itemize}
 \item
-  Representation of words (or words in contexts) with vectors of real
-  numbers
+  Representation of words with vectors of real numbers
 \item
   Built to predict the probability of co-occurence
 \end{itemize}
@@ -198,8 +197,8 @@ each other
 \end{block}
 \end{frame}
 
-\begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-3}{}
+\begin{frame}{Cosine-based measures of bias - visual example}
+\protect\hypertarget{cosine-based-measures-of-bias---visual-example}{}
 \begin{block}{Stereotypical lists}
 \protect\hypertarget{stereotypical-lists}{}
 \footnotesize
@@ -213,10 +212,7 @@ each other
 \end{itemize}
 
 \normalsize
-\end{block}
 
-\begin{block}{Visual example}
-\protect\hypertarget{visual-example}{}
 \vspace{1mm}
 \footnotesize
 
@@ -226,7 +222,7 @@ each other
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-4}{}
+\protect\hypertarget{cosine-based-measures-of-bias-3}{}
 \begin{block}{Example: direct bias}
 \protect\hypertarget{example-direct-bias}{}
 \begin{itemize}
@@ -258,7 +254,7 @@ Saligrama, \& Kalai, 2016})
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-5}{}
+\protect\hypertarget{cosine-based-measures-of-bias-4}{}
 \begin{block}{Example: Word Embedding Association Test (WEAT)}
 \protect\hypertarget{example-word-embedding-association-test-weat}{}
 \begin{align*}
@@ -295,7 +291,7 @@ Zou, 2018})
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-6}{}
+\protect\hypertarget{cosine-based-measures-of-bias-5}{}
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
 \protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac}{}
 \begin{align*}
@@ -326,7 +322,7 @@ Tsvetkov, \& Black, 2019})
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-7}{}
+\protect\hypertarget{cosine-based-measures-of-bias-6}{}
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
 \protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac-1}{}
 \footnotesize 
@@ -353,7 +349,7 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-8}{}
+\protect\hypertarget{cosine-based-measures-of-bias-7}{}
 \begin{block}{Known challenges}
 \protect\hypertarget{known-challenges}{}
 \begin{itemize}
@@ -460,34 +456,102 @@ We compare HPDIs.
 
 \begin{frame}{Cosine distance and word connection visualization}
 \protect\hypertarget{cosine-distance-and-word-connection-visualization}{}
-\begin{block}{Analysis of word ``muslim''}
-\protect\hypertarget{analysis-of-word-muslim}{}
+\begin{block}{Analysis of a word ``muslim''}
+\protect\hypertarget{analysis-of-a-word-muslim}{}
 \begin{center}\includegraphics[width=1.05\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-2-1} \end{center}
 \end{block}
 \end{frame}
 
 \begin{frame}{Cosine distance and word connection visualization}
 \protect\hypertarget{cosine-distance-and-word-connection-visualization-1}{}
-\begin{block}{Analysis of word ``priest''}
-\protect\hypertarget{analysis-of-word-priest}{}
+\begin{block}{Analysis of a word ``priest''}
+\protect\hypertarget{analysis-of-a-word-priest}{}
 \begin{center}\includegraphics[width=1.05\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-3-1} \end{center}
 \end{block}
 \end{frame}
 
-\begin{frame}{Bayesian model}
-\protect\hypertarget{bayesian-model}{}
+\begin{frame}{Advantages of including uncertainty}
+\protect\hypertarget{advantages-of-including-uncertainty}{}
+\begin{itemize}
+\tightlist
+\item
+  It enables one to directly observe the influence of sample sizes
+\item
+  It may influence risk assessment and decision making
+\item
+  \ldots{}
+\end{itemize}
 \end{frame}
 
-\begin{frame}{HPDIs}
-\protect\hypertarget{hpdis}{}
-\begin{block}{Further work}
+\begin{frame}{Bayesian model}
+\protect\hypertarget{bayesian-model}{}
+\begin{block}{Choosing priors}
+\protect\hypertarget{choosing-priors}{}
+\begin{center}\includegraphics[width=1\linewidth]{presentationESSLLI_files/figure-beamer/priorsVis-1} \end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}{Dataset-level HPDIs coefficients}
+\protect\hypertarget{dataset-level-hpdis-coefficients}{}
+\begin{block}{Religion coefficients}
+\protect\hypertarget{religion-coefficients}{}
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+  \end{figure}
+  
+\end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}{Dataset-level HPDIs coefficients}
+\protect\hypertarget{dataset-level-hpdis-coefficients-1}{}
+\begin{block}{Gender coefficients}
+\protect\hypertarget{gender-coefficients}{}
+\begin{center}
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   
+\end{figure}
+
+
+\end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}{Uncertainty included in bias detection}
+\protect\hypertarget{uncertainty-included-in-bias-detection}{}
+\begin{block}{Closer look at Gender class}
+\protect\hypertarget{closer-look-at-gender-class}{}
+\includegraphics[width=8cm]{../images/visGenderReddit.png}
+\end{block}
+\end{frame}
+
+\begin{frame}{Summary of the research}
+\protect\hypertarget{summary-of-the-research}{}
+\begin{itemize}
+\tightlist
+\item
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Further work}
 \protect\hypertarget{further-work}{}
 \begin{itemize}
 \tightlist
 \item
+  including contrasts in Bayesian model
+\item
   downstream tasks
+\item
+  applying uncertainty to WEAT metric
+\item
+  testing AIT dataset
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{References}

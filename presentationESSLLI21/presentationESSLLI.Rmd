@@ -1,5 +1,5 @@
 ---
-title: "\\large Taking uncertainty in word embedding bias estimation seriously \\ a  Bayesian
+title: "\\large Taking uncertainty in word embedding bias estimation seriously \\- a  Bayesian
   approach"
 author: "Alicja Dobrzeniecka \\& Rafal  Urbaniak \\footnotesize \\newline (LoPSE research group, University of  Gdansk)" 
 date:  "ExpSem2021, ESSLLI"
@@ -53,9 +53,11 @@ options(kableExtra.latex.load_packages = FALSE)
 
 ### Word embeddings 
 
-- Representation of words (or words in contexts) with vectors of real numbers
+- Representation of words with vectors of real numbers
 
 - Built to predict the probability of co-occurence 
+
+<!-- check if the statement of co-occurence always right--> 
 
 word | 1 | 2 | 3 | 4 | ... 
 |---|---|---|---|---|---
@@ -114,7 +116,7 @@ Words belonging to an intuitively harmful stereotype are cosine-close to each ot
 
 
 
-## Cosine-based measures of bias
+## Cosine-based measures of bias - visual example
 
 
 
@@ -128,7 +130,6 @@ Words belonging to an intuitively harmful stereotype are cosine-close to each ot
 
 \normalsize 
 
-### Visual example
 
 \vspace{1mm}
 \footnotesize
@@ -350,7 +351,7 @@ We compare HPDIs.
 
 ##  Cosine distance and word connection visualization
 
-### Analysis of word "muslim"
+### Analysis of a word "muslim"
 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "105%",message =FALSE, warning = FALSE}
 library(tidyverse)
@@ -371,7 +372,7 @@ visualiseProtected(muslimVis,"muslim")+theme_tufte(base_size = 20)
 
 ## Cosine distance and word connection visualization
 
-### Analysis of word "priest"
+### Analysis of a word "priest"
 
 
 
@@ -390,668 +391,86 @@ visualiseProtected(priestVis,"priest")+theme_tufte(base_size = 20)
 ```
 
 
+## Advantages of including uncertainty
+
+- It enables one to directly observe the influence of sample sizes
+- It may influence risk assessment and decision making
+- ... 
+
 
 ## Bayesian model
 
+### Choosing priors
 
-## HPDIs
+```{r priorsVis,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, out.width = "100%", fig.caption = "Regularizing priors for the bayesian models."}
+library(ggpubr)
+sim <- seq(-1,1,by = 0.001)
+dis <- 1-sim
+
+p <- ggplot(data = data.frame(distance = dis), 
+            mapping = aes(x = distance))+theme_tufte()
+
+none <- function(x) dnorm(x,1,.5)
+cau <- function(x) dcauchy(x,0,1)
+par <- function(x) dnorm(x,0,1)
+
+noneG <- p + stat_function(fun = none)+xlim(c(-0.5,2.5))+ggtitle("Prior for mean distances")
+parG <- p + stat_function(fun = par)+xlim(c(-2,2))+xlab("distance change")+ggtitle("Prior for coefficients")
+cauG <- p + stat_function(fun = cau)+xlim(c(0,2))+ggtitle("Prior for standard deviation")+xlab("distance change")
+ggarrange(noneG,cauG, parG, ncol = 1)
+```
+
+
+##  Dataset-level HPDIs coefficients
+
+### Religion coefficients
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
+   \end{minipage}
+  \end{figure}
+  
+\end{center}
+   
+##  Dataset-level HPDIs coefficients
+
+### Gender coefficients
+   
+\begin{center}
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7cm]{../images/genderCoeffs.jpeg}
+\end{minipage}
+   
+\end{figure}
+
+
+\end{center}
+
+
+## Uncertainty included in bias detection
+
+### Closer look at Gender class
+
+\includegraphics[width=8cm]{../images/visGenderReddit.png}
 
 
 
-### Further work
+## Summary of the research
 
+- 
+
+
+## Further work
+
+- including contrasts in Bayesian model
 - downstream tasks
+- applying uncertainty to WEAT metric
+- testing AIT dataset 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- \frametitle{The gist of the project} -->
-
-<!-- \pause -->
-
-<!-- ### Classical probabilism in epistemology (and in applications) -->
-
-<!-- Represent uncertainty by a single probabilistic measure (point estimates). -->
-
-
-
-<!-- \vspace{-3mm} -->
-
-
-<!-- \begin{align*} -->
-<!-- \pr(\mathsf{recovery}\vert \mathsf{treatment}) & = .6\\ -->
-<!-- \end{align*} -->
-
-
-<!-- \vspace{-6mm} -->
-
-
-
-
-<!-- \pause -->
-
-<!-- ### Imprecise probabilism -->
-
-<!-- Evidence (e.g. expert evidence) sometimes fails to warrant such precision. -->
-
-
-<!-- \vspace{-3mm} -->
-
-
-<!-- \begin{align*} -->
-<!-- \pr(\mathsf{recovery}\vert \mathsf{treatment}) & \in [.4,.6]\\ -->
-<!-- \end{align*} -->
-
-<!-- \vspace{-6mm} -->
-
-<!-- \pause  -->
-
-<!-- ### Epistemological difficulties of imprecise probabilism -->
-
-<!-- - hard to model the weight of and combine evidence. -->
-
-<!-- - inertia of agnosticism. -->
-
-<!-- - growth of uncertainty  in light of new evidence. -->
-
-
-
-
-<!-- ## The gist of the project -->
-
-
-<!-- ### My novel contribution -->
-
-<!-- - Meet the desiderata motivating imprecision. -->
-
-<!-- - Avoid these difficulties. -->
-
-<!-- - Do so by using higher-order probabilities.  -->
-
-
-
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%"} -->
-<!-- p <- ggplot(data = data.frame(probability = seq(0,1, by = .25)),mapping = aes(x = probability))+th +ylab("density")+scale_x_continuous(breaks = seq(0,1, by = .1)) -->
-
-<!-- agentPrior <- function(p) dbeta(p,28,28)  -->
-
-<!-- priorPlot <- p + stat_function(fun=agentPrior)+ggtitle("Uncertainty about recovery")+xlab("probability of recovery if treated") -->
-
-<!-- priorPlot -->
-<!-- ``` -->
-
-
-
-
-
-
-
-
-
-<!-- ## Motivations for imprecision  \large (straighforward considerations) -->
-
-
-<!-- \pause -->
-
-<!-- ### Radical lack of information -->
-
-<!-- $\pr(\mathsf{It \,\, will \,\,  snow\,\,  in\,\,  Boston\,\,  on \,\, New\,\,  Year's\,\,  Eve\,\,  2026}) =$ ? -->
-
-
-<!-- \pause -->
-
-<!-- <!-- ### Mere bounds in reasoning --> 
-
-<!-- <!-- - Say $\pr(A) = .5$, $\pr(B) = .3$, but you don't know if they're independent. --> 
-
-
-<!-- <!-- \vspace{-2mm} --> 
-
-
-<!-- <!-- - We can only calculate bounds for $\pr(A \et B)$, $\pr(A \vee B)$, etc. --> 
-
-<!-- <!-- \pause  --> 
-
-<!-- ### Weight of evidence -->
-
-<!-- - You've seen 4/10 patients recover. $\pr(\mathsf{recovery})=.4$? -->
-
-
-<!-- \pause -->
-<!-- \vspace{-2mm} -->
-
-
-<!-- - You've seen 40/100 patients recover. $\pr(\mathsf{recovery})=.4$? -->
-
-
-<!-- \footnotesize (You could try to use classical statistical tools, such as confidence intervals,\linebreak  but they have their own problems.) -->
-
-
-
-
-
-
-<!-- ## Motivations for imprecision \large (uniformity and agnosticism) -->
-
-<!-- ### Agnosticism preservation requirement -->
-
-<!--  Agnosticism about uniquely connected variables should be the same.   -->
-
-
-<!-- \vspace{-5mm} -->
-
-
-<!--  \[X \mbox{ and } Y=X+2 \mbox{ or } Z = X^2 \,\,\, \mbox{ for $10>X>0$.}\]  -->
-
-
-<!-- \pause -->
-
-<!-- ### The trouble -->
-
-
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "60%"} -->
-<!-- p <- ggplot(data = data.frame(value = 0:10),  -->
-<!--             mapping = aes(x = value))  -->
-
-<!-- unifX <-  function(value) punif(value,min = 0, max = 10)  -->
-
-<!-- p +   stat_function(fun=unifX)+ -->
-<!--   ylab("density")+theme_tufte(base_size = 25)+labs(title = "Uniform cumulative probability for X in (0,10)")+xlab("X")+ylab("Cumulative probability")+scale_x_continuous(breaks = 0:10)+ -->
-<!--   geom_segment(aes(x = 5, y = 0, xend = 5, yend = .5), lty = 2, alpha = .2, size = .4, color = "skyblue")+ -->
-<!--   geom_segment(aes(x = 0, y = .5, xend = 5, yend = .5), lty = 2, alpha = .2, size = .4, color = "skyblue") -->
-
-<!-- ``` -->
-
-<!-- \vspace{-9mm} -->
-
-<!-- \begin{align*}\pr(X<5) = .5 = \pr(X^2 < 25) -->
-<!-- \end{align*} -->
-
-
-
-
-<!-- ## Motivations for imprecision \large (uniformity and agnosticism) -->
-
-
-<!-- ### The trouble -->
-
-
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "60%", message = FALSE, warning = FALSE} -->
-<!-- p <- ggplot(data = data.frame(value = 0:10),  -->
-<!--             mapping = aes(x = value))  -->
-
-<!-- unifY <-  function(value) punif(sqrt(value),min = 0, max = 10)  -->
-
-
-<!-- p +   stat_function(fun=unifY)+ -->
-<!--   ylab("cumulative probability")+theme_tufte(base_size = 25)+ -->
-<!--   labs(title = TeX("Resulting cumulative probability for $X^2$"))+scale_x_continuous(breaks = 0:100)+xlab(TeX("X^2"))+xlim(c(0,100))+ -->
-<!--   geom_segment(aes(x = 25, y = 0, xend = 25, yend = .5), lty = 2, alpha = .2, size = .4, color = "skyblue")+ -->
-<!--   geom_segment(aes(x = 0, y = .5, xend = 25, yend = .5), lty = 2, alpha = .2, size = .4, color = "skyblue") -->
-
-
-<!-- ``` -->
-
-
-
-
-
-
-
-<!-- ## Motivations for imprecision \large (expert evidence) -->
-
-
-<!-- ### Weather forecasters -->
-
-<!-- \vspace{-1mm} -->
-
-<!-- \begin{tabular}{ll} -->
-<!-- Al: & $\pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow})=.6$\\ -->
-<!-- Bert: & $\pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow})=.8$ -->
-<!-- \end{tabular} -->
-
-<!-- \pause -->
-
-<!-- ### Linear pooling -->
-
-<!-- \vspace{-4mm} -->
-
-<!-- \begin{align*} -->
-<!-- \pr(\mathsf{It \,\,  will\,\,  rain\,\,  tomorrow}) & =  -->
-<!-- \alpha \times .6 + \beta \times .8 \,\,\,\,\,  (where \,\, \alpha + \beta = 1.) -->
-<!-- \end{align*} -->
-
-
-<!-- \pause -->
-
-<!-- ### Mathematical impossibilities -->
-
-<!-- - Experts's agreement on independence is not preserved by linear pooling. [@List2011Group] -->
-
-
-<!-- - You can't at the same time hold the following: [@Gallow2018No] -->
-
-
-<!-- \vspace{-7mm} -->
-
-<!-- \begin{align} -->
-<!-- \pr(A=B) & <1\\ -->
-<!-- \pr(r\vert A=a) & = a \\ -->
-<!-- \pr(r\vert B=b) & = b \\ -->
-<!-- \forall a,b \, \pr(r \vert A =a, B = b) & =  \alpha a + \beta b -->
-<!-- \end{align} -->
-
-
-
-<!-- ## Imprecise probabilism and the motivations -->
-
-<!-- ### The main claim -->
-
-<!-- \justify Represent uncertainty by  a set of probability measures. -->
-
-<!-- \vspace{1mm} -->
-<!-- \scriptsize  -->
-
-<!-- [@Levi1974;@Grdenfors1982;@Jeffrey1983-JEFBWA-2;@walley1991statistical;@Kaplan1996;@Joyce2005;@Grove2009;@elkin2017imprecise] -->
-
-<!-- \pause -->
-
-
-<!-- ### Snowing in Boston?  -->
-
-<!-- \vspace{-1mm} -->
-
-<!-- Say, (.5,1). -->
-
-<!-- \vspace{1mm} -->
-<!-- \scriptsize  -->
-
-<!-- [@Mahtani2019Imprecise] -->
-
-<!-- \pause -->
-
-
-
-<!-- ### Weight of evidence?  -->
-
-
-
-<!-- \vspace{-1mm} -->
-
-<!-- The more evidence you have, the more narrow the interval. -->
-
-<!-- \vspace{1mm} -->
-<!-- \scriptsize  -->
-
-<!-- [@Kaplan1996;@Joyce2005;@Sturgeon2008-STURAT] -->
-
-<!-- \pause -->
-
-
-<!-- <!-- ## Imprecise probabilism and the motivations --> 
-
-
-<!-- ### Agnosticisim? -->
-
-
-<!-- \vspace{-1mm} -->
-
-<!-- [0,1] interval instead of a single uniform distribution. -->
-
-<!-- \pause -->
-
-<!-- ### Multiple sources?  -->
-
-<!-- \vspace{-1mm} -->
-
-<!-- Just put all those probabilities in one set. -->
-
-
-
-<!-- ## Epistemological challenges -->
-
-<!-- \pause -->
-
-<!-- ### Radical uncertainty and weight -->
-
-<!-- Say one experiment observed 40/100  and  another 8/15 recoveries.  -->
-
-<!-- Simply putting the frequencies in a set won't do justice to the evidence.  -->
-
-<!-- \scriptsize  -->
-<!-- \vspace{1mm} -->
-
-<!-- [@Bradley2019Imprecise] -->
-
-<!-- \pause -->
-
-<!-- ### Dilation  -->
-
-<!--   \justify Whenever your roomate goes to the track he flips a fair coin. If it comes up heads he bets on  Speedy. Otherwise he places no bets. He comes home from the track grinning.  You're now more uncertain about  $\pr(\mathsf{heads})$ than before.  -->
-
-
-<!-- \scriptsize  -->
-
-<!-- \vspace{1mm} -->
-<!--  [@walley1991statistical;@seidenfeld1993;@White2009-WHIESA;@Topey2012;@pedersen2014demystifying;@Hart2015;@Bradley2016] -->
-
-
-
-<!-- ## Epistemological challenges -->
-
-
-<!-- ### Belief inertia -->
-
-<!-- Say you're fully agnostic about $H$: $P(H) = [0,1]$.  -->
-
-<!-- \begin{center} -->
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%", warning=FALSE, message = FALSE, dpi = 800} -->
-<!-- p <- ggplot(data = data.frame(value = 1:7),  -->
-<!--             mapping = aes(x = value))+ theme_tufte(base_size = 24)+ -->
-<!--   theme(axis.line.x=element_blank(), -->
-<!--         axis.text.x=element_blank(), -->
-<!--         axis.ticks.x=element_blank(), -->
-<!--         axis.title.x=element_blank(), -->
-<!--         panel.grid.minor.x=element_blank(), -->
-<!--         panel.grid.major.x=element_blank())+ -->
-<!--   ylab("probability")+xlim(c(1.8,6.2)) -->
-
-
-<!-- p + geom_segment(aes(x = 2, y = 0, xend = 2, yend = 1),  -->
-<!--                  lineend = "square")+ -->
-<!--    geom_segment(aes(x = 6, y = 0, xend = 6, yend = 1),  -->
-<!--                  lineend = "square")+ -->
-<!--    annotate("text", x = 1.8, y = 0, label = TeX("$p_F$"), size = 7 )+ -->
-<!--   annotate("text", x = 1.8, y = 1, label = TeX("$p_T$"), size = 7)+ -->
-<!--   annotate("text", x = 1.8, y = .4, label = TeX("$p_{1}$"), size = 7)+ -->
-<!--   annotate("text", x = 1.8, y = .6, label = TeX("$p_{2}$"), size = 7)+ -->
-<!--   geom_segment(aes(x = 1.95, y = 0, xend = 2.05, yend = 0),  -->
-<!--              lineend = "square")+ -->
-<!--   geom_segment(aes(x = 1.95, y = 0.4, xend = 2.05, yend = 0.4),  -->
-<!--                lineend = "square")+ -->
-<!--   geom_segment(aes(x = 1.95, y = 0.6, xend = 2.05, yend = 0.6),  -->
-<!--                lineend = "square")+ -->
-<!--   geom_segment(aes(x = 1.95, y = 1, xend = 2.05, yend = 1),  -->
-<!--                lineend = "square") + #now the second one -->
-<!--   annotate("text", x = 6.2, y = 0, label = TeX("$p_F'$"), size = 7)+ -->
-<!--   annotate("text", x = 6.2, y = 1, label = TeX("$p_T'$"), size = 7)+ -->
-<!--   annotate("text", x = 6.2, y = .2, label = TeX("$p_{1}'$"), size = 7)+ -->
-<!--   annotate("text", x = 6.2, y = .5, label = TeX("$p_{2}'$"), size = 7)+ -->
-<!--   geom_segment(aes(x = 5.95, y = 0, xend = 6.05, yend = 0),  -->
-<!--                lineend = "square")+ -->
-<!--   geom_segment(aes(x = 5.95, y = 0.2, xend = 6.05, yend = 0.2),  -->
-<!--                lineend = "square")+ -->
-<!--   geom_segment(aes(x = 5.95, y = 0.5, xend = 6.05, yend = 0.5),  -->
-<!--                lineend = "square")+ -->
-<!--   geom_segment(aes(x = 5.95, y = 1, xend = 6.05, yend = 1),  -->
-<!--                lineend = "square")+  -->
-<!--                  geom_segment(aes(x = 2.1, xend = 5.9, y = 0, -->
-<!--                 yend = 0), arrow = arrow(length = unit(0.08, "inches")), -->
-<!--                 color = "red", size = 0.6)+  -->
-<!--   geom_segment(aes(x = 2.1, xend = 5.9, y = 1, -->
-<!--                    yend = 1), arrow = arrow(length = unit(0.08, "inches")), -->
-<!--                color = "red", size = 0.6)+  -->
-<!--   geom_segment(aes(x = 2.1, xend = 5.9, y = 0.4, -->
-<!--                    yend = .2), arrow = arrow(length = unit(0.08, "inches")), -->
-<!--                color = "red", size = 0.6)+  -->
-<!--   geom_segment(aes(x = 2.1, xend = 5.9, y = 0.6, -->
-<!--                    yend = .5), arrow = arrow(length = unit(0.08, "inches")), -->
-<!--                color = "red", size = 0.6)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.1, yend = 0.06), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.2, yend = 0.1), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.3, yend = 0.14), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+ -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.45, yend = 0.28), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                                                             color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.5, yend = 0.36), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.55, yend = 0.45), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+ -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.65, yend = 0.55), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.7, yend = 0.65), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.75, yend = 0.72), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.79, yend = 0.8), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.84, yend = 0.86), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3)+  -->
-<!--   geom_segment(aes(x = 2.2, xend = 5.8, y = 0.9, yend = 0.93), arrow = arrow(length = unit(0.06, "inches")), -->
-<!--                color = "skyblue", size = 0.3) -->
-<!-- ``` -->
-<!-- \end{center} -->
-
-
-<!-- <!-- \begin{center} --> 
-<!-- <!-- \includegraphics[width = 6cm]{inertia.jpg} --> 
-<!-- <!-- \end{center} --> 
-
-
-
-<!-- Then $\pr(H \vert E) =[0,1]$, no matter what the evidence says.  -->
-
-<!-- \vspace{1mm} -->
-<!-- \scriptsize -->
-
-<!-- [@Joyce2010,@Dodd2012;@Rinard2013;@Bradley2014;@Vallinder2017;@Moss2020] -->
-
-<!-- ## Epistemological challenges -->
-
-<!-- ### Mystery coins -->
-
-<!-- - A fair draw of one of two biased coins, with biases $.4, and .6$. -->
-
-<!-- \pause -->
-
-<!-- \vspace{-2mm} -->
-
-<!-- - Imprecise reaction: $\{.4, .6\}$.  -->
-
-<!-- \pause -->
-
-<!-- \vspace{-2mm} -->
-
-
-<!-- - Precise probabilism: expected bias of $.5$. -->
-
-
-<!-- \pause -->
-
-<!-- ### Question -->
-
-<!-- As far as accuracy is concerned, why prefer the imprecise way? -->
-
-<!-- Say the actual bias is .4. A first stab: -->
-
-<!-- \vspace{-3mm} -->
-
-<!-- \begin{align*} -->
-<!-- \mathsf{inaccuracy(imprecise)} & = \frac{0 + .2}{2} = .1\\ -->
-<!-- \mathsf{inaccuracy(precise)} & =  .1\\ -->
-<!-- \end{align*} -->
-
-
-<!-- \vspace{-5mm} -->
-<!-- \scriptsize -->
-
-<!-- [@Seidenfeld2012forecasting; @MayoWilson2016; @schoenfield2017AccuracyRationalityImprecise] -->
-
-
-
-<!-- ## Higher-order approach -->
-
-
-<!-- ### The mystery coin with  $(.2,.8)$ and 1 head in five tosses -->
-
-
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"} -->
-<!-- theta <- c(.4, .6) #possible parameter values -->
-<!-- priorTheta <- c(.2,.8) #priors assigned to them -->
-<!-- data <- c(1,0,0,0,0) #1 heads with five tosses -->
-<!-- z = sum(data) # number of 1's in Data -->
-<!-- N = length(data) #number of tosses -->
-
-<!-- # Compute the Bernoulli likelihood at each value of Theta: -->
-<!-- pDataIfTheta <- dbinom(z,N,theta) -->
-<!-- # Compute the probability of th evidence and  -->
-<!-- # the posterior via Bayes' rule: -->
-<!-- pData <- sum(pDataIfTheta * priorTheta) -->
-<!-- pThetaIfData <- pDataIfTheta * priorTheta / pData -->
-
-
-<!-- #put together -->
-<!-- table <- data.frame(theta,  priorTheta, -->
-<!--                      pData,  pDataIfTheta, pThetaIfData) -->
-
-
-<!-- #plot of the prior -->
-<!-- prior <- ggplot(table, aes(x = theta, y = priorTheta))+   -->
-<!--   geom_bar(stat="identity", alpha = .8)+  -->
-<!--   scale_x_continuous(breaks = theta)+th+ylim(c(0,1))+ggtitle("Prior") -->
-
-<!-- #plot of the likelihood -->
-<!-- likelihood <-  ggplot(table, aes(x = theta, y = pDataIfTheta))+ -->
-<!--   geom_bar(stat="identity", alpha = .8)+  -->
-<!--   scale_x_continuous(breaks = theta)+ -->
-<!--   th+ylim(c(0,1))+ggtitle("Likelihood") -->
-
-
-<!-- #plot of the posterior -->
-<!-- posterior <- ggplot(table, aes(x = theta, y = pThetaIfData))+  #set up -->
-<!--   geom_bar(stat="identity", alpha = .8)+  #barplot layer -->
-<!--   scale_x_continuous(breaks = theta)+ -->
-<!--   th+ylim(c(0,1))+ggtitle("Posterior") -->
-
-<!-- #convert the table to graphics, transpose for readability -->
-<!-- tableGG <- ggtexttable(t(round(table,3))) -->
-
-<!-- #plot together -->
-<!-- ggarrange(prior, likelihood, posterior, tableGG) -->
-<!-- ``` -->
-
-
-
-
-
-<!-- ## Higher-order approach -->
-
-
-<!-- ### Two experts, uniform prior -->
-
-
-<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"} -->
-<!-- p <- ggplot(data = data.frame(probability = seq(0,1, by = .25)),mapping = aes(x = probability))+th +ylab("density")+scale_x_continuous(breaks = seq(0,1, by = .25))+ylim(c(0,10)) -->
-
-<!-- agentPrior <- function(p) dbeta(p,1,1)  -->
-<!-- al <- function(p) dbeta(p,5,20)  -->
-<!-- bert <- function(p) dbeta(p,8,12)  -->
-<!-- posterior <- function(p) dbeta(p,19,62)  -->
-
-
-
-<!-- priorPlot <- p + stat_function(fun=agentPrior)+ggtitle("Agent\'s prior") -->
-<!-- alPlot <- p + stat_function(fun=al)+ggtitle("If Al says .2") -->
-
-<!-- bertPlot <- p + stat_function(fun=bert)+ggtitle("If Bert says .4") -->
-<!-- posterior <- p + stat_function(fun=posterior)+ggtitle("Agent's posterior") -->
-
-<!-- ggarrange(priorPlot, alPlot, bertPlot, posterior) -->
-<!-- ``` -->
-
-
-<!-- ## The key conjecture -->
-
-<!-- ### With higher-order methods, it will be possible to: -->
-
-<!-- - match the representation of uncertainty with the evidence, -->
-
-<!-- - combine various sources of uncertainty without running into the known problems, -->
-
-<!-- - use existing mathematics to make sense of accuracy in such contexts, -->
-
-<!-- - capture reasoning with radical uncertainty without dilation and belief inertia. -->
-
-
-
-
-<!-- ## Tasks (discussion) -->
-
-<!-- \footnotesize  -->
-
-<!-- - Relate this representation to weight of evidence. -->
-
-<!-- \vspace{-2mm} -->
-
-
-<!-- - Go beyond grid approximation and beta representation. -->
-
-
-<!-- - Represent  agnosticism so that: -->
-
-<!--     - agnosticism  preservation holds, and -->
-
-<!--     - inertia fails.  -->
-
-
-
-
-<!-- \vspace{-2mm} -->
-
-
-<!-- - Represent opinion aggregation more generally, compare to known limitations and features of already studied opinion pooling methods.  -->
-
-
-
-
-
-<!-- \vspace{-2mm} -->
-
-<!-- - Investigate dilation-like phenomena in this context.  -->
-
-
-
-
-<!-- \vspace{-2mm} -->
-
-
-<!-- - Study known distance functions between probabilistic measures as candidates for key elements of accuracy measures. -->
-
-
-
-<!-- \vspace{-2mm} -->
-
-
-<!-- - Explain away the apparent contrast between evidence-grounding and accuracy considerations [@easwaranAndFitelson2015]. -->
-
-
-
-
-<!-- \begin{center} -->
-<!-- \Large Thank you for your attention! -->
-<!-- \end{center} -->
 
 
 
