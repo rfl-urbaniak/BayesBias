@@ -452,25 +452,25 @@ ggarrange(noneG,cauG, parG, ncol = 1)
 
 ## Uncertainty included in bias detection
 
-### Closer look at Gender class
+### Closer look at Religion class
 
-\includegraphics[width=8cm]{../images/visGenderReddit.png}
+<!-- add religion class -->
 
 
 
-## Summary of the research
+## Observations
 
+- HPDIs for dataset level coefficients around 0 (Gender class is an exception)
+<!-- he impact for associated, different, human and neutral attribute is, when averaged, quite similar -->
 - 
 
 
 ## Further work
 
-- including contrasts in Bayesian model
-- downstream tasks
-- applying uncertainty to WEAT metric
-- testing AIT dataset 
-
-
+- Including contrasts in Bayesian model
+- Downstream tasks
+- Applying uncertainty to WEAT metric
+- Testing AIT dataset 
 
 
 
