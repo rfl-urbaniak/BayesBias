@@ -168,7 +168,10 @@ grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
 \footnotesize
 ```{r,echo=TRUE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
 s <- function (table){ mean(table$A) - mean(table$B)}
+whole <- rbind(t1,t2,t3,t4)
+rawsd <- sd(c(whole$A,whole$B))
 factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+rawsd/factor
 numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 print(list(factor = factor,numerator = numerator, bias = numerator / factor))
 ```
