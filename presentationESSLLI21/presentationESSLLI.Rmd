@@ -1,18 +1,20 @@
 ---
-title: "\\Large Taking uncertainty seriously  \\newline \\normalsize A  Bayesian
-  approach to  word embedding bias estimation "
-author: "Alicja Dobrzeniecka \\& Rafal  Urbaniak \\footnotesize \\newline (LoPSE research group, University of  Gdansk)" 
-date:  "ExpSem2021, ESSLLI"
-fontsize: 10pt
-output:  
+title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
+  to  word embedding bias estimation '
+author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
+  group, University of  Gdansk)
+date: "ExpSem2021, ESSLLI"
+output:
   beamer_presentation:
     theme: Rafal_beamerSly1
     keep_tex: yes
     slide_level: 2
+  slidy_presentation: default
+fontsize: 10pt
 classoption: x11names, dvipsnames, bibspacing,natbib
 urlcolor: blue
-bibliography: [../references/cosineReferences1.bib]
-csl: ../references/apa-6th-edition.csl 
+bibliography: ../references/cosineReferences1.bib
+csl: ../references/apa-6th-edition.csl
 link-citations: yes
 ---
 
@@ -44,9 +46,10 @@ options(kableExtra.latex.load_packages = FALSE)
 ## The plan of the presentation
 
 - Introduction to the topic of bias in word embeddings
-- Analysis of methodological problems with MAC implementation
-- Explanation of pre-averaging limitations in methods such as WEAT and MAC
-- Our research and Bayesian approach
+- WEAT and MAC methods
+- Methodological problems with MAC implementation
+- Limitations of pre-averaging in bias detection methods
+- Including uncertainty with Bayesian approach
 
 
 
@@ -158,10 +161,10 @@ ggplot(genderProjections, aes(x=he,y=she, color = Stereotype, shape = Stereotype
 
 <!-- - The gender bias of a word $w$ is its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ -->
 
-<!-- <!-- (the gender direction is the top principal compontent of ten gender pair difference vectors).  --> -->
+<!-- <!-- (the gender direction is the top principal compontent of ten gender pair difference vectors).  --> 
 
 <!-- -  Given the (ideally) gender neutral words $N$ and the gender direction $g$ the direct gender bias is: -->
-<!-- <!-- ($c$ is a parameter determining how strict we want to be): --> -->
+<!-- <!-- ($c$ is a parameter determining how strict we want to be): --> 
 
 <!-- \vspace{-2mm} -->
 
@@ -408,7 +411,53 @@ religionDisplay  %>%  kable(format = "latex",booktabs=T,
 
 We study those by  visualizations and uncertainty estimates
 
-\pause
+
+
+
+## Some methodological problems
+
+### Distances for  "muslim"
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%",message =FALSE, warning = FALSE}
+library(tidyverse)
+muslimWords <- c("imam","islam","mosque","muslim","quran")
+muslim <- religion %>% filter(protectedWord %in% muslimWords)
+muslimClass <- muslim %>% filter(protectedWord == "muslim")
+neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
+humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
+muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
+muslimVis <- rbind(muslimVis,neutralSample,humanSample)
+#we plug in our visualisation script
+source("../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(muslimVis,"muslim")+theme_void(base_size = 20)
+```
+
+
+
+## Some methodological problems
+
+### Distances for  "priest"
+
+
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+library(tidyverse)
+priestClass <- religion %>% filter(protectedWord == "priest")
+neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
+humanSample <- sample_n(filter(priestClass,connection == "human"), 5)
+priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
+priestVis <- rbind(priestVis,neutralSample,humanSample)
+
+#we plug in our visualisation script
+source("../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
+```
+
+
+
+## Some methodological problems
 
 ### No principled interpretation 
 
@@ -440,6 +489,7 @@ We compare HPDIs.
 - It throws away information about sample sizes
 - It ignores variation in the raw data, which leads to false confidence
 
+\pause
 
 ### Our simulation
 
@@ -525,50 +575,6 @@ ggplot()+geom_histogram(aes(x=biasesNull, y = ..density..), alpha = 0.6, bins=50
 ```
 \normalsize
 
-
-
-
-
-##   Cosine distance and  connection type
-
-### Distances for  "muslim"
-
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%",message =FALSE, warning = FALSE}
-library(tidyverse)
-muslimWords <- c("imam","islam","mosque","muslim","quran")
-muslim <- religion %>% filter(protectedWord %in% muslimWords)
-muslimClass <- muslim %>% filter(protectedWord == "muslim")
-neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
-humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
-muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
-muslimVis <- rbind(muslimVis,neutralSample,humanSample)
-#we plug in our visualisation script
-source("../functions/visualisationTools.R")
-#two arguments: dataset and protected word
-visualiseProtected(muslimVis,"muslim")+theme_void(base_size = 20)
-```
-
-
-
-## Cosine distance and  connection type
-
-### Distances for  "priest"
-
-
-
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
-library(tidyverse)
-priestClass <- religion %>% filter(protectedWord == "priest")
-neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
-humanSample <- sample_n(filter(priestClass,connection == "human"), 5)
-priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
-priestVis <- rbind(priestVis,neutralSample,humanSample)
-
-#we plug in our visualisation script
-source("../functions/visualisationTools.R")
-#two arguments: dataset and protected word
-visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
-```
 
 
 ## Advantages of the Bayesian way
@@ -761,10 +767,11 @@ religionCoefs <- ulam(
 
 ## Summary
 
-- Introduced to the topic of bias in word embeddings
-- Analysed methodological problems with MAC implementation
-- Explained of pre-averaging limitations in methods such as WEAT and MAC
-- Proposed Bayesian approach
+- Introduction to the topic of bias in word embeddings
+- WEAT and MAC methods
+- Methodological problems with MAC implementation
+- Limitations of pre-averaging in bias detection methods
+- Including uncertainty with Bayesian approach
 
 ## Further work
 

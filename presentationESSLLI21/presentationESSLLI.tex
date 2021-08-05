@@ -179,12 +179,13 @@ Bayesian approach to word embedding bias estimation}
 \item
   Introduction to the topic of bias in word embeddings
 \item
-  Analysis of methodological problems with MAC implementation
+  WEAT and MAC methods
 \item
-  Explanation of pre-averaging limitations in methods such as WEAT and
-  MAC
+  Methodological problems with MAC implementation
 \item
-  Our research and Bayesian approach
+  Limitations of pre-averaging in biad detection methods
+\item
+  Bayesian approach
 \end{itemize}
 \end{frame}
 
@@ -274,10 +275,6 @@ each other
 
 \begin{center}\includegraphics[width=0.6\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-1-1} \end{center}
 \normalsize
-
---\textgreater{}
-
---\textgreater{}
 \end{block}
 \end{frame}
 
@@ -513,10 +510,27 @@ muslim & nationalized & neutral & 0.870 & 0.130 & none\\
 \begin{block}{Outliers and surprisingly dissimilar words}
 \protect\hypertarget{outliers-and-surprisingly-dissimilar-words}{}
 We study those by visualizations and uncertainty estimates
-
-\pause
 \end{block}
+\end{frame}
 
+\begin{frame}{Some methodological problems}
+\protect\hypertarget{some-methodological-problems-3}{}
+\begin{block}{Distances for ``muslim''}
+\protect\hypertarget{distances-for-muslim}{}
+\begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-4-1} \end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}{Some methodological problems}
+\protect\hypertarget{some-methodological-problems-4}{}
+\begin{block}{Distances for ``priest''}
+\protect\hypertarget{distances-for-priest}{}
+\begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-5-1} \end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}{Some methodological problems}
+\protect\hypertarget{some-methodological-problems-5}{}
 \begin{block}{No principled interpretation}
 \protect\hypertarget{no-principled-interpretation}{}
 \begin{longtable}[]{@{}ll@{}}
@@ -549,6 +563,8 @@ We compare HPDIs.
 \item
   It ignores variation in the raw data, which leads to false confidence
 \end{itemize}
+
+\pause
 \end{block}
 
 \begin{block}{Our simulation}
@@ -566,7 +582,7 @@ high WEAT!
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.7\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-6-1} \end{center}
 \normalsize
 
 \vspace{1mm}
@@ -603,24 +619,8 @@ high WEAT!
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-6-1} \end{center}
-\normalsize
-\end{block}
-\end{frame}
-
-\begin{frame}{Cosine distance and connection type}
-\protect\hypertarget{cosine-distance-and-connection-type}{}
-\begin{block}{Distances for ``muslim''}
-\protect\hypertarget{distances-for-muslim}{}
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-7-1} \end{center}
-\end{block}
-\end{frame}
-
-\begin{frame}{Cosine distance and connection type}
-\protect\hypertarget{cosine-distance-and-connection-type-1}{}
-\begin{block}{Distances for ``priest''}
-\protect\hypertarget{distances-for-priest}{}
 \begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-8-1} \end{center}
+\normalsize
 \end{block}
 \end{frame}
 
