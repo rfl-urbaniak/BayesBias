@@ -41,7 +41,12 @@ options(kableExtra.latex.load_packages = FALSE)
 
 
 
+## The plan of the presentation
 
+- Introduction to the topic of bias in word embeddings
+- Analysis of methodological problems with MAC implementation
+- Explanation of pre-averaging limitations in methods such as WEAT and MAC
+- Our research and Bayesian approach
 
 
 
@@ -55,7 +60,7 @@ options(kableExtra.latex.load_packages = FALSE)
 
 - Representation of words with vectors of real numbers
 
-- Built to predict the probability of co-occurence 
+- Often built to predict the probability of co-occurence 
 
 <!-- check if the statement of co-occurence always right--> 
 
@@ -91,7 +96,7 @@ man | 0.451 | 0.897 | 0.472 | 0.088| ...
 
 -  $\mathsf{cosineDistance}\in (0, 2)$
 
-- Naive interpretation: proximity corresponds to semantic similarity (e.g. no triangle inequality)
+- Naive interpretation: proximity corresponds to semantic similarity 
 
 <!-- - Note cosine distance fails to meet triangle inequality -->
 
@@ -103,7 +108,7 @@ man | 0.451 | 0.897 | 0.472 | 0.088| ...
 
 ### The worry
 
-In the learning process these models can learn implicit biases that reflect harmful stereotypical thinking
+In the learning process word embeddings can learn implicit biases that reflect harmful stereotypical thinking
 
 
 \pause
@@ -191,7 +196,7 @@ ggplot(weat, aes(x=x,y=y, label = words))+geom_point()+geom_text(check_overlap =
   geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.7, yend=.4), linetype =2, arrow=arrow(), size=.05, color="orangered")+
   geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.7, yend=.5), linetype =2, arrow=arrow(), size=.05, color="orangered")+
     annotate("text", x = c(.32,.32,.32,.32), y = c(.23,.29,.35,.39), 
-             label = c(".7", ".6","1.1", "1.2") , color="black", 
+             label = c(".7", ".6",".1", ".2") , color="black", 
              size=7,  fontface="bold")+
     annotate("text", x = c(.1,.5,.7,1.2), y = c(.55,.55,.55,.55), 
            label = c("X", "A","B", "Y") , color=c("black", "blue","orangered","black"), 
@@ -205,15 +210,15 @@ ggplot(weat, aes(x=x,y=y, label = words))+geom_point()+geom_text(check_overlap =
 
 \footnotesize 
 
-- $s_1 = s(he,A,B) =  \frac{.6+.7}{2}  - \frac{1.2+1.1}{2} = 0.65-1.15= -0.5$
+- $s_1 = s(he,A,B) =  \frac{.6+.7}{2}  - \frac{.2+.1}{2} = .65-.15= .5$
 
-- $s_2 = s(man,A,B) = -.3$, \linebreak  $s_3 = s(woman,A,B) = .2, s_4 = s(she, A, B) = .3$
+- $s_2 = s(man,A,B) = .3$, \linebreak  $s_3 = s(woman,A,B) = -.6, s_4 = s(she, A, B) = -.3$
 
 \vspace{-4mm}
 
 \normalsize 
 \begin{align*}
-\mathsf{WEAT}(A,B) & = \frac{\nicefrac{(s_1+s_2)}{2} - \nicefrac{(s_3+s_4)}{2}}{sd(\{s_1,s_2,s_3,s_4\})} \approx - 1.95
+\mathsf{WEAT}(A,B) & = \frac{\nicefrac{(s_1+s_2)}{2} - \nicefrac{(s_3+s_4)}{2}}{sd(\{s_1,s_2,s_3,s_4\})} \approx 1.93
 \end{align*}
 
 
@@ -754,13 +759,17 @@ religionCoefs <- ulam(
 \end{figure}
 
 
+## Summary
 
-
+- Introduced to the topic of bias in word embeddings
+- Analysed methodological problems with MAC implementation
+- Explained of pre-averaging limitations in methods such as WEAT and MAC
+- Proposed Bayesian approach
 
 ## Further work
 
 - Including contrasts in Bayesian calculation
-- Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots?)
+- Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots)
 - Downstream tasks and connection with intrinsic evaluation
 - Testing data from the original Implicit Association Test (IAT) 
 - Applying uncertainty to WEAT and better word lists
