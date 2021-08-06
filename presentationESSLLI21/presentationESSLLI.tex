@@ -172,20 +172,20 @@ Bayesian approach to word embedding bias estimation}
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}{The plan of the presentation}
-\protect\hypertarget{the-plan-of-the-presentation}{}
+\begin{frame}{Presentation plan}
+\protect\hypertarget{presentation-plan}{}
 \begin{itemize}
 \tightlist
 \item
-  Introduction to the topic of bias in word embeddings
+  Bias in word embeddings
 \item
   WEAT and MAC methods
 \item
-  Methodological problems with MAC implementation
+  Methodological problems
 \item
-  Limitations of pre-averaging in biad detection methods
+  Limitations of pre-averaging in bias detection methods
 \item
-  Bayesian approach
+  Accounting for uncertainty with Bayesian approach
 \end{itemize}
 \end{frame}
 
@@ -240,16 +240,14 @@ man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{} \\
 \protect\hypertarget{cosine-based-measures-of-bias-2}{}
 \begin{block}{The worry}
 \protect\hypertarget{the-worry}{}
-In the learning process word embeddings can learn implicit biases that
-reflect harmful stereotypical thinking
+Word embeddings can learn implicit harmful biases
 
 \pause
 \end{block}
 
 \begin{block}{Cosine-based bias: basic intuition}
 \protect\hypertarget{cosine-based-bias-basic-intuition}{}
-Words belonging to an intuitively harmful stereotype are cosine-close to
-each other
+Stereotypically connected words are cosine-close
 \end{block}
 \end{frame}
 
@@ -338,6 +336,8 @@ WEAT(A,B) & = \frac{
 
 \footnotesize
 
+\vspace{2mm}
+
 (\protect\hyperlink{ref-Caliskan2017semanticsBiases}{Caliskan, Bryson,
 \& Narayanan, 2017}) with extensions in
 (\protect\hyperlink{ref-Lauscher2019multidimensional}{Lauscher \&
@@ -414,7 +414,7 @@ Tsvetkov, \& Black, 2019})
 \footnotesize 
 \begin{table}
 
-\caption{\label{tab:religionTableHeadEarly}Rows the religion dataset.}
+\caption{\label{tab:religionTableHeadEarly}A few rows from the religion dataset}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrr}
@@ -440,17 +440,13 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \protect\hypertarget{known-challenges}{}
 \begin{itemize}
 \item
-  Gender-direction might be an indicator of bias, but is insufficient.
-  After debiasing other non-gendered words can remain in biased
-  relations (\protect\hyperlink{ref-Gonen2019lipstick}{Gonen \&
-  Goldberg, 2019})
+  Gender-direction: insufficient indicator of bias
+  (\protect\hyperlink{ref-Gonen2019lipstick}{Gonen \& Goldberg, 2019})
 \item
-  Methods which involve analogies and their evaluations by human users
-  on Mechanical Turk are unreliable
+  Use of analogies: unreliable
   (\protect\hyperlink{ref-Nissim2020fair}{Nissim, Noord, \& Goot, 2020})
 \item
-  Sensitive to the choice of protected words, capitalization, distance
-  measures and embedding methods
+  High sensitivity to irrelevant factors
   (\protect\hyperlink{ref-zhang2020robustness}{Zhang, Sneyd, \&
   Stevenson, 2020})
 \end{itemize}
@@ -801,22 +797,26 @@ high WEAT!
 \end{figure}
 \end{frame}
 
-\begin{frame}{Summary}
+\begin{frame}{Thank you!}
+\protect\hypertarget{thank-you}{}
+\begin{block}{Summary}
 \protect\hypertarget{summary}{}
 \begin{itemize}
 \tightlist
 \item
-  Introduced to the topic of bias in word embeddings
+  Bias in word embeddings
 \item
-  Analysed methodological problems with MAC implementation
+  WEAT and MAC methods
 \item
-  Explained of pre-averaging limitations in methods such as WEAT and MAC
+  Methodological problems
 \item
-  Proposed Bayesian approach
+  Limitations of pre-averaging in bias detection methods
+\item
+  Accounting for uncertainty with Bayesian approach
 \end{itemize}
-\end{frame}
+\end{block}
 
-\begin{frame}{Further work}
+\begin{block}{Further work}
 \protect\hypertarget{further-work}{}
 \begin{itemize}
 \tightlist
@@ -834,6 +834,7 @@ high WEAT!
 \item
   Looking at other similarity measures
 \end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}{References}

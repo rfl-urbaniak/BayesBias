@@ -43,13 +43,13 @@ options(kableExtra.latex.load_packages = FALSE)
 
 
 
-## The plan of the presentation
+## Presentation plan
 
-- Introduction to the topic of bias in word embeddings
+- Bias in word embeddings
 - WEAT and MAC methods
-- Methodological problems with MAC implementation
+- Methodological problems
 - Limitations of pre-averaging in bias detection methods
-- Including uncertainty with Bayesian approach
+- Accounting for uncertainty with Bayesian approach
 
 
 
@@ -111,14 +111,14 @@ man | 0.451 | 0.897 | 0.472 | 0.088| ...
 
 ### The worry
 
-In the learning process word embeddings can learn implicit biases that reflect harmful stereotypical thinking
+Word embeddings can learn implicit harmful biases
 
 
 \pause
 
 ### Cosine-based bias: basic intuition
 
-Words belonging to an intuitively harmful stereotype are cosine-close to each other
+Stereotypically connected words are cosine-close
 
 
 
@@ -248,6 +248,7 @@ WEAT(A,B) & = \frac{
 
 \footnotesize
 
+\vspace{2mm}
 [@Caliskan2017semanticsBiases] with extensions in [@Lauscher2019multidimensional] and applications in [@Garg2018years]
 
 
@@ -335,7 +336,7 @@ religionSmall <- religionSmall[sample(1:nrow(religionSmall),6),-c(3,6)]
 rownames(religionSmall) <- c()
 religionSmall  %>%  kable(format = "latex",booktabs=T,
                       linesep = "",  escape = FALSE, 
-                      caption = "Rows the religion dataset.") %>%
+                      caption = "A few rows from the religion dataset") %>%
                       kable_styling(latex_options=c("scale_down"))
 ```
 \normalsize
@@ -350,13 +351,12 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### Known challenges
 
-- Gender-direction might be an indicator of bias, but is insufficient. After debiasing other non-gendered words can remain in biased relations  [@Gonen2019lipstick]
+- Gender-direction: insufficient indicator of bias [@Gonen2019lipstick]
  
-- Methods which involve analogies and their evaluations by human users on Mechanical Turk are unreliable [@Nissim2020fair]
+- Use of analogies: unreliable [@Nissim2020fair]
 
-- Sensitive to the choice of protected words, capitalization, distance measures and embedding methods [@zhang2020robustness]
+- High sensitivity to irrelevant factors [@zhang2020robustness]
 
-<!-- dodac? -->
 
 
 ## Some methodological problems
@@ -765,15 +765,19 @@ religionCoefs <- ulam(
 \end{figure}
 
 
-## Summary
+## Thank you!
 
-- Introduction to the topic of bias in word embeddings
+
+### Summary
+
+- Bias in word embeddings
 - WEAT and MAC methods
-- Methodological problems with MAC implementation
+- Methodological problems
 - Limitations of pre-averaging in bias detection methods
-- Including uncertainty with Bayesian approach
+- Accounting for uncertainty with Bayesian approach
 
-## Further work
+
+### Further work
 
 - Including contrasts in Bayesian calculation
 - Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots)
@@ -781,8 +785,6 @@ religionCoefs <- ulam(
 - Testing data from the original Implicit Association Test (IAT) 
 - Applying uncertainty to WEAT and better word lists
 - Looking at other similarity measures
-
-
 
 ## References
 \tiny
