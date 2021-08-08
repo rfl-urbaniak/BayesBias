@@ -311,8 +311,10 @@ MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \i
 
 - The t-tests they employ are run on average cosines used to calculate MAC
 
+\vspace{2mm}
 
 \footnotesize 
+
 
 [@Manzini2019blackToCriminal]
 
@@ -351,11 +353,14 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### Known challenges
 
-- Gender-direction: insufficient indicator of bias [@Gonen2019lipstick]
- 
-- Use of analogies: unreliable [@Nissim2020fair]
+- Gender-direction: insufficient indicator of
+    bias  \footnotesize  [@Gonen2019lipstick]
 
-- High sensitivity to irrelevant factors [@zhang2020robustness]
+\normalsize
+
+- Use of analogies: unreliable \footnotesize  [@Nissim2020fair] \normalsize
+
+- High sensitivity to irrelevant factors \footnotesize  [@zhang2020robustness] \normalsize
 
 
 
@@ -467,9 +472,11 @@ Biased        | 0.859
 Hard Debiased | 0.934
 Soft Debiased ($\lambda$ = 0.2) | 0.894
 
-What values are sufficient for the presence of bias and what differences are sign of real improvement? Low $p$-values are not high effect indicators!  
+- What values are sufficient for the presence of bias and what differences are sign of real improvement? 
 
-We compare HPDIs.
+- Low $p$-values are not high effect indicators!  
+
+- We compare HPDIs.
 
 <!--  What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology.  -->
 
@@ -493,7 +500,7 @@ We compare HPDIs.
 
 ### Our simulation
 
-Suppose all similarities for two classes are randomly drawn from the same distribution, $\mathsf{Normal}(0,.05)$, you still can get really high WEAT!
+Suppose all similarities for two classes are randomly drawn from the same distribution, $\mathsf{Normal}(\mu = 0, \sigma = .05)$, you still can get a really high WEAT!
 
 
 
@@ -540,7 +547,7 @@ numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 
 \footnotesize 
 
-\vspace{-4mm}
+\vspace{-2mm}
 
 - Raw sd in data is `r round(rawsd,3)`
 - The sd of means is `r round(factor,3)`
@@ -735,8 +742,8 @@ religionCoefs <- ulam(
 \vspace{-4cm}
 
    \begin{itemize}
-   \item Male attributes strong co-occurrence with female attributes
-   \item Sometimes different is stronger than associated
+   \item Male attributes: strong co-occurrence with female attributes
+   \item Sometimes \textsf{different} is closer than \textsf{associated}
    \item Almost no overlap with control groups
    \end{itemize}
    \end{minipage}
