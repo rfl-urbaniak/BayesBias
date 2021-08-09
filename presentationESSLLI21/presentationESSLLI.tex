@@ -1,33 +1,37 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
-\documentclass[10pt,ignorenonframetext,x11names, dvipsnames, bibspacing,natbib]{beamer}
+\documentclass[
+  10pt,
+  ignorenonframetext,
+  x11names, dvipsnames, bibspacing,natbib]{beamer}
 \usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
 \beamertemplatenavigationsymbolsempty
-% Prevent slide breaks in the middle of a paragraph:
+% Prevent slide breaks in the middle of a paragraph
 \widowpenalties 1 10000
 \raggedbottom
 \setbeamertemplate{part page}{
-\centering
-\begin{beamercolorbox}[sep=16pt,center]{part title}
-  \usebeamerfont{part title}\insertpart\par
-\end{beamercolorbox}
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
 }
 \setbeamertemplate{section page}{
-\centering
-\begin{beamercolorbox}[sep=12pt,center]{part title}
-  \usebeamerfont{section title}\insertsection\par
-\end{beamercolorbox}
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
 }
 \setbeamertemplate{subsection page}{
-\centering
-\begin{beamercolorbox}[sep=8pt,center]{part title}
-  \usebeamerfont{subsection title}\insertsubsection\par
-\end{beamercolorbox}
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
 }
 \AtBeginPart{
   \frame{\partpage}
@@ -41,44 +45,48 @@
 \AtBeginSubsection{
   \frame{\subsectionpage}
 }
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usetheme[]{Rafal_beamerSly1}
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\usepackage{hyperref}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Taking uncertainty seriously A Bayesian approach to word embedding bias estimation},
-            pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk)},
-            colorlinks=true,
-            linkcolor=Maroon,
-            filecolor=Maroon,
-            citecolor=Blue,
-            urlcolor=blue,
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={Taking uncertainty seriously A Bayesian approach to word embedding bias estimation},
+  pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk)},
+  colorlinks=true,
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -120,27 +128,45 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 \usepackage{caption}
-% These lines are needed to make table captions work with longtable:
+% Make caption package work with longtable
 \makeatletter
 \def\fnum@table{\tablename~\thetable}
 \makeatother
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
-
-\title{\Large Taking uncertainty seriously \newline \normalsize A Bayesian
-approach to word embedding bias estimation}
-\author{Alicja Dobrzeniecka \& Rafal Urbaniak \footnotesize \newline (LoPSE
-research group, University of Gdansk)}
+\title{\Large Taking uncertainty seriously \newline \normalsize A
+Bayesian approach to word embedding bias estimation}
+\author{Alicja Dobrzeniecka \& Rafal Urbaniak
+\footnotesize \newline (LoPSE research group, University of Gdansk)}
 \date{ExpSem2021, ESSLLI}
 
 \begin{document}
@@ -148,7 +174,6 @@ research group, University of Gdansk)}
 
 \begin{frame}{Presentation plan}
 \protect\hypertarget{presentation-plan}{}
-
 \begin{itemize}
 \tightlist
 \item
@@ -162,14 +187,12 @@ research group, University of Gdansk)}
 \item
   Accounting for uncertainty with Bayesian approach
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias}{}
-
 \begin{block}{Word embeddings}
-
+\protect\hypertarget{word-embeddings}{}
 \begin{itemize}
 \item
   Representation of words with vectors of real numbers
@@ -179,23 +202,20 @@ research group, University of Gdansk)}
 
 \begin{longtable}[]{@{}llllll@{}}
 \toprule
-word & 1 & 2 & 3 & 4 & \ldots{}\tabularnewline
+word & 1 & 2 & 3 & 4 & \ldots{} \\
 \midrule
 \endhead
-woman & 0.456 & 0.267 & 0.675 & 0.131 & \ldots{}\tabularnewline
-man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{}\tabularnewline
+woman & 0.456 & 0.267 & 0.675 & 0.131 & \ldots{} \\
+man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{} \\
 \bottomrule
 \end{longtable}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-1}{}
-
 \begin{block}{Cosine similarity \& distance}
-
+\protect\hypertarget{cosine-similarity-distance}{}
 \vspace{-4mm}
 
 \begin{align} \tag{Sim}
@@ -213,44 +233,37 @@ man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{}\tabularnewline
 \item
   Naive interpretation: proximity corresponds to semantic similarity
 \end{itemize}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-2}{}
-
 \begin{block}{The worry}
-
+\protect\hypertarget{the-worry}{}
 Word embeddings can learn implicit harmful biases
 
 \pause
-
 \end{block}
 
-\begin{block}{Cosine-based bias: basic intuition}
-
+\begin{block}{The basic intuition}
+\protect\hypertarget{the-basic-intuition}{}
 Stereotypically connected words are cosine-close
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-3}{}
-
 \begin{block}{A visual example}
-
+\protect\hypertarget{a-visual-example}{}
 \footnotesize
 
 \begin{itemize}
 \item
-  feminine occupations: ``homemaker'', ``nurse'', ``receptionist'',
-  ``librarian'', etc.
+  feminine occupations: ``homemaker,'' ``nurse,'' ``receptionist,''
+  ``librarian,'' etc.
 \item
-  masculine occupations: ``maestro'', ``captain'', ``architect'',
-  ``boss'', etc.
+  masculine occupations: ``maestro,'' ``captain,'' ``architect,''
+  ``boss,'' etc.
 \end{itemize}
 
 \normalsize
@@ -260,16 +273,13 @@ Stereotypically connected words are cosine-close
 
 \begin{center}\includegraphics[width=0.6\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-1-1} \end{center}
 \normalsize
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-4}{}
-
 \begin{block}{Example: Word Embedding Association Test (WEAT)}
-
+\protect\hypertarget{example-word-embedding-association-test-weat}{}
 \vspace{1mm}
 \footnotesize
 
@@ -295,16 +305,13 @@ Stereotypically connected words are cosine-close
 \begin{align*}
 \mathsf{WEAT}(A,B) & = \frac{\nicefrac{(s_1+s_2)}{2} - \nicefrac{(s_3+s_4)}{2}}{sd(\{s_1,s_2,s_3,s_4\})} \approx 1.93
 \end{align*}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-5}{}
-
 \begin{block}{Example: Word Embedding Association Test (WEAT)}
-
+\protect\hypertarget{example-word-embedding-association-test-weat-1}{}
 \begin{align*}
 s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
 \\
@@ -331,22 +338,19 @@ WEAT(A,B) & = \frac{
 
 \vspace{2mm}
 
-(Caliskan, Bryson, \& Narayanan,
-\protect\hyperlink{ref-Caliskan2017semanticsBiases}{2017}) with
-extensions in (Lauscher \& Glavas,
-\protect\hyperlink{ref-Lauscher2019multidimensional}{2019}) and
-applications in (Garg, Schiebinger, Jurafsky, \& Zou,
-\protect\hyperlink{ref-Garg2018years}{2018})
-
+(\protect\hyperlink{ref-Caliskan2017semanticsBiases}{Caliskan, Bryson,
+\& Narayanan, 2017}) with extensions in
+(\protect\hyperlink{ref-Lauscher2019multidimensional}{Lauscher \&
+Glavas, 2019}) and applications in
+(\protect\hyperlink{ref-Garg2018years}{Garg, Schiebinger, Jurafsky, \&
+Zou, 2018})
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-6}{}
-
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
-
+\protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac}{}
 \vspace{1mm}
 \footnotesize
 
@@ -369,16 +373,13 @@ s_2 & = s(muslim,A_2) = \frac{cos(muslim,familiar)+cos(muslim,conservative)}{2}\
 \begin{align*}
  MAC(T,A) & = \mathsf{mean}(\{s_i \vert i \in 1, \dots, k\})
 \end{align*}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-7}{}
-
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
-
+\protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac-1}{}
 \begin{align*}
 S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
 MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
@@ -403,18 +404,15 @@ MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \i
 
 \footnotesize
 
-(Manzini, Lim, Tsvetkov, \& Black,
-\protect\hyperlink{ref-Manzini2019blackToCriminal}{2019})
-
+(\protect\hyperlink{ref-Manzini2019blackToCriminal}{Manzini, Lim,
+Tsvetkov, \& Black, 2019})
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-8}{}
-
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
-
+\protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac-2}{}
 \footnotesize 
 \begin{table}
 
@@ -435,63 +433,55 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \end{tabular}}
 \end{table}
 \normalsize
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
 \protect\hypertarget{cosine-based-measures-of-bias-9}{}
-
 \begin{block}{Known challenges}
-
+\protect\hypertarget{known-challenges}{}
 \begin{itemize}
 \tightlist
 \item
-  Gender-direction: insufficient indicator of bias \footnotesize  (Gonen
-  \& Goldberg, \protect\hyperlink{ref-Gonen2019lipstick}{2019})
+  Gender-direction: insufficient indicator of bias
+  \footnotesize  (\protect\hyperlink{ref-Gonen2019lipstick}{Gonen \&
+  Goldberg, 2019})
 \end{itemize}
 
 \normalsize
 
 \begin{itemize}
 \item
-  Use of analogies: unreliable \footnotesize  (Nissim, Noord, \& Goot,
-  \protect\hyperlink{ref-Nissim2020fair}{2020}) \normalsize
+  Use of analogies: unreliable
+  \footnotesize  (\protect\hyperlink{ref-Nissim2020fair}{Nissim, Noord,
+  \& Goot, 2020}) \normalsize
 \item
-  High sensitivity to irrelevant factors \footnotesize  (Zhang, Sneyd,
-  \& Stevenson, \protect\hyperlink{ref-zhang2020robustness}{2020})
-  \normalsize
+  High sensitivity to irrelevant factors
+  \footnotesize  (\protect\hyperlink{ref-zhang2020robustness}{Zhang,
+  Sneyd, \& Stevenson, 2020}) \normalsize
 \end{itemize}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems}{}
-
 \begin{block}{Word list choice is unprincipled}
-
+\protect\hypertarget{word-list-choice-is-unprincipled}{}
 We run with it for comparison
 
 \pause
-
 \end{block}
 
 \begin{block}{No design considerations to sample size}
-
+\protect\hypertarget{no-design-considerations-to-sample-size}{}
 We statistically gauge the uncertainty that arises from raw sample sizes
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-1}{}
-
 \begin{block}{No word class distinction and no control group}
-
+\protect\hypertarget{no-word-class-distinction-and-no-control-group}{}
 We make the subclasses clear, add human neutral predicates and neutral
 predicates for control. We used L2-Reddit corpus and GoogleNews (we
 present the results for Reddit for brevity).
@@ -518,57 +508,45 @@ muslim & nationalized & neutral & 0.870 & 0.130 & none\\
 \end{tabular}}
 \end{table}
 \normalsize
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-2}{}
-
 \begin{block}{Outliers and surprisingly dissimilar words}
-
+\protect\hypertarget{outliers-and-surprisingly-dissimilar-words}{}
 We study those by visualizations and uncertainty estimates
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-3}{}
-
 \begin{block}{Distances for ``muslim''}
-
+\protect\hypertarget{distances-for-muslim}{}
 \begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-4-1} \end{center}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-4}{}
-
 \begin{block}{Distances for ``priest''}
-
+\protect\hypertarget{distances-for-priest}{}
 \begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-5-1} \end{center}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-5}{}
-
 \begin{block}{No principled interpretation}
-
+\protect\hypertarget{no-principled-interpretation}{}
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-Religion Debiasing & MAC (distance)\tabularnewline
+Religion Debiasing & MAC (distance) \\
 \midrule
 \endhead
-Biased & 0.859\tabularnewline
-Hard Debiased & 0.934\tabularnewline
-Soft Debiased (\(\lambda\) = 0.2) & 0.894\tabularnewline
+Biased & 0.859 \\
+Hard Debiased & 0.934 \\
+Soft Debiased (\(\lambda\) = 0.2) & 0.894 \\
 \bottomrule
 \end{longtable}
 
@@ -581,16 +559,13 @@ Soft Debiased (\(\lambda\) = 0.2) & 0.894\tabularnewline
 \item
   We compare HPDIs.
 \end{itemize}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging}
 \protect\hypertarget{the-problem-with-pre-averaging}{}
-
 \begin{block}{Key conceptual issues}
-
+\protect\hypertarget{key-conceptual-issues}{}
 \begin{itemize}
 \tightlist
 \item
@@ -600,24 +575,20 @@ Soft Debiased (\(\lambda\) = 0.2) & 0.894\tabularnewline
 \end{itemize}
 
 \pause
-
 \end{block}
 
 \begin{block}{Our simulation}
-
+\protect\hypertarget{our-simulation}{}
 Suppose all similarities for two classes are randomly drawn from the
 same distribution, \(\mathsf{Normal}(\mu = 0, \sigma = .05)\), you still
 can get a really high WEAT!
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging}
 \protect\hypertarget{the-problem-with-pre-averaging-1}{}
-
 \begin{block}{One simulation}
-
+\protect\hypertarget{one-simulation}{}
 \vspace{1mm}
 \footnotesize
 
@@ -643,32 +614,28 @@ can get a really high WEAT!
 \item
   The WEAT score is 1.825
 \item
-  The largest effect size reported by Caliskan et al.
+  The largest effect size reported by
+  \protect\hyperlink{ref-Caliskan2017semanticsBiases}{Caliskan, Bryson,
+  \& Narayanan}
   (\protect\hyperlink{ref-Caliskan2017semanticsBiases}{2017}) is 1.81!
 \end{itemize}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging}
 \protect\hypertarget{the-problem-with-pre-averaging-2}{}
-
 \begin{block}{50k simulations (same parameters)}
-
+\protect\hypertarget{k-simulations-same-parameters}{}
 \vspace{1mm}
 \footnotesize
 
 \begin{center}\includegraphics[width=0.8\linewidth]{presentationESSLLI_files/figure-beamer/unnamed-chunk-8-1} \end{center}
 \normalsize
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Advantages of the Bayesian way}
 \protect\hypertarget{advantages-of-the-bayesian-way}{}
-
 \begin{itemize}
 \tightlist
 \item
@@ -680,54 +647,47 @@ can get a really high WEAT!
 \item
   More honest risk assessment and decision making
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}{Bayesian model}
 \protect\hypertarget{bayesian-model}{}
-
 \begin{block}{Choosing priors}
-
+\protect\hypertarget{choosing-priors}{}
 \begin{center}\includegraphics[width=1\linewidth]{presentationESSLLI_files/figure-beamer/priorsVis-1} \end{center}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}[fragile]{Bayesian model architecture}
 \protect\hypertarget{bayesian-model-architecture}{}
-
 \vspace{1mm}
 \footnotesize
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(rethinking)}
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\OtherTok{TRUE}\NormalTok{ )}
-\NormalTok{religionCoefs <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
-  \KeywordTok{alist}\NormalTok{(}
-\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
-\NormalTok{    mu <-}\StringTok{ }\NormalTok{m }\OperatorTok{+}\StringTok{ }\NormalTok{co[con],}
-\NormalTok{    m }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
-\NormalTok{    co[con] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
-\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\ConstantTok{TRUE}\NormalTok{ )}
+\NormalTok{religionCoefs }\OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ m }\SpecialCharTok{+}\NormalTok{ co[con],}
+\NormalTok{    m }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    co[con] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
 \NormalTok{  ),}
-  \DataTypeTok{data =}\NormalTok{ religion,}
-  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{8000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{, }
-  \DataTypeTok{log_lik =} \OtherTok{TRUE}
+  \AttributeTok{data =}\NormalTok{ religion,}
+  \AttributeTok{chains=}\DecValTok{2}\NormalTok{ , }\AttributeTok{iter=}\DecValTok{8000}\NormalTok{ , }\AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }
+  \AttributeTok{log\_lik =} \ConstantTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \normalsize
-
 \end{frame}
 
 \begin{frame}{Dataset-level coefficients}
 \protect\hypertarget{dataset-level-coefficients}{}
-
 \begin{block}{Religion with 89\%-compatibility intervals (HPDI)}
-
+\protect\hypertarget{religion-with-89-compatibility-intervals-hpdi}{}
 \begin{center}
 \begin{figure}[!htb]\centering
    \begin{minipage}{0.55\textwidth}
@@ -742,16 +702,13 @@ can get a really high WEAT!
   \end{figure}
   
 \end{center}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{Dataset-level coefficients}
 \protect\hypertarget{dataset-level-coefficients-1}{}
-
 \begin{block}{Gender with 89\%-compatibility intervals (HPDI)}
-
+\protect\hypertarget{gender-with-89-compatibility-intervals-hpdi}{}
 \begin{center}
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
@@ -768,43 +725,38 @@ can get a really high WEAT!
 
 
 \end{center}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}[fragile]{Bayesian model architecture}
 \protect\hypertarget{bayesian-model-architecture-1}{}
-
 \vspace{1mm}
 \footnotesize
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(rethinking)}
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\OtherTok{TRUE}\NormalTok{ )}
-\NormalTok{religionCoefs <-}\StringTok{ }\KeywordTok{ulam}\NormalTok{(}
-  \KeywordTok{alist}\NormalTok{(}
-\NormalTok{    cosineDistance }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(mu,sigma),}
-\NormalTok{    mu <-}\StringTok{ }\NormalTok{m[pw] }\OperatorTok{+}\StringTok{ }\NormalTok{co[con],}
-\NormalTok{    m[pw] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
-\NormalTok{    co[con] }\OperatorTok{~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
-\NormalTok{    sigma }\OperatorTok{~}\StringTok{ }\KeywordTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{buildtools.check =} \ControlFlowTok{function}\NormalTok{(action) }\ConstantTok{TRUE}\NormalTok{ )}
+\NormalTok{religionCoefs }\OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+\NormalTok{    cosineDistance }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ m[pw] }\SpecialCharTok{+}\NormalTok{ co[con],}
+\NormalTok{    m[pw] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    co[con] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{),}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dcauchy}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
 \NormalTok{  ),}
-  \DataTypeTok{data =}\NormalTok{ religion,}
-  \DataTypeTok{chains=}\DecValTok{2}\NormalTok{ , }\DataTypeTok{iter=}\DecValTok{8000}\NormalTok{ , }\DataTypeTok{warmup=}\DecValTok{1000}\NormalTok{, }
-  \DataTypeTok{log_lik =} \OtherTok{TRUE}
+  \AttributeTok{data =}\NormalTok{ religion,}
+  \AttributeTok{chains=}\DecValTok{2}\NormalTok{ , }\AttributeTok{iter=}\DecValTok{8000}\NormalTok{ , }\AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }
+  \AttributeTok{log\_lik =} \ConstantTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \normalsize
-
 \end{frame}
 
 \begin{frame}{Word-level coefficients}
 \protect\hypertarget{word-level-coefficients}{}
-
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
 \includegraphics[width=7.5cm]{../images/visReligionReddit.png}
@@ -819,12 +771,10 @@ can get a really high WEAT!
    \end{itemize}
    \end{minipage}
 \end{figure}
-
 \end{frame}
 
 \begin{frame}{Word-level coefficients}
 \protect\hypertarget{word-level-coefficients-1}{}
-
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
 \includegraphics[width=7.5cm]{../images/visGenderReddit.png}
@@ -840,12 +790,10 @@ can get a really high WEAT!
    \end{itemize}
    \end{minipage}
 \end{figure}
-
 \end{frame}
 
 \begin{frame}{Word-level coefficients}
 \protect\hypertarget{word-level-coefficients-2}{}
-
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
 \includegraphics[width=7.5cm]{../images/visRaceReddit.png}
@@ -861,14 +809,12 @@ can get a really high WEAT!
    \end{itemize}
    \end{minipage}
 \end{figure}
-
 \end{frame}
 
 \begin{frame}{Thank you!}
 \protect\hypertarget{thank-you}{}
-
 \begin{block}{Summary}
-
+\protect\hypertarget{summary}{}
 \begin{itemize}
 \tightlist
 \item
@@ -882,11 +828,10 @@ can get a really high WEAT!
 \item
   Accounting for uncertainty with Bayesian approach
 \end{itemize}
-
 \end{block}
 
 \begin{block}{Further work}
-
+\protect\hypertarget{further-work}{}
 \begin{itemize}
 \tightlist
 \item
@@ -903,17 +848,15 @@ can get a really high WEAT!
 \item
   Looking at other similarity measures
 \end{itemize}
-
 \end{block}
-
 \end{frame}
 
 \begin{frame}{References}
 \protect\hypertarget{references}{}
-
 \tiny
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
 Caliskan, A., Bryson, J. J., \& Narayanan, A. (2017). Semantics derived
 automatically from language corpora contain human-like biases.
@@ -927,13 +870,13 @@ embeddings quantify 100 years of gender and ethnic stereotypes.
 E3635--E3644. \url{https://doi.org/10.1073/pnas.1720347115}
 
 \leavevmode\hypertarget{ref-Gonen2019lipstick}{}%
-Gonen, H., \& Goldberg, Y. (2019). Lipstick on a pig: Debiasing methods
-cover up systematic gender biases in word embeddings but do not remove
-them. \emph{Proceedings of the 2019 Conference of the North American
-Chapter of the Association for Computational Linguistics: Human Language
-Technologies, Volume 1 (Long and Short Papers)}, 609--614. Minneapolis,
-Minnesota: Association for Computational Linguistics.
-\url{https://doi.org/10.18653/v1/N19-1061}
+Gonen, H., \& Goldberg, Y. (2019). Lipstick on a pig: {D}ebiasing
+methods cover up systematic gender biases in word embeddings but do not
+remove them. \emph{Proceedings of the 2019 Conference of the North
+{A}merican Chapter of the Association for Computational Linguistics:
+Human Language Technologies, Volume 1 (Long and Short Papers)},
+609--614. Minneapolis, Minnesota: Association for Computational
+Linguistics. \url{https://doi.org/10.18653/v1/N19-1061}
 
 \leavevmode\hypertarget{ref-Lauscher2019multidimensional}{}%
 Lauscher, A., \& Glavas, G. (2019). Are we consistently biased?
@@ -958,6 +901,7 @@ Zhang, H., Sneyd, A., \& Stevenson, M. (2020). \emph{Robustness and
 reliability of gender bias assessment in word embeddings: The role of
 base pairs}. Retrieved from \url{http://arxiv.org/abs/2010.02847}
 
+\end{CSLReferences}
 \end{frame}
 
 \end{document}

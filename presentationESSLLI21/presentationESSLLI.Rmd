@@ -116,7 +116,7 @@ Word embeddings can learn implicit harmful biases
 
 \pause
 
-### Cosine-based bias: basic intuition
+### The basic intuition
 
 Stereotypically connected words are cosine-close
 
