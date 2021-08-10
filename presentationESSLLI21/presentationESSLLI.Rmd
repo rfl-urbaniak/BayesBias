@@ -132,9 +132,9 @@ Stereotypically connected words are cosine-close
 
 \footnotesize 
 
-- feminine occupations: "homemaker", "nurse", "receptionist", "librarian", etc.
+- "feminine" occupations: "homemaker", "nurse", "receptionist", "librarian", etc.
 
-- masculine occupations:  "maestro",  "captain", "architect", "boss", etc.
+- "masculine" occupations:  "maestro",  "captain", "architect", "boss", etc.
 
 \normalsize 
 
