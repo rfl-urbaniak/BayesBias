@@ -1,0 +1,451 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  10pt,
+  dvipsnames,enabledeprecatedfontcommands]{scrartcl}
+\title{Taking uncertainty in word embedding bias estimation seriously: a
+bayesian approach}
+\author{Alicja Dobrzeniecka and Rafal Urbaniak}
+\date{}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Taking uncertainty in word embedding bias estimation seriously: a bayesian approach},
+  pdfauthor={Alicja Dobrzeniecka and Rafal Urbaniak},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+%\documentclass{article}
+
+% %packages
+\usepackage{booktabs}
+%\usepackage[left]{showlabels}
+\usepackage{multirow}
+\usepackage{subcaption}
+
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{etex}
+%\usepackage{yfonts}
+\usepackage{marvosym}
+\usepackage[notextcomp]{kpfonts}
+\usepackage{nicefrac}
+\newcommand*{\QED}{\hfill \footnotesize {\sc Q.e.d.}}
+\usepackage{floatrow}
+
+\usepackage[textsize=footnotesize]{todonotes}
+\newcommand{\ali}[1]{\todo[color=gray!40]{\textbf{Alicja:} #1}}
+\newcommand{\mar}[1]{\todo[color=blue!40]{#1}}
+\newcommand{\raf}[1]{\todo[color=olive!40]{#1}}
+
+%\linespread{1.5}
+\newcommand{\indep}{\!\perp \!\!\! \perp\!}
+
+
+\setlength{\parindent}{10pt}
+\setlength{\parskip}{1pt}
+
+
+%language
+%\usepackage{times}
+\usepackage{mathptmx}
+\usepackage[scaled=0.86]{helvet}
+\usepackage{t1enc}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[polish]{babel}
+%\usepackage{polski}
+
+
+
+
+%AMS
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{geometry}
+ \geometry{a4paper,left=35mm,top=20mm,}
+
+
+%environments
+\newtheorem{fact}{Fact}
+
+
+
+%abbreviations
+\newcommand{\ra}{\rangle}
+\newcommand{\la}{\langle}
+\newcommand{\n}{\neg}
+\newcommand{\et}{\wedge}
+\newcommand{\jt}{\rightarrow}
+\newcommand{\ko}[1]{\forall  #1\,}
+\newcommand{\ro}{\leftrightarrow}
+\newcommand{\exi}[1]{\exists\, {_{#1}}}
+\newcommand{\pr}[1]{\ensuremath{\mathsf{P}(#1)}}
+\newcommand{\cost}{\mathsf{cost}}
+\newcommand{\benefit}{\mathsf{benefit}}
+\newcommand{\ut}{\mathsf{ut}}
+
+\newcommand{\odds}{\mathsf{Odds}}
+\newcommand{\ind}{\mathsf{Ind}}
+\newcommand{\nf}[2]{\nicefrac{#1\,}{#2}}
+\newcommand{\R}[1]{\texttt{#1}}
+\newcommand{\prr}[1]{\mbox{$\mathtt{P}_{prior}(#1)$}}
+\newcommand{\prp}[1]{\mbox{$\mathtt{P}_{posterior}(#1)$}}
+
+
+
+\newtheorem{q}{\color{blue}Question}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[fact]
+
+
+%technical intermezzo
+%---------------------
+
+\newcommand{\intermezzoa}{
+	\begin{minipage}[c]{13cm}
+	\begin{center}\rule{10cm}{0.4pt}
+
+
+
+	\tiny{\sc Optional Content Starts}
+	
+	\vspace{-1mm}
+	
+	\rule{10cm}{0.4pt}\end{center}
+	\end{minipage}\nopagebreak 
+	}
+
+
+\newcommand{\intermezzob}{\nopagebreak 
+	\begin{minipage}[c]{13cm}
+	\begin{center}\rule{10cm}{0.4pt}
+
+	\tiny{\sc Optional Content Ends}
+	
+	\vspace{-1mm}
+	
+	\rule{10cm}{0.4pt}\end{center}
+	\end{minipage}
+	}
+	
+	
+%--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newtheorem*{reply*}{Reply}
+\usepackage{enumitem}
+\newcommand{\question}[1]{\begin{enumerate}[resume,leftmargin=0cm,labelsep=0cm,align=left]
+\item #1
+\end{enumerate}}
+
+\usepackage{float}
+
+% \setbeamertemplate{blocks}[rounded][shadow=true]
+% \setbeamertemplate{itemize items}[ball]
+% \AtBeginPart{}
+% \AtBeginSection{}
+% \AtBeginSubsection{}
+% \AtBeginSubsubsection{}
+% \setlength{\emergencystretch}{0em}
+% \setlength{\parskip}{0pt}
+
+
+
+
+
+
+\usepackage[authoryear]{natbib}
+
+%\bibliographystyle{apalike}
+
+
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows}
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{cosine-based-measures-of-bias}{%
+\section{Cosine-based measures of
+bias}\label{cosine-based-measures-of-bias}}
+
+\raf{fix bibliography}
+
+Modern Natural Language Processing (NLP) models are used to complete
+various tasks such as providing email filters, smart assistants, search
+results, language translations, text analytics and so on. All of them
+need as an input words represented by means of numbers which is
+accomplished with word embeddings. It seems that in the learning process
+these models can learn implicit biases that reflect harmful
+stereotypical thinking. One of the sources of bias in NLP can be located
+in the way the word embeddings are made. There is a considerable amount
+of literature available on the topic of bias detection and mitigation in
+NLP models.
+
+One of the first measures in the discussion has been developed by
+Bolukbasi, Chang, Zou, Saligrama, \& Kalai (2016). There, the gender
+bias of a word \(w\) is understood as its projection on the gender
+direction \(\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})\)
+(the gender direction is the top principal compontent of ten gender pair
+difference vectors). The underlying idea is that no bias is present if
+non-explicitly gendered words are in equal distance to both elements in
+all explicitly gender pairs. Given the (ideally) gender neutral words
+\(N\) and the gender direction \(g\) the direct gender bias is defined
+as the average distance of the words in \(N\) from \(g\) (\(c\) is a
+parameter determining how strict we want to be): \begin{align}
+\mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
+\end{align}
+
+The use of projections has been ciriticized for instance by Gonen \&
+Goldberg (2019), who point out that while gender-direction might be an
+indicator of bias, it is only one possible manifestation of it, and
+reducing a projection of words might be insufficient. For instance,
+``math'' and ``delicate'' might be in equal distance to both explicitly
+gendered words while being closer to quite different stereotypical
+attribute words. Further, the authors point out that most word pairs
+preserve similarity under debiasing meant to minimize projection-based
+bias.\footnote{Bolukbasi et al. (2016) use also another method which
+  involves analogies and their evaluations by human users on Mechanical
+  Turk. It is discussed and criticized in (Nissim, Noord, \& Goot,
+  2020).}
+
+To measure bias in word embeddings, Caliskan, Bryson, \& Narayanan
+(2017) proposed the Word Embedding Association Test (WEAT). The idea is
+that the measure of biases between two sets of target words, \(X\) and
+\(Y\), (we call them protected words) should be quantified in terms of
+the cosine similarity between the protected words and attribute words
+coming from two sets of stereotype attribute words, \(A\) and \(B\)
+(we'll call them attributes). For instance, \(X\) might be a set of male
+names, \(Y\) a set of female names, \(A\) might contain stereotypically
+male-related career words, and \(B\) stereotypically female-related
+family words. WEAT is a modification of the Implicit Association Test
+(IAT) (Nosek, Banaji, \& Greenwald, 2002) used in psychology and uses
+almost the same word sets, allowing for a \emph{prima facie} sensible
+comparison with bias in humans. If the person's attitude towards given
+pair of concept is to be interpreted as neutral, there should be no
+noticeable task completion time difference, and the final value from the
+formula should be around 0. Let \(f\) be a similarity measure (usually,
+cosine similarity). The association difference for a term \(t\) is:
+\begin{align}
+s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
+\end{align} \noindent then, the association difference between \(A\) a
+\(B\) is: \begin{align}
+s(X,Y,A,B) & = \sum_{x\in X} s(x,A,B) -  \sum_{y\in Y} s(y,A,B)
+\end{align} \noindent \(s(X,Y,A,B)\) is the statistic used in the
+significance test, and the \(p\)-value obtained by bootstrapping: it is
+the frequency of \(s(X_i,Y_i,A,B)>s(X,Y,A,B)\) for all equally sized
+partitions \(X_i, Y_i\) of \(X\cup Y\). The effect size is computed by
+normalizing the difference in means as follows: \begin{align}
+bias(A,B) & = \frac{
+\mu(\{s(x,A,B)\}_{x\in X}) -\mu(\{s(y,A,B)\}_{y\in Y}) 
+}{
+\sigma(\{s(w,A,B)\}_{w\in X\cup Y})
+}
+\end{align}
+
+Caliskan et al. (2017) show that significant biases---thus measured---
+similar to the ones discovered by IAT can be discovered in word
+embeddings. Lauscher \& Glavas (2019) extended the methodology to a
+multilingual and cross-lingual setting, arguing that using Euclidean
+distance instead of similarity does not make much difference, while the
+bias effects vary greatly across embedding models (interestingly, with
+social media-text trained embeddings being less biased than those based
+on Wikipedia).
+
+A similar methodology is employed by Garg, Schiebinger, Jurafsky, \& Zou
+(2018), who employ word embeddings trained on corpora from different
+decades to study the shifts in various biases. For instance, to compute
+the occupational embeddings bias for women the authors first compute the
+average vector of vector embeddings of words that represent women
+(e.g.~``she,'' ``female''), then calculate the Euclidean distance
+between this mean vector and words for occupations. Then they take the
+mean of these distances and subtract from it the analogously obtained
+mean for the average vector of vector embeddings of words that represent
+men. Formally they take the relative norm distance between \(X\) and
+\(Y\) to be: \begin{align}
+\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
+\end{align} \noindent where the norm used is Euclidean, and \(v_X\) and
+\(x_Y\) are average vectors for sets \(X\) and \(Y\) respectively.
+
+Manzini, Lim, Tsvetkov, \& Black (2019) modify WEAT to a multi-class
+setting, introducing Mean Average Cosine similarity as a measure of bias
+(in fact, in the paper they report distances rather than similarities).
+Let \(T = \{t_1, \dots, t_k\}\) be a class of protected word embeddings,
+and let each \(A_j\in A\) be a set of attributes stereotypically
+associated with a protected word). Then: \begin{align}
+S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align} That is, for each protected word \$T and each attribute
+class, they first take the mean for this protected word and all
+attributes in a given attribute class, and then take the mean of thus
+obtained means for all the protected words. The t-tests they employ are
+run on average cosines used to calculate MAC.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-bolukbasi2016man}{}}%
+Bolukbasi, T., Chang, K.-W., Zou, J., Saligrama, V., \& Kalai, A.
+(2016). \emph{Man is to computer programmer as woman is to homemaker?
+Debiasing word embeddings}. Retrieved from
+\url{https://arxiv.org/abs/1607.06520}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Caliskan2017semanticsBiases}{}}%
+Caliskan, A., Bryson, J. J., \& Narayanan, A. (2017). Semantics derived
+automatically from language corpora contain human-like biases.
+\emph{Science}, \emph{356}(6334), 183--186.
+\url{https://doi.org/10.1126/science.aal4230}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Garg2018years}{}}%
+Garg, N., Schiebinger, L., Jurafsky, D., \& Zou, J. (2018). Word
+embeddings quantify 100 years of gender and ethnic stereotypes.
+\emph{Proceedings of the National Academy of Sciences}, \emph{115}(16),
+E3635--E3644. \url{https://doi.org/10.1073/pnas.1720347115}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Gonen2019lipstick}{}}%
+Gonen, H., \& Goldberg, Y. (2019). Lipstick on a pig: {D}ebiasing
+methods cover up systematic gender biases in word embeddings but do not
+remove them. \emph{Proceedings of the 2019 Conference of the North
+{A}merican Chapter of the Association for Computational Linguistics:
+Human Language Technologies, Volume 1 (Long and Short Papers)},
+609--614. Minneapolis, Minnesota: Association for Computational
+Linguistics. \url{https://doi.org/10.18653/v1/N19-1061}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Lauscher2019multidimensional}{}}%
+Lauscher, A., \& Glavas, G. (2019). Are we consistently biased?
+Multidimensional analysis of biases in distributional word vectors.
+\emph{CoRR}, \emph{abs/1904.11783}. Retrieved from
+\url{http://arxiv.org/abs/1904.11783}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Manzini2019blackToCriminal}{}}%
+Manzini, T., Lim, Y. C., Tsvetkov, Y., \& Black, A. W. (2019).
+\emph{Black is to criminal as caucasian is to police: Detecting and
+removing multiclass bias in word embeddings}. Retrieved from
+\url{https://arxiv.org/abs/1904.04047}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Nissim2020fair}{}}%
+Nissim, M., Noord, R. van, \& Goot, R. van der. (2020). Fair is better
+than sensational: Man is to doctor as woman is to doctor.
+\emph{Computational Linguistics}, \emph{46}(2), 487--497.
+\url{https://doi.org/10.1162/coli_a_00379}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Nosek2002harvesting}{}}%
+Nosek, B. A., Banaji, M. R., \& Greenwald, A. G. (2002). Harvesting
+implicit group attitudes and beliefs from a demonstration web site.
+\emph{Group Dynamics: Theory, Research, and Practice}, \emph{6}(1),
+101--115. \url{https://doi.org/10.1037/1089-2699.6.1.101}
+
+\end{CSLReferences}
+
+\end{document}

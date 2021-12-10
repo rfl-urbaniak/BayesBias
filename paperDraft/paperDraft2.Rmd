@@ -1,0 +1,150 @@
+---
+title: 'Taking uncertainty in word embedding bias estimation seriously: a  bayesian
+  approach'
+author: "Alicja Dobrzeniecka and Rafal Urbaniak"
+output:
+  pdf_document:
+    number_sections: yes
+    df_print: kable
+    keep_tex: yes
+    includes:
+      in_header: Rafal_latex7.sty
+  html_document:
+    df_print: paged
+classoption: dvipsnames,enabledeprecatedfontcommands
+fontsize: 10pt
+documentclass: scrartcl
+urlcolor: blue
+bibliography: ../references/cosineReferences1.bib
+csl: ../references/apa-6th-edition.csl
+---
+
+
+
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '../')
+
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+```
+
+
+# Cosine-based measures of bias
+
+\raf{fix bibliography}
+
+\ali{proofread and think if we should add more}
+
+Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings. It seems that in the learning process these models can learn implicit biases that reflect harmful stereotypical thinking. One of the sources of bias in NLP can be located in the way the word embeddings are made. There is a considerable amount of literature available on the topic of bias detection and mitigation in NLP models. 
+
+
+One of the first measures in the discussion has been developed by @bolukbasi2016man. There, the gender bias of a word $w$ is understood as its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ (the gender direction is the top principal compontent of ten gender pair difference vectors). The underlying idea is that no bias is present if non-explicitly gendered words are in equal distance to both elements in all explicitly gender pairs. Given the (ideally) gender neutral words $N$ and the gender direction $g$ the direct gender bias is defined as the average distance of the words in $N$ from $g$ ($c$ is a parameter determining how strict we want to be):
+\begin{align}
+\mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert }
+\end{align}
+
+The use of projections has been ciriticized for instance by @Gonen2019lipstick, who point out that while gender-direction might be an indicator of bias, it is only one possible manifestation of it, and reducing a projection of words might be insufficient. For instance, "math" and "delicate" might be in equal distance to both explicitly gendered words while being closer to quite different stereotypical attribute words. Further, the authors point out that most word pairs preserve similarity under debiasing meant to minimize projection-based bias.^[@bolukbasi2016man use also another method which involves analogies and their evaluations by human users on Mechanical Turk. It is discussed and criticized in [@Nissim2020fair].]
+
+
+
+To measure bias in word embeddings, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans. If the person's attitude towards given pair of concept is to be interpreted as neutral, there should be no noticeable task completion time difference, and the final value from the formula should be around 0.
+Let $f$ be a similarity measure (usually, cosine similarity). The association difference for a term $t$ is:
+\begin{align}
+s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
+\end{align}
+\noindent then, the association difference between $A$ a $B$ is:
+\begin{align}
+s(X,Y,A,B) & = \sum_{x\in X} s(x,A,B) -  \sum_{y\in Y} s(y,A,B)
+\end{align}
+\noindent
+$s(X,Y,A,B)$ is the statistic used in the significance test, and the $p$-value obtained by bootstrapping: it is the frequency of $s(X_i,Y_i,A,B)>s(X,Y,A,B)$ for all equally sized partitions $X_i, Y_i$ of $X\cup Y$. The effect size is computed by normalizing the difference in means as follows:
+\begin{align}
+bias(A,B) & = \frac{
+\mu(\{s(x,A,B)\}_{x\in X}) -\mu(\{s(y,A,B)\}_{y\in Y}) 
+}{
+\sigma(\{s(w,A,B)\}_{w\in X\cup Y})
+}
+\end{align}
+
+@Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extended the methodology to a multilingual and cross-lingual setting, arguing that using Euclidean distance instead of similarity does not make much difference, while the bias effects vary greatly across embedding models (interestingly, with social media-text trained embeddings being less biased than those based on Wikipedia).
+
+A similar methodology is employed by @Garg2018years, who employ word embeddings trained on corpora from different decades to study the shifts in various biases. For instance, to compute the occupational embeddings bias for women the authors first compute the average vector of vector embeddings of words that represent women (e.g. "she", "female"), then calculate the Euclidean distance between this mean vector and words for occupations. Then they take the mean of these distances and subtract from it the analogously obtained mean for the average vector of vector embeddings of words that represent men. Formally they take the relative norm distance between $X$ and $Y$ to be:
+\begin{align}
+\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
+\end{align}
+\noindent where the norm used is Euclidean, and $v_X$ and $x_Y$ are average vectors for sets $X$ and $Y$ respectively. 
+
+
+@Manzini2019blackToCriminal modify WEAT to a multi-class setting, introducing Mean Average Cosine similarity as a measure of bias (in fact, in the paper  they report distances rather than similarities). Let $T = \{t_1, \dots, t_k\}$ be a class of protected word embeddings, and let each $A_j\in A$ be a set of attributes stereotypically associated with a protected word). Then:
+\begin{align}
+S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align}
+That is, for each protected word $T and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. The t-tests they employ are run on average cosines used to calculate MAC.
+
+
+
+
+
+\todo{odleglosc nie musi uchwytywac relacji semantycznej zeby oceniac bias}
+
+\todo{zalozenie, bardziej ze jezeli odleglosci przekladaja sie na downstream, to warto patrzec na odleglosci, nawet bez glebszej filozoficznej interpretacji ich}
+
+
+
+# Some methodological problems
+
+
+
+Such approaches, however, are not unproblematic. One may consider the selection of attributes for the bias research. For one thing, the word lists are often fairly small, and the papers do not discuss the impact of word list sizes on the uncertainty involved. 
+We will argue that the word list sizes are too small to yield strong conclusions, given the variances involved. 
+ 
+Crucially, these approaches use  means of mean average cosine similarities to measure  similarity between protected word and harmful stereotypes. If one takes  a closer look at the individual values that are taken for the calculations, it turns out that there are quite a few  outliers and surprisingly dissimilar words. This issue will become transparent when  we inspect  the visualizations of individual cosine distances, following the idea that one of the first step to understand data is to look at it.
+ 
+
+
+With such a method the uncertainty involved is not really considered which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results. 
+
+
+We also observed that in the paper there is no word class distinction and no control group. In the original paper, words from all three religions were compared against all of the stereotypes, which means that there was no distinction between cases in which the stereotype is associated with a given religion, as opposed to the situation in which it is associated with another one. Not all of the stereotypical words have to be considered as harmful for all of the religions. One should investigate the religions separately as some of them may have stronger harmful associations that others. One should also include control groups to have a way of comparing the stereotypical results with neutral or human-like words. Later in the text we will explain in details reasons for introducing control groups. In our analysis, we distinguish between stereotypes associated with a given group, stereotypes associated with different groups, and control groups: neutral words and stereotypes-free human predicates.
+
+
+The interpretation of the results is also a challenge. Assuming for a moment that the value of multi-class cosine distance is correct, one may question the interpretation. @Manzini2019blackToCriminal summarize the averages of cosine distance per group (gender, race, religion). For now let us focus now on analyzing the values relating to religious biases. Here is the relevant fragment of table:
+
+
+Religion Debiasing  | MAC
+------------- | -------------
+Biased        | 0.859
+Hard Debiased | 0.934
+Soft Debiased ($\lambda$ = 0.2) | 0.894
+
+
+MAC stand for mean average cosine similarity, although in reality the the table contains mean distances. What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology. 
+
+
+One may consider the issue of the curse of dimensionality. In our case, the curse of dimensionality may take place when there is an increase in the volume of data that results in adding extra dimensions to the Euclidean space. As the number of features increases, it may be harder and harder to obtain useful information from the data using the available algorithms. Using cosine similarity in high dimensions in word embeddings may be prone to the curse of dimensionality. According to @Venkat2018Curse there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data.
+
+
+
+\todo{MAC: avoid looking at only one vector}
+
+
+
+\todo{effect sizes}
+
+
+
+
+
+
+
+
+# Library for MAC 
+
+
+
+# References {-}
+
+
