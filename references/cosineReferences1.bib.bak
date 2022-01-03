@@ -19537,7 +19537,7 @@ and all mathematicians sometimes falter because their intuitive, ...},
   publisher = {University of Chicago Press},
 }
 
-@Article{Bolukbasi2016Man,
+@Article{Bolukbasi2016man,
   author        = {Tolga Bolukbasi and Kai{-}Wei Chang and James Y. Zou and Venkatesh Saligrama and Adam Kalai},
   title         = {Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings},
   journal       = {CoRR},
@@ -19606,15 +19606,6 @@ and all mathematicians sometimes falter because their intuitive, ...},
   publisher = {Proceedings of the National Academy of Sciences},
 }
 
-@Misc{bolukbasi2016man,
-  author        = {Tolga Bolukbasi and Kai-Wei Chang and James Zou and Venkatesh Saligrama and Adam Kalai},
-  title         = {Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings},
-  year          = {2016},
-  eprint        = {1607.06520},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.CL},
-}
-
 @InProceedings{Gonen2019lipstick,
   author    = {Gonen, Hila and Goldberg, Yoav},
   title     = {Lipstick on a Pig: {D}ebiasing Methods Cover up Systematic Gender Biases in Word Embeddings But do not Remove Them},
@@ -19648,6 +19639,15 @@ and all mathematicians sometimes falter because their intuitive, ...},
   title         = {Black is to Criminal as Caucasian is to Police: Detecting and Removing Multiclass Bias in Word Embeddings},
   year          = {2019},
   eprint        = {1904.04047},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL},
+}
+
+@Misc{zhang2020robustness,
+  author        = {Haiyang Zhang and Alison Sneyd and Mark Stevenson},
+  title         = {Robustness and Reliability of Gender Bias Assessment in Word Embeddings: The Role of Base Pairs},
+  year          = {2020},
+  eprint        = {2010.02847},
   archiveprefix = {arXiv},
   primaryclass  = {cs.CL},
 }
