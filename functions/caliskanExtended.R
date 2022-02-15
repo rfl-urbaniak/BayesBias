@@ -1,0 +1,62 @@
+# Simulation with more examples 
+
+# Based on the WEAT 7 example:
+# Math: math, algebra, geometry, calculus, equations, computation, numbers, addition.
+# Arts: poetry, art, dance, literature, novel, symphony, drama, sculpture.
+# Male terms: male, man, boy, brother, he, him, his, son.
+# Female terms: female, woman, girl, sister, she, her, hers, daughter.
+
+knitr::opts_knit$set(root.dir = '../')
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(grid)
+
+# BASIC SIMULATION -> samples=5, mean=0, st=0.05
+
+# X = {t1,t2,t3,t4,t5,t6,t7,t8}, Y = {t9,t10,t11,t12,t13,t14,t15,t16}
+
+set.seed(123)
+t1 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t2 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t3 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t4 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t5 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t6 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t7 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t8 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t9 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t10 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t11 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t12 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t13 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t14 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t15 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+t16 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
+
+xlimits <- c(-.3,.3)
+
+t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+# grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
+
+t1Plot
+t2Plot
+t3Plot
+t4Plot
+
+# CALCULATE BIAS FROM SIMULATION
+
+s <- function (table){ mean(table$A) - mean(table$B)}
+whole <- rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16)
+# st from all samples
+rawsd <- sd(c(whole$A,whole$B))
+# st from the means 
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8),s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16)))
+rawsd/factor
+numerator <-  mean(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8)) - mean(s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16))
+print(list(factor = factor,numerator = numerator, bias = numerator / factor))
+
+
