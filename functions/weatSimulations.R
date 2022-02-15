@@ -29,7 +29,9 @@ t4Plot
 
 s <- function (table){ mean(table$A) - mean(table$B)}
 whole <- rbind(t1,t2,t3,t4)
+# st from all samples
 rawsd <- sd(c(whole$A,whole$B))
+# st from the means 
 factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
 rawsd/factor
 numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
