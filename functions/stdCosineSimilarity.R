@@ -1,5 +1,16 @@
 # Standard deviation for cosine similarity from Google datasets
 
+# install.packages("magrittr") # package installations are only needed the first time you use it
+# install.packages("dplyr")    # alternative installation of the %>%
+library(magrittr) # needs to be run every time you start R and want to use %>%
+library(dplyr) 
+
+getStatistics <- function(data, connection, group) {
+  sdValue = sd(data)
+  meanValue = mean(data)
+  paste(group,connection,"sd:",sdValue,"mean:",meanValue)
+}
+
 
 # Read data
 
@@ -13,10 +24,10 @@ raceAssociated = race %>% filter(race$connection == "associated")
 raceNeutral = race %>% filter(race$connection == "none")
 raceHuman = race %>% filter(race$connection == "human")
 
-print(paste0("Std for different: ", sd(raceDifferent$cosineSimilarity)))
-print(paste0("Std for associated: ", sd(raceAssociated$cosineSimilarity)))
-print(paste0("Std for neutral: ", sd(raceNeutral$cosineSimilarity)))
-print(paste0("Std for human: ", sd(raceHuman$cosineSimilarity)))
+getStatistics(raceDifferent$cosineSimilarity, "different", "race")
+getStatistics(raceAssociated$cosineSimilarity, "associated", "race")
+getStatistics(raceNeutral$cosineSimilarity, "neutral", "race")
+getStatistics(raceHuman$cosineSimilarity, "human", "race")
 
 # GENDER
 
@@ -25,8 +36,9 @@ genderAssociated = gender %>% filter(gender$connection == "associated")
 genderNeutral = gender %>% filter(gender$connection == "none")
 genderHuman = gender %>% filter(gender$connection == "human")
 
-print(paste0("Std for different: ", sd(genderDifferent$cosineSimilarity)))
-print(paste0("Std for associated: ", sd(genderAssociated$cosineSimilarity)))
-print(paste0("Std for neutral: ", sd(genderNeutral$cosineSimilarity)))
-print(paste0("Std for human: ", sd(genderHuman$cosineSimilarity)))
+getStatistics(genderDifferent$cosineSimilarity, "different", "gender")
+getStatistics(genderAssociated$cosineSimilarity, "associated", "gender")
+getStatistics(genderNeutral$cosineSimilarity, "neutral", "gender")
+getStatistics(genderHuman$cosineSimilarity, "human", "gender")
+
 
