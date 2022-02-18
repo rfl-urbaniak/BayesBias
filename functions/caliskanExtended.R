@@ -93,6 +93,11 @@ ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
   theme_tufte()+labs(title="10k biases for different means and sd =.05")+ xlab("bias")
 
 
+f = ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for different means and sd =.05")+ xlab("bias")
+
+
+
 # TODO: add simulation with realistic standard deviation
 
 
