@@ -3,7 +3,7 @@ title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian ap
   to  word embedding bias estimation '
 author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
   group, University of  Gdansk)
-date: "ExpSem2021, ESSLLI"
+date: "Boston, April Fools' Day"
 output:
   beamer_presentation:
     theme: Rafal_beamerSly1
@@ -13,8 +13,8 @@ output:
 fontsize: 10pt
 classoption: x11names, dvipsnames, bibspacing,natbib
 urlcolor: blue
-bibliography: ../references/cosineReferences1.bib
-csl: ../references/apa-6th-edition.csl
+bibliography: ../../references/cosineReferences1.bib
+csl: ../../references/apa-6th-edition.csl
 link-citations: yes
 ---
 
@@ -142,7 +142,7 @@ Stereotypically connected words are cosine-close
 \vspace{1mm}
 \footnotesize
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "60%"}
-genderProjections <-  read.csv("../datasets/genderProjections.csv")[,-1]
+genderProjections <-  read.csv("datasets/genderProjections.csv")[,-1]
 colnames(genderProjections)[4] <- "Stereotype" 
 levels(genderProjections$Stereotype) <- c("male occupation", "female occupation")
 ggplot(genderProjections, aes(x=he,y=she, color = Stereotype, shape = Stereotype))+geom_point(size = 6, alpha = 0.75)+theme_tufte(base_size = 27)+labs(title ="GloVe  on Wikipedia 2014 and Gigaword 5th ed.")+scale_color_manual(values =c("orangered4","chartreuse4"))+ 
@@ -327,7 +327,7 @@ MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \i
 
 \footnotesize 
 ```{r religionTableHeadEarly,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-religion <- read.csv("../datasets/religionReddit.csv")[-1]
+religion <- read.csv("datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
 religion$wordClass <- as.factor(religion$wordClass)
@@ -385,7 +385,7 @@ We make the subclasses clear, add human neutral predicates and neutral predicate
 
 \footnotesize 
 ```{r religionTableHeadLate,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-religion <- read.csv("../datasets/religionReddit.csv")[-1]
+religion <- read.csv("datasets/religionReddit.csv")[-1]
 colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
                         "cosineDistance","cosineSimilarity","connection")
 religion$wordClass <- as.factor(religion$wordClass)
@@ -433,7 +433,7 @@ humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
 muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
 muslimVis <- rbind(muslimVis,neutralSample,humanSample)
 #we plug in our visualisation script
-source("../functions/visualisationTools.R")
+source("../../functions/visualisationTools.R")
 #two arguments: dataset and protected word
 visualiseProtected(muslimVis,"muslim")+theme_void(base_size = 20)
 ```
@@ -455,7 +455,7 @@ priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
 priestVis <- rbind(priestVis,neutralSample,humanSample)
 
 #we plug in our visualisation script
-source("../functions/visualisationTools.R")
+source("../../functions/visualisationTools.R")
 #two arguments: dataset and protected word
 visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
 ```
@@ -648,7 +648,7 @@ religionCoefs <- ulam(
 \begin{center}
 \begin{figure}[!htb]\centering
    \begin{minipage}{0.55\textwidth}
-  \includegraphics[width=6cm]{../images/religionCoeffs.jpeg}
+  \includegraphics[width=6cm]{../../images/religionCoeffs.jpeg}
    \end{minipage} \begin{minipage}{0.4\textwidth}\footnotesize
    \begin{itemize}
    \item All HPDIs overlap with 0 
@@ -667,7 +667,7 @@ religionCoefs <- ulam(
 \begin{center}
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
-\includegraphics[width=6cm]{../images/genderCoeffs.jpeg}
+\includegraphics[width=6cm]{../../images/genderCoeffs.jpeg}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}\footnotesize
    \begin{itemize}
@@ -714,7 +714,7 @@ religionCoefs <- ulam(
 
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
-\includegraphics[width=7.5cm]{../images/visReligionReddit.png}
+\includegraphics[width=7.5cm]{../../images/visReligionReddit.png}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}\footnotesize
 
@@ -735,7 +735,7 @@ religionCoefs <- ulam(
 
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
-\includegraphics[width=7.5cm]{../images/visGenderReddit.png}
+\includegraphics[width=7.5cm]{../../images/visGenderReddit.png}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}\footnotesize
 
@@ -757,7 +757,7 @@ religionCoefs <- ulam(
 
 \begin{figure}[!htb]\centering
   \begin{minipage}{0.55\textwidth}
-\includegraphics[width=7.5cm]{../images/visRaceReddit.png}
+\includegraphics[width=7.5cm]{../../images/visRaceReddit.png}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}\footnotesize
 

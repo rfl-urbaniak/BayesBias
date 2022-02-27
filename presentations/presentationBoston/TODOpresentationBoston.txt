@@ -1,0 +1,20 @@
+
+
+[] - presentation plan, revise when the whole thing is done
+
+[] - word embeddings, perhaps say more
+
+[] - add visualisations for cosine similarity [RAFAL]
+
+[] - rethink restructuring the other difficulties to be discussed
+
+[] - add the conceptual problem with WEAT from literature [RAFAL]
+
+[] - add the worry about uncertainty with the bounds [RAFAL]
+
+
+[] - add simulations for larger datasets
+	 [] - [ALICJA, finish simulations, write visualisations the way they are in the presentation
+	 [] - RAFAL: double check
+	 [] - ALICJA: add visualitions to presentation,  add content
+	 [] - RAFAL double check and revise if needed
