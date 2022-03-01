@@ -20,6 +20,8 @@
 
 [] - first version of slides with WEAT simulation [ALICJA] 1
 
+[] - think about adding new texts - Bernstein 
+
 [] - add simulations for larger datasets
 	 [] - [ALICJA, finish simulations, write visualisations the way they are in the presentation
 	 [] - RAFAL: double check
