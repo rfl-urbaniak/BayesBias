@@ -60,6 +60,7 @@ numerator <-  mean(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8)) - mean(s(t9)
 print(list(factor = factor,numerator = numerator, bias = numerator / factor))
 
 
+# SIMULATION FOR SAME MEANS AND SMALL STD
 biasesD1 <- numeric(10000)
 
 for(i in 1:10000){
@@ -79,10 +80,6 @@ for(i in 1:10000){
   t14 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
   t15 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
   t16 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,0,0.05))
-  t1d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
-  t2d1 <- data.frame(A  = rnorm(5,.1,0.1), B = rnorm(5,0,0.1))
-  t3d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
-  t4d1 <- data.frame(A  = rnorm(5,0,0.1), B = rnorm(5,.1,0.1))
   
   factorD1 <- sd(c(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8),s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16)))
   numeratorD1 <-  mean(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8)) - mean(s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16))
@@ -90,15 +87,67 @@ for(i in 1:10000){
 }
 
 ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="10k biases for different means and sd =.05")+ xlab("bias")
-
-
-f = ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="10k biases for different means and sd =.05")+ xlab("bias")
+  theme_tufte()+labs(title="10k biases for same means and sd =.05")+ xlab("bias")
 
 
 
-# TODO: add simulation with realistic standard deviation
+# SIMULATION FOR DIFFERENT MEANS (0.1) AND SMALL STD DEVIATION 
+biasesD1 <- numeric(10000)
+
+for(i in 1:10000){
+  t1 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t2 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t3 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t4 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t5 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t6 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t7 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t8 <- data.frame(A  = rnorm(8,.1,0.05), B = rnorm(8,0,0.05))
+  t9 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t10 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t11 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t12 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t13 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t14 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t15 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  t16 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.1,0.05))
+  
+  factorD1 <- sd(c(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8),s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16)))
+  numeratorD1 <-  mean(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8)) - mean(s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16))
+  biasesD1[i] <- numeratorD1/factorD1
+}
+
+ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for different means 0.1 and sd =.05")+ xlab("bias")
 
 
 
+
+# SIMULATION FOR DIFFERENT MEANS (0.4) AND SMALL STD DEVIATION 
+biasesD1 <- numeric(10000)
+
+for(i in 1:10000){
+  t1 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t2 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t3 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t4 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t5 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t6 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t7 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t8 <- data.frame(A  = rnorm(8,.4,0.05), B = rnorm(8,0,0.05))
+  t9 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t10 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t11 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t12 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t13 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t14 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t15 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  t16 <- data.frame(A  = rnorm(8,0,0.05), B = rnorm(8,.4,0.05))
+  
+  factorD1 <- sd(c(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8),s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16)))
+  numeratorD1 <-  mean(s(t1),s(t2),s(t3),s(t4),s(t5),s(t6),s(t7),s(t8)) - mean(s(t9),s(t10),s(t11),s(t12),s(t13),s(t14),s(t15),s(t16))
+  biasesD1[i] <- numeratorD1/factorD1
+}
+
+ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte()+labs(title="10k biases for different means 0.4 and sd =.05")+ xlab("bias")
