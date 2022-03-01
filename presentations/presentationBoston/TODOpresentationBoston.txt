@@ -2,19 +2,31 @@
 
 [] - presentation plan, revise when the whole thing is done
 
-[] - word embeddings, perhaps say more
+[] - word embeddings, perhaps say more - Mitchell [ALICJA, RAFAŁ] 1
 
 [] - add visualisations for cosine similarity [RAFAL]
 
 [] - rethink restructuring the other difficulties to be discussed
 
-[] - add the conceptual problem with WEAT from literature [RAFAL]
+[] - add the conceptual problem with WEAT from literature [RAFAL] 1
 
 [] - add the worry about uncertainty with the bounds [RAFAL]
 
+[] - slide with the intuition why vector space should catch semantics [ALICJA, RAFAŁ] 1
+
+[] - prepare questions for anonymous survey [ALICJA, RAFAŁ]
+
+[] - find official interpretations of cosine similarity [ALICJA] 1
+
+[] - first version of slides with WEAT simulation [ALICJA] 1
 
 [] - add simulations for larger datasets
 	 [] - [ALICJA, finish simulations, write visualisations the way they are in the presentation
 	 [] - RAFAL: double check
-	 [] - ALICJA: add visualitions to presentation,  add content
+	 [] - ALICJA: add visualitions to presentation,  add content (RAFAŁ send template) 1
 	 [] - RAFAL double check and revise if needed
+
+
+
+
+
