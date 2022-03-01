@@ -1,0 +1,798 @@
+---
+title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
+  to  word embedding bias estimation '
+author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
+  group, University of  Gdansk)
+date: "Boston, April Fools' Day"
+output:
+  beamer_presentation:
+    theme: Rafal_beamerSly1
+    keep_tex: yes
+    slide_level: 2
+  slidy_presentation: default
+fontsize: 10pt
+classoption: x11names, dvipsnames, bibspacing,natbib
+urlcolor: blue
+bibliography: ../../references/cosineReferences1.bib
+csl: ../../references/apa-6th-edition.csl
+link-citations: yes
+---
+
+
+
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggExtra)
+library(ggthemes)
+library(latex2exp)
+th <- theme_tufte(base_size = 20)
+options(kableExtra.latex.load_packages = FALSE)
+```
+
+
+
+## Presentation plan
+
+- Bias in word embeddings
+- WEAT and MAC methods
+- Methodological problems
+- Limitations of pre-averaging in bias detection methods
+- Accounting for uncertainty with Bayesian approach
+
+
+
+
+
+## Cosine-based measures of bias
+
+
+
+### Word embeddings 
+
+- Representation of words with vectors of real numbers
+
+- Often built to predict the probability of co-occurence 
+
+<!-- check if the statement of co-occurence always right--> 
+
+word | 1 | 2 | 3 | 4 | ... 
+|---|---|---|---|---|---
+woman | 0.456 | 0.267 | 0.675 | 0.131| ...
+man | 0.451 | 0.897 | 0.472 | 0.088| ...
+
+
+
+## Cosine-based measures of bias
+
+
+
+### Cosine similarity \& distance
+
+<!-- - Dot product for normalized vectors -->
+
+<!-- often used in discussion of bias -->
+
+\vspace{-4mm}
+
+\begin{align} \tag{Sim}
+\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
+\\
+\tag{Distance}
+\mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)
+\end{align}
+
+-  Geometric interpretation: direction (not length)
+
+
+
+-  $\mathsf{cosineDistance}\in (0, 2)$
+
+- Naive interpretation: proximity corresponds to semantic similarity 
+
+<!-- - Note cosine distance fails to meet triangle inequality -->
+
+
+
+
+
+## Cosine-based measures of bias
+
+### The worry
+
+Word embeddings can learn implicit harmful biases
+
+
+\pause
+
+### The basic intuition
+
+Stereotypically connected words are cosine-close
+
+
+
+
+
+## Cosine-based measures of bias
+
+
+
+### A visual example
+
+\footnotesize 
+
+- "feminine" occupations: "homemaker", "nurse", "receptionist", "librarian", etc.
+
+- "masculine" occupations:  "maestro",  "captain", "architect", "boss", etc.
+
+\normalsize 
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "60%"}
+genderProjections <-  read.csv("datasets/genderProjections.csv")[,-1]
+colnames(genderProjections)[4] <- "Stereotype" 
+levels(genderProjections$Stereotype) <- c("male occupation", "female occupation")
+ggplot(genderProjections, aes(x=he,y=she, color = Stereotype, shape = Stereotype))+geom_point(size = 6, alpha = 0.75)+theme_tufte(base_size = 27)+labs(title ="GloVe  on Wikipedia 2014 and Gigaword 5th ed.")+scale_color_manual(values =c("orangered4","chartreuse4"))+ 
+  theme(legend.position = c(0.8,.15)) +
+    scale_shape_manual(values=c(15, 19)) 
+```
+\normalsize
+
+
+
+
+<!-- ## Cosine-based measures of bias -->
+
+
+<!-- ### Example: direct bias -->
+
+<!-- - The gender bias of a word $w$ is its projection on the gender direction $\vec{w} \cdot (\overrightarrow{he} - \overrightarrow{she})$ -->
+
+<!-- <!-- (the gender direction is the top principal compontent of ten gender pair difference vectors).  --> 
+
+<!-- -  Given the (ideally) gender neutral words $N$ and the gender direction $g$ the direct gender bias is: -->
+<!-- <!-- ($c$ is a parameter determining how strict we want to be): --> 
+
+<!-- \vspace{-2mm} -->
+
+<!-- \begin{align} -->
+<!-- \mathsf{directBias_c(N,g)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},g)\vert^c}{\vert N \vert } -->
+<!-- \end{align} -->
+
+<!-- \footnotesize  -->
+
+
+<!-- [@Bolukbasi2016Man] -->
+
+
+
+## Cosine-based measures of bias
+
+
+### Example: Word Embedding Association Test (WEAT)
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "55%"}
+words <- c("man", "he", "boss", "architect","nurse","receptionist","woman","she")
+x <- c(.1,.1,.5,.5,.7,.7,1.2,1.2)
+y <- c(.4,.3,.3,.2,.5,.4,.4,.3)
+weat <- data.frame(words,x,y)
+
+ggplot(weat, aes(x=x,y=y, label = words))+geom_point()+geom_text(check_overlap = TRUE,
+                                                                 nudge_y = 0.018, size = 7 )+
+    geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.5, yend=.2), , linetype =2, arrow=arrow(), size=.05, color="blue") +
+  geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.5, yend=.3), linetype =2, arrow=arrow(), size=.05, color="blue")+
+  geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.7, yend=.4), linetype =2, arrow=arrow(), size=.05, color="orangered")+
+  geom_segment(data=weat, mapping=aes(x=.1, y=.3, xend=.7, yend=.5), linetype =2, arrow=arrow(), size=.05, color="orangered")+
+    annotate("text", x = c(.32,.32,.32,.32), y = c(.23,.29,.35,.39), 
+             label = c(".7", ".6",".1", ".2") , color="black", 
+             size=7,  fontface="bold")+
+    annotate("text", x = c(.1,.5,.7,1.2), y = c(.55,.55,.55,.55), 
+           label = c("X", "A","B", "Y") , color=c("black", "blue","orangered","black"), 
+           size=10,  fontface="bold")+xlim(0,1.3)+
+  theme_void(base_size = 25)
+```
+\normalsize
+
+
+\pause
+
+\footnotesize 
+
+- $s_1 = s(he,A,B) =  \frac{.6+.7}{2}  - \frac{.2+.1}{2} = .65-.15= .5$
+
+- $s_2 = s(man,A,B) = .3$, \linebreak  $s_3 = s(woman,A,B) = -.6, s_4 = s(she, A, B) = -.3$
+
+\vspace{-4mm}
+
+\normalsize 
+\begin{align*}
+\mathsf{WEAT}(A,B) & = \frac{\nicefrac{(s_1+s_2)}{2} - \nicefrac{(s_3+s_4)}{2}}{sd(\{s_1,s_2,s_3,s_4\})} \approx 1.93
+\end{align*}
+
+
+## Cosine-based measures of bias
+
+
+### Example: Word Embedding Association Test (WEAT)
+
+\begin{align*}
+s(t,A,B) & = \frac{\sum_{a\in A}f(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}f(t,b)}{\vert B\vert}
+\\
+WEAT(A,B) & = \frac{
+\mu\left(\{s(x,A,B)\}_{x\in X}\right) -\mu\left(\{s(y,A,B)\}_{y\in Y}\right) 
+}{
+\sigma\left(\{s(w,A,B)\}_{w\in X\cup Y}\right)
+}
+\end{align*}
+
+-  $t$ is a term,  $A, B$ are sets of stereotype attribute words, $X$, $Y$ are protected group words
+
+- For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words
+
+- $s$-values are used as datapoints in statistical significance tests
+
+\footnotesize
+
+\vspace{2mm}
+[@Caliskan2017semanticsBiases] with extensions in [@Lauscher2019multidimensional] and applications in [@Garg2018years]
+
+
+
+
+## Cosine-based measures of bias
+
+
+### Our main target: Mean Average Cosine Similarity (MAC)
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "50%"}
+words <- c("jew", "muslim", "christian", "terrorist","dirty","conservative","familiar","greedy","cheap")
+x <- c(.1,.1,.1,.4,.4,.7,.7,1.1,1.1)
+y <- c(.4,.3,.2,.1,.2,.3,.4,.1,.2)
+mac <- data.frame(words,x)
+
+ggplot(mac, aes(x=x,y=y, label = words))+geom_point()+geom_text(check_overlap = TRUE,
+                                                                 nudge_y = 0.02, size = 9 )+
+  geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=.4, yend=.1), , linetype =2, arrow=arrow(), size=.03, color="blue")+geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=.4, yend=.2), , linetype =4, arrow=arrow(), size=.0, color="blue") + geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=.7, yend=.3), linetype =2, arrow=arrow(), size=.05, color="orangered")+ geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=.7, yend=.4), linetype =2, arrow=arrow(), size=.05, color="orangered")+ geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=1.1, yend=.1), linetype =3, arrow=arrow(), size=.05, color="chartreuse4")+ geom_segment(data=mac, mapping=aes(x=.1, y=.3, xend=1.1, yend=.2), linetype =2, arrow=arrow(), size=.05, color="chartreuse4")+ annotate("text", x = c(.1,.4,.7,1.2), y = c(.45,.45,.45,.45),  label = c("T", "A[1]","A[2]", "A[3]") ,parse = TRUE, color=c("black", "blue","orangered","chartreuse4"),            size=10,  fontface="bold")+xlim(0,1.3)+theme_void(base_size = 25)
+
+```
+\normalsize
+
+\vspace{-4mm}
+
+\footnotesize 
+\begin{align*}
+ s_1 & = s(muslim,A_1) = \frac{cos(muslim,dirty)+cos(muslim,terrorist)}{2}\\
+s_2 & = s(muslim,A_2) = \frac{cos(muslim,familiar)+cos(muslim,conservative)}{2}\\
+& \vdots \end{align*}
+
+\vspace{-6mm}
+
+\normalsize 
+\begin{align*}
+ MAC(T,A) & = \mathsf{mean}(\{s_i \vert i \in 1, \dots, k\})
+\end{align*}
+
+
+## Cosine-based measures of bias
+
+
+### Our main target: Mean Average Cosine Similarity (MAC)
+
+<!-- - more general, multi-class setting -->
+
+
+\begin{align*}
+S(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+MAC(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} S(t_i,A_j)
+\end{align*}
+
+- $T = \{t_1, \dots, t_k\}$ is a class of protected words
+
+- each $A_j\in A$ is a set of attributes stereotypically associated with a protected word
+
+<!-- - For each protected word $T$ and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words.  -->
+
+- The t-tests they employ are run on average cosines used to calculate MAC
+
+\vspace{2mm}
+
+\footnotesize 
+
+
+[@Manzini2019blackToCriminal]
+
+
+## Cosine-based measures of bias
+
+
+### Our main target: Mean Average Cosine Similarity (MAC)
+
+
+\footnotesize 
+```{r religionTableHeadEarly,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religion <- read.csv("datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+religion$wordClass <- as.factor(religion$wordClass)
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+religionSmall <- religion[religion$wordClass != "neutral" & religion$wordClass != "human" ,]
+set.seed(127)
+religionSmall <- religionSmall[sample(1:nrow(religionSmall),6),-c(3,6)]
+rownames(religionSmall) <- c()
+religionSmall  %>%  kable(format = "latex",booktabs=T,
+                      linesep = "",  escape = FALSE, 
+                      caption = "A few rows from the religion dataset") %>%
+                      kable_styling(latex_options=c("scale_down"))
+```
+\normalsize
+
+
+
+
+
+
+## Cosine-based measures of bias
+
+
+### Known challenges
+
+- Gender-direction: insufficient indicator of
+    bias  \footnotesize  [@Gonen2019lipstick]
+
+\normalsize
+
+- Use of analogies: unreliable \footnotesize  [@Nissim2020fair] \normalsize
+
+- High sensitivity to irrelevant factors \footnotesize  [@zhang2020robustness] \normalsize
+
+
+
+## Some methodological problems
+
+###  Word list choice is unprincipled
+
+We run with it for comparison
+
+\pause
+
+### No design considerations to sample size 
+
+We statistically gauge the uncertainty that arises from raw sample sizes
+
+
+## Some methodological problems
+
+### No word class distinction and no control group
+
+We make the subclasses clear, add human neutral predicates and neutral predicates for control. We used L2-Reddit corpus and GoogleNews (we present the results for Reddit for brevity).
+
+\footnotesize 
+```{r religionTableHeadLate,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+religion <- read.csv("datasets/religionReddit.csv")[-1]
+colnames(religion) <- c("protectedWord","wordToCompare","wordClass",
+                        "cosineDistance","cosineSimilarity","connection")
+religion$wordClass <- as.factor(religion$wordClass)
+levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
+religionSmall <- religion[religion$wordClass != "neutral" & religion$wordClass != "human" ,]
+religionControl <- religion[religion$wordClass == "neutral" | religion$wordClass == "human" ,]
+set.seed(123154196)
+religionDisplayA <- religionSmall[sample(1:nrow(religionSmall),4),]
+religionDisplayB <- religionControl[sample(1:nrow(religionControl),4),]
+religionDisplay <- rbind(religionDisplayA,religionDisplayB)
+religionDisplay$cosineDistance <- round(religionDisplay$cosineDistance,3)
+religionDisplay$cosineSimilarity <- round(religionDisplay$cosineSimilarity,3)
+rownames(religionDisplay) <- c()
+religionDisplay  %>%  kable(format = "latex",booktabs=T,
+                      linesep = "",  escape = FALSE, 
+                      caption = "Rows from extended religion dataset.") %>%
+                      kable_styling(latex_options=c("scale_down"))
+```
+\normalsize
+
+
+
+
+
+## Some methodological problems
+
+### Outliers and surprisingly dissimilar words
+
+We study those by  visualizations and uncertainty estimates
+
+
+
+
+## Some methodological problems
+
+### Distances for  "muslim"
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%",message =FALSE, warning = FALSE}
+library(tidyverse)
+muslimWords <- c("imam","islam","mosque","muslim","quran")
+muslim <- religion %>% filter(protectedWord %in% muslimWords)
+muslimClass <- muslim %>% filter(protectedWord == "muslim")
+neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
+humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
+muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
+muslimVis <- rbind(muslimVis,neutralSample,humanSample)
+#we plug in our visualisation script
+source("../../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(muslimVis,"muslim")+theme_void(base_size = 20)
+```
+
+
+
+## Some methodological problems
+
+### Distances for  "priest"
+
+
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+library(tidyverse)
+priestClass <- religion %>% filter(protectedWord == "priest")
+neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
+humanSample <- sample_n(filter(priestClass,connection == "human"), 5)
+priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
+priestVis <- rbind(priestVis,neutralSample,humanSample)
+
+#we plug in our visualisation script
+source("../../functions/visualisationTools.R")
+#two arguments: dataset and protected word
+visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
+```
+
+
+
+## Some methodological problems
+
+### No principled interpretation 
+
+Religion Debiasing  | MAC (distance)
+------------- | -------------
+Biased        | 0.859
+Hard Debiased | 0.934
+Soft Debiased ($\lambda$ = 0.2) | 0.894
+
+- What values are sufficient for the presence of bias and what differences are sign of real improvement? 
+
+- Low $p$-values are not high effect indicators!  
+
+- We compare HPDIs.
+
+<!--  What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology.  -->
+
+
+
+
+
+
+
+
+
+## The problem with pre-averaging
+
+### Key conceptual issues
+
+
+- It throws away information about sample sizes
+- It ignores variation in the raw data, which leads to false confidence
+
+\pause
+
+### Our simulation
+
+Suppose all similarities for two classes are randomly drawn from the same distribution, $\mathsf{Normal}(\mu = 0, \sigma = .05)$, you still can get a really high WEAT!
+
+
+
+## The problem with pre-averaging
+
+
+### One simulation
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%"}
+set.seed(123)
+t1 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t3 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t4 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+xlimits <- c(-.3,.3)
+
+t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+
+
+t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+
+t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+
+t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+
+grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
+```
+\normalsize
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+s <- function (table){ mean(table$A) - mean(table$B)}
+whole <- rbind(t1,t2,t3,t4)
+rawsd <- sd(c(whole$A,whole$B))
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
+```
+\normalsize
+\pause
+
+\footnotesize 
+
+\vspace{-2mm}
+
+- Raw sd in data is `r round(rawsd,3)`
+- The sd of means is `r round(factor,3)`
+- The WEAT score is `r round(numerator/factor,3)`
+- The largest effect size reported by @Caliskan2017semanticsBiases is 1.81! 
+
+
+## The problem with pre-averaging
+
+
+### 50k simulations (same parameters)
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+set.seed(123)
+biasesNull <- numeric(50000)
+for(i in 1:50000){
+t1 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t3 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+t4 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
+
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
+biasesNull[i]  <- numerator / factor
+}
+
+ggplot()+geom_histogram(aes(x=biasesNull, y = ..density..), alpha = 0.6, bins=50)+
+  theme_tufte(base_size = 15)+labs(title="50k biases for identical means and sd =.05")+ xlab("bias")
+```
+\normalsize
+
+
+
+## Advantages of the Bayesian way
+
+- Direct impact of sample sizes
+- Straightforward interpretation in terms of posterior probabilities
+- Freedom to choose granularity level
+- More honest risk assessment and decision making
+
+
+
+## Bayesian model
+
+### Choosing priors
+
+```{r priorsVis,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, out.width = "100%", fig.caption = "Regularizing priors for the bayesian models."}
+library(ggpubr)
+sim <- seq(-1,1,by = 0.001)
+dis <- 1-sim
+
+p <- ggplot(data = data.frame(distance = dis), 
+            mapping = aes(x = distance))+theme_tufte(base_size = 15)
+
+none <- function(x) dnorm(x,1,.5)
+cau <- function(x) dcauchy(x,0,1)
+par <- function(x) dnorm(x,0,1)
+
+noneG <- p + stat_function(fun = none)+xlim(c(-0.5,2.5))+ggtitle("Prior for mean distances")
+parG <- p + stat_function(fun = par)+xlim(c(-2,2))+xlab("distance change")+ggtitle("Prior for coefficients")
+cauG <- p + stat_function(fun = cau)+xlim(c(0,2))+ggtitle("Prior for standard deviation")+xlab("distance change")
+ggarrange(noneG,cauG, parG, ncol = 1)
+```
+
+
+## Bayesian model architecture
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+library(rethinking)
+options(buildtools.check = function(action) TRUE )
+religionCoefs <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m + co[con],
+    m ~ dnorm(1,.5),
+    co[con] ~ dnorm(0,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=8000 , warmup=1000, 
+  log_lik = TRUE
+)
+```
+\normalsize
+
+
+
+##   Dataset-level coefficients 
+
+### Religion with 89\%-compatibility intervals (HPDI)
+
+\begin{center}
+\begin{figure}[!htb]\centering
+   \begin{minipage}{0.55\textwidth}
+  \includegraphics[width=6cm]{../../images/religionCoeffs.jpeg}
+   \end{minipage} \begin{minipage}{0.4\textwidth}\footnotesize
+   \begin{itemize}
+   \item All HPDIs overlap with 0 
+   \item Differences between classes are relatively small
+   \item Coefficients for Race are similar
+   \end{itemize}
+   \end{minipage}
+  \end{figure}
+  
+\end{center}
+   
+##  Dataset-level  coefficients
+
+### Gender with 89\%-compatibility intervals (HPDI)
+   
+\begin{center}
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=6cm]{../../images/genderCoeffs.jpeg}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\footnotesize
+   \begin{itemize}
+   \item Associated and different are away from 0
+   \item But they were supposed to be opposites and are very close to each other (co-occurrence?)
+   \item Differences between classes are still relatively small
+   \end{itemize}
+   \end{minipage}
+\end{figure}
+
+
+\end{center}
+
+
+
+## Bayesian model architecture
+
+
+\vspace{1mm}
+\footnotesize
+```{r,echo=TRUE,eval=FALSE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
+library(rethinking)
+options(buildtools.check = function(action) TRUE )
+religionCoefs <- ulam(
+  alist(
+    cosineDistance ~ dnorm(mu,sigma),
+    mu <- m[pw] + co[con],
+    m[pw] ~ dnorm(1,.5),
+    co[con] ~ dnorm(0,.5),
+    sigma ~ dcauchy(0,1)
+  ),
+  data = religion,
+  chains=2 , iter=8000 , warmup=1000, 
+  log_lik = TRUE
+)
+```
+\normalsize
+
+
+
+
+## Word-level coefficients
+
+
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7.5cm]{../../images/visReligionReddit.png}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\footnotesize
+
+\vspace{-4cm}
+
+   \begin{itemize}
+   \item Most intervals overlap with control groups
+   \item Often not too much difference between associated and different
+   \end{itemize}
+   \end{minipage}
+\end{figure}
+
+
+
+## Word-level coefficients
+
+
+
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7.5cm]{../../images/visGenderReddit.png}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\footnotesize
+
+\vspace{-4cm}
+
+   \begin{itemize}
+   \item Male attributes: strong co-occurrence with female attributes
+   \item Sometimes \textsf{different} is closer than \textsf{associated}
+   \item Almost no overlap with control groups
+   \end{itemize}
+   \end{minipage}
+\end{figure}
+
+
+## Word-level coefficients
+
+
+
+
+\begin{figure}[!htb]\centering
+  \begin{minipage}{0.55\textwidth}
+\includegraphics[width=7.5cm]{../../images/visRaceReddit.png}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\footnotesize
+
+\vspace{-4cm}
+
+   \begin{itemize}
+   \item A lot of variation between races
+   
+   \item Often not much difference between associated and different
+   \end{itemize}
+   \end{minipage}
+\end{figure}
+
+
+## Thank you!
+
+
+### Summary
+
+- Bias in word embeddings
+- WEAT and MAC methods
+- Methodological problems
+- Limitations of pre-averaging in bias detection methods
+- Accounting for uncertainty with Bayesian approach
+
+
+### Further work
+
+- Including contrasts in Bayesian calculation
+- Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots)
+- Downstream tasks and connection with intrinsic evaluation
+- Testing data from the original Implicit Association Test (IAT) 
+- Applying uncertainty to WEAT and better word lists
+- Looking at other similarity measures
+
+## References
+\tiny
+

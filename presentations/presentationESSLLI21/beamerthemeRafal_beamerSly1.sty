@@ -1,0 +1,73 @@
+\usetheme{boxes}
+ \makeatletter
+ %\beamer@sidebarwidth=0pt
+ % \beamer@headheight=1.8\baselineskip
+ \addtobeamertemplate{navigation symbols}{}{ \hspace{1em}    
+ \usebeamerfont{footline}%
+ \insertframenumber / \inserttotalframenumber}
+ \g@addto@macro\normalsize{%
+   \setlength\abovedisplayskip{5pt}
+   \setlength\belowdisplayskip{5pt}
+   \setlength\abovedisplayshortskip{5pt}
+   \setlength\belowdisplayshortskip{5pt}
+ }%AMS
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+%\usepackage{multirow}
+\usepackage{nicefrac}
+
+\makeatother
+%\logo{\includegraphics[height=0.9cm, widh=0.9cm]{UG_Logo_PL.jpg}}
+\AtBeginSection{}
+\AtBeginSubsection{}
+
+
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{itemize items}[ball]
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+\setlength{\emergencystretch}{0em}
+\setlength{\parskip}{0pt}
+
+
+
+
+
+\usepackage{booktabs}
+
+
+%AMS
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+%\usepackage{multirow}
+
+
+
+
+
+
+
+%abbreviations
+\newcommand{\ra}{\rangle}
+\newcommand{\la}{\langle}
+\newcommand{\n}{\neg}
+\newcommand{\et}{\wedge}
+\newcommand{\jt}{\rightarrow}
+\newcommand{\ko}[1]{\forall  #1\,}
+\newcommand{\ro}{\leftrightarrow}
+\newcommand{\exi}[1]{\exists #1 \,}
+\newcommand{\pr}{\mathsf{P}}
+\newcommand{\odds}{\mathsf{Odds}}
+\newcommand{\ind}{\mathsf{Ind}}
+\newcommand{\nf}[2]{\nicefrac{#1\,}{#2}}
+\newcommand{\s}[1]{$\mathsf{#1}$}
+
+\newcommand{\pitem}{\pause \item }
