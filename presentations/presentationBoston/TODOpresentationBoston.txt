@@ -16,9 +16,9 @@
 
 [] - prepare questions for anonymous survey [ALICJA, RAFAŁ]
 
-[] - find official interpretations of cosine similarity [ALICJA] 1
+[] - find official interpretations of cosine similarity [ALICJA] ok
 
-[] - first version of slides with WEAT simulation [ALICJA] 1
+[] - first version of slides with WEAT simulation [ALICJA] ok
 
 [] - think about adding new texts - Bernstein 
 
