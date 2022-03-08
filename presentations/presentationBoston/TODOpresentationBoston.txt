@@ -1,20 +1,27 @@
 
-
 [] - presentation plan, revise when the whole thing is done
 
+<<<<<<< HEAD
 [] - word embeddings, perhaps say more - Mitchell [ALICJA, RAFAŁ] 1  R:DONE, A:REVISE
 
 [] - add visualisations for cosine similarity [RAFAL] R:DONE, A:REVISE
-
+=======
 [] - rethink restructuring the other difficulties to be discussed
 
+[] - slide with the intuition why vector space should catch semantics [ALICJA, RAFAŁ] R:DONE A:Revise
+>>>>>>> c4a7ce426825c3e92b29e2243e1e0c7428630aff
+
+[] - prepare questions for anonymous survey [ALICJA, RAFAŁ]
+
+<<<<<<< HEAD
 [] - add the conceptual problem with WEAT from literature [RAFAL] R:DONE A:REVISE
 
 [] - add the worry about uncertainty with the bounds [RAFAL] R:DONE A:Revise
 
 [] - slide with the intuition why vector space should catch semantics [ALICJA, RAFAŁ] R:DONE A:Revise
+=======
+[] - cosine similarity histogram for all groups (what percentage is greater than -+0.1) [ALICJA] 1
 
-[] - prepare questions for anonymous survey [ALICJA, RAFAŁ]
 [] - add interpretation of cosine values on slide 15 - 90 degrees, etc.
 
 [] - add the rest of the groups to the table with debiasing [ALICJA]
@@ -26,7 +33,15 @@
 
 [] - add to slide 25 more examples of human and none in a list [ALICJA]
 
+[] - make the line and dots darker in slide 27 [RAFAŁ]
 
+[] - last slide - update
+
+[] - correct errors [RAFAŁ]
+
+
+
+[] - for future - check the std of similarities to get the feeling of proper threshold 
 
 
 
