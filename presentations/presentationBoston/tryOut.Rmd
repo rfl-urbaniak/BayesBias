@@ -1,0 +1,321 @@
+---
+title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
+  to  word embedding bias estimation '
+author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
+  group, University of  Gdansk)
+date: "Boston, April Fools' Day"
+output:
+  beamer_presentation:
+    theme: Rafal_beamerSly1
+    keep_tex: yes
+    slide_level: 2
+  slidy_presentation: default
+fontsize: 10pt
+classoption: x11names, dvipsnames, bibspacing, natbib, table
+urlcolor: blue
+bibliography: ../../references/cosineReferences1.bib
+csl: ../../references/apa-6th-edition.csl
+link-citations: yes
+---
+
+
+
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggforce)
+library(ggExtra)
+library(ggthemes)
+library(latex2exp)
+th <- theme_tufte(base_size = 20)
+options(kableExtra.latex.load_packages = FALSE)
+```
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine1,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{block}{Vectors}
+\begin{align*}
+a  & = [1,2]\\
+b  &= [3,2]
+\end{align*}
+
+\end{block}
+\pause 
+
+\begin{block}{Dot product}
+
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+
+\end{columns}
+
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine2,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+bma <- b - a
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = 0, y = 0, xend = bma[1], yend = bma[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5]", x = 2.2, y = .9, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine3,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+
+
+
+
+
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine4,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+#atan2(a[1] , a[2])
+#atan2(b[1] , b[2])
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
+  theme_tufte(base_size = 24)+
+  annotate(geom = "text", label  = expression(theta), x = .6, y = .78, size = 7)+
+  geom_arc(aes(x0 = 0, y0 = 0, r = 1.3, 
+               start = .463, end = .876))
+
+```
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Angle}
+
+\begin{align*}
+\lVert b - a \rVert^2 &  = \lVert  b \rVert^2 + \lVert a \rVert^2 - 
+  2 \lVert b \rVert   \lvert  a \rVert  \cos \theta  \\
+b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\ 
+\cos \theta & = \frac{b \cdot a}{\lVert b\rVert  \lVert  a \rVert }
+\end{align*}
+
+\end{block}
+
+
+\pause 
+
+\begin{block}{Orthogonality}
+\begin{align*}
+\cos ( 90^{\circ}) & = 0 \\ 
+\frac{b \cdot a}{\lVert  b\rVert \lVert a \rVert} & = 0\\ 
+ b \cdot a & = 0  
+\end{align*}
+\end{block}
+
+
+
+
+
+
+
+\end{columns}
+
+

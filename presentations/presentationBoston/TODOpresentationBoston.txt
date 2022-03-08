@@ -2,17 +2,17 @@
 
 [] - presentation plan, revise when the whole thing is done
 
-[] - word embeddings, perhaps say more - Mitchell [ALICJA, RAFAŁ] 1
+[] - word embeddings, perhaps say more - Mitchell [ALICJA, RAFAŁ] 1  R:DONE, A:REVISE
 
-[] - add visualisations for cosine similarity [RAFAL]
+[] - add visualisations for cosine similarity [RAFAL] R:DONE, A:REVISE
 
 [] - rethink restructuring the other difficulties to be discussed
 
-[] - add the conceptual problem with WEAT from literature [RAFAL] 1
+[] - add the conceptual problem with WEAT from literature [RAFAL] R:DONE A:REVISE
 
-[] - add the worry about uncertainty with the bounds [RAFAL]
+[] - add the worry about uncertainty with the bounds [RAFAL] R:DONE A:Revise
 
-[] - slide with the intuition why vector space should catch semantics [ALICJA, RAFAŁ] 1
+[] - slide with the intuition why vector space should catch semantics [ALICJA, RAFAŁ] R:DONE A:Revise
 
 [] - prepare questions for anonymous survey [ALICJA, RAFAŁ]
 

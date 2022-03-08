@@ -11,7 +11,7 @@ output:
     slide_level: 2
   slidy_presentation: default
 fontsize: 10pt
-classoption: x11names, dvipsnames, bibspacing,natbib
+classoption: x11names, dvipsnames, bibspacing,natbib, table
 urlcolor: blue
 bibliography: ../../references/cosineReferences1.bib
 csl: ../../references/apa-6th-edition.csl
@@ -36,6 +36,7 @@ library(ggplot2)
 library(ggpubr)
 library(ggExtra)
 library(ggthemes)
+library(ggforce)
 library(latex2exp)
 th <- theme_tufte(base_size = 20)
 options(kableExtra.latex.load_packages = FALSE)
@@ -54,18 +55,190 @@ options(kableExtra.latex.load_packages = FALSE)
 
 
 
+## Word2vec
 
-## Cosine-based measures of bias
+### Question
+
+How to sensibly represent words with numbers?
+
+\pause
+
+### One-hot encoding
+
+Well, you could use 30k binary vectors with a slot for each lexical unit\dots
+
+\pause
+
+\dots \dots but this would be inefficient and wouldn't capture any relations between words.
 
 
 
-### Word embeddings 
 
-- Representation of words with vectors of real numbers
+## Word2vec
 
-- Often built to predict the probability of co-occurence 
 
-<!-- check if the statement of co-occurence always right--> 
+
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+\footnotesize 
+
+\begin{block}{Rosenblatt's perceptron}
+\begin{itemize}
+\item Inputs (pixel intensities) with weights
+\item Nodes with activation levels from 0-1
+\item (Perhaps) 0-1 output based on a threshold
+\end{itemize}
+\end{block}
+
+## Word2vec
+
+
+
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+\footnotesize 
+
+
+
+\begin{block}{Learning}
+\begin{itemize}
+\item Start with random weights
+\item Test on a case:
+\begin{itemize}
+\item If right, don't change weights.
+\item If wrong, change weights a bit, with focus on the ones more responsible for the judgment:
+\begin{align*}
+w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\text{correct output}} - \overbrace{y}^{\text{actual output}})\underbrace{x_j}_{\text{actual input}}
+\end{align*}
+\end{itemize}
+\end{itemize}
+
+\end{block}
+
+
+
+
+## Word2vec
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+    
+
+\begin{center}
+ \includegraphics[height = 6cm, width = 5cm]{images/perceptron2.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{itemize}
+\item Each hidden unit takes a weighted sum of 324 inputs and passes on its activation level as input to outer layer units. 
+
+\item Activation levels of outer layers are interpreted as network's levels of confidence in a classification problem.
+
+\item Learning: back-propagation (gradient descent: approximate  the direction of steepest descent in the error surface w.r.t to weights, modify accordingly).
+\end{itemize}
+
+\end{columns}
+
+## Word2vec
+
+
+### Distributional semantics
+
+\begin{itemize}
+\item "You shall know a word by the company it keeps" (John Firth, 1957)
+
+
+\item "the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
+
+
+\end{itemize}
+
+\pause
+
+
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 5cm]{images/similarity1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+
+## Word2vec
+
+### Google and Mikolov
+
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+
+
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 6cm]{images/word2vec1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+## Word2vec
+
+### Google and Mikolov
+
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+
+
+\begin{center}
+ \includegraphics[height = 3cm, width = 7cm]{images/word2vec2.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+
+
+## Word2vec
+
+
 
 word | 1 | 2 | 3 | 4 | ... 
 |---|---|---|---|---|---
@@ -73,12 +246,297 @@ woman | 0.456 | 0.267 | 0.675 | 0.131| ...
 man | 0.451 | 0.897 | 0.472 | 0.088| ...
 
 
-
-## Cosine-based measures of bias
-
+### Question
 
 
-### Cosine similarity \& distance
+How is this supposed to capture semantic relations?
+
+\pause
+
+### General idea
+
+Similarity in vector direction.
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine1,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{block}{Vectors}
+\begin{align*}
+a  & = [1,2]\\
+b  &= [3,2]
+\end{align*}
+
+\end{block}
+\pause 
+
+\begin{block}{Dot product}
+
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+
+\end{columns}
+
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine2,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+bma <- b - a
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = 0, y = 0, xend = bma[1], yend = bma[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5]", x = 2.2, y = .9, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine3,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
+  theme_tufte(base_size = 24)
+
+```
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+
+
+
+
+
+
+
+
+
+
+
+## Cosine similarity
+
+
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+```{r cosine4,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+a <- c(1,2)
+b <- c(3,2.5)
+#atan2(a[1] , a[2])
+#atan2(b[1] , b[2])
+
+ggplot()+
+  xlim(c(0,4.5))+ylim(c(0,4.5))+
+  geom_segment(aes(x = 0, y = 0, xend = a[1], yend = a[2]),  
+               arrow = arrow(length = unit(0.02, "npc")))+
+  annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
+  geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
+  theme_tufte(base_size = 24)+
+  geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
+      arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
+  annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
+  theme_tufte(base_size = 24)+
+  annotate(geom = "text", label  = expression(theta), x = .6, y = .78, size = 7)+
+  geom_arc(aes(x0 = 0, y0 = 0, r = 1.3, 
+               start = .463, end = .876))
+
+```
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Angle}
+
+\begin{align*}
+\lVert b - a \rVert^2 &  = \lVert  b \rVert^2 + \lVert a \rVert^2 - 
+  2 \lVert b \rVert   \lvert  a \rVert  \cos \theta  \\
+b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\ 
+\cos \theta & = \frac{b \cdot a}{\lVert b\rVert  \lVert  a \rVert }
+\end{align*}
+
+\end{block}
+
+
+\pause 
+
+\begin{block}{Orthogonality}
+\begin{align*}
+\cos ( 90^{\circ}) & = 0 \\ 
+\frac{b \cdot a}{\lVert  b\rVert \lVert a \rVert} & = 0\\ 
+ b \cdot a & = 0  
+\end{align*}
+\end{block}
+
+
+
+
+
+
+
+\end{columns}
+
+
+
+
+
+## Cosine similarity \& distance
 
 <!-- - Dot product for normalized vectors -->
 
@@ -87,7 +545,7 @@ man | 0.451 | 0.897 | 0.472 | 0.088| ...
 \vspace{-4mm}
 
 \begin{align} \tag{Sim}
-\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
+\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\lVert  A \rVert \,\lVert B \rVert}
 \\
 \tag{Distance}
 \mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)
@@ -351,7 +809,7 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 ## Cosine-based measures of bias
 
 
-### Known challenges
+### General challenges
 
 - Gender-direction: insufficient indicator of
     bias  \footnotesize  [@Gonen2019lipstick]
@@ -368,13 +826,27 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ###  Word list choice is unprincipled
 
-We run with it for comparison
+- We run with it for comparison.
 
 \pause
 
 ### No design considerations to sample size 
 
-We statistically gauge the uncertainty that arises from raw sample sizes
+- ETHAYARAJH IS YOUR criticizes WEAT uses Bernstein bounds and argues that we would need a bias specific dataset of size at least 11903 to claim that the system is biased (three times larger than WinoBias).
+
+\pause
+
+- We show progress can be made with more sensitive Bayesian methods.
+
+### The form of the definition is suspicious
+
+ETHAYARAJH UNDERSTANDING shows if there are two target words only WEAT is always maximal in one direction.
+
+\pause  
+
+- We show the problem runs deeper and stems from pre-averaging, and we statistically gauge the uncertainty that arises from raw sample sizes.
+
+
 
 
 ## Some methodological problems
@@ -414,7 +886,7 @@ religionDisplay  %>%  kable(format = "latex",booktabs=T,
 
 ### Outliers and surprisingly dissimilar words
 
-We study those by  visualizations and uncertainty estimates
+We study those by  visualizations and uncertainty estimates.
 
 
 
@@ -498,26 +970,26 @@ Soft Debiased ($\lambda$ = 0.2) | 0.894
 
 \pause
 
-### Our simulation
+### Our simulations
 
-Suppose all similarities for two classes are randomly drawn from the same distribution, $\mathsf{Normal}(\mu = 0, \sigma = .05)$, you still can get a really high WEAT!
+Suppose all similarities for two classes are randomly drawn from the same distribution, $\mathsf{Normal}(\mu = 0, \sigma = .08)$, you still can get a really high WEAT!
 
 
 
 ## The problem with pre-averaging
 
 
-### One simulation
+### Simple case: two pws, four terms
 
 \vspace{1mm}
 \footnotesize
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%"}
 set.seed(123)
-t1 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
-t2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
-t3 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
-t4 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,0,0.05))
-xlimits <- c(-.3,.3)
+t1 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
+t2 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
+t3 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
+t4 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
+xlimits <- c(-1,1)
 
 t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
@@ -551,13 +1023,13 @@ numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 
 - Raw sd in data is `r round(rawsd,3)`
 - The sd of means is `r round(factor,3)`
-- The WEAT score is `r round(numerator/factor,3)`
+- The WEAT score is `r round(numerator/factor,3)`   
 - The largest effect size reported by @Caliskan2017semanticsBiases is 1.81! 
 
 
-## The problem with pre-averaging on real set-up
+## The problem with pre-averaging on realistic set-up
 
-### One simulation on real set-up (no similarities and small std)
+### Simulation with realistic set-up (16 predicates)
 
 \vspace{1mm}
 \footnotesize
@@ -580,7 +1052,7 @@ t14 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
 t15 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
 t16 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
 
-xlimits <- c(-.3,.3)
+xlimits <- c(-1,1)
 
 t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
@@ -591,10 +1063,22 @@ t8Plot <- ggplot(t8)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_p
 t9Plot <- ggplot(t9)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
 grid.arrange(t1Plot,t2Plot, t8Plot, t9Plot, ncol=2)
+
+whole <- rbind(t1,t2,t3,t4)
+rawsd <- sd(c(whole$A,whole$B))
+factor <- sd(c(s(t1),s(t2),s(t3),s(t4)))
+numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 ```
 
+\footnotesize 
 
-## The problem with pre-averaging on real set-up
+\vspace{-2mm}
+
+ Raw sd: `r round(rawsd,3)`, sd of means: `r round(factor,3)`, WEAT:  `r round(numerator/factor,3)`.   
+
+
+
+## The problem with pre-averaging on realistic set-up
 
 ### 10k simulations (same parameters)
 
@@ -646,13 +1130,13 @@ absOver182 <- mean(abs(biasesD0)>=1.81)
 
 \vspace{-2mm}
 
-- The 95% of the data is in range `r round(quantile, 3)`
+- 95% of the scores are in range `r round(quantile, 3)`
 - `r round(absOver182*100, 2)`% of the absolute values are above 1.81
 
 
-## The problem with pre-averaging on real set-up
+## The problem with pre-averaging on realistic set-up
 
-### 10k simulations with similarity equal to 0.1
+### 10k simulations with mean similarity  0.1
 
 
 \vspace{1mm}
@@ -695,20 +1179,21 @@ quantiles1 <- quantile(biasesD1, c(0.025, 0.975))
 absMean1 <- mean(abs(biasesD1)>=1.81)
 ```
 \normalsize
-\pause
+
 
 \footnotesize 
 
 \vspace{-2mm}
 
-- The 95% of the data is in range `r round(quantiles1, 3)`
+- 95% of the scores are in range `r round(quantiles1, 3)`
 - `r round(absMean1*100, 2)`% of the absolute values are above 1.81
 
 
 
-## The problem with pre-averaging on real set-up
 
-### 10k simulations with similarity equal to 0.4
+## The problem with pre-averaging on realistic set-up
+
+### 10k simulations with mean similarity  0.4
 
 
 \vspace{1mm}
@@ -751,13 +1236,12 @@ quantiles4 <- quantile(biasesD4, c(0.025, 0.975))
 absMean4 <- mean(abs(biasesD4)>=1.81)
 ```
 \normalsize
-\pause
 
 \footnotesize 
 
 \vspace{-2mm}
 
-- The 95% of the data is in range `r round(quantiles4, 3)`
+- 95% of the scores are in range `r round(quantiles4, 3)`
 - `r round(absMean4*100, 2)`% of the absolute values are above 1.81
 
 

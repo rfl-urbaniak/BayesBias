@@ -1,0 +1,247 @@
+---
+title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
+  to  word embedding bias estimation '
+author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
+  group, University of  Gdansk)
+date: "Boston, April Fools' Day"
+output:
+  beamer_presentation:
+    theme: Rafal_beamerSly1
+    keep_tex: yes
+    slide_level: 2
+  slidy_presentation: default
+fontsize: 10pt
+classoption: x11names, dvipsnames, bibspacing, natbib, table
+urlcolor: blue
+bibliography: ../../references/cosineReferences1.bib
+csl: ../../references/apa-6th-edition.csl
+link-citations: yes
+---
+
+
+
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggforce)
+library(ggExtra)
+library(ggthemes)
+library(latex2exp)
+th <- theme_tufte(base_size = 20)
+options(kableExtra.latex.load_packages = FALSE)
+```
+
+
+
+
+
+## Word2vec
+
+### Question
+
+How to sensibly represent words with numbers?
+
+\pause
+
+### One-hot encoding
+
+Well, you could use 30k binary vectors with a slot for each lexical unit\dots
+
+\pause
+
+\dots \dots but this would be inefficient and wouldn't capture any relations between words.
+
+
+
+
+## Word2vec
+
+
+
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+\footnotesize 
+
+\begin{block}{Rosenblatt's perceptron}
+\begin{itemize}
+\item Inputs (pixel intensities) with weights
+\item Nodes with activation levels from 0-1
+\item (Perhaps) 0-1 output based on a threshold
+\end{itemize}
+\end{block}
+
+## Word2vec
+
+
+
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+\footnotesize 
+
+
+
+\begin{block}{Learning}
+\begin{itemize}
+\item Start with random weights
+\item Test on a case:
+\begin{itemize}
+\item If right, don't change weights.
+\item If wrong, change weights a bit, with focus on the ones more responsible for the judgment:
+\begin{align*}
+w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\text{correct output}} - \overbrace{y}^{\text{actual output}})\underbrace{x_j}_{\text{actual input}}
+\end{align*}
+\end{itemize}
+\end{itemize}
+
+\end{block}
+
+
+
+
+## Word2vec
+
+
+
+\begin{columns}
+\column{0.45\linewidth}
+    
+    
+
+\begin{center}
+ \includegraphics[height = 6cm, width = 5cm]{images/perceptron2.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{itemize}
+\item Each hidden unit takes a weighted sum of 324 inputs and passes on its activation level as input to outer layer units. 
+
+\item Activation levels of outer layers are interpreted as network's levels of confidence in a classification problem.
+
+\item Learning: back-propagation (gradient descent: approximate  the direction of steepest descent in the error surface w.r.t to weights, modify accordingly).
+\end{itemize}
+
+\end{columns}
+
+## Word2vec
+
+
+### Distributional semantics
+
+\begin{itemize}
+\item "You shall know a word by the company it keeps" (John Firth, 1957)
+
+
+\item "the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
+
+
+\end{itemize}
+
+\pause
+
+
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 5cm]{images/similarity1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+
+## Word2vec
+
+### Google and Mikolov
+
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+
+
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 6cm]{images/word2vec1.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+## Word2vec
+
+### Google and Mikolov
+
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+
+
+\begin{center}
+ \includegraphics[height = 3cm, width = 7cm]{images/word2vec2.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+## Word2vec
+
+### Nearest words
+
+\begin{itemize}
+\item \textbf{philosophy}: philosophies, credo, ethos, principles, ethic, tenets, mantra, ideology, mindset, worldview
+
+\item \textbf{sandwich}: sandwiches, burger, chicken sandwich, cheeseburger, burrito, burgers, pizza, turkey sandwich, hamburger, burritos
+\end{itemize}
+
+\pause
+
+### Some similarities from \emph{philosophy}
+
+Logic (.47), Nietzsche (.32), Hegel (.32), analytic (.13), burger (.08), continental (.04), Russell (.04)
+
+
+
+
+

@@ -6,7 +6,7 @@
 \documentclass[
   10pt,
   ignorenonframetext,
-  x11names, dvipsnames, bibspacing,natbib]{beamer}
+  x11names, dvipsnames, bibspacing,natbib, table]{beamer}
 \usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
@@ -189,17 +189,171 @@ Bayesian approach to word embedding bias estimation}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias}{}
-\begin{block}{Word embeddings}
-\protect\hypertarget{word-embeddings}{}
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec}{}
+\begin{block}{Question}
+\protect\hypertarget{question}{}
+How to sensibly represent words with numbers?
+
+\pause
+\end{block}
+
+\begin{block}{One-hot encoding}
+\protect\hypertarget{one-hot-encoding}{}
+Well, you could use 30k binary vectors with a slot for each lexical
+unit\dots
+
+\pause
+
+\dots \dots but this would be inefficient and wouldn't capture any
+relations between words.
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-1}{}
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+\vspace{-3mm}
+
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+\footnotesize
+
+\begin{block}{Rosenblatt's perceptron}
 \begin{itemize}
-\item
-  Representation of words with vectors of real numbers
-\item
-  Often built to predict the probability of co-occurence
+\item Inputs (pixel intensities) with weights
+\item Nodes with activation levels from 0-1
+\item (Perhaps) 0-1 output based on a threshold
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-2}{}
+\begin{center}
+ \includegraphics[width = 9cm]{images/perceptron1.png}
+\end{center}
+
+\vspace{-3mm}
+
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+\footnotesize
+
+\begin{block}{Learning}
+\begin{itemize}
+\item Start with random weights
+\item Test on a case:
+\begin{itemize}
+\item If right, don't change weights.
+\item If wrong, change weights a bit, with focus on the ones more responsible for the judgment:
+\begin{align*}
+w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\text{correct output}} - \overbrace{y}^{\text{actual output}})\underbrace{x_j}_{\text{actual input}}
+\end{align*}
+\end{itemize}
 \end{itemize}
 
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-3}{}
+\begin{columns}
+\column{0.45\linewidth}
+    
+    
+
+\begin{center}
+ \includegraphics[height = 6cm, width = 5cm]{images/perceptron2.png}
+\end{center}
+
+
+\vspace{-3mm}
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{itemize}
+\item Each hidden unit takes a weighted sum of 324 inputs and passes on its activation level as input to outer layer units. 
+
+\item Activation levels of outer layers are interpreted as network's levels of confidence in a classification problem.
+
+\item Learning: back-propagation (gradient descent: approximate  the direction of steepest descent in the error surface w.r.t to weights, modify accordingly).
+\end{itemize}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-4}{}
+\begin{block}{Distributional semantics}
+\protect\hypertarget{distributional-semantics}{}
+\begin{itemize}
+\item "You shall know a word by the company it keeps" (John Firth, 1957)
+
+
+\item "the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
+
+
+\end{itemize}
+
+\pause
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 5cm]{images/similarity1.png}
+\end{center}
+
+\vspace{-3mm}
+
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-5}{}
+\begin{block}{Google and Mikolov}
+\protect\hypertarget{google-and-mikolov}{}
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+\begin{center}
+ \includegraphics[height = 5cm, width = 6cm]{images/word2vec1.png}
+\end{center}
+
+\vspace{-3mm}
+
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-6}{}
+\begin{block}{Google and Mikolov}
+\protect\hypertarget{google-and-mikolov-1}{}
+\emph{Efficient Estimation of Word Representation in Vector Space}, 2013
+
+Let's train a neural network and use vectors of weights!
+
+\begin{center}
+ \includegraphics[height = 3cm, width = 7cm]{images/word2vec2.png}
+\end{center}
+
+\vspace{-3mm}
+
+\tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
+\end{block}
+\end{frame}
+
+\begin{frame}{Word2vec}
+\protect\hypertarget{word2vec-7}{}
 \begin{longtable}[]{@{}llllll@{}}
 \toprule
 word & 1 & 2 & 3 & 4 & \ldots{} \\
@@ -209,17 +363,203 @@ woman & 0.456 & 0.267 & 0.675 & 0.131 & \ldots{} \\
 man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{} \\
 \bottomrule
 \end{longtable}
+
+\begin{block}{Question}
+\protect\hypertarget{question-1}{}
+How is this supposed to capture semantic relations?
+
+\pause
+\end{block}
+
+\begin{block}{General idea}
+\protect\hypertarget{general-idea}{}
+Similarity in vector direction.
 \end{block}
 \end{frame}
 
-\begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-1}{}
-\begin{block}{Cosine similarity \& distance}
+\begin{frame}{Cosine similarity}
+\protect\hypertarget{cosine-similarity}{}
+\begin{columns}
+\column{0.45\linewidth}
+    
+
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine1-1} \end{center}
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+\begin{block}{Vectors}
+\begin{align*}
+a  & = [1,2]\\
+b  &= [3,2]
+\end{align*}
+
+\end{block}
+\pause 
+
+\begin{block}{Dot product}
+
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Cosine similarity}
+\protect\hypertarget{cosine-similarity-1}{}
+\begin{columns}
+\column{0.45\linewidth}
+    
+
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine2-1} \end{center}
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Cosine similarity}
+\protect\hypertarget{cosine-similarity-2}{}
+\begin{columns}
+\column{0.45\linewidth}
+    
+
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine3-1} \end{center}
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Vectors}
+
+\begin{align*}
+a  & = [1,2]\\
+b  &= [4,4]
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Dot product}
+
+\begin{align*}
+a \cdot b & = a_1 b_1 + a_2 b_2\\
+a \cdot a & = a_1^2 + a_2 ^ 2 \\
+\lVert a\rVert & = \sqrt(a \cdot a)
+\end{align*}
+
+\end{block}
+
+
+\begin{block}{Vector difference}
+
+\begin{align*}
+b - a & = [b_1- a_1, b_2 - a_2 ]
+\end{align*}
+
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Cosine similarity}
+\protect\hypertarget{cosine-similarity-3}{}
+\begin{columns}
+\column{0.45\linewidth}
+    
+
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine4-1} \end{center}
+
+
+
+\column{0.5\linewidth}
+
+\footnotesize 
+
+
+\begin{block}{Angle}
+
+\begin{align*}
+\lVert b - a \rVert^2 &  = \lVert  b \rVert^2 + \lVert a \rVert^2 - 
+  2 \lVert b \rVert   \lvert  a \rVert  \cos \theta  \\
+b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\ 
+\cos \theta & = \frac{b \cdot a}{\lVert b\rVert  \lVert  a \rVert }
+\end{align*}
+
+\end{block}
+
+
+\pause 
+
+\begin{block}{Orthogonality}
+\begin{align*}
+\cos ( 90^{\circ}) & = 0 \\ 
+\frac{b \cdot a}{\lVert  b\rVert \lVert a \rVert} & = 0\\ 
+ b \cdot a & = 0  
+\end{align*}
+\end{block}
+
+
+
+
+
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Cosine similarity \& distance}
 \protect\hypertarget{cosine-similarity-distance}{}
 \vspace{-4mm}
 
 \begin{align} \tag{Sim}
-\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\vert \vert A \vert \vert \,\vert \vert B \vert \vert}
+\mathsf{cosineSimilarity}(A,B) & = \frac{A \cdot B}{\lVert  A \rVert \,\lVert B \rVert}
 \\
 \tag{Distance}
 \mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)
@@ -233,11 +573,10 @@ man & 0.451 & 0.897 & 0.472 & 0.088 & \ldots{} \\
 \item
   Naive interpretation: proximity corresponds to semantic similarity
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-2}{}
+\protect\hypertarget{cosine-based-measures-of-bias}{}
 \begin{block}{The worry}
 \protect\hypertarget{the-worry}{}
 Word embeddings can learn implicit harmful biases
@@ -252,7 +591,7 @@ Stereotypically connected words are cosine-close
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-3}{}
+\protect\hypertarget{cosine-based-measures-of-bias-1}{}
 \begin{block}{A visual example}
 \protect\hypertarget{a-visual-example}{}
 \footnotesize
@@ -277,7 +616,7 @@ Stereotypically connected words are cosine-close
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-4}{}
+\protect\hypertarget{cosine-based-measures-of-bias-2}{}
 \begin{block}{Example: Word Embedding Association Test (WEAT)}
 \protect\hypertarget{example-word-embedding-association-test-weat}{}
 \vspace{1mm}
@@ -309,7 +648,7 @@ Stereotypically connected words are cosine-close
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-5}{}
+\protect\hypertarget{cosine-based-measures-of-bias-3}{}
 \begin{block}{Example: Word Embedding Association Test (WEAT)}
 \protect\hypertarget{example-word-embedding-association-test-weat-1}{}
 \begin{align*}
@@ -348,7 +687,7 @@ Zou, 2018})
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-6}{}
+\protect\hypertarget{cosine-based-measures-of-bias-4}{}
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
 \protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac}{}
 \vspace{1mm}
@@ -377,7 +716,7 @@ s_2 & = s(muslim,A_2) = \frac{cos(muslim,familiar)+cos(muslim,conservative)}{2}\
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-7}{}
+\protect\hypertarget{cosine-based-measures-of-bias-5}{}
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
 \protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac-1}{}
 \begin{align*}
@@ -410,7 +749,7 @@ Tsvetkov, \& Black, 2019})
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-8}{}
+\protect\hypertarget{cosine-based-measures-of-bias-6}{}
 \begin{block}{Our main target: Mean Average Cosine Similarity (MAC)}
 \protect\hypertarget{our-main-target-mean-average-cosine-similarity-mac-2}{}
 \footnotesize 
@@ -437,9 +776,9 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
-\protect\hypertarget{cosine-based-measures-of-bias-9}{}
-\begin{block}{Known challenges}
-\protect\hypertarget{known-challenges}{}
+\protect\hypertarget{cosine-based-measures-of-bias-7}{}
+\begin{block}{General challenges}
+\protect\hypertarget{general-challenges}{}
 \begin{itemize}
 \tightlist
 \item
@@ -467,14 +806,47 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \protect\hypertarget{some-methodological-problems}{}
 \begin{block}{Word list choice is unprincipled}
 \protect\hypertarget{word-list-choice-is-unprincipled}{}
-We run with it for comparison
+\begin{itemize}
+\tightlist
+\item
+  We run with it for comparison.
+\end{itemize}
 
 \pause
 \end{block}
 
 \begin{block}{No design considerations to sample size}
 \protect\hypertarget{no-design-considerations-to-sample-size}{}
-We statistically gauge the uncertainty that arises from raw sample sizes
+\begin{itemize}
+\tightlist
+\item
+  ETHAYARAJH IS YOUR criticizes WEAT uses Bernstein bounds and argues
+  that we would need a bias specific dataset of size at least 11903 to
+  claim that the system is biased (three times larger than WinoBias).
+\end{itemize}
+
+\pause
+
+\begin{itemize}
+\tightlist
+\item
+  We show progress can be made with more sensitive Bayesian methods.
+\end{itemize}
+\end{block}
+
+\begin{block}{The form of the definition is suspicious}
+\protect\hypertarget{the-form-of-the-definition-is-suspicious}{}
+ETHAYARAJH UNDERSTANDING shows if there are two target words only WEAT
+is always maximal in one direction.
+
+\pause
+
+\begin{itemize}
+\tightlist
+\item
+  We show the problem runs deeper and stems from pre-averaging, and we
+  statistically gauge the uncertainty that arises from raw sample sizes.
+\end{itemize}
 \end{block}
 \end{frame}
 
@@ -515,7 +887,7 @@ muslim & nationalized & neutral & 0.870 & 0.130 & none\\
 \protect\hypertarget{some-methodological-problems-2}{}
 \begin{block}{Outliers and surprisingly dissimilar words}
 \protect\hypertarget{outliers-and-surprisingly-dissimilar-words}{}
-We study those by visualizations and uncertainty estimates
+We study those by visualizations and uncertainty estimates.
 \end{block}
 \end{frame}
 
@@ -577,18 +949,18 @@ Soft Debiased (\(\lambda\) = 0.2) & 0.894 \\
 \pause
 \end{block}
 
-\begin{block}{Our simulation}
-\protect\hypertarget{our-simulation}{}
+\begin{block}{Our simulations}
+\protect\hypertarget{our-simulations}{}
 Suppose all similarities for two classes are randomly drawn from the
-same distribution, \(\mathsf{Normal}(\mu = 0, \sigma = .05)\), you still
+same distribution, \(\mathsf{Normal}(\mu = 0, \sigma = .08)\), you still
 can get a really high WEAT!
 \end{block}
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging}
 \protect\hypertarget{the-problem-with-pre-averaging-1}{}
-\begin{block}{One simulation}
-\protect\hypertarget{one-simulation}{}
+\begin{block}{Simple case: two pws, four terms}
+\protect\hypertarget{simple-case-two-pws-four-terms}{}
 \vspace{1mm}
 \footnotesize
 
@@ -612,7 +984,7 @@ can get a really high WEAT!
 \item
   The sd of means is 0.023
 \item
-  The WEAT score is 1.825
+  The WEAT score is 1.825\\
 \item
   The largest effect size reported by
   \protect\hyperlink{ref-Caliskan2017semanticsBiases}{Caliskan, Bryson,
@@ -622,20 +994,25 @@ can get a really high WEAT!
 \end{block}
 \end{frame}
 
-\begin{frame}{The problem with pre-averaging on real set-up}
-\protect\hypertarget{the-problem-with-pre-averaging-on-real-set-up}{}
-\begin{block}{One simulation on real set-up (no similarities and small
-std)}
-\protect\hypertarget{one-simulation-on-real-set-up-no-similarities-and-small-std}{}
+\begin{frame}{The problem with pre-averaging on realistic set-up}
+\protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up}{}
+\begin{block}{Simulation with realistic set-up (16 predicates)}
+\protect\hypertarget{simulation-with-realistic-set-up-16-predicates}{}
 \vspace{1mm}
 \footnotesize
 
 \begin{center}\includegraphics[width=0.7\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-8-1} \end{center}
+
+\footnotesize
+
+\vspace{-2mm}
+
+Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
 \end{block}
 \end{frame}
 
-\begin{frame}{The problem with pre-averaging on real set-up}
-\protect\hypertarget{the-problem-with-pre-averaging-on-real-set-up-1}{}
+\begin{frame}{The problem with pre-averaging on realistic set-up}
+\protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-1}{}
 \begin{block}{10k simulations (same parameters)}
 \protect\hypertarget{k-simulations-same-parameters}{}
 \vspace{1mm}
@@ -655,17 +1032,17 @@ std)}
 \begin{itemize}
 \tightlist
 \item
-  The 95\% of the data is in range -2.763, 2.698
+  95\% of the scores are in range -2.763, 2.698
 \item
   21.38\% of the absolute values are above 1.81
 \end{itemize}
 \end{block}
 \end{frame}
 
-\begin{frame}{The problem with pre-averaging on real set-up}
-\protect\hypertarget{the-problem-with-pre-averaging-on-real-set-up-2}{}
-\begin{block}{10k simulations with similarity equal to 0.1}
-\protect\hypertarget{k-simulations-with-similarity-equal-to-0.1}{}
+\begin{frame}{The problem with pre-averaging on realistic set-up}
+\protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-2}{}
+\begin{block}{10k simulations with mean similarity 0.1}
+\protect\hypertarget{k-simulations-with-mean-similarity-0.1}{}
 \vspace{1mm}
 \footnotesize
 
@@ -674,7 +1051,6 @@ std)}
 \footnotesize
 
 \normalsize
-\pause
 
 \footnotesize
 
@@ -683,17 +1059,17 @@ std)}
 \begin{itemize}
 \tightlist
 \item
-  The 95\% of the data is in range 0.851, 2.764
+  95\% of the scores are in range 0.851, 2.764
 \item
   51.3\% of the absolute values are above 1.81
 \end{itemize}
 \end{block}
 \end{frame}
 
-\begin{frame}{The problem with pre-averaging on real set-up}
-\protect\hypertarget{the-problem-with-pre-averaging-on-real-set-up-3}{}
-\begin{block}{10k simulations with similarity equal to 0.4}
-\protect\hypertarget{k-simulations-with-similarity-equal-to-0.4}{}
+\begin{frame}{The problem with pre-averaging on realistic set-up}
+\protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-3}{}
+\begin{block}{10k simulations with mean similarity 0.4}
+\protect\hypertarget{k-simulations-with-mean-similarity-0.4}{}
 \vspace{1mm}
 \footnotesize
 
@@ -702,7 +1078,6 @@ std)}
 \footnotesize
 
 \normalsize
-\pause
 
 \footnotesize
 
@@ -711,7 +1086,7 @@ std)}
 \begin{itemize}
 \tightlist
 \item
-  The 95\% of the data is in range 1.679, 2.185
+  95\% of the scores are in range 1.679, 2.185
 \item
   82.9\% of the absolute values are above 1.81
 \end{itemize}
