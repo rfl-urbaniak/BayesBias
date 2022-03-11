@@ -15,7 +15,7 @@
 
 [] - slide with limitations of our method (optional)
 
-[] - add to slide 25 more examples of human and none in a list [ALICJA] 1
+[] - add to slide 25 more examples of human and none in a list [ALICJA] OK
 
 [] - make the line and dots darker in slide 27 [RAFAŁ]
 

@@ -879,7 +879,18 @@ religionDisplay  %>%  kable(format = "latex",booktabs=T,
 \normalsize
 
 
+## Some methodological problems
 
+### Our lists of neutral and human words
+
+- neutral words = [liquor, pow, ballpark, glitchy, billy, dallas, rip, called, outlooks, viet, floater, rattlesnake, exports,
+peruvian, recursion, shortfall, corrected, amicable, solutions, diagnostic, patently, flops, approx, percents, lox, catapults,
+hamburger, engulfed, households, north, snubbed, playtest] \newline
+
+
+- human words = [switch, studio, stick, soup, sometimes, signal, prior, plant, photo, path, park, near, menu, latter, grass, clock, 
+wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character, candidate, breakfast, supper, dinner,
+eat, drink, carry, run, cast, ask, awake, ear, nose, lunch]
 
 
 ## Some methodological problems
