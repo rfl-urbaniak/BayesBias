@@ -938,11 +938,11 @@ visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
 
 ### No principled interpretation 
 
-Religion Debiasing  | MAC (distance)
-------------- | -------------
-Biased        | 0.859
-Hard Debiased | 0.934
-Soft Debiased ($\lambda$ = 0.2) | 0.894
+Category | Biased | Hard Debiased | Soft Debiased | Diff |
+-------| ------| -------| ----- | --------
+Religion | 0.859 | 0.934 | 0.894| 0.075 |
+Race | 0.892 | 0.925| 0.985 | 0.033 |
+Gender | 0.623 | 0.700 | 0.747 | 0.077 |
 
 - What values are sufficient for the presence of bias and what differences are sign of real improvement? 
 

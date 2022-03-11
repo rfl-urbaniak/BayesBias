@@ -911,14 +911,14 @@ We study those by visualizations and uncertainty estimates.
 \protect\hypertarget{some-methodological-problems-5}{}
 \begin{block}{No principled interpretation}
 \protect\hypertarget{no-principled-interpretation}{}
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}lllll@{}}
 \toprule
-Religion Debiasing & MAC (distance) \\
+Category & Biased & Hard Debiased & Soft Debiased & Diff \\
 \midrule
 \endhead
-Biased & 0.859 \\
-Hard Debiased & 0.934 \\
-Soft Debiased (\(\lambda\) = 0.2) & 0.894 \\
+Religion & 0.859 & 0.934 & 0.894 & 0.075 \\
+Race & 0.892 & 0.925 & 0.985 & 0.033 \\
+Gender & 0.623 & 0.700 & 0.747 & 0.077 \\
 \bottomrule
 \end{longtable}
 
@@ -980,9 +980,9 @@ can get a really high WEAT!
 \begin{itemize}
 \tightlist
 \item
-  Raw sd in data is 0.045
+  Raw sd in data is 0.072
 \item
-  The sd of means is 0.023
+  The sd of means is 0.037
 \item
   The WEAT score is 1.825\\
 \item
