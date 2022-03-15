@@ -19652,4 +19652,19 @@ and all mathematicians sometimes falter because their intuitive, ...},
   primaryclass  = {cs.CL},
 }
 
+@InProceedings{Ethayarajh2019understanding,
+  author    = {Kawin Ethayarajh and David Duvenaud and Graeme Hirst},
+  title     = {Understanding Undesirable Word Embedding Associations},
+  booktitle = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
+  year      = {2019},
+  pages     = {1696-1705},
+  journal   = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
+}
+
+@Unpublished{Ethayarajh2020measuring,
+  author = {Kawin Ethayarajh},
+  title  = {Is Your Classifier Actually Biased? Measuring Fairness under Uncertainty with Bernstein Bounds},
+  year   = {2020},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}

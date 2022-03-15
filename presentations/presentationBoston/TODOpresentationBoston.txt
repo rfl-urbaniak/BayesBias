@@ -3,25 +3,26 @@
 
 [] - rethink restructuring the other difficulties to be discussed
 
-[] - prepare questions for anonymous survey [ALICJA, RAFAŁ] OK
+[] - prepare questions for anonymous survey [ALICJA, RAFAŁ] OK  NEED TO DISCUSS
 
 [] - cosine similarity histogram for all groups (what percentage is greater than -+0.1) [ALICJA] 1
+     I DON'T SEE THEM IN THE PRESENTATION, ARE THEY SOMEWHERE ELSE?
 
-[] - add interpretation of cosine values on slide 15 - 90 degrees, etc.
+[x] - add interpretation of cosine values on slide 15 - 90 degrees, etc.
 
-[] - add the rest of the groups to the table with debiasing [ALICJA] OK
+[x] - add the rest of the groups to the table with debiasing [ALICJA] OK  
 
-[] - add examples after slide 15, with philosophy and robber, policewoman [RAFAŁ]
+[x] - add examples after slide 15, with philosophy and robber, policewoman [RAFAŁ]
 
 [] - slide with limitations of our method (optional)
 
-[] - add to slide 25 more examples of human and none in a list [ALICJA] OK
+[] - add list sizes to slide 25 more examples of human and none in a list [ALICJA] 
 
-[] - make the line and dots darker in slide 27 [RAFAŁ]
+[x] - make the line and dots darker in slide 27 [RAFAŁ]
 
 [] - last slide - update
 
-[] - correct errors [RAFAŁ]
+[x] - correct errors [RAFAŁ]
 
 
 

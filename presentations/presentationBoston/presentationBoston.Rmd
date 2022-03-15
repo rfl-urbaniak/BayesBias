@@ -2,7 +2,7 @@
 title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
   to  word embedding bias estimation '
 author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
-  group, University of  Gdansk)
+  group, University of  Gdansk, Vrij Universiteit Amsterdam)
 date: "Boston, April Fools' Day"
 output:
   beamer_presentation:
@@ -38,6 +38,7 @@ library(ggExtra)
 library(ggthemes)
 library(ggforce)
 library(latex2exp)
+library(forcats)
 th <- theme_tufte(base_size = 20)
 options(kableExtra.latex.load_packages = FALSE)
 ```
@@ -291,7 +292,7 @@ ggplot()+
 \begin{block}{Vectors}
 \begin{align*}
 a  & = [1,2]\\
-b  &= [3,2]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -303,7 +304,7 @@ b  &= [3,2]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -356,7 +357,7 @@ ggplot()+
 
 \begin{align*}
 a  & = [1,2]\\
-b  &= [4,4]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -367,7 +368,7 @@ b  &= [4,4]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -426,7 +427,7 @@ ggplot()+
 
 \begin{align*}
 a  & = [1,2]\\
-b  &= [4,4]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -437,7 +438,7 @@ b  &= [4,4]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -551,15 +552,40 @@ b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\
 \mathsf{cosineDistance}(A,B) &  = 1 - \mathsf{cosineSimilarity}(A,B)
 \end{align}
 
--  Geometric interpretation: direction (not length)
 
-
-
--  $\mathsf{cosineDistance}\in (0, 2)$
 
 - Naive interpretation: proximity corresponds to semantic similarity 
 
+-  Geometric interpretation: direction $\mathsf{cos} \in (-1,1)$
+
+    - $1$: maximally smilar 
+    - $-1$: opposites 
+    - $0$: dissimilar
+    
+    
+-  $\mathsf{cosineDistance}\in (0, 2)$
+
 <!-- - Note cosine distance fails to meet triangle inequality -->
+
+
+## Cosine similarity \& distance
+
+```{r philosophy,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "80%",   message = FALSE, warning = FALSE, results = FALSE}
+words <- c("logic", "Nietzsche", "analytic", "Hegel", "Russell", "continental", "burger", "sandwich")
+distances <- c(.47, .32, .13, .29, .08, .08, .04, .04)
+philosophy <- data.frame(words, distances)
+ggplot(philosophy, aes(x = fct_reorder(words, distances), y = distances))+
+  geom_point(size = 3)+coord_flip()+theme_tufte(base_size = 20)+ggtitle("Similarity to <philosophy>, examples")+ylab("")+xlab("similarity")
+```
+
+\pause
+
+### The only "jobs" in top-tens
+
+- Man: robber (.55)
+
+- Woman: policewoman (.6)
+
 
 
 
@@ -832,7 +858,7 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### No design considerations to sample size 
 
-- ETHAYARAJH IS YOUR criticizes WEAT uses Bernstein bounds and argues that we would need a bias specific dataset of size at least 11903 to claim that the system is biased (three times larger than WinoBias).
+- @Ethayarajh2020measuring criticizes WEAT uses Bernstein bounds and argues that we would need a bias specific dataset of size at least 11903 to claim that the system is biased (three times larger than WinoBias).
 
 \pause
 
@@ -840,7 +866,7 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### The form of the definition is suspicious
 
-ETHAYARAJH UNDERSTANDING shows if there are two target words only WEAT is always maximal in one direction.
+- @Ethayarajh2019understanding show that if there are two target words only WEAT is always maximal in one direction.
 
 \pause  
 
@@ -881,16 +907,19 @@ religionDisplay  %>%  kable(format = "latex",booktabs=T,
 
 ## Some methodological problems
 
-### Our lists of neutral and human words
+### Our neutral words (examples, full list size = ADD)
 
-- neutral words = [liquor, pow, ballpark, glitchy, billy, dallas, rip, called, outlooks, viet, floater, rattlesnake, exports,
+liquor, pow, ballpark, glitchy, billy, dallas, rip, called, outlooks, viet, floater, rattlesnake, exports,
 peruvian, recursion, shortfall, corrected, amicable, solutions, diagnostic, patently, flops, approx, percents, lox, catapults,
-hamburger, engulfed, households, north, snubbed, playtest] \newline
+hamburger, engulfed, households, north, snubbed, playtest
 
 
-- human words = [switch, studio, stick, soup, sometimes, signal, prior, plant, photo, path, park, near, menu, latter, grass, clock, 
-wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character, candidate, breakfast, supper, dinner,
-eat, drink, carry, run, cast, ask, awake, ear, nose, lunch]
+### Our human-related words (examples, full list size = ADD)
+
+switch, studio, stick, soup, sometimes, signal, prior, plant, photo, path, park, near, menu, latter, grass, clock,  wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character, candidate, breakfast, supper, dinner,
+eat, drink, carry, run, cast, ask, awake, ear, nose, lunch
+
+
 
 
 ## Some methodological problems
@@ -1002,14 +1031,14 @@ t3 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
 t4 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
 xlimits <- c(-1,1)
 
-t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
 
-t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
 
-t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+t3Plot <- ggplot(t3)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
 
-t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+t4Plot <- ggplot(t4)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
 grid.arrange(t1Plot,t2Plot, t3Plot, t4Plot, ncol=2)
 ```
@@ -1065,13 +1094,13 @@ t16 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
 
 xlimits <- c(-1,1)
 
-t1Plot <- ggplot(t1)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
+t1Plot <- ggplot(t1)+geom_jitter(aes(y = 0, x = A), width  = 0, height = .02,  size = 1, alpha = 0.5)+geom_jitter(aes(y = 0.1, x = B), col = "orangered", width  = 0, height = .02,  size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t1 in X")+xlim(xlimits)
 
-t2Plot <- ggplot(t2)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
+t2Plot <- ggplot(t2)+geom_jitter(aes(y = 0, x = A), width  = 0, height = .02,  size = 1, alpha = 0.5)+geom_jitter(aes(y = 0.1, x = B),  width  = 0, height = .02, col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t2 in X")+xlim(xlimits)
 
-t8Plot <- ggplot(t8)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
+t8Plot <- ggplot(t8)+geom_jitter(aes(y = 0, x = A), width  = 0, height = .02,  size = 1, alpha = 0.5)+geom_jitter(aes(y = 0.1, x = B), width  = 0, height = .02,  col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t3 in Y")+xlim(xlimits)
 
-t9Plot <- ggplot(t9)+geom_point(aes(y = 0, x = A), size = 1, alpha = 0.5)+geom_point(aes(y = 0.1, x = B), col = "skyblue", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "skyblue") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
+t9Plot <- ggplot(t9)+geom_jitter(aes(y = 0, x = A), width  = 0, height = .02,  size = 1, alpha = 0.5)+geom_jitter(aes(y = 0.1, x = B), width  = 0, height = .02,  col = "orangered", size = 1, alpha = 0.5)+theme_tufte()+xlab("similarity")+scale_y_continuous(limits = c(-.05,.15),breaks = c(0,0.1), labels = c("A","B"))+ylab("group") + geom_vline(aes(xintercept = mean(A)), size = 0.3) + geom_vline(aes(xintercept = mean(B)), size = 0.3, col = "orangered") +ggtitle("Similarities for term t4 in Y")+xlim(xlimits)
 
 grid.arrange(t1Plot,t2Plot, t8Plot, t9Plot, ncol=2)
 

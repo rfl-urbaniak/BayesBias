@@ -35,8 +35,8 @@ furthestDistance <- bunch$cosineDistance[nrow(bunch)]
 
 plot <- ggplot(bunch) + geom_point(aes(x=0, y=0), colour="black", size =10,alpha=0.02)+
           geom_point(aes(x=xaxis,y=yaxis, color = connection, size = cosineSimilarity), alpha = 0.3)+ 
-  geom_segment(aes(x= 0, y = 0, xend = closestx,yend=closesty),alpha= 0.01, size = 0.15)+
-  geom_segment(aes(x= 0, y = 0, xend = furthestx,yend=furthesty),alpha=0.01,size = 0.15)+
+  geom_segment(aes(x= 0, y = 0, xend = closestx,yend=closesty),alpha= 0.1, size = 0.2)+
+  geom_segment(aes(x= 0, y = 0, xend = furthestx,yend=furthesty),alpha=0.1,size = 0.2)+
   annotate("text", x = 0.5*closestx, y = 0.5*closesty-0.05, label = round(closestDistance,3), size = 3)+
   annotate("text", x = 1.5*furthestx, y = 0.5*furthesty, label = round(furthestDistance,3), size = 3)+
   annotate("text", x = -0.02, y = -0.13, label = protected, size = 4)+

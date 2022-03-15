@@ -13,6 +13,5 @@ magrittr
 ggpubr
 ggExtra
 ggthemes
-latex2exp
 ggforce
-base
+latex2exp

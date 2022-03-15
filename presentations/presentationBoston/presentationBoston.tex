@@ -79,7 +79,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Taking uncertainty seriously A Bayesian approach to word embedding bias estimation},
-  pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk)},
+  pdfauthor={Alicja Dobrzeniecka \& Rafal Urbaniak (LoPSE research group, University of Gdansk, Vrij Universiteit Amsterdam)},
   colorlinks=true,
   linkcolor=Maroon,
   filecolor=Maroon,
@@ -166,7 +166,8 @@
 \title{\Large Taking uncertainty seriously \newline \normalsize A
 Bayesian approach to word embedding bias estimation}
 \author{Alicja Dobrzeniecka \& Rafal Urbaniak
-\footnotesize \newline (LoPSE research group, University of Gdansk)}
+\footnotesize \newline (LoPSE research group, University of Gdansk, Vrij
+Universiteit Amsterdam)}
 \date{Boston, April Fools' Day}
 
 \begin{document}
@@ -393,7 +394,7 @@ Similarity in vector direction.
 \begin{block}{Vectors}
 \begin{align*}
 a  & = [1,2]\\
-b  &= [3,2]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -405,7 +406,7 @@ b  &= [3,2]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -433,7 +434,7 @@ a \cdot a & = a_1^2 + a_2 ^ 2 \\
 
 \begin{align*}
 a  & = [1,2]\\
-b  &= [4,4]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -444,7 +445,7 @@ b  &= [4,4]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -480,7 +481,7 @@ b - a & = [b_1- a_1, b_2 - a_2 ]
 
 \begin{align*}
 a  & = [1,2]\\
-b  &= [4,4]
+b  &= [3,2.5]
 \end{align*}
 
 \end{block}
@@ -491,7 +492,7 @@ b  &= [4,4]
 \begin{align*}
 a \cdot b & = a_1 b_1 + a_2 b_2\\
 a \cdot a & = a_1^2 + a_2 ^ 2 \\
-\lVert a\rVert & = \sqrt(a \cdot a)
+\lVert a\rVert & = \sqrt{(a \cdot a)}
 \end{align*}
 
 \end{block}
@@ -567,12 +568,39 @@ b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\
 
 \begin{itemize}
 \item
-  Geometric interpretation: direction (not length)
+  Naive interpretation: proximity corresponds to semantic similarity
+\item
+  Geometric interpretation: direction \(\mathsf{cos} \in (-1,1)\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(1\): maximally smilar
+  \item
+    \(-1\): opposites
+  \item
+    \(0\): dissimilar
+  \end{itemize}
 \item
   \(\mathsf{cosineDistance}\in (0, 2)\)
-\item
-  Naive interpretation: proximity corresponds to semantic similarity
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Cosine similarity \& distance}
+\protect\hypertarget{cosine-similarity-distance-1}{}
+\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/philosophy-1} \end{center}
+
+\pause
+
+\begin{block}{The only ``jobs'' in top-tens}
+\protect\hypertarget{the-only-jobs-in-top-tens}{}
+\begin{itemize}
+\item
+  Man: robber (.55)
+\item
+  Woman: policewoman (.6)
+\end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}{Cosine-based measures of bias}
@@ -820,9 +848,11 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \begin{itemize}
 \tightlist
 \item
-  ETHAYARAJH IS YOUR criticizes WEAT uses Bernstein bounds and argues
-  that we would need a bias specific dataset of size at least 11903 to
-  claim that the system is biased (three times larger than WinoBias).
+  \protect\hyperlink{ref-Ethayarajh2020measuring}{Ethayarajh}
+  (\protect\hyperlink{ref-Ethayarajh2020measuring}{2020}) criticizes
+  WEAT uses Bernstein bounds and argues that we would need a bias
+  specific dataset of size at least 11903 to claim that the system is
+  biased (three times larger than WinoBias).
 \end{itemize}
 
 \pause
@@ -836,8 +866,15 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 
 \begin{block}{The form of the definition is suspicious}
 \protect\hypertarget{the-form-of-the-definition-is-suspicious}{}
-ETHAYARAJH UNDERSTANDING shows if there are two target words only WEAT
-is always maximal in one direction.
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ref-Ethayarajh2019understanding}{Ethayarajh,
+  Duvenaud, \& Hirst}
+  (\protect\hyperlink{ref-Ethayarajh2019understanding}{2019}) show that
+  if there are two target words only WEAT is always maximal in one
+  direction.
+\end{itemize}
 
 \pause
 
@@ -885,22 +922,22 @@ muslim & nationalized & neutral & 0.870 & 0.130 & none\\
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-2}{}
-\begin{block}{Our lists of neutral and human words}
-\protect\hypertarget{our-lists-of-neutral-and-human-words}{}
-\begin{itemize}
-\item
-  neutral words = {[}liquor, pow, ballpark, glitchy, billy, dallas, rip,
-  called, outlooks, viet, floater, rattlesnake, exports, peruvian,
-  recursion, shortfall, corrected, amicable, solutions, diagnostic,
-  patently, flops, approx, percents, lox, catapults, hamburger,
-  engulfed, households, north, snubbed, playtest{]} \newline
-\item
-  human words = {[}switch, studio, stick, soup, sometimes, signal,
-  prior, plant, photo, path, park, near, menu, latter, grass, clock,
-  wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye,
-  enjoy, blogger, character, candidate, breakfast, supper, dinner, eat,
-  drink, carry, run, cast, ask, awake, ear, nose, lunch{]}
-\end{itemize}
+\begin{block}{Our neutral words (examples, full list size = ADD)}
+\protect\hypertarget{our-neutral-words-examples-full-list-size-add}{}
+liquor, pow, ballpark, glitchy, billy, dallas, rip, called, outlooks,
+viet, floater, rattlesnake, exports, peruvian, recursion, shortfall,
+corrected, amicable, solutions, diagnostic, patently, flops, approx,
+percents, lox, catapults, hamburger, engulfed, households, north,
+snubbed, playtest
+\end{block}
+
+\begin{block}{Our human-related words (examples, full list size = ADD)}
+\protect\hypertarget{our-human-related-words-examples-full-list-size-add}{}
+switch, studio, stick, soup, sometimes, signal, prior, plant, photo,
+path, park, near, menu, latter, grass, clock, wear, walk, visitor, toy,
+tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character,
+candidate, breakfast, supper, dinner, eat, drink, carry, run, cast, ask,
+awake, ear, nose, lunch
 \end{block}
 \end{frame}
 
@@ -1342,6 +1379,16 @@ Caliskan, A., Bryson, J. J., \& Narayanan, A. (2017). Semantics derived
 automatically from language corpora contain human-like biases.
 \emph{Science}, \emph{356}(6334), 183--186.
 \url{https://doi.org/10.1126/science.aal4230}
+
+\leavevmode\hypertarget{ref-Ethayarajh2020measuring}{}%
+Ethayarajh, K. (2020). \emph{Is your classifier actually biased?
+Measuring fairness under uncertainty with bernstein bounds}.
+
+\leavevmode\hypertarget{ref-Ethayarajh2019understanding}{}%
+Ethayarajh, K., Duvenaud, D., \& Hirst, G. (2019). Understanding
+undesirable word embedding associations. \emph{Proceedings of the 57th
+Annual Meeting of the Association for Computational Linguistics},
+1696--1705.
 
 \leavevmode\hypertarget{ref-Garg2018years}{}%
 Garg, N., Schiebinger, L., Jurafsky, D., \& Zou, J. (2018). Word
