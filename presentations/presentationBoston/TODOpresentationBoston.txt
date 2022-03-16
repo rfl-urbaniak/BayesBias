@@ -5,7 +5,7 @@
 
 [] - prepare questions for anonymous survey [ALICJA, RAFAŁ] OK  NEED TO DISCUSS
 
-[] - cosine similarity histogram for all groups (what percentage is greater than -+0.1) [ALICJA] 1
+[x] - cosine similarity histogram for all groups (what percentage is greater than -+0.1) [ALICJA] 1
      I DON'T SEE THEM IN THE PRESENTATION, ARE THEY SOMEWHERE ELSE?
 
 [x] - add interpretation of cosine values on slide 15 - 90 degrees, etc.
@@ -26,7 +26,7 @@
 
 
 
-[] - for future - check the std of similarities to get the feeling of proper threshold 
+[] - check the std of similarities to get the feeling of proper threshold 
 
 
 
