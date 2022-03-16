@@ -2,7 +2,7 @@
 title: '\Large Taking uncertainty seriously  \newline \normalsize A  Bayesian approach
   to  word embedding bias estimation '
 author: Alicja Dobrzeniecka \& Rafal  Urbaniak \footnotesize \newline (LoPSE research
-  group, University of  Gdansk, Vrij Universiteit Amsterdam)
+  group, University of  Gdansk, Vrije Universiteit Amsterdam)
 date: "Boston, April Fools' Day"
 output:
   beamer_presentation:
