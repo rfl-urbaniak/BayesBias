@@ -993,11 +993,113 @@ Gender | 0.623 | 0.700 | 0,377
 <!--  What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However the authors aim to mitigate "biases" in vectors with such great distance to make it even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. This is in general the problem of scale and the lack of universal intervals. In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology.  -->
 
 
+## Some methodological problems
+
+### No principled interpretation - visualization 1
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggExtra)
+library(ggthemes)
+library(ggforce)
+library(latex2exp)
+
+religionReddit <- read.csv("../../datasets/religionReddit.csv")[-1]
+
+cosAssReligion <- religionReddit['cosine_similarity'][which(religionReddit$connection == 'associated'),]
+cosDiffReligion <- religionReddit['cosine_similarity'][which(religionReddit$connection == 'different'),]
+cosNoneReligion <- religionReddit['cosine_similarity'][which(religionReddit$connection == 'none'),]
+cosHumReligion <- religionReddit['cosine_similarity'][which(religionReddit$connection == 'human'),]
+
+ggplot(religionReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
+  geom_violin(alpha = .5)+coord_flip()+
+  geom_vline(xintercept = .14) + geom_hline(yintercept = -.14, color = "grey") +
+  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .14, color = "grey")+
+  ggtitle("Religion: empirical distribution of cosine similarity")+
+  annotate(geom = "label", x = 4, y = 0, label = "56%")+
+  annotate(geom = "label", x = 3, y = 0, label = "55%")+
+  annotate(geom = "label", x = 2, y = 0, label = "43%")+
+  annotate(geom = "label", x = 1, y = 0, label = "36%")
+```
+
+## Some methodological problems
+
+### No principled interpretation - visualization 2
+
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggExtra)
+library(ggthemes)
+library(ggforce)
+library(latex2exp)
+
+raceReddit <- read.csv("../../datasets/raceReddit.csv")[-1]
+
+cosAssReligion <- raceReddit['cosine_similarity'][which(raceReddit$connection == 'associated'),]
+cosDiffReligion <- raceReddit['cosine_similarity'][which(raceReddit$connection == 'different'),]
+cosNoneReligion <- raceReddit['cosine_similarity'][which(raceReddit$connection == 'none'),]
+cosHumReligion <- raceReddit['cosine_similarity'][which(raceReddit$connection == 'human'),]
+
+ggplot(raceReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
+  geom_violin(alpha = .5)+coord_flip()+
+  geom_vline(xintercept = .11) + geom_hline(yintercept = -.11, color = "grey") +
+  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .11, color = "grey")+
+  ggtitle("Race: empirical distribution of cosine similarity")+
+  annotate(geom = "label", x = 4, y = 0, label = "46%")+
+  annotate(geom = "label", x = 3, y = 0, label = "67%")+
+  annotate(geom = "label", x = 2, y = 0, label = "39%")+
+  annotate(geom = "label", x = 1, y = 0, label = "33%")
+```
 
 
 
 
+## Some methodological problems
 
+### No principled interpretation - visualization 3
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+library(ggExtra)
+library(ggthemes)
+library(ggforce)
+library(latex2exp)
+
+genderReddit <- read.csv("../../datasets/genderReddit.csv")[-1]
+
+cosAssReligion <- genderReddit['cosine_similarity'][which(genderReddit$connection == 'associated'),]
+cosDiffReligion <- genderReddit['cosine_similarity'][which(genderReddit$connection == 'different'),]
+cosNoneReligion <- genderReddit['cosine_similarity'][which(genderReddit$connection == 'none'),]
+cosHumReligion <- genderReddit['cosine_similarity'][which(genderReddit$connection == 'human'),]
+
+ggplot(genderReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
+  geom_violin(alpha = .5)+coord_flip()+
+  geom_vline(xintercept = .38) + geom_hline(yintercept = -.38, color = "grey") +
+  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .38, color = "grey")+
+  ggtitle("Gender: empirical distribution of cosine similarity")+
+  annotate(geom = "label", x = 4, y = 0, label = "96%")+
+  annotate(geom = "label", x = 3, y = 0, label = "87%")+
+  annotate(geom = "label", x = 2, y = 0, label = "53%")+
+  annotate(geom = "label", x = 1, y = 0, label = "47%")
+```
 
 
 ## The problem with pre-averaging

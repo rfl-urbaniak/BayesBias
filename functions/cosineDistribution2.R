@@ -130,7 +130,7 @@ ggplot()+geom_histogram(aes(x=cosAssGender, y = ..density..), alpha = 0.8, bins=
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") +
   geom_vline(xintercept = .38) + geom_vline(xintercept = -.38) 
 
-(sum(abs(cosAssGender)>0.38)) / length(cosAssGender)
+1-(sum(abs(cosAssGender)>0.38)) / length(cosAssGender)
 
 
 # ------------ Different
@@ -138,7 +138,7 @@ ggplot()+geom_histogram(aes(x=cosAssGender, y = ..density..), alpha = 0.8, bins=
 ggplot()+geom_histogram(aes(x=cosDiffGender, y = ..density..), alpha = 0.8, bins=20, color="pink", fill="pink")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .38) + geom_vline(xintercept = -.38) 
 
-(sum(abs(cosDiffGender)>0.38)) / length(cosDiffGender)
+1- (sum(abs(cosDiffGender)>0.38)) / length(cosDiffGender)
 
 
 # ------------- Neutral 
@@ -146,7 +146,7 @@ ggplot()+geom_histogram(aes(x=cosDiffGender, y = ..density..), alpha = 0.8, bins
 ggplot()+geom_histogram(aes(x=cosNoneGender, y = ..density..), alpha = 0.8, bins=20, color="lightblue", fill="lightblue")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .38) + geom_vline(xintercept = -.38) 
 
-(sum(abs(cosNoneGender)>0.38)) / length(cosNoneGender)
+1- (sum(abs(cosNoneGender)>0.38)) / length(cosNoneGender)
 
 
 
@@ -155,7 +155,7 @@ ggplot()+geom_histogram(aes(x=cosNoneGender, y = ..density..), alpha = 0.8, bins
 ggplot()+geom_histogram(aes(x=cosHumGender, y = ..density..), alpha = 0.8, bins=20, color="lightblue", fill="lightblue")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .38) + geom_vline(xintercept = -.38) 
 
-(sum(abs(cosHumGender)>0.38)) / length(cosHumGender)
+1- (sum(abs(cosHumGender)>0.38)) / length(cosHumGender)
 
 
 
@@ -175,7 +175,7 @@ cosHumRace <- raceReddit['cosine_similarity'][which(raceReddit$connection == 'hu
 ggplot()+geom_histogram(aes(x=cosAssRace, y = ..density..), alpha = 0.8, bins=20, color="lightgreen", fill="lightgreen")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .11) + geom_vline(xintercept = -.11) 
 
-(sum(abs(cosAssRace)>0.11)) / length(cosAssRace)
+1- (sum(abs(cosAssRace)>0.11)) / length(cosAssRace)
 
 
 # ------------ Different
@@ -183,7 +183,7 @@ ggplot()+geom_histogram(aes(x=cosAssRace, y = ..density..), alpha = 0.8, bins=20
 ggplot()+geom_histogram(aes(x=cosDiffRace, y = ..density..), alpha = 0.8, bins=20, color="pink", fill="pink")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .11) + geom_vline(xintercept = -.11) 
 
-(sum(abs(cosDiffRace)>0.11)) / length(cosDiffRace)
+1- (sum(abs(cosDiffRace)>0.11)) / length(cosDiffRace)
 
 
 # ------------- Neutral
@@ -191,7 +191,7 @@ ggplot()+geom_histogram(aes(x=cosDiffRace, y = ..density..), alpha = 0.8, bins=2
 ggplot()+geom_histogram(aes(x=cosNoneRace, y = ..density..), alpha = 0.8, bins=20, color="lightblue", fill="lightblue")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .11) + geom_vline(xintercept = -.11) 
 
-(sum(abs(cosNoneRace)>0.11)) / length(cosNoneRace)
+1- (sum(abs(cosNoneRace)>0.11)) / length(cosNoneRace)
 
 
 
@@ -200,5 +200,5 @@ ggplot()+geom_histogram(aes(x=cosNoneRace, y = ..density..), alpha = 0.8, bins=2
 ggplot()+geom_histogram(aes(x=cosHumRace, y = ..density..), alpha = 0.8, bins=20, color="lightblue", fill="lightblue")+
   theme_tufte()+labs(title="Cosine similarity distribution")+ xlab("similarity") + geom_vline(xintercept = .11) + geom_vline(xintercept = -.11) 
 
-(sum(abs(cosHumRace)>0.11)) / length(cosHumRace)
+1- (sum(abs(cosHumRace)>0.11)) / length(cosHumRace)
 
