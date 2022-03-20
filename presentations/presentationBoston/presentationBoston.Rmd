@@ -907,17 +907,17 @@ religionDisplay  %>%  kable(format = "latex",booktabs=T,
 
 ## Some methodological problems
 
-### Our neutral words (examples, full list size = ADD)
+### Our neutral words (examples, full list size = 242)
 
 liquor, pow, ballpark, glitchy, billy, dallas, rip, called, outlooks, viet, floater, rattlesnake, exports,
 peruvian, recursion, shortfall, corrected, amicable, solutions, diagnostic, patently, flops, approx, percents, lox, catapults,
 hamburger, engulfed, households, north, snubbed, playtest
 
 
-### Our human-related words (examples, full list size = ADD)
+### Our human-related words (examples, full list size = 27)
 
-switch, studio, stick, soup, sometimes, signal, prior, plant, photo, path, park, near, menu, latter, grass, clock,  wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character, candidate, breakfast, supper, dinner,
-eat, drink, carry, run, cast, ask, awake, ear, nose, lunch
+wear, walk, visitor, toy, tissue, throw, talk, speak, sleep, eye, enjoy, blogger, character, candidate, breakfast, supper, dinner, eat,
+drink, carry, run, cast, ask, awake, ear, nose, lunch  
 
 
 

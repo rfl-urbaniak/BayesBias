@@ -13,9 +13,9 @@ library(ggforce)
 library(latex2exp)
 
 getwd()
-religionReddit <- read.csv("../datasets/religionReddit.csv")[-1]
-raceReddit <- read.csv("../datasets/raceReddit.csv")[-1]
-genderReddit <- read.csv("../datasets/genderReddit.csv")[-1]
+religionReddit <- read.csv("datasets/religionReddit.csv")[-1]
+raceReddit <- read.csv("datasets/raceReddit.csv")[-1]
+genderReddit <- read.csv("datasets/genderReddit.csv")[-1]
 
 
 # --------------------------- RELIGION DATASET ------------------------------------------------
