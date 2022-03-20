@@ -30,4 +30,18 @@
 
 
 
+Race
+- 15 attributes (in practise used for all classes)
+- 3 protected classes (with 6 examples per each)
+
+Religion
+- 11 attributes (in practise used for all classes)
+- 3 protected classes (5 examples per each)
+
+Gender
+- 25 attributes (in practise used for all classes)
+- 2 protected classes (7 examples per each)
+
+
+source: https://github.com/TManzini/DebiasMulticlassWordEmbedding/tree/master/Debiasing/data/vocab
 
