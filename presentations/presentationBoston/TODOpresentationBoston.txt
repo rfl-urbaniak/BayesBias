@@ -26,8 +26,11 @@
 
 
 
-[] - check the std of similarities to get the feeling of proper threshold 
+For article:
 
+[] - Check if the violin distributions are same in Google News as well  [ALICJA]
+
+[] - Check human words in Black repo, which one we wanted to use [ALICJA]
 
 
 Race

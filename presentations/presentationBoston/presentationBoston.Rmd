@@ -47,16 +47,18 @@ options(kableExtra.latex.load_packages = FALSE)
 
 ## Presentation plan
 
+- Word embeddings 
+- Cosine similarity
 - Bias in word embeddings
-- WEAT and MAC methods
+- WEAT and MAC measures
 - Methodological problems
-- Limitations of pre-averaging in bias detection methods
-- Accounting for uncertainty with Bayesian approach
+- Bad consequences of pre-averaging
+- Our Bayesian alternative
 
 
 
 
-## Word2vec
+## Word embeddings
 
 ### Question
 
@@ -70,12 +72,12 @@ Well, you could use 30k binary vectors with a slot for each lexical unit\dots
 
 \pause
 
-\dots \dots but this would be inefficient and wouldn't capture any relations between words.
+\dots but this would be inefficient and wouldn't capture any relations between words.
 
 
 
 
-## Word2vec
+## Word embeddings
 
 
 
@@ -97,7 +99,7 @@ Well, you could use 30k binary vectors with a slot for each lexical unit\dots
 \end{itemize}
 \end{block}
 
-## Word2vec
+## Word embeddings
 
 
 
@@ -132,7 +134,7 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 
 
 
-## Word2vec
+## Word embeddings
 
 
 
@@ -142,11 +144,11 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
     
 
 \begin{center}
- \includegraphics[height = 6cm, width = 5cm]{images/perceptron2.png}
+ \includegraphics[height = 5.5cm, width = 5cm]{images/perceptron2.png}
 \end{center}
 
 
-\vspace{-3mm}
+\vspace{2mm}
 \tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
 
 
@@ -165,7 +167,7 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 
 \end{columns}
 
-## Word2vec
+## Word embeddings
 
 
 ### Distributional semantics
@@ -174,7 +176,7 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 \item "You shall know a word by the company it keeps" (John Firth, 1957)
 
 
-\item "the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
+\item "\dots the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
 
 
 \end{itemize}
@@ -194,7 +196,7 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 
 
 
-## Word2vec
+## Word embeddings
 
 ### Google and Mikolov
 
@@ -215,7 +217,7 @@ Let's train a neural network and use vectors of weights!
 
 
 
-## Word2vec
+## Word embeddings
 
 ### Google and Mikolov
 
@@ -223,10 +225,10 @@ Let's train a neural network and use vectors of weights!
 
 Let's train a neural network and use vectors of weights!
 
-
+\vspace{2mm}
 
 \begin{center}
- \includegraphics[height = 3cm, width = 7cm]{images/word2vec2.png}
+ \includegraphics[height = 3.5cm, width = 7cm]{images/word2vec2.png}
 \end{center}
 
 
@@ -237,7 +239,7 @@ Let's train a neural network and use vectors of weights!
 
 
 
-## Word2vec
+## Word embeddings
 
 
 
@@ -270,7 +272,7 @@ Similarity in vector direction.
 \begin{columns}
 \column{0.45\linewidth}
     
-```{r cosine1,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+```{r cosine1,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "115%",   message = FALSE, warning = FALSE, results = FALSE}
 a <- c(1,2)
 b <- c(3,2.5)
 
@@ -280,7 +282,7 @@ ggplot()+
                arrow = arrow(length = unit(0.02, "npc")))+
   annotate(geom = "text", label  = "a = [1,2]", x = 1.2, y = 2.4, size = 7)+
   geom_segment(aes(x = 0, y = 0, xend = b[1], yend = b[2]), arrow = arrow(length = unit(0.02, "npc")))+   annotate(geom = "text", label  = "b = [3,2.5]", x = 3.2, y = 2.9, size = 7)+
-  theme_tufte(base_size = 24)
+  theme_tufte(base_size = 30)
 
 ```
 
@@ -328,7 +330,7 @@ a \cdot a & = a_1^2 + a_2 ^ 2 \\
 \begin{columns}
 \column{0.45\linewidth}
     
-```{r cosine2,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+```{r cosine2,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "115%",   message = FALSE, warning = FALSE, results = FALSE}
 a <- c(1,2)
 b <- c(3,2.5)
 bma <- b - a
@@ -343,7 +345,7 @@ ggplot()+
   geom_segment(aes(x = 0, y = 0, xend = bma[1], yend = bma[2]),
       arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
   annotate(geom = "text", label  = "b - a = [2,.5]", x = 2.2, y = .9, size = 7)+
-  theme_tufte(base_size = 24)
+  theme_tufte(base_size = 30)
 
 ```
 
@@ -398,7 +400,7 @@ b - a & = [b_1- a_1, b_2 - a_2 ]
 \begin{columns}
 \column{0.45\linewidth}
     
-```{r cosine3,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+```{r cosine3,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "115%",   message = FALSE, warning = FALSE, results = FALSE}
 a <- c(1,2)
 b <- c(3,2.5)
 
@@ -412,7 +414,7 @@ ggplot()+
   geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
       arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
   annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
-  theme_tufte(base_size = 24)
+  theme_tufte(base_size = 30)
 
 ```
 
@@ -473,7 +475,7 @@ b - a & = [b_1- a_1, b_2 - a_2 ]
 \begin{columns}
 \column{0.45\linewidth}
     
-```{r cosine4,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "100%",   message = FALSE, warning = FALSE, results = FALSE}
+```{r cosine4,echo=FALSE,eval=TRUE,fig.align = "center", cache=TRUE, fig.show = "hold", out.width = "115%",   message = FALSE, warning = FALSE, results = FALSE}
 a <- c(1,2)
 b <- c(3,2.5)
 #atan2(a[1] , a[2])
@@ -489,7 +491,7 @@ ggplot()+
   geom_segment(aes(x = a[1], y = a[2], xend = b[1], yend = b[2]),
       arrow = arrow(length = unit(0.02, "npc")), color = "grey")+ 
   annotate(geom = "text", label  = "b - a = [2,.5] (shifted)", x = 2, y = 2.7, size = 7)+
-  theme_tufte(base_size = 24)+
+  theme_tufte(base_size = 30)+
   annotate(geom = "text", label  = expression(theta), x = .6, y = .78, size = 7)+
   geom_arc(aes(x0 = 0, y0 = 0, r = 1.3, 
                start = .463, end = .876))
@@ -560,7 +562,7 @@ b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\
 
     - $1$: maximally smilar 
     - $-1$: opposites 
-    - $0$: dissimilar
+    - $0$: lack of similarity
     
     
 -  $\mathsf{cosineDistance}\in (0, 2)$
@@ -858,7 +860,7 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### No design considerations to sample size 
 
-- @Ethayarajh2020measuring criticizes WEAT uses Bernstein bounds and argues that we would need a bias specific dataset of size at least 11903 to claim that the system is biased (three times larger than WinoBias).
+- @Ethayarajh2020measuring uses Bernstein bounds to criticize WEAT, and argues that we would need a bias specific dataset of size at least 11903 to claim that the system is biased (three times larger than WinoBias).
 
 \pause
 
@@ -879,7 +881,7 @@ religionSmall  %>%  kable(format = "latex",booktabs=T,
 
 ### No word class distinction and no control group
 
-We make the subclasses clear, add human neutral predicates and neutral predicates for control. We used L2-Reddit corpus and GoogleNews (we present the results for Reddit for brevity).
+We make the subclasses clear, add human neutral predicates and neutral predicates for control. We used L2-Reddit corpus and GoogleNews \linebreak \footnotesize (we present the results for Reddit for brevity). \normalsize
 
 \footnotesize 
 ```{r religionTableHeadLate,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
@@ -933,9 +935,7 @@ We study those by  visualizations and uncertainty estimates.
 
 ## Some methodological problems
 
-### Distances for  "muslim"
-
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%",message =FALSE, warning = FALSE}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE}
 library(tidyverse)
 muslimWords <- c("imam","islam","mosque","muslim","quran")
 muslim <- religion %>% filter(protectedWord %in% muslimWords)
@@ -954,11 +954,8 @@ visualiseProtected(muslimVis,"muslim")+theme_void(base_size = 20)
 
 ## Some methodological problems
 
-### Distances for  "priest"
 
-
-
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
 library(tidyverse)
 priestClass <- religion %>% filter(protectedWord == "priest")
 neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
@@ -980,9 +977,9 @@ visualiseProtected(priestVis,"priest")+theme_void(base_size = 20)
 
 Category | Biased | Hard Debiased | Diff 
 -------| ------| -------| ----- | --------
-Religion | 0.859 | 0.934 | 0,141 
-Race | 0.892 | 0.925| 0,108 
-Gender | 0.623 | 0.700 | 0,377 
+Religion | 0.859 | 0.934 | 0.141 
+Race | 0.892 | 0.925| 0.108 
+Gender | 0.623 | 0.700 | 0.377 
 
 - What values are sufficient for the presence of bias and what differences are sign of real improvement? 
 
@@ -995,7 +992,7 @@ Gender | 0.623 | 0.700 | 0,377
 
 ## Some methodological problems
 
-### No principled interpretation - visualization 1
+### No principled interpretation 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
 library(ggplot2)
 library(tidyverse)
@@ -1019,8 +1016,8 @@ cosHumReligion <- religionReddit['cosine_similarity'][which(religionReddit$conne
 ggplot(religionReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
   geom_violin(alpha = .5)+coord_flip()+
   geom_vline(xintercept = .14) + geom_hline(yintercept = -.14, color = "grey") +
-  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .14, color = "grey")+
-  ggtitle("Religion: empirical distribution of cosine similarity")+
+  ylab("similarity")+theme_tufte(base_size=20)+ geom_hline(yintercept = .14, color = "grey")+
+  ggtitle("Religion, empirical distribution (threshold=.14)")+
   annotate(geom = "label", x = 4, y = 0, label = "56%")+
   annotate(geom = "label", x = 3, y = 0, label = "55%")+
   annotate(geom = "label", x = 2, y = 0, label = "43%")+
@@ -1029,7 +1026,7 @@ ggplot(religionReddit, aes(x = connection, y = cosine_similarity, fill = connect
 
 ## Some methodological problems
 
-### No principled interpretation - visualization 2
+### No principled interpretation 
 
 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
@@ -1055,8 +1052,8 @@ cosHumReligion <- raceReddit['cosine_similarity'][which(raceReddit$connection ==
 ggplot(raceReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
   geom_violin(alpha = .5)+coord_flip()+
   geom_vline(xintercept = .11) + geom_hline(yintercept = -.11, color = "grey") +
-  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .11, color = "grey")+
-  ggtitle("Race: empirical distribution of cosine similarity")+
+  ylab("similarity")+theme_tufte(base_size=20)+ geom_hline(yintercept = .11, color = "grey")+
+  ggtitle("Race, empirical distribution (threshold=.11)")+
   annotate(geom = "label", x = 4, y = 0, label = "46%")+
   annotate(geom = "label", x = 3, y = 0, label = "67%")+
   annotate(geom = "label", x = 2, y = 0, label = "39%")+
@@ -1068,7 +1065,7 @@ ggplot(raceReddit, aes(x = connection, y = cosine_similarity, fill = connection,
 
 ## Some methodological problems
 
-### No principled interpretation - visualization 3
+### No principled interpretation 
 
 ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
 library(ggplot2)
@@ -1093,8 +1090,8 @@ cosHumReligion <- genderReddit['cosine_similarity'][which(genderReddit$connectio
 ggplot(genderReddit, aes(x = connection, y = cosine_similarity, fill = connection, color = connection))+
   geom_violin(alpha = .5)+coord_flip()+
   geom_vline(xintercept = .38) + geom_hline(yintercept = -.38, color = "grey") +
-  ylab("similarity")+theme_tufte()+ geom_hline(yintercept = .38, color = "grey")+
-  ggtitle("Gender: empirical distribution of cosine similarity")+
+  ylab("similarity")+theme_tufte(base_size=20)+ geom_hline(yintercept = .38, color = "grey")+
+  ggtitle("Gender, empirical distribution (threshold=.38)")+
   annotate(geom = "label", x = 4, y = 0, label = "96%")+
   annotate(geom = "label", x = 3, y = 0, label = "87%")+
   annotate(geom = "label", x = 2, y = 0, label = "53%")+
@@ -1120,12 +1117,9 @@ Suppose all similarities for two classes are randomly drawn from the same distri
 
 ## The problem with pre-averaging
 
-
-### Simple case: two pws, four terms
-
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "95%"}
 set.seed(123)
 t1 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
 t2 <- data.frame(A  = rnorm(5,0,0.08), B = rnorm(5,0,0.08))
@@ -1163,19 +1157,15 @@ numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 
 \vspace{-2mm}
 
-- Raw sd in data is `r round(rawsd,3)`
-- The sd of means is `r round(factor,3)`
-- The WEAT score is `r round(numerator/factor,3)`   
-- The largest effect size reported by @Caliskan2017semanticsBiases is 1.81! 
+- Raw sd in data is `r round(rawsd,3)`, the sd of means is `r round(factor,3)`
+- The WEAT score is `r round(numerator/factor,3)`, the largest effect size reported by @Caliskan2017semanticsBiases is 1.81! 
 
 
 ## The problem with pre-averaging on realistic set-up
 
-### Simulation with realistic set-up (16 predicates)
-
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "70%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "95%"}
 set.seed(123456)
 t1 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
 t2 <- data.frame(A  = rnorm(8,0,0.08), B = rnorm(8,0,0.08))
@@ -1222,12 +1212,9 @@ numerator <-  mean(s(t1),s(t2)) - mean(s(t3),s(t4))
 
 ## The problem with pre-averaging on realistic set-up
 
-### 10k simulations (same parameters)
-
-
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
 
 set.seed(123)
 biasesD0 <- numeric(10000)
@@ -1256,7 +1243,7 @@ for(i in 1:10000){
 }
 
 ggplot()+geom_histogram(aes(x=biasesD0, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="10k biases for same means and sd =.08")+ xlab("bias")
+  theme_tufte(base_size=18)+labs(title="10k biases for same means and sd =.08")+ xlab("bias")
 
 ```
 \vspace{1mm}
@@ -1278,12 +1265,9 @@ absOver182 <- mean(abs(biasesD0)>=1.81)
 
 ## The problem with pre-averaging on realistic set-up
 
-### 10k simulations with mean similarity  0.1
-
-
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
 set.seed(123456)
 biasesD1 <- numeric(10000)
 
@@ -1311,7 +1295,7 @@ for(i in 1:10000){
 }
 
 ggplot()+geom_histogram(aes(x=biasesD1, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="10k biases for different means 0.1 and sd =.08")+ xlab("bias")
+  theme_tufte(base_size=18)+labs(title="10k biases for different means 0.1 and sd =.08")+ xlab("bias")
 
 ```
 \vspace{1mm}
@@ -1335,12 +1319,9 @@ absMean1 <- mean(abs(biasesD1)>=1.81)
 
 ## The problem with pre-averaging on realistic set-up
 
-### 10k simulations with mean similarity  0.4
-
-
 \vspace{1mm}
 \footnotesize
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "80%"}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "90%"}
 set.seed(123456)
 biasesD4 <- numeric(10000)
 
@@ -1368,7 +1349,7 @@ for(i in 1:10000){
 }
 
 ggplot()+geom_histogram(aes(x=biasesD4, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="10k biases for different means 0.4 and sd =.08")+ xlab("bias")
+  theme_tufte(base_size=18)+labs(title="10k biases for different means 0.4 and sd =.08")+ xlab("bias")
 
 ```
 \vspace{1mm}
@@ -1581,21 +1562,36 @@ religionCoefs <- ulam(
 
 ### Summary
 
-- Bias in word embeddings
-- WEAT and MAC methods
-- Methodological problems
-- Limitations of pre-averaging in bias detection methods
-- Accounting for uncertainty with Bayesian approach
+\pause
+
+- The existing measures of bias by pre-averaging oversimplify the picture and lead to false confidence
+
+\pause
+
+- Our simulation results show that the mainstream interpretations are too hasty 
+
+\pause
+
+- Bayesian analysis with proper control groups suggests that:
+  
+  - The word lists in use are too short
+  - Associated and different groups behave similarly, which undermines the semantic interpretation of cosine similarity
+  - Analysis at different levels of generality shows that there is more variety than one may initially think
+
+\pause
+
+### Please remember about the feedback!
 
 
-### Further work
 
-- Including contrasts in Bayesian calculation
-- Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots)
-- Downstream tasks and connection with intrinsic evaluation
-- Testing data from the original Implicit Association Test (IAT) 
-- Applying uncertainty to WEAT and better word lists
-- Looking at other similarity measures
+<!-- ### Further work -->
+
+<!-- - Including contrasts in Bayesian calculation -->
+<!-- - Performance cross-validation in comparison to other methods (regular linear regression, KNN, \dots) -->
+<!-- - Downstream tasks and connection with intrinsic evaluation -->
+<!-- - Testing data from the original Implicit Association Test (IAT)  -->
+<!-- - Applying uncertainty to WEAT and better word lists -->
+<!-- - Looking at other similarity measures -->
 
 ## References
 \tiny

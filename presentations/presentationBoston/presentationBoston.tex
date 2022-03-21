@@ -178,20 +178,24 @@ Vrije Universiteit Amsterdam)}
 \begin{itemize}
 \tightlist
 \item
+  Word embeddings
+\item
+  Cosine similarity
+\item
   Bias in word embeddings
 \item
-  WEAT and MAC methods
+  WEAT and MAC measures
 \item
   Methodological problems
 \item
-  Limitations of pre-averaging in bias detection methods
+  Bad consequences of pre-averaging
 \item
-  Accounting for uncertainty with Bayesian approach
+  Our Bayesian alternative
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings}{}
 \begin{block}{Question}
 \protect\hypertarget{question}{}
 How to sensibly represent words with numbers?
@@ -206,13 +210,13 @@ unit\dots
 
 \pause
 
-\dots \dots but this would be inefficient and wouldn't capture any
-relations between words.
+\dots but this would be inefficient and wouldn't capture any relations
+between words.
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-1}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-1}{}
 \begin{center}
  \includegraphics[width = 9cm]{images/perceptron1.png}
 \end{center}
@@ -232,8 +236,8 @@ relations between words.
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-2}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-2}{}
 \begin{center}
  \includegraphics[width = 9cm]{images/perceptron1.png}
 \end{center}
@@ -260,19 +264,19 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-3}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-3}{}
 \begin{columns}
 \column{0.45\linewidth}
     
     
 
 \begin{center}
- \includegraphics[height = 6cm, width = 5cm]{images/perceptron2.png}
+ \includegraphics[height = 5.5cm, width = 5cm]{images/perceptron2.png}
 \end{center}
 
 
-\vspace{-3mm}
+\vspace{2mm}
 \tiny \hfill \color{gray}Illustration: M. Mitchell \color{black}
 
 
@@ -292,15 +296,15 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-4}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-4}{}
 \begin{block}{Distributional semantics}
 \protect\hypertarget{distributional-semantics}{}
 \begin{itemize}
 \item "You shall know a word by the company it keeps" (John Firth, 1957)
 
 
-\item "the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
+\item "\dots the degree of semantic similarity between two linguistic expressions $A$ and $B$ is a function of the similarity of the linguistic contexts in which $A$ and $B$ can appear." (A. Lenci, 2008)
 
 
 \end{itemize}
@@ -317,8 +321,8 @@ w_j & \leftarrow w_j = \overbrace{\eta}^{\text{learning rate}}(\underbrace{t}_{\
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-5}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-5}{}
 \begin{block}{Google and Mikolov}
 \protect\hypertarget{google-and-mikolov}{}
 \emph{Efficient Estimation of Word Representation in Vector Space}, 2013
@@ -335,16 +339,18 @@ Let's train a neural network and use vectors of weights!
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-6}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-6}{}
 \begin{block}{Google and Mikolov}
 \protect\hypertarget{google-and-mikolov-1}{}
 \emph{Efficient Estimation of Word Representation in Vector Space}, 2013
 
 Let's train a neural network and use vectors of weights!
 
+\vspace{2mm}
+
 \begin{center}
- \includegraphics[height = 3cm, width = 7cm]{images/word2vec2.png}
+ \includegraphics[height = 3.5cm, width = 7cm]{images/word2vec2.png}
 \end{center}
 
 \vspace{-3mm}
@@ -353,8 +359,8 @@ Let's train a neural network and use vectors of weights!
 \end{block}
 \end{frame}
 
-\begin{frame}{Word2vec}
-\protect\hypertarget{word2vec-7}{}
+\begin{frame}{Word embeddings}
+\protect\hypertarget{word-embeddings-7}{}
 \begin{longtable}[]{@{}llllll@{}}
 \toprule
 word & 1 & 2 & 3 & 4 & \ldots{} \\
@@ -384,7 +390,7 @@ Similarity in vector direction.
 \column{0.45\linewidth}
     
 
-\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine1-1} \end{center}
+\begin{center}\includegraphics[width=1.15\linewidth]{presentationBoston_files/figure-beamer/cosine1-1} \end{center}
 
 
 \column{0.5\linewidth}
@@ -422,7 +428,7 @@ a \cdot a & = a_1^2 + a_2 ^ 2 \\
 \column{0.45\linewidth}
     
 
-\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine2-1} \end{center}
+\begin{center}\includegraphics[width=1.15\linewidth]{presentationBoston_files/figure-beamer/cosine2-1} \end{center}
 
 
 \column{0.5\linewidth}
@@ -468,7 +474,7 @@ b - a & = [b_1- a_1, b_2 - a_2 ]
 \column{0.45\linewidth}
     
 
-\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine3-1} \end{center}
+\begin{center}\includegraphics[width=1.15\linewidth]{presentationBoston_files/figure-beamer/cosine3-1} \end{center}
 
 
 
@@ -515,7 +521,7 @@ b - a & = [b_1- a_1, b_2 - a_2 ]
 \column{0.45\linewidth}
     
 
-\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/cosine4-1} \end{center}
+\begin{center}\includegraphics[width=1.15\linewidth]{presentationBoston_files/figure-beamer/cosine4-1} \end{center}
 
 
 
@@ -579,7 +585,7 @@ b \cdot a  & = \lVert b\rVert \lVert  a \rVert \cos \theta \\
   \item
     \(-1\): opposites
   \item
-    \(0\): dissimilar
+    \(0\): lack of similarity
   \end{itemize}
 \item
   \(\mathsf{cosineDistance}\in (0, 2)\)
@@ -849,8 +855,8 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \tightlist
 \item
   \protect\hyperlink{ref-Ethayarajh2020measuring}{Ethayarajh}
-  (\protect\hyperlink{ref-Ethayarajh2020measuring}{2020}) criticizes
-  WEAT uses Bernstein bounds and argues that we would need a bias
+  (\protect\hyperlink{ref-Ethayarajh2020measuring}{2020}) uses Bernstein
+  bounds to criticize WEAT, and argues that we would need a bias
   specific dataset of size at least 11903 to claim that the system is
   biased (three times larger than WinoBias).
 \end{itemize}
@@ -892,8 +898,9 @@ muslim & terrorist & 0.2726106 & 0.7273894\\
 \begin{block}{No word class distinction and no control group}
 \protect\hypertarget{no-word-class-distinction-and-no-control-group}{}
 We make the subclasses clear, add human neutral predicates and neutral
-predicates for control. We used L2-Reddit corpus and GoogleNews (we
-present the results for Reddit for brevity).
+predicates for control. We used L2-Reddit corpus and GoogleNews
+\linebreak \footnotesize (we present the results for Reddit for
+brevity). \normalsize
 
 \footnotesize 
 \begin{table}
@@ -949,18 +956,12 @@ We study those by visualizations and uncertainty estimates.
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-4}{}
-\begin{block}{Distances for ``muslim''}
-\protect\hypertarget{distances-for-muslim}{}
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-4-1} \end{center}
-\end{block}
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-4-1} \end{center}
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-5}{}
-\begin{block}{Distances for ``priest''}
-\protect\hypertarget{distances-for-priest}{}
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-5-1} \end{center}
-\end{block}
+\begin{center}\includegraphics[width=1\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-5-1} \end{center}
 \end{frame}
 
 \begin{frame}{Some methodological problems}
@@ -972,9 +973,9 @@ We study those by visualizations and uncertainty estimates.
 Category & Biased & Hard Debiased & Diff & \\
 \midrule
 \endhead
-Religion & 0.859 & 0.934 & 0,141 & \\
-Race & 0.892 & 0.925 & 0,108 & \\
-Gender & 0.623 & 0.700 & 0,377 & \\
+Religion & 0.859 & 0.934 & 0.141 & \\
+Race & 0.892 & 0.925 & 0.108 & \\
+Gender & 0.623 & 0.700 & 0.377 & \\
 \bottomrule
 \end{longtable}
 
@@ -992,24 +993,24 @@ Gender & 0.623 & 0.700 & 0,377 & \\
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-7}{}
-\begin{block}{No principled interpretation - visualization 1}
-\protect\hypertarget{no-principled-interpretation---visualization-1}{}
+\begin{block}{No principled interpretation}
+\protect\hypertarget{no-principled-interpretation-1}{}
 \begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-6-1} \end{center}
 \end{block}
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-8}{}
-\begin{block}{No principled interpretation - visualization 2}
-\protect\hypertarget{no-principled-interpretation---visualization-2}{}
+\begin{block}{No principled interpretation}
+\protect\hypertarget{no-principled-interpretation-2}{}
 \begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-7-1} \end{center}
 \end{block}
 \end{frame}
 
 \begin{frame}{Some methodological problems}
 \protect\hypertarget{some-methodological-problems-9}{}
-\begin{block}{No principled interpretation - visualization 3}
-\protect\hypertarget{no-principled-interpretation---visualization-3}{}
+\begin{block}{No principled interpretation}
+\protect\hypertarget{no-principled-interpretation-3}{}
 \begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-8-1} \end{center}
 \end{block}
 \end{frame}
@@ -1039,12 +1040,10 @@ can get a really high WEAT!
 
 \begin{frame}{The problem with pre-averaging}
 \protect\hypertarget{the-problem-with-pre-averaging-1}{}
-\begin{block}{Simple case: two pws, four terms}
-\protect\hypertarget{simple-case-two-pws-four-terms}{}
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.7\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.95\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-9-1} \end{center}
 \normalsize
 
 \vspace{1mm}
@@ -1060,45 +1059,35 @@ can get a really high WEAT!
 \begin{itemize}
 \tightlist
 \item
-  Raw sd in data is 0.072
+  Raw sd in data is 0.072, the sd of means is 0.037
 \item
-  The sd of means is 0.037
-\item
-  The WEAT score is 1.825\\
-\item
-  The largest effect size reported by
+  The WEAT score is 1.825, the largest effect size reported by
   \protect\hyperlink{ref-Caliskan2017semanticsBiases}{Caliskan, Bryson,
   \& Narayanan}
   (\protect\hyperlink{ref-Caliskan2017semanticsBiases}{2017}) is 1.81!
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging on realistic set-up}
 \protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up}{}
-\begin{block}{Simulation with realistic set-up (16 predicates)}
-\protect\hypertarget{simulation-with-realistic-set-up-16-predicates}{}
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.7\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.95\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-11-1} \end{center}
 
 \footnotesize
 
 \vspace{-2mm}
 
 Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
-\end{block}
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging on realistic set-up}
 \protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-1}{}
-\begin{block}{10k simulations (same parameters)}
-\protect\hypertarget{k-simulations-same-parameters}{}
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-12-1} \end{center}
 \vspace{1mm}
 \footnotesize
 
@@ -1116,17 +1105,14 @@ Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
 \item
   21.38\% of the absolute values are above 1.81
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging on realistic set-up}
 \protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-2}{}
-\begin{block}{10k simulations with mean similarity 0.1}
-\protect\hypertarget{k-simulations-with-mean-similarity-0.1}{}
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-14-1} \end{center}
 \vspace{1mm}
 \footnotesize
 
@@ -1143,17 +1129,14 @@ Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
 \item
   51.3\% of the absolute values are above 1.81
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{The problem with pre-averaging on realistic set-up}
 \protect\hypertarget{the-problem-with-pre-averaging-on-realistic-set-up-3}{}
-\begin{block}{10k simulations with mean similarity 0.4}
-\protect\hypertarget{k-simulations-with-mean-similarity-0.4}{}
 \vspace{1mm}
 \footnotesize
 
-\begin{center}\includegraphics[width=0.8\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{presentationBoston_files/figure-beamer/unnamed-chunk-16-1} \end{center}
 \vspace{1mm}
 \footnotesize
 
@@ -1170,7 +1153,6 @@ Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
 \item
   82.9\% of the absolute values are above 1.81
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{Advantages of the Bayesian way}
@@ -1354,39 +1336,48 @@ Raw sd: 0.082, sd of means: 0.031, WEAT: 2.337.
 \protect\hypertarget{thank-you}{}
 \begin{block}{Summary}
 \protect\hypertarget{summary}{}
+\pause
+
 \begin{itemize}
 \tightlist
 \item
-  Bias in word embeddings
-\item
-  WEAT and MAC methods
-\item
-  Methodological problems
-\item
-  Limitations of pre-averaging in bias detection methods
-\item
-  Accounting for uncertainty with Bayesian approach
+  The existing measures of bias by pre-averaging oversimplify the
+  picture and lead to false confidence
 \end{itemize}
+
+\pause
+
+\begin{itemize}
+\tightlist
+\item
+  Our simulation results show that the mainstream interpretations are
+  too hasty
+\end{itemize}
+
+\pause
+
+\begin{itemize}
+\item
+  Bayesian analysis with proper control groups suggests that:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The word lists in use are too short
+  \item
+    Associated and different groups behave similarly, which undermines
+    the semantic interpretation of cosine similarity
+  \item
+    Analysis at different levels of generality shows that there is more
+    variety than one may initially think
+  \end{itemize}
+\end{itemize}
+
+\pause
 \end{block}
 
-\begin{block}{Further work}
-\protect\hypertarget{further-work}{}
-\begin{itemize}
-\tightlist
-\item
-  Including contrasts in Bayesian calculation
-\item
-  Performance cross-validation in comparison to other methods (regular
-  linear regression, KNN, \dots)
-\item
-  Downstream tasks and connection with intrinsic evaluation
-\item
-  Testing data from the original Implicit Association Test (IAT)
-\item
-  Applying uncertainty to WEAT and better word lists
-\item
-  Looking at other similarity measures
-\end{itemize}
+\begin{block}{Please remember about the feedback!}
+\protect\hypertarget{please-remember-about-the-feedback}{}
 \end{block}
 \end{frame}
 
