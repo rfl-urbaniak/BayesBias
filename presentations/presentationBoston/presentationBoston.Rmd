@@ -1578,10 +1578,13 @@ religionCoefs <- ulam(
   - Associated and different groups behave similarly, which undermines the semantic interpretation of cosine similarity
   - Analysis at different levels of generality shows that there is more variety than one may initially think
 
-\pause
+
+## Thank you!
 
 ### Please remember about the feedback!
 
+
+\huge https://bit.ly/3uu8nYZ
 
 
 <!-- ### Further work -->
