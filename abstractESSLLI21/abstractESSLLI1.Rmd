@@ -26,14 +26,18 @@ library(kableExtra)
 ```
 
 
+
 \begin{center}
-\Large \textbf{A bayesian method of cosine-based word2vec bias estimation}
+\large \textbf{Taking uncertainty seriously}
+
+\textbf{A  Bayesian approach to  word embedding bias estimation }
 \end{center}
 
 \vspace{1mm}
 
 
-A considerable amount of literature exists on  bias detection and mitigation in NLP models, especially word2vec embeddings, which represent words as  vectors of real numbers (see e.g. @bolukbasi2016man and @Gonen2019lipstick and references therein). The most common method used compares  cosine similarity between words from protected groups and attributes that are considered to be stereotypical or harmful in some way, and this method will be in our focus.
+A considerable amount of literature exists on  bias detection and mitigation in NLP models, especially word embeddings, which represent words as  vectors of real numbers (see e.g. @Bolukbasi2016man and @Gonen2019lipstick and references therein). The most common methods used compare cosine similarity or distance between words from protected groups and attributes that are considered to be stereotypical or harmful in some way. Many of them rely on pre-averaging, which we find problematic --- two such methods will be in our focus. We will argue that the existing measures of bias by pre-averaging oversimplify the picture and lead to false confidence. Our simulation results show that the mainstream interpretations are too hasty. Our Bayesian analysis with proper control groups suggests that (1) the word lists in use are too short, (2) associated and different groups behave similarly, which undermines the semantic interpretation of cosine similarity, and (3) our analysis at different levels of generality shows that there is more variety than one may initially think.
+
 
 In one well-known approach, @Caliskan2017semanticsBiases proposed the Word Embedding Association Test (WEAT). The idea is that the measure of  biases between two sets of target words, $X$ and $Y$, (we call them protected words) should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related career words, and $B$ stereotypically female-related family words. WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology and uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.  The association difference for a term $t$ is $s(t,A,B)$, and the effect size is computed by normalizing the difference in means as follows ($f$ is a similarity measure, such as cosine similarity): 
 
@@ -49,7 +53,7 @@ In one well-known approach, @Caliskan2017semanticsBiases proposed the Word Embed
 } \tag{WEAT}
 \end{align}
 \normalsize
-\noindent @Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extend the methodology to a multilingual and cross-lingual setting; a similar methodology is employed by @Garg2018years, who use word embeddings trained on corpora from different decades. @Manzini2019blackToCriminal modify WEAT to a multi-class setting, introducing Mean Average Cosine (MAC) similarity as a measure of bias (in fact, in the paper  they report distances rather than similarities). Let $T = \{t_1, \dots, t_k\}$ be a class of protected word embeddings, and let each $A_j\in A$ be a set of attributes stereotypically associated with a protected word). Then:
+\noindent @Caliskan2017semanticsBiases show that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extend the methodology to a multilingual and cross-lingual setting; a similar methodology is employed by @Garg2018years, who use word embeddings trained on corpora from different decades. @Manzini2019blackToCriminal modify WEAT to a multi-class setting, introducing Mean Average Cosine (MAC) similarity distance as a measure of bias. Let $T = \{t_1, \dots, t_k\}$ be a class of protected word embeddings, and let each $A_j\in A$ be a set of attributes stereotypically associated with a protected word). Then:
 
 \vspace{-2mm}
 
@@ -68,10 +72,8 @@ Another  serious problem is that  all the authors calculate means of means and  
 To illustrate, let's employ the formulas used by @Caliskan2017semanticsBiases in a simple simulation. 
 All such approaches come up with rather short lists of protected words and rather short lists of stereotypical attributes. Clearly, these are not complete list. So let's treat them as  samples from richer pools of stereotypical predicates and let's take the uncertainty and variation involved seriously. 
 
-\noindent
-\begin{tabular}{ll}
-\begin{minipage}[c]{0.35\linewidth}
-\scalebox{0.65}{
+
+\begin{center}
 \begin{tabular}{cccccc}\toprule
 $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 \midrule
@@ -81,21 +83,13 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 .1 & 0 & 0 & .1 & .1 & 1.22\\
 \bottomrule
 \end{tabular}
-}
-\end{minipage}& \begin{minipage}[c]{0.6\linewidth}
+\end{center}
 
-We have randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simulation draws normally distributed values  for two situations in which the underlying mean similarities are in fact equal to zero, in two other cases  the means are different, with a range of choices of common standard deviation  accross the cases (code available upon request).
+To illustrate, we have randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simulation draws normally distributed values  for two situations in which the underlying mean similarities are in fact equal to zero, in two other cases  the means are different, with a range of choices of common standard deviation  across the cases (see the table). 
+The following observations are worthwhile. For points randomly drawn from distributions where there is no difference in means the calculated effect size can easily be  1.82, whereas the largest effect size reported by by Caliskan is 1.81. For samples from distributions where the means are different, the (absolute) effect sizes can easily be lower than in the first two simulations. Moreover, 10k simulations with more realistic word list sizes (normal distributions with equal means, standard deviation=0.08, 16 protected words and 16 predicates) show that high scores are easy to get even if there is no difference in the generating model (Figure 2, code available upon request). This indicates that the low p-value reported in the papers are highly misleading. 
 
-\end{minipage}
-\end{tabular}
-
-\vspace{1mm}
-
-
-The following observations are worthwhile. (1) For points randomly drawn from distributions where there is no difference in means the calculated effect size can easily be  1.82, whereas the largest effect size reported by @Caliskan2017semanticsBiases is 1.81. (2) For samples from distributions where the means are different, the (absolute) effect sizes can easily be lower than in the first two simulations.  As Figure 2. illustrates,  quite some uncertainty is involved, far more than what systematically low mean-based p-values reported in the papers might suggest. Part of the problem is random variation unaccounted for in the original approach (see Figures 3 and 4 for an example), and part of the problem is that    non-negligible changes in effect size can result from a shift in the standard deviation of the original process, because with the decrease of standard deviation the numerator in (WEAT) decreases. 
-
-To improve on the situation, we  build  Bayesian models to estimate the biases involved using the raw datapoints, actually using control groups,  distinguishing the connection types,  and taking the uncertainty involved seriously.
-For the general impact of being associated, we build  models using hamiltonian Monte Carlo (STAN) according to the following specification (linear categorical model and the priors):
+To improve on the situation, we  build  Bayesian models to estimate the biases involved using the raw data points, actually using control groups,  distinguishing the connection types,  and taking the uncertainty involved seriously.
+For the general impact of being associated, we build  models using Hamiltonian Monte Carlo (STAN) according to the following specification (linear categorical model and the priors):
 
 \footnotesize 
 
@@ -130,18 +124,6 @@ The bottom line is that if we want to take bias seriously, so should we approach
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Let's take a look at the head of the religion dataset used in their calculations: -->
 
 
@@ -169,91 +151,84 @@ levels(religion$wordClass) <- c("christian","human","jewish","muslim","neutral")
 \pagebreak
 
 
+\includegraphics[width=8cm]{violinReligion.pdf}
+\includegraphics[width=8cm]{simulations.pdf}
 
-\begin{center}
-\begin{figure}[!htb]\centering
-   \begin{minipage}{0.48\textwidth}
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-ggplot(religion, aes(x =  cosineDistance, fill = connection, color = connection))+geom_density(alpha=0.6,size = .2)+theme_tufte()+labs(title  = "Figure 1.", subtitle = "Empirical distribution of cosine distances (religion, Reddit)")+ scale_fill_manual(values = c("orangered4","chartreuse4", "skyblue", "gray"))+scale_x_continuous(breaks = seq(0.3,1.5, by = 0.1))+xlab("cosine distance")+ scale_color_manual(values = c("orangered4","chartreuse4","skyblue","gray"))
-```
-   \end{minipage}
-   \begin {minipage}{0.48\textwidth}
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-s <- function (table){ mean(table$A) - mean(table$B)}
-biasesD2 <- numeric(10000)
-for(i in 1:10000){
-t1d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
-t2d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05))
-t3d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
-t4d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05))
+\includegraphics[width=8cm]{muslim.pdf}
+\includegraphics[width=8cm]{priest.pdf}
 
-factorD2 <- sd(c(s(t1d2),s(t2d2),s(t3d2),s(t4d2)))
-numeratorD2 <-  mean(s(t1d2),s(t2d2)) - mean(s(t3d2),s(t4d2))
-biasesD2[i] <- numeratorD2/factorD2
-}
+\includegraphics[width=8cm]{../images/religionCoeffs.jpeg}
+\includegraphics[width=8cm]{../images/visReligionReddit.png}
 
-ggplot()+geom_histogram(aes(x=biasesD2, y = ..density..), alpha = 0.6, bins=50)+
-  theme_tufte()+labs(title="Figure 2.", subtitle = "10k biases for different means  and sd =.05 (case 3 in the table)")+ xlab("bias")
-```
-   \end{minipage}
-   
-   
-  \begin{minipage}{0.48\textwidth}
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE}
-library(tidyverse)
-muslimWords <- c("imam","islam","mosque","muslim","quran")
-muslim <- religion %>% filter(protectedWord %in% muslimWords)
-muslimClass <- muslim %>% filter(protectedWord == "muslim")
-neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5)
-humanSample <- sample_n(filter(muslimClass,connection == "human"), 5)
-muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human")
-muslimVis <- rbind(muslimVis,neutralSample,humanSample)
-#we plug in our visualisation script
-source("../functions/visualisationTools.R")
-#two arguments: dataset and protected word
-visualiseProtected(muslimVis,"muslim")+labs(title = "Figure 3.",
-subtitle = "Cosine distances for active attributes (musim, Reddit)")
-```
-\end{minipage}
-   \begin {minipage}{0.48\textwidth}
-```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"}
-library(tidyverse)
-priestClass <- religion %>% filter(protectedWord == "priest")
-neutralSample <- sample_n(filter(priestClass,connection == "none"), 5)
-humanSample <- sample_n(filter(priestClass,connection == "human"), 5)
-priestVis <- priestClass %>% filter(connection != "none" & connection !="human")
-priestVis <- rbind(priestVis,neutralSample,humanSample)
-
-#we plug in our visualisation script
-source("../functions/visualisationTools.R")
-#two arguments: dataset and protected word
-visualiseProtected(priestVis,"priest")+labs(title = "Figure 4.",
-subtitle = "Cosine distances for active attributes (priest, Reddit)")
-```
-   \end{minipage}
-   
-   
-   
-   
-  \begin{minipage}{0.38\textwidth}
-\includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
-\end{minipage}
-   \begin {minipage}{0.58\textwidth}
-\includegraphics{../images/visReligionReddit.png}
-   \end{minipage}
-\end{figure}
-
-
-\end{center}
+<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"} -->
+<!-- ggplot(religion, aes(x =  cosineDistance, fill = connection, color = connection))+geom_density(alpha=0.6,size = .2)+theme_tufte()+labs(title  = "Figure 1.", subtitle = "Empirical distribution of cosine distances (religion, Reddit)")+ scale_fill_manual(values = c("orangered4","chartreuse4", "skyblue", "gray"))+scale_x_continuous(breaks = seq(0.3,1.5, by = 0.1))+xlab("cosine distance")+ scale_color_manual(values = c("orangered4","chartreuse4","skyblue","gray")) -->
+<!-- ``` -->
 
 
 
+
+<!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"} -->
+<!-- s <- function (table){ mean(table$A) - mean(table$B)} -->
+<!-- biasesD2 <- numeric(10000) -->
+<!-- for(i in 1:10000){ -->
+<!-- t1d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05)) -->
+<!-- t2d2 <- data.frame(A  = rnorm(5,.1,0.05), B = rnorm(5,0,0.05)) -->
+<!-- t3d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05)) -->
+<!-- t4d2 <- data.frame(A  = rnorm(5,0,0.05), B = rnorm(5,.1,0.05)) -->
+
+<!-- factorD2 <- sd(c(s(t1d2),s(t2d2),s(t3d2),s(t4d2))) -->
+<!-- numeratorD2 <-  mean(s(t1d2),s(t2d2)) - mean(s(t3d2),s(t4d2)) -->
+<!-- biasesD2[i] <- numeratorD2/factorD2 -->
+<!-- } -->
+
+<!-- ggplot()+geom_histogram(aes(x=biasesD2, y = ..density..), alpha = 0.6, bins=50)+ -->
+<!--   theme_tufte()+labs(title="Figure 2.", subtitle = "10k biases for different means  and sd =.05 (case 3 in the table)")+ xlab("bias") -->
+<!-- ``` -->
+
+
+
+<!-- # ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%",message =FALSE, warning = FALSE} -->
+<!-- # library(tidyverse) -->
+<!-- # muslimWords <- c("imam","islam","mosque","muslim","quran") -->
+<!-- # muslim <- religion %>% filter(protectedWord %in% muslimWords) -->
+<!-- # muslimClass <- muslim %>% filter(protectedWord == "muslim") -->
+<!-- # neutralSample <- sample_n(filter(muslimClass,connection == "none"), 5) -->
+<!-- # humanSample <- sample_n(filter(muslimClass,connection == "human"), 5) -->
+<!-- # muslimVis <- muslimClass %>% filter(connection != "none" & connection !="human") -->
+<!-- # muslimVis <- rbind(muslimVis,neutralSample,humanSample) -->
+<!-- # #we plug in our visualisation script -->
+<!-- # source("../functions/visualisationTools.R") -->
+<!-- # #two arguments: dataset and protected word -->
+<!-- # visualiseProtected(muslimVis,"muslim")+labs(title = "Figure 3.", -->
+<!-- # subtitle = "Cosine distances for active attributes (musim, Reddit)") -->
+<!-- # ``` -->
+
+
+
+ <!-- ```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "100%"} -->
+<!-- library(tidyverse) -->
+<!-- priestClass <- religion %>% filter(protectedWord == "priest") -->
+<!-- neutralSample <- sample_n(filter(priestClass,connection == "none"), 5) -->
+<!-- humanSample <- sample_n(filter(priestClass,connection == "human"), 5) -->
+<!-- priestVis <- priestClass %>% filter(connection != "none" & connection !="human") -->
+<!-- priestVis <- rbind(priestVis,neutralSample,humanSample) -->
+
+<!-- #we plug in our visualisation script -->
+<!-- source("../functions/visualisationTools.R") -->
+<!-- #two arguments: dataset and protected word -->
+<!-- visualiseProtected(priestVis,"priest")+labs(title = "Figure 4.", -->
+<!-- subtitle = "Cosine distances for active attributes (priest, Reddit)") -->
+<!-- ``` -->
+
+
+
+
+
+
+\pagebreak
+## References {-}
 \scriptsize 
   
-
-
-
-\vspace{-4mm}
 
 
 

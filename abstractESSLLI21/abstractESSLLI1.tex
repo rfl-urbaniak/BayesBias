@@ -69,7 +69,7 @@
 
 \usepackage{multirow}
 \usepackage{multicol}
-
+\usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{ragged2e}
@@ -110,7 +110,7 @@
 \usepackage{mathtools}
 
 \usepackage{geometry}
- \geometry{a4paper,left=20mm,top=15mm,bottom = 20mm, right = 20mm}
+ \geometry{a4paper,left=35mm,top=20mm,bottom = 20mm, right = 35mm}
 
 
 %environments
@@ -267,18 +267,29 @@
 \begin{document}
 
 \begin{center}
-\Large \textbf{A bayesian method of cosine-based word2vec bias estimation}
+\large \textbf{Taking uncertainty seriously}
+
+\textbf{A  Bayesian approach to  word embedding bias estimation }
 \end{center}
 
 \vspace{1mm}
 
 A considerable amount of literature exists on bias detection and
-mitigation in NLP models, especially word2vec embeddings, which
-represent words as vectors of real numbers (see e.g. {[}1{]} and {[}4{]}
-and references therein). The most common method used compares cosine
-similarity between words from protected groups and attributes that are
-considered to be stereotypical or harmful in some way, and this method
-will be in our focus.
+mitigation in NLP models, especially word embeddings, which represent
+words as vectors of real numbers (see e.g. {[}1{]} and {[}4{]} and
+references therein). The most common methods used compare cosine
+similarity or distance between words from protected groups and
+attributes that are considered to be stereotypical or harmful in some
+way. Many of them rely on pre-averaging, which we find problematic ---
+two such methods will be in our focus. We will argue that the existing
+measures of bias by pre-averaging oversimplify the picture and lead to
+false confidence. Our simulation results show that the mainstream
+interpretations are too hasty. Our Bayesian analysis with proper control
+groups suggests that (1) the word lists in use are too short, (2)
+associated and different groups behave similarly, which undermines the
+semantic interpretation of cosine similarity, and (3) our analysis at
+different levels of generality shows that there is more variety than one
+may initially think.
 
 In one well-known approach, {[}2{]} proposed the Word Embedding
 Association Test (WEAT). The idea is that the measure of biases between
@@ -306,19 +317,16 @@ size is computed by normalizing the difference in means as follows
 }{
 \sigma(\{s(w,A,B)\}_{w\in X\cup Y})
 } \tag{WEAT}
-\end{align}
-
-\normalsize
-\noindent {[}2{]} show that significant biases---thus measured---
-similar to the ones discovered by IAT can be discovered in word
-embeddings. {[}5{]} extend the methodology to a multilingual and
-cross-lingual setting; a similar methodology is employed by {[}3{]}, who
-use word embeddings trained on corpora from different decades. {[}6{]}
-modify WEAT to a multi-class setting, introducing Mean Average Cosine
-(MAC) similarity as a measure of bias (in fact, in the paper they report
-distances rather than similarities). Let \(T = \{t_1, \dots, t_k\}\) be
-a class of protected word embeddings, and let each \(A_j\in A\) be a set
-of attributes stereotypically associated with a protected word). Then:
+\end{align} \normalsize \noindent {[}2{]} show that significant
+biases---thus measured--- similar to the ones discovered by IAT can be
+discovered in word embeddings. {[}5{]} extend the methodology to a
+multilingual and cross-lingual setting; a similar methodology is
+employed by {[}3{]}, who use word embeddings trained on corpora from
+different decades. {[}6{]} modify WEAT to a multi-class setting,
+introducing Mean Average Cosine (MAC) similarity distance as a measure
+of bias. Let \(T = \{t_1, \dots, t_k\}\) be a class of protected word
+embeddings, and let each \(A_j\in A\) be a set of attributes
+stereotypically associated with a protected word). Then:
 
 \vspace{-2mm}
 
@@ -359,11 +367,7 @@ Clearly, these are not complete list. So let's treat them as samples
 from richer pools of stereotypical predicates and let's take the
 uncertainty and variation involved seriously.
 
-\noindent
-
-\begin{tabular}{ll}
-\begin{minipage}[c]{0.35\linewidth}
-\scalebox{0.65}{
+\begin{center}
 \begin{tabular}{cccccc}\toprule
 $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 \midrule
@@ -373,35 +377,31 @@ $X$ to $A$  & $X$ to $B$ & $Y$ to $A$ & $Y$ to $B$ & $\sigma$  & WEAT \\
 .1 & 0 & 0 & .1 & .1 & 1.22\\
 \bottomrule
 \end{tabular}
-}
-\end{minipage}& \begin{minipage}[c]{0.6\linewidth}
+\end{center}
 
-We have randomly drawn protected classes, $X=\{t_1,t_2\}$ and $Y=\{t_3,t_4\}$, and two five-element attribute sets $A$ and $B$. One simulation draws normally distributed values  for two situations in which the underlying mean similarities are in fact equal to zero, in two other cases  the means are different, with a range of choices of common standard deviation  accross the cases (code available upon request).
-
-\end{minipage}
-\end{tabular}
-
-\vspace{1mm}
-
-The following observations are worthwhile. (1) For points randomly drawn
-from distributions where there is no difference in means the calculated
-effect size can easily be 1.82, whereas the largest effect size reported
-by {[}2{]} is 1.81. (2) For samples from distributions where the means
-are different, the (absolute) effect sizes can easily be lower than in
-the first two simulations. As Figure 2. illustrates, quite some
-uncertainty is involved, far more than what systematically low
-mean-based p-values reported in the papers might suggest. Part of the
-problem is random variation unaccounted for in the original approach
-(see Figures 3 and 4 for an example), and part of the problem is that
-non-negligible changes in effect size can result from a shift in the
-standard deviation of the original process, because with the decrease of
-standard deviation the numerator in (WEAT) decreases.
+To illustrate, we have randomly drawn protected classes,
+\(X=\{t_1,t_2\}\) and \(Y=\{t_3,t_4\}\), and two five-element attribute
+sets \(A\) and \(B\). One simulation draws normally distributed values
+for two situations in which the underlying mean similarities are in fact
+equal to zero, in two other cases the means are different, with a range
+of choices of common standard deviation across the cases (see the
+table). The following observations are worthwhile. For points randomly
+drawn from distributions where there is no difference in means the
+calculated effect size can easily be 1.82, whereas the largest effect
+size reported by by Caliskan is 1.81. For samples from distributions
+where the means are different, the (absolute) effect sizes can easily be
+lower than in the first two simulations. Moreover, 10k simulations with
+more realistic word list sizes (normal distributions with equal means,
+standard deviation=0.08, 16 protected words and 16 predicates) show that
+high scores are easy to get even if there is no difference in the
+generating model (Figure 2, code available upon request). This indicates
+that the low p-value reported in the papers are highly misleading.
 
 To improve on the situation, we build Bayesian models to estimate the
-biases involved using the raw datapoints, actually using control groups,
-distinguishing the connection types, and taking the uncertainty involved
-seriously. For the general impact of being associated, we build models
-using hamiltonian Monte Carlo (STAN) according to the following
+biases involved using the raw data points, actually using control
+groups, distinguishing the connection types, and taking the uncertainty
+involved seriously. For the general impact of being associated, we build
+models using Hamiltonian Monte Carlo (STAN) according to the following
 specification (linear categorical model and the priors):
 
 \footnotesize
@@ -463,53 +463,31 @@ on a means of means.
 
 \pagebreak
 
-\begin{center}
-\begin{figure}[!htb]\centering
-   \begin{minipage}{0.48\textwidth}
+\includegraphics[width=8cm]{violinReligion.pdf}
+\includegraphics[width=8cm]{simulations.pdf}
 
-\begin{center}\includegraphics[width=1\linewidth]{abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1} \end{center}
-   \end{minipage}
-   \begin {minipage}{0.48\textwidth}
+\includegraphics[width=8cm]{muslim.pdf}
+\includegraphics[width=8cm]{priest.pdf}
 
-\begin{center}\includegraphics[width=1\linewidth]{abstractESSLLI1_files/figure-latex/unnamed-chunk-2-1} \end{center}
-   \end{minipage}
-   
-   
-  \begin{minipage}{0.48\textwidth}
+\includegraphics[width=8cm]{../images/religionCoeffs.jpeg}
+\includegraphics[width=8cm]{../images/visReligionReddit.png}
 
-\begin{center}\includegraphics[width=1\linewidth]{abstractESSLLI1_files/figure-latex/unnamed-chunk-3-1} \end{center}
-\end{minipage}
-   \begin {minipage}{0.48\textwidth}
+\pagebreak
 
-\begin{center}\includegraphics[width=1\linewidth]{abstractESSLLI1_files/figure-latex/unnamed-chunk-4-1} \end{center}
-   \end{minipage}
-   
-   
-   
-   
-  \begin{minipage}{0.38\textwidth}
-\includegraphics[width=7cm]{../images/religionCoeffs.jpeg}
-\end{minipage}
-   \begin {minipage}{0.58\textwidth}
-\includegraphics{../images/visReligionReddit.png}
-   \end{minipage}
-\end{figure}
-
-
-\end{center}
+\hypertarget{references}{%
+\subsection*{References}\label{references}}
+\addcontentsline{toc}{subsection}{References}
 
 \scriptsize
 
-\vspace{-4mm}
-
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\leavevmode\hypertarget{ref-bolukbasi2016man}{}%
+\leavevmode\hypertarget{ref-Bolukbasi2016man}{}%
 \CSLLeftMargin{{[}1{]} }
-\CSLRightInline{Tolga Bolukbasi, Kai-Wei Chang, James Zou, Venkatesh
+\CSLRightInline{Tolga Bolukbasi, Kai-Wei Chang, James Y. Zou, Venkatesh
 Saligrama, and Adam Kalai. 2016. Man is to computer programmer as woman
-is to homemaker? Debiasing word embeddings. Retrieved from
-\url{http://arxiv.org/abs/1607.06520}}
+is to homemaker? Debiasing word embeddings. \emph{CoRR} abs/1607.06520,
+(2016). Retrieved from \url{http://arxiv.org/abs/1607.06520}}
 
 \leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
 \CSLLeftMargin{{[}2{]} }

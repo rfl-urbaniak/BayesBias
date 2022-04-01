@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  14 JUN 2021 09:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  1 APR 2022 20:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -584,22 +584,46 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \mult@nat@firstbox=\box95
 \colbreak@box=\box96
 \mc@col@check@num=\count291
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen178
+\captionmargin@=\dimen179
+\captionwidth=\dimen180
+\caption@tempdima=\dimen181
+\caption@indent=\dimen182
+\caption@parindent=\dimen183
+\caption@hangindent=\dimen184
+Package caption Info: KOMA-Script document class detected.
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-koma.sto
+File: caption-koma.sto 2020/09/21 v2.0b Adaption of the caption package to the 
+KOMA-Script document classes (AR)
+))
+\c@caption@flags=\count292
+\c@continuedfloat=\count293
+Package caption Info: hyperref package is loaded.
+)
+\c@subfigure=\count294
+\c@subtable=\count295
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTleft=\skip72
 \LTright=\skip73
 \LTpre=\skip74
 \LTpost=\skip75
-\LTchunksize=\count292
-\LTcapwidth=\dimen178
+\LTchunksize=\count296
+\LTcapwidth=\dimen185
 \LT@head=\box97
 \LT@firsthead=\box98
 \LT@foot=\box99
 \LT@lastfoot=\box100
-\LT@cols=\count293
-\LT@rows=\count294
-\c@LT@tables=\count295
-\c@LT@chunks=\count296
+\LT@cols=\count297
+\LT@rows=\count298
+\c@LT@tables=\count299
+\c@LT@chunks=\count300
 \LT@p@ftn=\toks24
 )
 Class scrartcl Info: longtable captions redefined on input line 75.
@@ -635,10 +659,10 @@ Package etex Warning: Extended allocation already in use.
 Package: marvosym 2011/07/20 v2.2 Martin Vogel's Symbols font definitions
 ) (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/kpfonts.sty
 Package: kpfonts  2010/08/20 v3.31
-\c@mv@rm=\count297
-\c@mv@boldrm=\count298
-\c@mv@sf=\count299
-\c@mv@boldsf=\count300
+\c@mv@rm=\count301
+\c@mv@boldrm=\count302
+\c@mv@sf=\count303
+\c@mv@boldsf=\count304
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 354.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> OT1/jkp/m/n on input line 354.
@@ -936,21 +960,7 @@ Package: nicefrac 1998/08/04 v0.9b Nice fractions
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )) (/usr/share/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
 Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
-\captionmargin=\dimen179
-\captionmargin@=\dimen180
-\captionwidth=\dimen181
-\caption@tempdima=\dimen182
-\caption@indent=\dimen183
-\caption@parindent=\dimen184
-\caption@hangindent=\dimen185
-Package caption Info: KOMA-Script document class detected.
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-koma.sto
-File: caption-koma.sto 2020/09/21 v2.0b Adaption of the caption package to the 
-KOMA-Script document classes (AR)
-))
-\c@float@type=\count301
+\c@float@type=\count305
 \float@exts=\toks25
 \float@box=\box101
 \@floatcapt=\box102
@@ -968,18 +978,18 @@ Package floatrow Info: Modified rotfloat package code loaded on input line 473.
 \FBo@max=\skip96
 \FBc@max=\skip97
 \FBf@max=\skip98
-\c@FBl@b=\count302
-\floatbox@depth=\count303
-\c@FRobj=\count304
-\c@FRsobj=\count305
+\c@FBl@b=\count306
+\floatbox@depth=\count307
+\c@FRobj=\count308
+\c@FRsobj=\count309
 \Xhsize=\skip99
 \sXhsize=\skip100
 \Zhsize=\skip101
 \sZhsize=\skip102
 \flrow@rowbox=\box103
 \FR@Zunitlength=\dimen189
-\c@FBcnt=\count306
-\FPOScnt=\count307
+\c@FBcnt=\count310
+\FPOScnt=\count311
 \LTleft=\skip103
 \LTright=\skip104
 \LTleft=\skip105
@@ -995,7 +1005,7 @@ ive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks28
 \XKV@tempa@toks=\toks29
 )
-\XKV@depth=\count308
+\XKV@depth=\count312
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/sh
 are/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texlive/tex
@@ -1037,14 +1047,14 @@ ex
 \pgf@yd=\dimen257
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count309
-\c@pgf@countb=\count310
-\c@pgf@countc=\count311
-\c@pgf@countd=\count312
+\c@pgf@counta=\count313
+\c@pgf@countb=\count314
+\c@pgf@countc=\count315
+\c@pgf@countd=\count316
 \t@pgf@toka=\toks34
 \t@pgf@tokb=\toks35
 \t@pgf@tokc=\toks36
-\pgf@sys@id@count=\count313
+\pgf@sys@id@count=\count317
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2020/12/27 v3.1.8b (3.1.8b)
 )
@@ -1059,8 +1069,8 @@ File: pgfsys-common-pdf.def 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfsyssoftpath@smallbuffer@items=\count314
-\pgfsyssoftpath@bigbuffer@items=\count315
+\pgfsyssoftpath@smallbuffer@items=\count318
+\pgfsyssoftpath@bigbuffer@items=\count319
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -1072,7 +1082,7 @@ e/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texl
 ive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/t
 exmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen258
-\pgfmath@count=\count316
+\pgfmath@count=\count320
 \pgfmath@box=\box105
 \pgfmath@toks=\toks37
 \pgfmath@stack@operand=\toks38
@@ -1096,7 +1106,7 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmat
 hfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count317
+\c@pgfmathroundto@lastzeros=\count321
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
 x
@@ -1134,7 +1144,7 @@ File: pgfcorescopes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 \pgfpic=\box106
 \pgf@hbox=\box107
 \pgf@layerbox@main=\box108
-\pgf@picture@serial@count=\count318
+\pgf@picture@serial@count=\count322
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
@@ -1167,8 +1177,8 @@ File: pgfcorearrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 \pgf@max=\dimen282
-\pgf@sys@shading@range@num=\count319
-\pgf@shadingcount=\count320
+\pgf@sys@shading@range@num=\count323
+\pgf@shadingcount=\count324
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
@@ -1226,7 +1236,7 @@ Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@plot@mark@count=\count321
+\pgf@plot@mark@count=\count325
 \pgfplotmarksize=\dimen287
 )
 \tikz@lastx=\dimen288
@@ -1241,18 +1251,18 @@ File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 \tikz@figbox@bg=\box112
 \tikz@tempbox=\box113
 \tikz@tempbox@bg=\box114
-\tikztreelevel=\count322
-\tikznumberofchildren=\count323
-\tikznumberofcurrentchild=\count324
-\tikz@fig@count=\count325
+\tikztreelevel=\count326
+\tikznumberofchildren=\count327
+\tikznumberofcurrentchild=\count328
+\tikz@fig@count=\count329
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfmatrixcurrentrow=\count326
-\pgfmatrixcurrentcolumn=\count327
-\pgf@matrix@numberofcolumns=\count328
+\pgfmatrixcurrentrow=\count330
+\pgfmatrixcurrentcolumn=\count331
+\pgf@matrix@numberofcolumns=\count332
 )
-\tikz@expandcount=\count329
+\tikz@expandcount=\count333
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -1275,18 +1285,18 @@ File: tikzlibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 File: pgflibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count330
-\calc@Bcount=\count331
+\calc@Acount=\count334
+\calc@Bcount=\count335
 \calc@Adimen=\dimen296
 \calc@Bdimen=\dimen297
 \calc@Askip=\skip107
 \calc@Bskip=\skip108
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count332
+\calc@Ccount=\count336
 \calc@Cskip=\skip109
 )
-\c@@todonotes@numberoftodonotes=\count333
+\c@@todonotes@numberoftodonotes=\count337
 ) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.sty
@@ -1392,7 +1402,7 @@ e/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2021-01-09 L3 programming layer (loader) 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-01-29 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count334
+\l__color_backend_stack_int=\count338
 \l__pdf_internal_box=\box115
 ))
 Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
@@ -1401,7 +1411,7 @@ Package: xparse 2020-10-27 L3 Experimental document command parser
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.tex))
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count335
+\etb@tempcnta=\count339
 ))
 Class scrartcl Info: amsthm's \deferred@thm@head patched.
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
@@ -1413,7 +1423,7 @@ LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
-\g_MT_multlinerow_int=\count336
+\g_MT_multlinerow_int=\count340
 \l_MT_multwidth_dim=\dimen298
 \origjot=\skip113
 \l_MT_shortvdotswithinadjustabove_dim=\dimen299
@@ -1429,9 +1439,9 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count337
-\Gm@cntv=\count338
-\c@Gm@tempcnt=\count339
+\Gm@cnth=\count341
+\Gm@cntv=\count342
+\c@Gm@tempcnt=\count343
 \Gm@bindingoffset=\dimen306
 \Gm@wd@mp=\dimen307
 \Gm@odd@mp=\dimen308
@@ -1442,10 +1452,10 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen313
 \Gm@dimlist=\toks48
 )
-\c@fact=\count340
-\c@q=\count341
-\c@lemma=\count342
-\c@theorem=\count343
+\c@fact=\count344
+\c@q=\count345
+\c@lemma=\count346
+\c@theorem=\count347
    defining Unicode char U+0301 (decimal 769)
 (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
@@ -1453,14 +1463,14 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@outerparindent=\dimen314
 \enit@toks=\toks49
 \enit@inbox=\box117
-\enit@count@id=\count344
-\enitdp@description=\count345
+\enit@count@id=\count348
+\enitdp@description=\count349
 ) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip115
 \bibsep=\skip116
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count346
+\c@NAT@ctr=\count350
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \col@sep=\dimen315
@@ -1473,7 +1483,7 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 ) (/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen317
 \WF@size=\dimen318
-\c@WF@wrappedlines=\count347
+\c@WF@wrappedlines=\count351
 \WF@box=\box120
 \WF@everypar=\toks51
 Package: wrapfig 2003/01/31  v 3.6
@@ -1493,16 +1503,16 @@ mediate FMi
 (/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box121
-\sift@deathcycles=\count348
+\sift@deathcycles=\count352
 \@vwid@loff=\dimen319
 \@vwid@roff=\dimen320
 )
-\c@taburow=\count349
-\tabu@nbcols=\count350
-\tabu@cnt=\count351
-\tabu@Xcol=\count352
-\tabu@alloc=\count353
-\tabu@nested=\count354
+\c@taburow=\count353
+\tabu@nbcols=\count354
+\tabu@cnt=\count355
+\tabu@Xcol=\count356
+\tabu@alloc=\count357
+\tabu@nested=\count358
 \tabu@target=\dimen321
 \tabu@spreadtarget=\dimen322
 \tabu@naturalX=\dimen323
@@ -1536,7 +1546,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \UL@skip=\skip122
 \UL@hook=\toks55
 \UL@height=\dimen330
-\UL@pe=\count355
+\UL@pe=\count359
 \UL@pixel=\dimen331
 \ULC@box=\box129
 Package: ulem 2019/11/18
@@ -1544,7 +1554,7 @@ Package: ulem 2019/11/18
 ) (/usr/share/texlive/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen333
-\c@nlinenum=\count356
+\c@nlinenum=\count360
 \TeXr@lab=\toks56
 )
 \cslhangindent=\skip123
@@ -1612,16 +1622,16 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 ) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count357
+\scratchcounter=\count361
 \scratchdimen=\dimen334
 \scratchbox=\box130
-\nofMPsegments=\count358
-\nofMParguments=\count359
+\nofMPsegments=\count362
+\nofMParguments=\count363
 \everyMPshowfont=\toks57
-\MPscratchCnt=\count360
+\MPscratchCnt=\count364
 \MPscratchDim=\dimen335
-\MPnumerator=\count361
-\makeMPintoPDFobject=\count362
+\MPnumerator=\count365
+\makeMPintoPDFobject=\count366
 \everyMPtoPDFconversion=\toks58
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1639,21 +1649,30 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count363
+\c@section@level=\count367
 )
 LaTeX Info: Redefining \ref on input line 267.
 LaTeX Info: Redefining \pageref on input line 267.
 LaTeX Info: Redefining \nameref on input line 267.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: floatrow package is loaded.
+Package caption Info: longtable package is loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
+)
+Package caption Info: Fixing longtable code of `floatrow' package.
+Package caption Info: threeparttable package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 267.
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: End \AtBeginDocument code.
 (/usr/share/texlive/texmf-dist/tex/latex/floatrow/fr-longtable.sty
 Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 
 \flrow@LT@lasthead=\box131
 \flrow@LT@prelastfoot=\box132
-\c@FBLTpage=\count364
+\c@FBLTpage=\count368
 )
 
 Package todonotes Warning: The length marginparwidth is less than 2cm and will 
@@ -1669,15 +1688,15 @@ loading the todonotes package. on input line 267.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
-* v-part:(T,H,B)=(42.67912pt, 745.46222pt, 56.9055pt)
+* h-part:(L,W,R)=(99.58464pt, 398.3386pt, 99.58464pt)
+* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=483.69687pt
-* \textheight=745.46222pt
-* \oddsidemargin=-15.36449pt
-* \evensidemargin=-15.36449pt
-* \topmargin=-69.46587pt
+* \textwidth=398.3386pt
+* \textheight=731.23584pt
+* \oddsidemargin=27.31465pt
+* \evensidemargin=27.31465pt
+* \topmargin=-55.23949pt
 * \headheight=18.125pt
 * \headsep=21.75pt
 * \topskip=12.0pt
@@ -1696,223 +1715,243 @@ loading the todonotes package. on input line 267.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 285.
+ 296.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 285.
+ 296.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 285.
+ 296.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 285.
+ 296.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsya on input line 
-285.
+296.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsya.fd
 File: ujkpsya.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsyb on input line 
-285.
+296.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsyb.fd
 File: ujkpsyb.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpmia on input line 
-285.
+296.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpmia.fd
 File: ujkpmia.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for U+jkpsyc on input line 
-285.
+296.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ujkpsyc.fd
 File: ujkpsyc.fd 2006/08/15 v1.0
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-85.
+96.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 285.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 296.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 285.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 296.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 285.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 296.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 301.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 312.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 301.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 312.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 301.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 312.
 LaTeX Font Info:    Trying to load font information for OT1+jkpss on input line
- 309.
+ 320.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ot1jkpss.fd
 File: ot1jkpss.fd 2007/07/16 Fontinst v1.928 font definitions for OT1/jkpss.
-)
-Overfull \hbox (21.82104pt too wide) in paragraph at lines 362--381
-[][] 
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+<violinReligion.pdf, id=57, 722.7pt x 505.89pt>
+File: violinReligion.pdf Graphic file (type pdf)
+<use violinReligion.pdf>
+Package pdftex.def Info: violinReligion.pdf  used on input line 466.
+(pdftex.def)             Requested size: 227.61862pt x 159.33302pt.
+<simulations.pdf, id=58, 722.7pt x 505.89pt>
+File: simulations.pdf Graphic file (type pdf)
+<use simulations.pdf>
+Package pdftex.def Info: simulations.pdf  used on input line 467.
+(pdftex.def)             Requested size: 227.61862pt x 159.33302pt.
+
+Overfull \hbox (81.17868pt too wide) in paragraph at lines 466--468
+[][] [] 
  []
 
-[1
+<muslim.pdf, id=59, 722.7pt x 505.89pt>
+File: muslim.pdf Graphic file (type pdf)
+<use muslim.pdf>
+Package pdftex.def Info: muslim.pdf  used on input line 469.
+(pdftex.def)             Requested size: 227.61862pt x 159.33302pt.
+<priest.pdf, id=60, 722.7pt x 505.89pt>
+File: priest.pdf Graphic file (type pdf)
+<use priest.pdf>
+Package pdftex.def Info: priest.pdf  used on input line 470.
+(pdftex.def)             Requested size: 227.61862pt x 159.33302pt.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1.pdf, id=53, 469.755pt x 3
-25.215pt>
-File: abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (ty
-pe pdf)
-<use abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1.pdf>
-Package pdftex.def Info: abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1.p
-df  used on input line 468.
-(pdftex.def)             Requested size: 232.16747pt x 160.73132pt.
-<abstractESSLLI1_files/figure-latex/unnamed-chunk-2-1.pdf, id=54, 469.755pt x 3
-25.215pt>
-File: abstractESSLLI1_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (ty
-pe pdf)
-<use abstractESSLLI1_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: abstractESSLLI1_files/figure-latex/unnamed-chunk-2-1.p
-df  used on input line 472.
-(pdftex.def)             Requested size: 232.16747pt x 160.73132pt.
-<abstractESSLLI1_files/figure-latex/unnamed-chunk-3-1.pdf, id=55, 469.755pt x 3
-25.215pt>
-File: abstractESSLLI1_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (ty
-pe pdf)
-<use abstractESSLLI1_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: abstractESSLLI1_files/figure-latex/unnamed-chunk-3-1.p
-df  used on input line 478.
-(pdftex.def)             Requested size: 232.16747pt x 160.73132pt.
-<abstractESSLLI1_files/figure-latex/unnamed-chunk-4-1.pdf, id=56, 469.755pt x 3
-25.215pt>
-File: abstractESSLLI1_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (ty
-pe pdf)
-<use abstractESSLLI1_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: abstractESSLLI1_files/figure-latex/unnamed-chunk-4-1.p
-df  used on input line 482.
-(pdftex.def)             Requested size: 232.16747pt x 160.73132pt.
-<../images/religionCoeffs.jpeg, id=57, 477.28313pt x 432.86719pt>
+Overfull \hbox (81.17868pt too wide) in paragraph at lines 469--471
+[][] [] 
+ []
+
+<../images/religionCoeffs.jpeg, id=61, 477.28313pt x 432.86719pt>
 File: ../images/religionCoeffs.jpeg Graphic file (type jpg)
 <use ../images/religionCoeffs.jpeg>
-Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 489.
+Package pdftex.def Info: ../images/religionCoeffs.jpeg  used on input line 472.
 
-(pdftex.def)             Requested size: 199.16849pt x 180.63388pt.
-
-Overfull \hbox (15.36133pt too wide) in paragraph at lines 489--490
-[][] 
- []
-
-<../images/visReligionReddit.png, id=58, 433.62pt x 433.62pt>
+(pdftex.def)             Requested size: 227.62218pt x 206.43967pt.
+<../images/visReligionReddit.png, id=62, 433.62pt x 433.62pt>
 File: ../images/visReligionReddit.png Graphic file (type png)
 <use ../images/visReligionReddit.png>
-Package pdftex.def Info: ../images/visReligionReddit.png  used on input line 49
-2.
-(pdftex.def)             Requested size: 280.55945pt x 280.55945pt.
+Package pdftex.def Info: ../images/visReligionReddit.png  used on input line 47
+3.
+(pdftex.def)             Requested size: 227.62082pt x 227.62082pt.
+
+Overfull \hbox (81.18443pt too wide) in paragraph at lines 472--474
+[][] [] 
+ []
+
+[4 <./violinReligion.pdf> <./simulations.pdf> <./muslim.pdf> <./priest.pdf> <..
+/images/religionCoeffs.jpeg> <../images/visReligionReddit.png (PNG copy)>]
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 47
+8.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.56006pt on input line 478.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `phv' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.56006pt on input line 478.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 12.67206pt on input line 478.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 510.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 490.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 510.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 490.
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 505--511
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 485--491
+[][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 485--491
+
+ []
+
+
+Underfull \hbox (badness 3118) in paragraph at lines 497--497
+[]\T1/ptm/m/n/8 (+20) Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan. 2
+017. Se-man-tics de-rived au-to-mat-i-
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 497--497
+\T1/ptm/m/n/8 (+20) cally from lan-guage cor-pora con-tain human-like bi-ases. 
+\T1/ptm/m/it/8 (+20) Sci-ence \T1/ptm/m/n/8 (+20) 356, 6334 (April 2017), 183--
+186.
+ []
+
+
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 492--498
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 505--511
+Underfull \hbox (badness 10000) in paragraph at lines 492--498
 
  []
 
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 512--518
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 499--506
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 512--518
+Underfull \hbox (badness 10000) in paragraph at lines 499--506
 
  []
 
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 519--526
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 507--517
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 519--526
+Underfull \hbox (badness 10000) in paragraph at lines 507--517
 
  []
 
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 527--537
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 518--524
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--537
+Underfull \hbox (badness 10000) in paragraph at lines 518--524
 
  []
 
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 538--544
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 525--531
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 538--544
+Underfull \hbox (badness 10000) in paragraph at lines 525--531
 
  []
 
 
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 545--551
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 532--539
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 545--551
+Underfull \hbox (badness 10000) in paragraph at lines 532--539
 
  []
 
-[3 <./abstractESSLLI1_files/figure-latex/unnamed-chunk-1-1.pdf> <./abstractESSL
-LI1_files/figure-latex/unnamed-chunk-2-1.pdf> <./abstractESSLLI1_files/figure-l
-atex/unnamed-chunk-3-1.pdf> <./abstractESSLLI1_files/figure-latex/unnamed-chunk
--4-1.pdf> <../images/religionCoeffs.jpeg> <../images/visReligionReddit.png (PNG
- copy)>]
-Overfull \hbox (1.52002pt too wide) in paragraph at lines 552--559
-[][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 552--559
-
- []
-
-[4] (./abstractESSLLI1.aux) ) 
+[5] (./abstractESSLLI1.aux) ) 
 Here is how much of TeX's memory you used:
- 32457 strings out of 481252
- 580776 string characters out of 5915889
- 1057220 words of memory out of 5000000
- 48492 multiletter control sequences out of 15000+600000
- 488178 words of font info for 294 fonts, out of 8000000 for 9000
+ 33030 strings out of 481252
+ 590092 string characters out of 5915889
+ 1065673 words of memory out of 5000000
+ 49037 multiletter control sequences out of 15000+600000
+ 494570 words of font info for 304 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 111i,18n,116p,10638b,548s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 111i,9n,116p,10638b,440s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/bas
 e/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/kpfonts/jkpssmn8a.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ti
-mes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on abstractESSLLI1.pdf (4 pages, 335186 bytes).
+ve/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on abstractESSLLI1.pdf (5 pages, 352401 bytes).
 PDF statistics:
- 156 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 59531 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 128 compressed objects within 2 object streams
+ 20 named destinations out of 1000 (max. 500000)
+ 67731 words of extra memory for PDF output out of 74296 (max. 10000000)
 
