@@ -1,0 +1,71 @@
+---
+title: ""
+author: ""
+output:
+  pdf_document:
+    number_sections: true
+    df_print: kable 
+    keep_tex: true
+    includes:
+      in_header:
+        - Rafal_latex6.sty
+classoption: dvipsnames,enabledeprecatedfontcommands
+fontsize: 12pt
+documentclass: scrartcl
+urlcolor: blue
+csl: transactions-on-computational-logic.csl
+---
+
+
+# Recreating Code for MAC Manzini
+
+
+Word embeddings sources:
+\newline
+
+- the same as the authors - Reddit-L2 corpus (reddit.l2.tar.gz) from http://cl.haifa.ac.il/projects/L2/ 
+\newline
+
+- our idea - GoogleNews corpus (GoogleNews-vectors-negative300.bin.gz.) from  https://code.google.com/archive/p/word2vec/ 
+
+
+
+Getting cosine similarity and cosine distance:
+\newline
+
+Description of the precedure:
+
+
+
+TODO: Run code with fresh downloaded corpora
+
+
+
+
+
+# Adding control groups
+
+
+## Human words assumptions and procedure of creation
+
+TODO
+
+## Neutral words assumptions and procedure of creation
+
+TODO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
