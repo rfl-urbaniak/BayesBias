@@ -1,6 +1,9 @@
 library(tidyr)
 library(rethinking)
 library(ggthemes)
+library(precis)
+library(ggplot2)
+library(rethinking)
 
 genderProjections <-  read.csv("datasets/genderProjections.csv")[,-1]
 head(genderProjections)
