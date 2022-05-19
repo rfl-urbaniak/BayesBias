@@ -1,0 +1,24 @@
+
+
+1. Cosine-based measures of bias
+
+  1.1 talk a bit about bias (put deep philosophical issues aside)
+  1.2 introduce word embeddings
+  1.3 introduce WEAT and the results in Caliskan
+  1.4 introduce MAC and the results from that paper
+
+
+2. Some methodological challenges
+
+
+2.1 WEAT
+
+
+2.2 MAC
+
+
+3. Pre-averaging and manufactured certainty 
+
+  3.1 General problem with pre-averaging
+  3.2 Simulations for WEAT and MAC
+  
