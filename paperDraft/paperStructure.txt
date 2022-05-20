@@ -4,17 +4,22 @@
 
   1.1 talk a bit about bias (put deep philosophical issues aside)
   1.2 introduce word embeddings
+  1.25 talk about the semantical interpretation, triangle inequality [papers from backlog], focus on difference in distance, no matter whether to be interpreted semantically 
+  1.28 General challenges from Boston presentation
   1.3 introduce WEAT and the results in Caliskan
   1.4 introduce MAC and the results from that paper
-
-
+     
+    
 2. Some methodological challenges
 
-
 2.1 WEAT
-
+- no control, no human 
+- interpretation (threshold, violin plots?) (?)
 
 2.2 MAC
+- no control, no human 
+- interpretation (threshold)
+
 
 
 3. Pre-averaging and manufactured certainty 
@@ -22,3 +27,29 @@
   3.1 General problem with pre-averaging
   3.2 Simulations for WEAT and MAC
   
+  
+4. Bayesian method
+ 
+  4.05 Bernstein from Boston presentation
+  4.07 chasing metrics, priest vs muslim accross models
+  4.1. Generally about bayesian method
+  4.2. Existing applications to NLP and perhaps to bias
+  4.3. Explanation of how we go about this in our model building
+  
+5. Results
+  
+  5.1 WEAT vs. 3 embeddingi
+  5.2 MAC vs. 3 embeddingi
+
+6. Discussion & summary
+  
+  
+7. APPENDIX
+
+  7.1 examples of WEAT and MAC calculations
+  
+  7.2 word lists
+  
+  
+  [MAYBE]
+  - curse of dimensionality
