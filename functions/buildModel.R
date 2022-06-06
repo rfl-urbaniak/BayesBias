@@ -5,13 +5,41 @@ library(tidyverse)
 library(gridExtra)
 library(grid)
 
+head(weat1Glove)
+
+
+modelResult <- ulam(
+  alist(
+    distance ~ dnorm(mu,sigma),
+    mu <- d[pwi] * different + a[pwi] * associated + h[pwi] * human + n[pwi] * none,
+    d[pwi] ~ dnorm(dbar, dsigmabar),
+    a[pwi] ~ dnorm(abar, asigmabar),
+    h[pwi] ~ dnorm(hbar, hsigmabar),
+    n[pwi] ~ dnorm(nbar, nsigmabar),
+    dbar ~ dnorm(1,.3),
+    abar ~ dnorm(1,.3),
+    hbar ~ dnorm(1,.3),
+    nbar ~ dnorm(1,.3),
+    dsigmabar ~ dexp(2),
+    asigmabar ~ dexp(2),
+    hsigmabar ~ dexp(2),
+    nsigmabar ~ dexp(2),
+    sigma <- s[connection],
+    s[connection] ~  dexp(2)
+  ),   data = weat1Glove, chains=2 , iter=8000 , warmup=1000,  log_lik = TRUE, cores = 4
+)
+
+
+
 buildModel <- function(dataset){
   options(buildtools.check = function(action) TRUE )
+#  datasetRun <- data.frame(distance = dataset$distance, pwi = dataset$pwi, different = dataset$different, associated = 
+        #                     dataset$associated, human = dataset$human, none = dataset$none, connection = as.integer(dataset$connection))
   startTime <- Sys.time()
   modelResult <- ulam(
     alist(
       distance ~ dnorm(mu,sigma),
-      mu <- d[pwi] * different + a[pwi] * associated + h[pwi] * human + n[pw] * none,
+      mu <- d[pwi] * different + a[pwi] * associated + h[pwi] * human + n[pwi] * none,
       d[pwi] ~ dnorm(dbar, dsigmabar),
       a[pwi] ~ dnorm(abar, asigmabar),
       h[pwi] ~ dnorm(hbar, hsigmabar),

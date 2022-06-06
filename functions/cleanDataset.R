@@ -5,6 +5,9 @@ library(tidyverse)
 library(gridExtra)
 library(grid)
 
+#dataset <- weat1Glove
+#nrow(dataset)
+
 cleanDataset <- function (dataset) {
   
   colnames(dataset) <- c("pw","word","stereotype", "distance", "similarity", "connection")
@@ -27,11 +30,18 @@ cleanDataset <- function (dataset) {
   
   dataset <- dataset[  dataset$similarity >= -1 | dataset$distance >= -1,]
   
+  dataset$pw <- droplevels(dataset$pw)
+  dataset$word <- droplevels(dataset$word)
+  dataset$stereotype <- droplevels(dataset$stereotype)
+  dataset$connection <- droplevels(dataset$connection)
+  
   
   dataset$associated <- as.integer(dataset$connection == "associated")
   dataset$different <- as.integer(dataset$connection == "different")
   dataset$human <- as.integer(dataset$connection == "human")
   dataset$none <- as.integer(dataset$connection == "none")
   dataset$pwi <- as.integer(dataset$pw)
+  
+
   return(dataset)
 }

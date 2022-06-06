@@ -1,6 +1,6 @@
 #First, cleaning the dataset. We'll use religionReddit as an example
 
-
+getwd()
 source("functions/cleanDataset.R")
 
 #example
@@ -54,5 +54,22 @@ resultsGenderGlove <- plotFromPrecis(precis = precisGenderGlove,
                                         dataset = genderGlove)
 
 resultsGenderGlove$plotJoint
+
+#let's see what happens if this is a WEAT dataset
+weat1Glove <- read.csv("./datasets/macWeatDatasets/weat_1_glove.csv")[,-1]
+weat1Glove <- cleanDataset(weat1Glove)
+
+
+str(weat1Glove)
+
+
+modelWeat1Glove <- buildModel(weat1Glove)
+
+precisWeat1Glove <- extractPrecis(modelWeat1Glove, name = "Weat1Glove")
+resultsWeat1Glove <- plotFromPrecis(precis = precisWeat1Glove,
+                                     dataset = weat1Glove, ylims = c(.8,1.2))
+
+resultsWeat1Glove$plotJoint
+
 
 
