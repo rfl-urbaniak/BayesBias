@@ -1,49 +1,37 @@
-cleanDataset <- function(dataset, levelsWordClass){
+library(rethinking)
+library(ggplot2)
+library(ggthemes)
+library(tidyverse)
+library(gridExtra)
+library(grid)
 
-    colnames(dataset) <- c("protectedWord","wordToCompare","wordClass",
-                      "cosineDistance","cosineSimilarity","connection")
-
-    levels(dataset$wordClass) <- levelsWordClass
-
-    dataset$conFactor <- factor(paste0(dataset$connection))
-    dataset$con <- as.integer(dataset$conFactor)
-    
-    dataset$pwFactor <- factor(paste0(dataset$protectedWord, "-", dataset$connection))
-    dataset$pwIndex <- as.integer(dataset$pwFactor)
-#    dataset$associated <- ifelse(dataset$connection == "associated", 1, 0)
-#    dataset$different <- ifelse(dataset$connection == "different", 1, 0)
-#    dataset$human <- ifelse(dataset$connection == "human", 1, 0)
-    return(dataset)
-    }
-
-
-
-religionReddit <- read.csv("./datasets/religionReddit.csv")[-1]
-religionReddit <- cleanDataset(religionReddit,c("christian","human","jewish","muslim","neutral"))
-write.csv(religionReddit, "./datasets/cleanedDatasets/religionRedditCleaned.csv")
-
-genderReddit <- read.csv("./datasets/genderReddit.csv")[-1] 
-genderReddit <- cleanDataset(genderReddit,c("human","man","neutral","woman"))
-write.csv(genderReddit, "./datasets/cleanedDatasets/genderRedditCleaned.csv")
-
-raceReddit <- read.csv("./datasets/raceReddit.csv")[-1]
-raceReddit <- cleanDataset(raceReddit,c("asian","black","caucasian","human","neutral"))
-write.csv(raceReddit, "./datasets/cleanedDatasets/raceRedditCleaned.csv")
-
-religionGoogle <- read.csv("./datasets/religionGoogle.csv")[-1]
-religionGoogle <- cleanDataset(religionGoogle,c("christian","human","jewish","muslim","neutral"))
-write.csv(religionGoogle, "./datasets/cleanedDatasets/religionGoogleCleaned.csv")
-
-genderGoogle <- read.csv("./datasets/genderGoogle.csv")[-1] 
-genderGoogle <- cleanDataset(genderGoogle,c("human","man","neutral","woman"))
-write.csv(genderGoogle, "./datasets/cleanedDatasets/genderGoogleCleaned.csv")
-
-raceGoogle <- read.csv("./datasets/raceGoogle.csv")[-1]
-raceGoogle <- cleanDataset(raceGoogle,c("asian","black","caucasian","human","neutral"))
-write.csv(raceGoogle, "./datasets/cleanedDatasets/raceGoogleCleaned.csv")
-
-
-
-
-
-
+cleanDataset <- function (dataset) {
+  
+  colnames(dataset) <- c("pw","word","stereotype", "distance", "similarity", "connection")
+  dataset$pw <- as.factor(dataset$pw)
+  dataset$word <- as.factor(dataset$word)
+  dataset$stereotype <- as.factor(dataset$stereotype)
+  dataset$connection <- as.factor(dataset$connection)
+  
+  
+  
+  ifelse(sum( dataset$similarity < -1 | dataset$distance < -1) != 0, 
+         print(
+           paste("WARNING:  ",  sum( dataset$similarity < -1 | dataset$distance < -1), 
+                 " out of ", nrow(dataset), " (", sum( dataset$similarity < -1 | dataset$distance < -1)/nrow(dataset) * 100, 
+                 "%) missing comparisons have been removed!", sep = "")
+         ),
+         print("No word removal needed.")
+  )
+  
+  
+  dataset <- dataset[  dataset$similarity >= -1 | dataset$distance >= -1,]
+  
+  
+  dataset$associated <- as.integer(dataset$connection == "associated")
+  dataset$different <- as.integer(dataset$connection == "different")
+  dataset$human <- as.integer(dataset$connection == "human")
+  dataset$none <- as.integer(dataset$connection == "none")
+  dataset$pwi <- as.integer(dataset$pw)
+  return(dataset)
+}
