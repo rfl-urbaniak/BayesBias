@@ -5,7 +5,7 @@ library(tidyverse)
 library(gridExtra)
 library(grid)
 
-head(weat1Glove)
+#head(weat1Glove)
 
 # 
 # modelResult <- ulam(
@@ -58,7 +58,7 @@ buildModel <- function(dataset){
   )
   endTime <- Sys.time()
   time <- endTime - startTime
-  browseURL('https://www.youtube.com/watch?v=Lx1iH8DgrLE&list=RDLx1iH8DgrLE&start_radio=1')
+#  browseURL('https://www.youtube.com/watch?v=Lx1iH8DgrLE&list=RDLx1iH8DgrLE&start_radio=1')
   print(time)
   return(modelResult)
 }

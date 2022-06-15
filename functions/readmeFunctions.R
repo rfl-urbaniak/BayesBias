@@ -26,13 +26,21 @@ source("functions/extractPrecis.R")
 #apply to our model
 precisReligionReddit <- extractPrecis(modelReligionReddit, name = "ReligionReddit")
 
+
+
 #now we clean up the summaries and prepare plots based on a precis and a dataset
 source("functions/plotFromPrecis.R")
 
 
 #example
+precisReligionReddit <- readRDS("resultsDFs/ReligionRedditDF.rds")
+
+precisReligionReddit
+
 resultsReligionReddit <- plotFromPrecis(precis = precisReligionReddit,
-                                        dataset = dataset
+                                        dataset = dataset,
+                                        list = "Religion (MAC)",
+                                        embedding = "Reddit"
                                           )
 
 #take a look
