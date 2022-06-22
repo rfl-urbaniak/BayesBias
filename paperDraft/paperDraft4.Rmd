@@ -38,11 +38,26 @@ library(gridExtra)
 
 # Cosine-based measures of bias
 
-\raf{fix bibliography}
 
-\ali{proofread and think if we should add more}
+## What is bias?
+
+
+## Word embeddings
 
 Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings, in which particular lexical units are repesented as vectors of real numbers. It has been suggested [@Bolukbasi2016man; @Caliskan2017semanticsBiases; @Gonen2019lipstick; @Lauscher2019multidimensional; @Garg2018years; @Manzini2019blackToCriminal]  that in the learning process  such models can learn implicit biases that reflect harmful stereotypical thinking. A large chunk of  the literature on the topic  focuses on  the geometry of the learnt word embeddings;  in particular, unusually low (cosine) proximity of words belonging, intuitively, to a stereotype, is taken as a sign that  this stereotype has been built into a given embedding. This methodology will be in the focus of our paper.   
+
+
+## Semantical interpretation
+
+
+
+## General challenges
+
+
+
+
+
+## WEAT and MAC measures
 
 One of the first measures in the discussion has been developed by @Bolukbasi2016man. First, the gender direction $gd$ in  is obtained by taking the differences of the vectors corresponding to ten different gendered pairs (such as $\overrightarrow{she} - \overrightarrow{he}$ or $\overrightarrow{girl} - \overrightarrow{boy}$) and then identifying their principal component (which is the vector obtained by projecting the data points on their  linear combination in a way that maximizes the variance of the projections).^[In the notebook associated with the paper, the authors simply use $\overrightarrow{she} - \overrightarrow{he}$ as a gender direction, though.]   The gender bias of a word $w$ is understood as its projection on the gender direction: $\vec{w} \cdot gd$.    Given the supposedly gender neutral words $N$^[We follow the methodology in assuming that there is a class of words that ideally should be  identified as neutral, such as \emph{ballpark, solution, lecture, science, book} can be identified. We will have a bit to say about this assumption when we describe our dataset construction.] \todo{get back to this!} and the gender direction $gd$    the direct gender bias is defined as the average cosine similarity of the words in $N$ from $gd$ ($c$ is a parameter determining how strict we want to be):
 
@@ -130,7 +145,7 @@ $dist(A,C) \not \leq dist(A,B)+ dist(B,C)$; we'll keep using this mainstream ter
 Having introduced the measures,  first, we will introduce a selection of general problems with this approach, and then we will move on to more specific but important problems related to the statistical significance of such measurement. We will focus on WEAT and MAC, as we want to put issues with the use of projections aside. WEAT will be useful in our criticism of the statistical methods involved, as it is simpler, so the explanation and visualizations will be more transparent (and \emph{mutatis mutandis} this criticism will apply to MAC as well), and MAC will be useful in the development of our alternative method as its range of applicability is the widest.
 
 
-# Non-statistical problems with cosine-based measures of bias
+## Non-statistical problems with cosine-based measures of bias
 
 
 One issue to consider is  the selection of attributes for bias measurement. The word lists used in the literature are often fairly small (5-50)\todo{Check Manzani}. While the papers do employ statistical tests to measure the uncertainty involved, we will later on argue that these method are not  proper for the goal at hand and  show that a more appropriate use of statistical methods leads to  estimates of uncertainty that are rather epistemologically pessimistic.  \todo{sensitivity to choice of words}
@@ -170,17 +185,7 @@ The underlying problem here is that in the paper there is no  control group.  On
 
 
 
-# Statistical issues 
-
-
-
-
-
-
-
-
-
-
+## Statistical issues 
 
 
 
@@ -227,4 +232,51 @@ bias(A,B) & = \frac{
 
 
 The t-tests they employ are run on average cosines used to calculate MAC.
+
+
+# Pre-averaging and manufactured certainty 
+
+## General problem with pre-averaging
+
+## Simulations for WEAT
+
+
+## Simulations for MAC
+
+
+
+# Bayesian method
+
+## Bernstein approach
+
+## Chasing metrics
+
+
+## Bayesian method introduction
+
+## Existing applications to NLP and perhaps to bias
+
+
+## Model 
+
+
+# Results
+
+
+## WEAT
+
+
+## MAC
+
+
+# Discussion and summary
+
+
+
+# APPENDIX
+
+## Examples of WEAT and MAC calculations
+  
+## Word lists
+
 
