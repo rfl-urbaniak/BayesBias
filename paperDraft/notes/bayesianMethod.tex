@@ -1,0 +1,81 @@
+
+\appendix
+\section{Appendix: Why Bayesian methods?}
+
+As referees found it useful to include an explanation of why classical statistical methods have not been used in the paper, here is a brief rationale.
+
+Suppose you are interested in how many referees of a certain class of journals prefer Bayesian statistical methods over the classical approach (call this property $\beta$). You randomly draw 24 such referees  and it turns out 7 of them actually do. Let us work with the assumption that the probability of $\beta$ is the same for each, and that whether a referee has property $\beta$ is independent of whether other referees do. What should you make of this?
+  
+  First, let us see what can be made of this from the classical perspective of the null hypothesis significance testing (NHST) paradigm.
+
+First, prior to looking at the data you need to formulate a null hypothesis. Say yours is that the probability that a referee will prefer Bayesian methods, $\theta$, is $.5$. Then you expect about half of the sample---12---to have $\beta$. If the number is far greater or smaller than that, you are supposed to reject the null. Specifically, in our case we need to calculate the probability that the number is as extreme or more extreme than 7 on the assumption that $\theta =.5$, called the $p$-value, and reject the null just in case this probability is less than a certain low value, say $5\%$.
+
+Crucially, the outcome depends on defining a space of all possible outcomes. For instance, if the intention of the experiment was to draw 24 referees and count the $\beta$s, the space contains all binary sequences of length 24. Then, we use the binomial probability distribution on which the probability of obtaining $z$ $\beta$s out of $N$ observations given the null fixed at $\theta$ is:
+  \begin{align*}
+\mathsf{P}(z\vert N, \theta) & = {N\choose  z} \theta^z (1  - \theta)^{N-z}
+\end{align*}
+\noindent With $\theta_{null}=.5$ the binomial distribution is symmetric so using a two-tailed test with rejection threshold at $5\%$ we can reject the null if the probability of at most seven $\beta$s is not greater than $2.5\%$. In our case, $\mathsf{P}(7\vert 24, \theta =.5)\approx.32$  so, from the perspective of NHST we fail to reject the null and we have not learned much.
+
+
+
+
+
+
+Note however that we could have obtained the same data with a different intention: that of sampling until we observe 7 $\beta$s. In that case, the space of all possible outcomes contains binary sequences of varying lengths whose last element is a 7th success. (Other sampling intentions are also possible). The probability of getting a sequence of length 24 with the intention to stop at 7 is negative binomial:
+  \begin{align*}
+\mathsf{P}(N\vert z, \theta) & = {N- 1 \choose z - 1}\theta^{z-1}(1-\theta)^{N - z}\theta
+\end{align*}
+\noindent with this stopping intention, the $p$-value is $.017$, which is less than $2.5\%$, so we are supposed to reject the null.
+
+
+This shows there is no such a thing as the unique $p$-value for a data set even if the null hypothesis is kept fixed. 
+
+
+
+
+Moreover, the $p$-value for any particular comparison depends on whether we intended to make multiple comparisons. Suppose we in fact want to study two groups of referees (say, from two different groups of journals). As in NHST we want to monitor the overall false alarm rate, we are supposed to focus on the probability of a false alarm in at least one group. If the null hypotheses and sample sizes are the same, and we use the binomial distribution, then the $p$ value for the first group even without making any observation from the second group is now $.063$. Let this sink in: what we should do with the null hypothesis for the first group depends on imaginary possibilities related to the second group.
+
+
+In light of the above problems, and other issues with $p$-values (roughly speaking, related to the fact that focusing on $p$-values is partially responsible for the replicability crisis), some recommend using estimation and classical confidence intervals (CIs) instead. 
+
+This does not help much for various reasons.  One mathematically correct conceptualization of CIs is that they are ranges of parameter values that would not be rejected by the given data set. The $95\%$ CI consists of values of $\theta$ that would not be rejected by a two-tailed significance test with false alarm rate $\alpha = 5\%$. For this reason, CIs depend on whatever $p$-values depend on, and so still depend on stopping intention. For instance, if we use the binomial distribution in the referees example, the CI is $[.126,.511]$. If we use the negative binomial distribution it is $[.123,.484]$, and for the two-group study, it is $[.110, .539]$. Moreover, CIs are notoriously susceptible to misinterpretation. People tend to mistakenly:
+  
+  \begin{itemize}
+\item   think that CI indicates some probability distribution over $\theta$, which it does not. Values in the middle of a CI are not more believable than the values at its limits,
+
+\item   think that  if the probability that a random interval contains the true value is $x\%$, then the plausibility or probability that a particular observed interval contains the true value is also $x\%$. 
+
+\item    interpret confidence intervals as indicating the precision of the estimate,
+
+\item  think that values inside the confidence interval are more likely than those outside.
+
+\end{itemize}
+
+\noindent The literature on misinterpretations of CIs is vast and we encourage the interested reader to search the web for papers on this topic.
+
+
+
+
+
+Another problem is that NHST pays no attention to prior knowledge. On this approach what we should do when we inspect referees' preferences is exactly the same as what we should do if we were flipping long nails defining success as the nail landing balanced on its head with its pointy tail sticking up, even though there are clearly more reasons to think the outcome of 7 successes with nails is more of a sheer luck, not an evidence that we should not reject the null. 
+
+
+From the perspective of Bayesian analysis there is no intention dependence. All that the data contributes is the likelihood, the product of the probabilities of the individual outcomes. The likelihood is:
+    $\prod_{i = 1}^{N} \theta^z(1- \theta)^{N-z}$. It is then combined with the prior probability to obtain a posterior probability mass function describing how probable particular values of $\theta$ are. For instance, if you start completely uninformed with $\mathsf{beta}(1,1)$, the posterior distribution is $\mathsf{beta}(8,18)$. Given that most referees are senior scholars and that Bayesian methods made its strides in college education only fairly recently, the case is more like that of nails, and we should not start with a completely uninformed prior. If you implement this knowledge starting rather with $\mathsf{beta}(2, 3)$, the posterior density is $\mathsf{beta}(9,20)$.
+% \begin{figure}[H]
+\begin{center}
+\includegraphics[width=1\linewidth]{imagesFinal/bayesianDensities} 
+\end{center}
+% \caption{Two potential priors and posteriors in a Bayesian analysis of the referees' data.}
+% \label{fig:referees}
+% \end{figure}
+
+In contrast with CIs, the posterior distributions (and their highest posterior density intervals HPDIs, the narrowest intervals containing a certain ratio of the area under the curve) are easily interpretable and have direct relevance for the question at hand. Given the slightly informed prior, for instance, in our case the posterior density over $\theta$ in the referees example has its 95\% HPDI at  $[.16, .48]$ and it is the case that the real $\theta$ with probability $95\%$ belongs to this interval.
+
+
+
+
+
+The reader might be worried that priors are subjective and mysterious. But usually, they are much less so than the intricacies and theoretical choices made in classical analysis.  Prior beliefs can be explicitly stated, debated, or often found in previous research. In particular since in our research we intend to convince someone mildly skeptical of the results (and want to avoid model  over-fitting), it makes sense to start with priors slightly centered around 0, but easily admitting reasonable ranges of impact, and this is what we have done. 
+
+Interestingly, Bayesian analysis is not susceptible to all the difficulties with multiple comparisons that plague NHST. What is estimated is a single posterior density, even if it involves multiple predictors with multiple levels. For this reason, with Bayesian methods one can look at the data as much as one wants, stopping whenever one wants and updating the distribution with new evidence whenever one wants. In the  particular case of our study, as we look at quite a few different groups, trying to implement ANOVA tests with post-hoc comparison would lead to a disastrous maze of statistical tests and nearly meaningless multiple-comparison-corrected $p$-values (or CI intervals). This has been avoided by using Bayesian methods.
