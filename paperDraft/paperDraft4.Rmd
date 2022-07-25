@@ -39,12 +39,18 @@ library(gridExtra)
 # Cosine-based measures of bias
 
 
-## What is bias?
+
+## Word embeddings and their bias
 
 
-## Word embeddings
+- akapit filozoficzny, z odniesieniem do value free
 
 Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings, in which particular lexical units are repesented as vectors of real numbers. It has been suggested [@Bolukbasi2016man; @Caliskan2017semanticsBiases; @Gonen2019lipstick; @Lauscher2019multidimensional; @Garg2018years; @Manzini2019blackToCriminal]  that in the learning process  such models can learn implicit biases that reflect harmful stereotypical thinking. A large chunk of  the literature on the topic  focuses on  the geometry of the learnt word embeddings;  in particular, unusually low (cosine) proximity of words belonging, intuitively, to a stereotype, is taken as a sign that  this stereotype has been built into a given embedding. This methodology will be in the focus of our paper.   
+
+
+- undesirable bias with respect to a certain groups words if stereotypically connected words (for stereotypes that we don't want to be used or relied on in downstream tasks) are systematically closer to each other. + EXAMPLE
+
+
 
 
 ## Semantical interpretation

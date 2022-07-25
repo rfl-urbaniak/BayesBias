@@ -1,15 +1,20 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   10pt,
   dvipsnames,enabledeprecatedfontcommands, twocolumn]{scrartcl}
+\title{Taking uncertainty in word embedding bias estimation seriously: a
+bayesian approach}
+\author{Alicja Dobrzeniecka and Rafal Urbaniak}
+\date{}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -41,10 +46,10 @@
   pdftitle={Taking uncertainty in word embedding bias estimation seriously: a bayesian approach},
   pdfauthor={Alicja Dobrzeniecka and Rafal Urbaniak},
   colorlinks=true,
-  linkcolor=Maroon,
-  filecolor=Maroon,
-  citecolor=Blue,
-  urlcolor=blue,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage{graphicx}
@@ -64,6 +69,29 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 %\documentclass{article}
 
 % %packages
@@ -242,34 +270,9 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes,arrows}
 
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-
-\title{Taking uncertainty in word embedding bias estimation seriously: a
-bayesian approach}
-\author{Alicja Dobrzeniecka and Rafal Urbaniak}
-\date{}
 
 \begin{document}
 \maketitle
@@ -278,11 +281,15 @@ bayesian approach}
 \section{Cosine-based measures of
 bias}\label{cosine-based-measures-of-bias}}
 
-\hypertarget{what-is-bias}{%
-\subsection{What is bias?}\label{what-is-bias}}
+\hypertarget{word-embeddings-and-their-bias}{%
+\subsection{Word embeddings and their
+bias}\label{word-embeddings-and-their-bias}}
 
-\hypertarget{word-embeddings}{%
-\subsection{Word embeddings}\label{word-embeddings}}
+\begin{itemize}
+\tightlist
+\item
+  akapit filozoficzny, z odniesieniem do value free
+\end{itemize}
 
 Modern Natural Language Processing (NLP) models are used to complete
 various tasks such as providing email filters, smart assistants, search
@@ -297,6 +304,15 @@ particular, unusually low (cosine) proximity of words belonging,
 intuitively, to a stereotype, is taken as a sign that this stereotype
 has been built into a given embedding. This methodology will be in the
 focus of our paper.
+
+\begin{itemize}
+\tightlist
+\item
+  undesirable bias with respect to a certain groups words if
+  stereotypically connected words (for stereotypes that we don't want to
+  be used or relied on in downstream tasks) are systematically closer to
+  each other. + EXAMPLE
+\end{itemize}
 
 \hypertarget{semantical-interpretation}{%
 \subsection{Semantical interpretation}\label{semantical-interpretation}}
@@ -386,30 +402,17 @@ follows:\footnote{ WEAT is a modification of the Implicit Association
   instead of similarity does not make much difference, while the bias
   effects vary greatly across embedding models (interestingly, with
   social media-text trained embeddings being less biased than those
-  based on Wikipedia).}\(^{, }\) \^{}{[} A similar methodology is
-employed in {[}3{]}. The authors employ word embeddings trained on
-corpora from different decades to study the shifts in various biases.
-For instance, to compute the occupational embeddings bias for women the
-authors first compute the average vector of vector embeddings of words
-that represent women (e.g.~\emph{she}, and \emph{female}), then
-calculate the Euclidean distance between this mean vector and words for
-occupations. Then they take the mean of these distances and subtract
-from it the analogously obtained mean for the average vector of vector
-embeddings of words that represent men. Formally they take the relative
-norm distance between \(X\) and \(Y\) to be:
-
-\vspace{-2mm}
-
-\footnotesize
-
-\begin{align}
-\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
-\end{align}
-
-\normalsize
-
-\noindent where the norm used is Euclidean, and \(v_X\) and \(x_Y\) are
-average vectors for sets \(X\) and \(Y\) respectively. {]}
+  based on Wikipedia).}\(^{, }\)\footnote{ A similar methodology is
+  employed in {[}3{]}. The authors employ word embeddings trained on
+  corpora from different decades to study the shifts in various biases.
+  For instance, to compute the occupational embeddings bias for women
+  the authors first compute the average vector of vector embeddings of
+  words that represent women (e.g.~\emph{she}, and \emph{female}), then
+  calculate the Euclidean distance between this mean vector and words
+  for occupations. Then they take the mean of these distances and
+  subtract from it the analogously obtained mean for the average vector
+  of vector embeddings of words that represent men. Formally they take
+  the relative norm distance between \(X\) and \(Y\) to be:}
 
 \vspace{-2mm}
 
@@ -633,21 +636,21 @@ calculations}\label{examples-of-weat-and-mac-calculations}}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\leavevmode\hypertarget{ref-Bolukbasi2016man}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Bolukbasi2016man}{}}%
 \CSLLeftMargin{{[}1{]} }
 \CSLRightInline{Tolga Bolukbasi, Kai-Wei Chang, James Y. Zou, Venkatesh
 Saligrama, and Adam Kalai. 2016. Man is to computer programmer as woman
 is to homemaker? Debiasing word embeddings. \emph{CoRR} abs/1607.06520,
 (2016). Retrieved from \url{http://arxiv.org/abs/1607.06520}}
 
-\leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Caliskan2017semanticsBiases}{}}%
 \CSLLeftMargin{{[}2{]} }
 \CSLRightInline{Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan.
 2017. Semantics derived automatically from language corpora contain
 human-like biases. \emph{Science} 356, 6334 (April 2017), 183--186.
 DOI:https://doi.org/\href{https://doi.org/10.1126/science.aal4230}{10.1126/science.aal4230}}
 
-\leavevmode\hypertarget{ref-Garg2018years}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Garg2018years}{}}%
 \CSLLeftMargin{{[}3{]} }
 \CSLRightInline{Nikhil Garg, Londa Schiebinger, Dan Jurafsky, and James
 Zou. 2018. Word embeddings quantify 100 years of gender and ethnic
@@ -655,7 +658,7 @@ stereotypes. \emph{Proceedings of the National Academy of Sciences} 115,
 16 (April 2018), E3635--E3644.
 DOI:https://doi.org/\href{https://doi.org/10.1073/pnas.1720347115}{10.1073/pnas.1720347115}}
 
-\leavevmode\hypertarget{ref-Gonen2019lipstick}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Gonen2019lipstick}{}}%
 \CSLLeftMargin{{[}4{]} }
 \CSLRightInline{Hila Gonen and Yoav Goldberg. 2019. Lipstick on a pig:
 {D}ebiasing methods cover up systematic gender biases in word embeddings
@@ -666,28 +669,28 @@ papers)}, Association for Computational Linguistics, Minneapolis,
 Minnesota, 609--614.
 DOI:https://doi.org/\href{https://doi.org/10.18653/v1/N19-1061}{10.18653/v1/N19-1061}}
 
-\leavevmode\hypertarget{ref-Lauscher2019multidimensional}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Lauscher2019multidimensional}{}}%
 \CSLLeftMargin{{[}5{]} }
 \CSLRightInline{Anne Lauscher and Goran Glavas. 2019. Are we
 consistently biased? Multidimensional analysis of biases in
 distributional word vectors. \emph{CoRR} abs/1904.11783, (2019).
 Retrieved from \url{http://arxiv.org/abs/1904.11783}}
 
-\leavevmode\hypertarget{ref-Manzini2019blackToCriminal}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Manzini2019blackToCriminal}{}}%
 \CSLLeftMargin{{[}6{]} }
 \CSLRightInline{Thomas Manzini, Yao Chong Lim, Yulia Tsvetkov, and Alan
 W Black. 2019. Black is to criminal as caucasian is to police: Detecting
 and removing multiclass bias in word embeddings. Retrieved from
-\url{http://arxiv.org/abs/1904.04047}}
+\url{https://arxiv.org/abs/1904.04047}}
 
-\leavevmode\hypertarget{ref-Nissim2020fair}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Nissim2020fair}{}}%
 \CSLLeftMargin{{[}7{]} }
 \CSLRightInline{Malvina Nissim, Rik van Noord, and Rob van der Goot.
 2020. Fair is better than sensational: Man is to doctor as woman is to
 doctor. \emph{Computational Linguistics} 46, 2 (June 2020), 487--497.
 DOI:https://doi.org/\href{https://doi.org/10.1162/coli_a_00379}{10.1162/coli\_a\_00379}}
 
-\leavevmode\hypertarget{ref-Nosek2002harvesting}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Nosek2002harvesting}{}}%
 \CSLLeftMargin{{[}8{]} }
 \CSLRightInline{Brian A. Nosek, Mahzarin R. Banaji, and Anthony G.
 Greenwald. 2002. Harvesting implicit group attitudes and beliefs from a
