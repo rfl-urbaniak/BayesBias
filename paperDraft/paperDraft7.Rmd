@@ -1,0 +1,608 @@
+---
+title: 'Taking uncertainty in word embedding bias estimation seriously: a  bayesian
+  approach'
+author: "Alicja Dobrzeniecka and Rafal Urbaniak"
+output:
+  pdf_document:
+    number_sections: yes
+    df_print: kable
+    keep_tex: yes
+    includes:
+      in_header: Rafal_latex7.sty
+  html_document:
+    df_print: paged
+classoption: dvipsnames,enabledeprecatedfontcommands
+fontsize: 10pt
+documentclass: scrartcl
+urlcolor: blue
+bibliography: ../references/cosineReferences1.bib
+csl: ../references/transactions-on-computational-logic.csl
+---
+
+
+
+
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '../')
+
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+```
+
+
+
+
+
+
+# Cosine-based measures of bias
+
+
+
+## Word embeddings and their bias
+
+
+- akapit filozoficzny, z odniesieniem do value free
+
+Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings, in which particular lexical units are represented as vectors of real numbers.
+
+- troche o tym jak sa skonstruowane (optimizing for co-ocurrence frequency)
+
+- przejrzec jak to jest wprowadzane w kilku innych artykulach, zwl. fair is better than sensational
+
+- troche wiecej o tej konstrukcji i intuicji semantycznych, ale to nie super dobry pomysl
+
+ 
+- undesirable bias with respect to a certain groups words if stereotypically connected words (for stereotypes that we don't want to be used or relied on in downstream tasks) are systematically closer to each other. + EXAMPLES
+
+
+It has been suggested [@Bolukbasi2016man; @Caliskan2017semanticsBiases; @Gonen2019lipstick; @Lauscher2019multidimensional; @Garg2018years; @Manzini2019blackToCriminal]  that in the learning process  such models can learn implicit biases that reflect harmful stereotypical thinking. A large chunk of  the literature on the topic  focuses on  the geometry of the learnt word embeddings;  in particular, unusually low (cosine) proximity of words belonging, intuitively, to a stereotype, is taken as a sign that  this stereotype has been built into a given embedding. This methodology will be in the focus of our paper.   
+
+
+
+
+
+
+
+
+
+
+
+## General challenges
+
+
+
+
+
+## WEAT and MAC
+
+One of the first measures in the discussion has been developed by @Bolukbasi2016man. First, the gender direction $gd$ in  is obtained by taking the differences of the vectors corresponding to ten different gendered pairs (such as $\overrightarrow{she} - \overrightarrow{he}$ or $\overrightarrow{girl} - \overrightarrow{boy}$) and then identifying their principal component (which is the vector obtained by projecting the data points on their  linear combination in a way that maximizes the variance of the projections).^[In the notebook associated with the paper, the authors simply use $\overrightarrow{she} - \overrightarrow{he}$ as a gender direction, though.]   The gender bias of a word $w$ is understood as its projection on the gender direction: $\vec{w} \cdot gd$.    Given the supposedly gender neutral words $N$^[We follow the methodology in assuming that there is a class of words that ideally should be  identified as neutral, such as \emph{ballpark, solution, lecture, science, book} can be identified. We will have a bit to say about this assumption when we describe our dataset construction.] \todo{get back to this!} and the gender direction $gd$    the direct gender bias is defined as the average cosine similarity of the words in $N$ from $gd$ ($c$ is a parameter determining how strict we want to be):
+
+\footnotesize
+\begin{align}
+\mathsf{directBias_c(N,gd)} & = \frac{\sum_{w\in N}\vert \mathsf{cos}(\vec{w},gd)\vert^c}{\vert N \vert }
+\end{align}
+\normalsize 
+The use of projections has been criticized for instance by @Gonen2019lipstick, who point out that while the distance to the  gender direction might be an indicator of bias, it is only one possible manifestation of it, and reducing the cosine distance to such a projection  might be insufficient. For instance, "math" and "delicate" might be in equal distance to a pair of  opposed explicitly gendered words, while being closer to quite different stereotypical attribute words. Further, it is observed in [@Gonen2019lipstick]  that most word pairs preserve similarity under debiasing meant to minimize projection-based bias.^[In [@Bolukbasi2016man]  another method which involves analogies and their evaluations by human users on Mechanical Turk is also used. We do not discuss this method in this paper, see its  criticism in [@Nissim2020fair].]
+
+
+
+A measure of bias in word embeddings which does not employ gender directions, the Word Embedding Association Test (WEAT), has been proposed in  [@Caliskan2017semanticsBiases]. The idea is that the   bias between two sets of target words, $X$ and $Y$ (we call them protected words), should be quantified in terms of the cosine similarity  between the protected words and attribute words coming from  two sets of stereotype attribute words, $A$ and $B$ (we'll call them attributes). For instance, $X$ might be a set of male names, $Y$ a set of female names, $A$ might contain stereotypically male-related, and $B$ stereotypically female-related career words. The association difference for a term $t$ is:
+
+\vspace{-2mm}
+
+\footnotesize
+\begin{align}
+\mathsf{s}(t,A,B) & = \frac{\sum_{a\in A}\mathsf{cos}(t,a)}{\vert A\vert} - \frac{\sum_{b\in B}\mathsf{cos}(t,b)}{\vert B\vert}
+\end{align}
+\normalsize
+\noindent then, the association difference between $A$ a $B$ is:
+
+\vspace{-2mm}
+
+\footnotesize
+
+\begin{align}
+\mathsf{s}(X,Y,A,B) & = \sum_{x\in X} \mathsf{s}(x,A,B) -  \sum_{y\in Y} \mathsf{s}(y,A,B)
+\end{align}
+\normalsize
+
+
+
+The effect size is computed by normalizing the difference in means as follows:^[ WEAT is a modification  of the Implicit Association Test (IAT) [@Nosek2002harvesting] used in psychology, and it uses almost the same word sets, allowing for a \emph{prima facie} sensible comparison with bias in humans.  @Caliskan2017semanticsBiases argue that significant biases---thus measured--- similar to the ones discovered by IAT can be discovered in word embeddings. @Lauscher2019multidimensional extended the methodology to a multilingual and cross-lingual setting, arguing that using Euclidean distance instead of similarity does not make much difference, while the bias effects vary greatly across embedding models (interestingly, with social media-text trained embeddings being less biased than those based on Wikipedia).]$^{, }$ ^[
+A similar methodology is employed in [@Garg2018years]. The authors employ word embeddings trained on corpora from different decades to study the shifts in various biases. For instance, to compute the occupational embeddings bias for women the authors first compute the average vector of vector embeddings of words that represent women (e.g. \emph{she}, and \emph{female}), then calculate the Euclidean distance between this mean vector and words for occupations. Then they take the mean of these distances and subtract from it the analogously obtained mean for the average vector of vector embeddings of words that represent men. Formally they take the relative norm distance between $X$ and $Y$ to be:
+
+\vspace{-2mm}
+
+
+\footnotesize
+
+\begin{align}
+\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
+\end{align}
+
+\normalsize 
+
+\noindent where the norm used is Euclidean, and $v_X$ and $x_Y$ are average vectors for sets $X$ and $Y$ respectively. 
+]
+
+\vspace{-2mm}
+
+\footnotesize 
+
+\begin{align}
+\mathsf{weat}(A,B) & = \frac{
+\mu(\{\mathsf{s}(x,A,B)\}_{x\in X}) -\mu(\{\mathsf{s}(y,A,B)\}_{y\in Y}) 
+}{
+\sigma(\{\mathsf{s}(w,A,B)\}_{w\in X\cup Y})
+}
+\end{align}
+
+\normalsize 
+
+
+
+WEAT, however, has been developed to investigate biases corresponding to a pair of supposedly opposing stereotypes, and so the question arises as to how generalize the measure to contexts in which biases with respect to more than two stereotypical groups are to be measured. Such a generalization can be found in [@Manzini2019blackToCriminal]. The authors introduce Mean Average Cosine similarity as a measure of bias (strictly speaking, in the paper  they report cosine distances
+^[By the cosine distance in the literature the authors mean 1-cosine similarity; note however that this terminology is slightly misleading, as mathematically it is not a distance measure, because it does not satisfy the triangle inequality, as generally
+$dist(A,C) \not \leq dist(A,B)+ dist(B,C)$; we'll keep using this mainstream terminology though.]  rather than similarities). Let $T = \{t_1, \dots, t_k\}$ be a class of protected word embeddings, and let each $A_j\in A$ be a set of attributes stereotypically associated with a protected word). Then:
+
+\vspace{-2mm }
+\footnotesize
+
+\begin{align}
+\mathsf{s}(t_i, A_j) & = \frac{1}{\vert A_j\vert}\sum_{a\in A_j}\mathsf{cos}(t,a) \\
+\mathsf{mac}(T,A) & = \frac{1}{\vert T \vert \,\vert A\vert}\sum_{t_i \in T }\sum_{A_j \in A} \mathsf{s}(t_i,A_j)
+\end{align}
+
+\normalsize
+
+\noindent That is, for each protected word $T$ and each attribute class, they first take the mean for this protected word and all attributes in a given attribute class, and then take the mean of thus obtained means for all the protected words. 
+
+
+Having introduced the measures,  first, we will introduce a selection of general problems with this approach, and then we will move on to more specific but important problems related to the statistical significance of such measurement. We will focus on WEAT and MAC, as we want to put issues with the use of projections aside. WEAT will be useful in our criticism of the statistical methods involved, as it is simpler, so the explanation and visualizations will be more transparent (and \emph{mutatis mutandis} this criticism will apply to MAC as well), and MAC will be useful in the development of our alternative method as its range of applicability is the widest.
+
+
+## Methodological problems with cosine-based measures of bias
+
+
+One issue to consider is  the selection of attributes for bias measurement. The word lists used in the literature are often fairly small (5-50)\todo{Check Manzani}. While the papers do employ statistical tests to measure the uncertainty involved, we will later on argue that these method are not  proper for the goal at hand and  show that a more appropriate use of statistical methods leads to  estimates of uncertainty that are rather epistemologically pessimistic.  \todo{sensitivity to choice of words}
+
+Let's think about MAC, using the  case of religion-related stereotypes.\todo{crossref to a list of words an explanation} In the original paper,  words from all three religions were compared against all of the stereotypes. One reason this is problematic is that  no distinction between cases in which the stereotype is associated with a given religion, as opposed to the situation in which it is associated with another one, is made. This is problematic, as  not all of the stereotypical words have to be considered as harmful for all of the religions. One should investigate the religions separately as some of them may have stronger harmful associations that others.
+
+
+The interpretation of the results is also a challenge. In [@Manzini2019blackToCriminal] we can find  summaries of  average cosine distances per group (such as gender, race, or religion). For instance, for religion, here is the relevant fragment of table:\todo{add p-values in the table}  
+
+\todo{kable the table}
+
+
+<!-- Religion Debiasing  | MAC -->
+<!-- ------------- | ------------- -->
+<!-- Biased        | 0.859 -->
+<!-- Hard Debiased | 0.934 -->
+<!-- Soft Debiased ($\lambda$ = 0.2) | 0.894 -->
+
+
+\noindent (MAC stand for mean average cosine similarity, although in reality the the table contains mean cosine distances). What may attract attention is the fact that the value of cosine distance in "Biased" category is already quite high (i.e. close to 1) even before debiasing. High cosine distance indicates low cosine similarity between values. One could think that average cosine similarity equal to approximately 0.141 is not significant enough to consider it as bias. However,  the authors still aim to mitigate such "bias"  to make the distance even larger. Methodologically the question is, on what basis is this small similarity still considered as a proof of the presence of bias, and whether these small changes are meaningful. 
+
+The underlying problem here is that in the paper there is no  control group.  One should also include control groups to have a way of comparing the  results for a supposedly stereotyped group with the results for sets of neutral or human-related neutral words. In our approach later on, we distinguish between stereotypes associated with a given group, stereotypes associated with different groups, and introduce control groups: neutral words and stereotype-free human predicates.
+
+
+\todo{bliskosc znaczeniowa a ko-okurencja}
+
+
+\todo{comparison should be made to actual frequencies, to separate bias caused by cosine similarty to upstream bias}
+
+\todo{unclear czy to sie przeklada na downstream effect}
+
+
+
+
+<!-- One may consider the issue of the curse of dimensionality. In our case, the curse of dimensionality may take place when there is an increase in the volume of data that results in adding extra dimensions to the Euclidean space. As the number of features increases, it may be harder and harder to obtain useful information from the data using the available algorithms. Using cosine similarity in high dimensions in word embeddings may be prone to the curse of dimensionality. According to @Venkat2018Curse there are reasons to consider this phenomenon when searching for word similarities in higher dimensions. An experiment is conducted that aims at showing how the similarity values and variation change as the number of dimensions increases. The hypothesis made in the paper states that two things will happen as the number of dimensions increase. First, the effort required to measure cosine similarity will be greater, and two, the similarity between data will blur out and have less variation. The authors generate random points with increasing number of dimensions where each dimension of a data point is given a value between 0 and 1. Then they pick one vector at random from each dimension class and calculate the cosine similarity between the chosen vector and the rest of the data. Then they check how the variation of values changes as the number of dimensions increases. It seems like the more dimensions there are, the smaller the variance and therefore it is less obvious how to interpret the resulting cosine similarities. Maybe the scale should be adjusted to the number of dimensions and variance so that it still gives us sensible information about data. -->
+
+
+
+
+## Metrics that pre-average are a bad guide
+
+
+
+In contrast, statistical intervals will help us decide whether a given cosine similarity is high enough to consider the words to be more similar than if we chose them at random. We will use highest posterior density intervals, in line with Bayesian methodology. 
+
+
+Crucially, these approaches use  means of mean average cosine similarities to measure  similarity between protected word and harmful stereotypes. If one takes  a closer look at the individual values that are taken for the calculations, it turns out that there are quite a few  outliers and surprisingly dissimilar words. This issue will become transparent when  we inspect  the visualizations of individual cosine distances, following the idea that one of the first step to understand data is to look at it.
+
+ 
+
+
+With such a method the uncertainty involved is not really considered which makes it even more difficult to give reasonable interpretations of the results. We propose the use of Bayesian method to obtain some understanding of the influence the uncertainty has on the interpretation of final results. 
+
+
+
+
+
+
+
+
+
+\todo{odleglosc nie musi uchwytywac relacji semantycznej zeby oceniac bias}
+
+\todo{zalozenie, bardziej ze jezeli odleglosci przekladaja sie na downstream, to warto patrzec na odleglosci, nawet bez glebszej filozoficznej interpretacji ich}
+
+
+
+\noindent
+$s(X,Y,A,B)$ is the statistic used in the significance test, and the $p$-value is obtained by bootstrapping: it is the frequency of $s(X_i,Y_i,A,B)>s(X,Y,A,B)$ for all equally sized partitions $X_i, Y_i$ of $X\cup Y$. The effect size is computed by normalizing the difference in means as follows:
+
+\vspace{-2mm}
+
+\footnotesize 
+
+\begin{align}
+bias(A,B) & = \frac{
+\mu(\{s(x,A,B)\}_{x\in X}) -\mu(\{s(y,A,B)\}_{y\in Y}) 
+}{
+\sigma(\{s(w,A,B)\}_{w\in X\cup Y})
+}
+\end{align}
+
+\normalsize 
+
+
+The t-tests they employ are run on average cosines used to calculate MAC.
+
+
+# Pre-averaging and manufactured certainty 
+
+## General problem with pre-averaging
+
+## Simulations for WEAT
+
+
+## Simulations for MAC
+
+
+
+# Bayesian method
+
+## Bernstein approach
+
+## Chasing metrics
+
+
+## Bayesian method introduction
+
+## Existing applications to NLP and perhaps to bias
+
+
+## Model 
+
+
+# Results
+
+
+\vspace{1mm}
+\footnotesize
+```{r generate plots,echo=FALSE,eval=TRUE,fig.align = "center",cache=FALSE, fig.show = "hold", out.width = "100%", message = FALSE, warning = FALSE, results = FALSE}
+source("functions/cleanDataset.R")
+source("functions/plotFromPrecis.R")
+
+weat7Google <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_7_google.csv")[,-1])
+precisWeat7Google <- readRDS("resultsDFs/Weat7GoogleDF.rds")
+resultsWeat7Google <- plotFromPrecis(precis = precisWeat7Google,
+                                     dataset = weat7Google,
+                                     list = "Weat 7",
+                                     embedding = "Google",
+                                     ylims = c(.75,1.1))
+
+weat7Glove <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_7_glove.csv")[,-1])
+precisWeat7Glove <- readRDS("resultsDFs/Weat7GloveDF.rds")
+resultsWeat7Glove <- plotFromPrecis(precis = precisWeat7Glove,
+                                     dataset = weat7Glove,
+                                     list = "Weat 7",
+                                     embedding = "Glove")
+
+weat7Reddit <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_7_reddit.csv")[,-1])
+precisWeat7Reddit <- readRDS("resultsDFs/Weat7RedditDF.rds")
+resultsWeat7Reddit <- plotFromPrecis(precis = precisWeat7Reddit,
+                                    dataset = weat7Reddit,
+                                    list = "Weat 7",
+                                    embedding = "Reddit", ylims = c(.5,1.3))
+
+
+weat1Google <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_1_google.csv")[,-1])
+precisWeat1Google <- readRDS("resultsDFs/Weat1GoogleDF.rds")
+resultsWeat1Google <- plotFromPrecis(precis = precisWeat1Google,
+                                     dataset = weat1Google,
+                                     list = "Weat 1",
+                                     embedding = "Google",
+                                     ylims = c(.8,1.05))
+
+
+weat1Glove <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_1_glove.csv")[,-1])
+precisWeat1Glove <- readRDS("resultsDFs/Weat1GloveDF.rds")
+resultsWeat1Glove <- plotFromPrecis(precis = precisWeat1Glove,
+                                     dataset = weat1Glove,
+                                     list = "Weat 1",
+                                     embedding = "Glove",
+                                     ylims = c(.75,1.2))
+
+
+weat1Reddit <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_1_reddit.csv")[,-1])
+precisWeat1Reddit <- readRDS("resultsDFs/Weat1RedditDF.rds")
+resultsWeat1Reddit <- plotFromPrecis(precis = precisWeat1Reddit,
+                                     dataset = weat1Reddit,
+                                     list = "Weat 1",
+                                     embedding = "Reddit",
+                                      ylims = c(.5,1.1))
+
+
+religionGoogle <- cleanDataset(read.csv("./datasets/macWeatDatasets/religion_group_google_dataset.csv")[,-1])
+precisReligionGoogle <- readRDS("resultsDFs/ReligionGoogleDF.rds")
+resultsReligionGoogle <- plotFromPrecis(precis = precisReligionGoogle,
+                                     dataset = religionGoogle,
+                                     list = "Religion",
+                                     embedding = "Google",
+                                      ylims = c(.65,1.05))
+
+
+
+
+religionGlove <- cleanDataset(read.csv("./datasets/macWeatDatasets/religion_group_glove_dataset.csv")[,-1])
+precisReligionGlove <- readRDS("resultsDFs/ReligionGloveDF.rds")
+resultsReligionGlove <- plotFromPrecis(precis = precisReligionGlove,
+                                        dataset = religionGlove,
+                                        list = "Religion",
+                                        embedding = "Glove",
+                                        ylims = c(.7,1.1))
+
+
+
+religionReddit <- cleanDataset(read.csv("./datasets/macWeatDatasets/religion_group_reddit_dataset.csv")[,-1])
+precisReligionReddit <- readRDS("resultsDFs/ReligionRedditDF.rds")
+resultsReligionReddit <- plotFromPrecis(precis = precisReligionReddit,
+                                       dataset = religionReddit,
+                                       list = "Religion",
+                                       embedding = "Reddit")
+
+raceGoogle <-  cleanDataset(read.csv("./datasets/macWeatDatasets/race_group_google_dataset.csv")[,-1])
+precisRaceGoogle <- readRDS("resultsDFs/RaceGoogleDF.rds")
+resultsRaceGoogle <- plotFromPrecis(precis = precisRaceGoogle,
+                                        dataset = raceGoogle,
+                                        list = "Race",
+                                        embedding = "Google",
+                                     ylims = c(.8,1.1))
+
+raceGlove <-  cleanDataset(read.csv("./datasets/macWeatDatasets/race_group_glove_dataset.csv")[,-1])
+precisRaceGlove <- readRDS("resultsDFs/RaceGloveDF.rds")
+resultsRaceGlove <- plotFromPrecis(precis = precisRaceGlove,
+                                    dataset = raceGlove,
+                                    list = "Race",
+                                    embedding = "Glove",
+                                    ylims = c(.7,1.1))
+
+raceReddit <-  cleanDataset(read.csv("./datasets/macWeatDatasets/race_group_reddit_dataset.csv")[,-1])
+precisRaceReddit <- readRDS("resultsDFs/RaceRedditDF.rds")
+resultsRaceReddit <- plotFromPrecis(precis = precisRaceReddit,
+                                    dataset = raceReddit,
+                                    list = "Race",
+                                    embedding = "Reddit")
+
+genderGoogle <- cleanDataset(read.csv("./datasets/macWeatDatasets/gender_group_google_dataset.csv")[,-1])
+precisGenderGoogle <- readRDS("resultsDFs/GenderGoogleDF.rds")
+resultsGenderGoogle <- plotFromPrecis(precis = precisGenderGoogle,
+                                    dataset = genderGoogle,
+                                    list = "Gender",
+                                    embedding = "Google",
+                                     ylims = c(.6,1.05))
+
+genderGlove <- cleanDataset(read.csv("./datasets/macWeatDatasets/gender_group_glove_dataset.csv")[,-1])
+precisGenderGlove <- readRDS("resultsDFs/GenderGloveDF.rds")
+resultsGenderGlove <- plotFromPrecis(precis = precisGenderGlove,
+                                      dataset = genderGlove,
+                                      list = "Gender",
+                                      embedding = "Glove",
+                                      ylims = c(.5,1.1))
+
+genderReddit <- cleanDataset(read.csv("./datasets/macWeatDatasets/gender_group_reddit_dataset.csv")[,-1])
+precisGenderReddit <- readRDS("resultsDFs/GenderRedditDF.rds")
+
+resultsGenderReddit <- plotFromPrecis(precis = precisGenderReddit,
+                                     dataset = genderReddit,
+                                     list = "Gender",
+                                     embedding = "Reddit",  ylims = c(.4,1.1))
+
+
+```
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat7Google$plotJoint
+```
+\caption{dsds}
+\label{fig:weat7google}
+\end{figure}
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat7Glove$plotJoint
+```
+\caption{dsds}
+\label{fig:weat7glove}
+\end{figure}
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat7Reddit$plotJoint
+```
+\caption{dsds}
+\label{fig:weat7reddit}
+\end{figure}
+
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat1Google$plotJoint
+```
+\caption{dsds}
+\label{fig:weat1google}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat1Glove$plotJoint
+```
+\caption{dsds}
+\label{fig:weat1glove}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsWeat1Reddit$plotJoint
+```
+\caption{dsds}
+\label{fig:weat1reddit}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsReligionGoogle$plotJoint
+```
+\caption{dsds}
+\label{fig:religionGoogle}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsReligionGlove$plotJoint
+```
+\caption{dsds}
+\label{fig:religionGlove}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsReligionReddit$plotJoint
+```
+\caption{dsds}
+\label{fig:religionReddit}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsRaceGoogle$plotJoint
+```
+\caption{dsds}
+\label{fig:raceGoogle}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsRaceGlove$plotJoint
+```
+\caption{dsds}
+\label{fig:raceGlove}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsRaceReddit$plotJoint
+```
+\caption{dsds}
+\label{fig:raceReddit}
+\end{figure}
+
+
+
+
+\begin{figure}
+
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsGenderGoogle$plotJoint
+```
+\caption{dsds}
+\label{fig:genderGoogle}
+\end{figure}
+
+
+
+
+\begin{figure}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsGenderGlove$plotJoint
+```
+\caption{dsds}
+\label{fig:genderGlove}
+\end{figure}
+
+
+
+
+\begin{figure}
+```{r,echo=FALSE,eval=TRUE,fig.align = "center",cache=TRUE, fig.show = "hold", out.width = "110%", dpi = 300}
+resultsGenderReddit$plotJoint
+```
+\caption{dsds}
+\label{fig:genderReddit}
+\end{figure}
+
+
+
+
+
+
+# Discussion and summary
+
+
+
+# APPENDIX
+
+## Examples of WEAT and MAC calculations
+  
+## Word lists
+
+

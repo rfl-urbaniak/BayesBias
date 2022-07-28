@@ -5,7 +5,7 @@
 %
 \documentclass[
   10pt,
-  dvipsnames,enabledeprecatedfontcommands, twocolumn]{scrartcl}
+  dvipsnames,enabledeprecatedfontcommands]{scrartcl}
 \title{Taking uncertainty in word embedding bias estimation seriously: a
 bayesian approach}
 \author{Alicja Dobrzeniecka and Rafal Urbaniak}
@@ -296,32 +296,38 @@ various tasks such as providing email filters, smart assistants, search
 results, language translations, text analytics and so on. All of them
 need as an input words represented by means of numbers which is
 accomplished with word embeddings, in which particular lexical units are
-repesented as vectors of real numbers. It has been suggested {[}1--6{]}
-that in the learning process such models can learn implicit biases that
-reflect harmful stereotypical thinking. A large chunk of the literature
-on the topic focuses on the geometry of the learnt word embeddings; in
-particular, unusually low (cosine) proximity of words belonging,
-intuitively, to a stereotype, is taken as a sign that this stereotype
-has been built into a given embedding. This methodology will be in the
-focus of our paper.
+represented as vectors of real numbers.
 
 \begin{itemize}
-\tightlist
+\item
+  troche o tym jak sa skonstruowane (optimizing for co-ocurrence
+  frequency)
+\item
+  przejrzec jak to jest wprowadzane w kilku innych artykulach, zwl. fair
+  is better than sensational
+\item
+  troche wiecej o tej konstrukcji i intuicji semantycznych, ale to nie
+  super dobry pomysl
 \item
   undesirable bias with respect to a certain groups words if
   stereotypically connected words (for stereotypes that we don't want to
   be used or relied on in downstream tasks) are systematically closer to
-  each other. + EXAMPLE
+  each other. + EXAMPLES
 \end{itemize}
 
-\hypertarget{semantical-interpretation}{%
-\subsection{Semantical interpretation}\label{semantical-interpretation}}
+It has been suggested {[}1--6{]} that in the learning process such
+models can learn implicit biases that reflect harmful stereotypical
+thinking. A large chunk of the literature on the topic focuses on the
+geometry of the learnt word embeddings; in particular, unusually low
+(cosine) proximity of words belonging, intuitively, to a stereotype, is
+taken as a sign that this stereotype has been built into a given
+embedding. This methodology will be in the focus of our paper.
 
 \hypertarget{general-challenges}{%
 \subsection{General challenges}\label{general-challenges}}
 
-\hypertarget{weat-and-mac-measures}{%
-\subsection{WEAT and MAC measures}\label{weat-and-mac-measures}}
+\hypertarget{weat-and-mac}{%
+\subsection{WEAT and MAC}\label{weat-and-mac}}
 
 One of the first measures in the discussion has been developed by
 {[}1{]}. First, the gender direction \(gd\) in is obtained by taking the
@@ -470,9 +476,9 @@ explanation and visualizations will be more transparent (and
 MAC will be useful in the development of our alternative method as its
 range of applicability is the widest.
 
-\hypertarget{non-statistical-problems-with-cosine-based-measures-of-bias}{%
-\subsection{Non-statistical problems with cosine-based measures of
-bias}\label{non-statistical-problems-with-cosine-based-measures-of-bias}}
+\hypertarget{methodological-problems-with-cosine-based-measures-of-bias}{%
+\subsection{Methodological problems with cosine-based measures of
+bias}\label{methodological-problems-with-cosine-based-measures-of-bias}}
 
 One issue to consider is the selection of attributes for bias
 measurement. The word lists used in the literature are often fairly
@@ -527,8 +533,9 @@ groups: neutral words and stereotype-free human predicates.
 
 \todo{unclear czy to sie przeklada na downstream effect}
 
-\hypertarget{statistical-issues}{%
-\subsection{Statistical issues}\label{statistical-issues}}
+\hypertarget{metrics-that-pre-average-are-a-bad-guide}{%
+\subsection{Metrics that pre-average are a bad
+guide}\label{metrics-that-pre-average-are-a-bad-guide}}
 
 In contrast, statistical intervals will help us decide whether a given
 cosine similarity is high enough to consider the words to be more
@@ -614,11 +621,16 @@ bias}\label{existing-applications-to-nlp-and-perhaps-to-bias}}
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\hypertarget{weat}{%
-\subsection{WEAT}\label{weat}}
+\vspace{1mm}
+\footnotesize
 
-\hypertarget{mac}{%
-\subsection{MAC}\label{mac}}
+\begin{figure}
+
+
+\begin{center}\includegraphics[width=1.1\linewidth]{paperDraft4_files/figure-latex/unnamed-chunk-1-1} \end{center}
+\caption{dsds}
+\label{fig:weat7google}
+\end{figure}
 
 \hypertarget{discussion-and-summary}{%
 \section{Discussion and summary}\label{discussion-and-summary}}

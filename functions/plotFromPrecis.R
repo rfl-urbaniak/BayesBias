@@ -5,16 +5,16 @@ library(tidyverse)
 library(gridExtra)
 library(grid)
 
-precis
+# precis
 
 
 plotFromPrecis <- function (precis, dataset, ylims = c(.5,1.2), list, embedding){
   
   
-  precis = precisWeat7Google
-  dataset = weat7Google
-  list = "Weat 7"
-  embedding = "Google"
+  # precis = precisWeat7Google
+  # dataset = weat7Google
+  # list = "Weat 7"
+  # embedding = "Google"
   
   
   results <- list()
@@ -73,8 +73,8 @@ plotFromPrecis <- function (precis, dataset, ylims = c(.5,1.2), list, embedding)
   
   
   
-  grobIndividual <- ggplotGrob(results$plotIndividual+theme_tufte(base_size = 7) + theme(legend.position='none'))
-  grobOverall <- ggplotGrob(results$plotOverall+theme_tufte(base_size = 7)+ theme(legend.position = c(0.9, 0.7)))
+  grobIndividual <- ggplotGrob(results$plotIndividual+theme_tufte(base_size = 6) + theme(legend.position='none'))
+  grobOverall <- ggplotGrob(results$plotOverall+theme_tufte(base_size = 6)+ theme(legend.position = c(0.9, 0.7)))
   
   
   results$plotJoint <- ggplot(data.frame(a=1)) + xlim(1, 20) + ylim(10, 60)+theme_void()+
