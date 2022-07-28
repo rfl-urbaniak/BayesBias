@@ -1,20 +1,15 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[
   10pt,
   dvipsnames,enabledeprecatedfontcommands, twocolumn]{scrartcl}
-\title{Taking uncertainty in word embedding bias estimation seriously: a
-bayesian approach}
-\author{Alicja Dobrzeniecka and Rafal Urbaniak}
-\date{}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{iftex}
-\ifPDFTeX
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -46,12 +41,52 @@ bayesian approach}
   pdftitle={Taking uncertainty in word embedding bias estimation seriously: a bayesian approach},
   pdfauthor={Alicja Dobrzeniecka and Rafal Urbaniak},
   colorlinks=true,
-  linkcolor={Maroon},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={blue},
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -69,29 +104,6 @@ bayesian approach}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 %\documentclass{article}
 
 % %packages
@@ -270,9 +282,34 @@ bayesian approach}
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes,arrows}
 
-\ifLuaTeX
+\ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\title{Taking uncertainty in word embedding bias estimation seriously: a
+bayesian approach}
+\author{Alicja Dobrzeniecka and Rafal Urbaniak}
+\date{}
 
 \begin{document}
 \maketitle
@@ -296,32 +333,38 @@ various tasks such as providing email filters, smart assistants, search
 results, language translations, text analytics and so on. All of them
 need as an input words represented by means of numbers which is
 accomplished with word embeddings, in which particular lexical units are
-repesented as vectors of real numbers. It has been suggested {[}1--6{]}
-that in the learning process such models can learn implicit biases that
-reflect harmful stereotypical thinking. A large chunk of the literature
-on the topic focuses on the geometry of the learnt word embeddings; in
-particular, unusually low (cosine) proximity of words belonging,
-intuitively, to a stereotype, is taken as a sign that this stereotype
-has been built into a given embedding. This methodology will be in the
-focus of our paper.
+represented as vectors of real numbers.
 
 \begin{itemize}
-\tightlist
+\item
+  troche o tym jak sa skonstruowane (optimizing for co-ocurrence
+  frequency)
+\item
+  przejrzec jak to jest wprowadzane w kilku innych artykulach, zwl. fair
+  is better than sensational
+\item
+  troche wiecej o tej konstrukcji i intuicji semantycznych, ale to nie
+  super dobry pomysl
 \item
   undesirable bias with respect to a certain groups words if
   stereotypically connected words (for stereotypes that we don't want to
   be used or relied on in downstream tasks) are systematically closer to
-  each other. + EXAMPLE
+  each other. + EXAMPLES
 \end{itemize}
 
-\hypertarget{semantical-interpretation}{%
-\subsection{Semantical interpretation}\label{semantical-interpretation}}
+It has been suggested {[}1--6{]} that in the learning process such
+models can learn implicit biases that reflect harmful stereotypical
+thinking. A large chunk of the literature on the topic focuses on the
+geometry of the learnt word embeddings; in particular, unusually low
+(cosine) proximity of words belonging, intuitively, to a stereotype, is
+taken as a sign that this stereotype has been built into a given
+embedding. This methodology will be in the focus of our paper.
 
 \hypertarget{general-challenges}{%
 \subsection{General challenges}\label{general-challenges}}
 
-\hypertarget{weat-and-mac-measures}{%
-\subsection{WEAT and MAC measures}\label{weat-and-mac-measures}}
+\hypertarget{weat-and-mac}{%
+\subsection{WEAT and MAC}\label{weat-and-mac}}
 
 One of the first measures in the discussion has been developed by
 {[}1{]}. First, the gender direction \(gd\) in is obtained by taking the
@@ -402,17 +445,30 @@ follows:\footnote{ WEAT is a modification of the Implicit Association
   instead of similarity does not make much difference, while the bias
   effects vary greatly across embedding models (interestingly, with
   social media-text trained embeddings being less biased than those
-  based on Wikipedia).}\(^{, }\)\footnote{ A similar methodology is
-  employed in {[}3{]}. The authors employ word embeddings trained on
-  corpora from different decades to study the shifts in various biases.
-  For instance, to compute the occupational embeddings bias for women
-  the authors first compute the average vector of vector embeddings of
-  words that represent women (e.g.~\emph{she}, and \emph{female}), then
-  calculate the Euclidean distance between this mean vector and words
-  for occupations. Then they take the mean of these distances and
-  subtract from it the analogously obtained mean for the average vector
-  of vector embeddings of words that represent men. Formally they take
-  the relative norm distance between \(X\) and \(Y\) to be:}
+  based on Wikipedia).}\(^{, }\) \^{}{[} A similar methodology is
+employed in {[}3{]}. The authors employ word embeddings trained on
+corpora from different decades to study the shifts in various biases.
+For instance, to compute the occupational embeddings bias for women the
+authors first compute the average vector of vector embeddings of words
+that represent women (e.g.~\emph{she}, and \emph{female}), then
+calculate the Euclidean distance between this mean vector and words for
+occupations. Then they take the mean of these distances and subtract
+from it the analogously obtained mean for the average vector of vector
+embeddings of words that represent men. Formally they take the relative
+norm distance between \(X\) and \(Y\) to be:
+
+\vspace{-2mm}
+
+\footnotesize
+
+\begin{align}
+\textsf{relative norm distance} & = \sum_{v_m\in M} \vert \vert v_m - v_X\vert \vert_2 - \vert v_m - v_Y\vert \vert_2
+\end{align}
+
+\normalsize
+
+\noindent where the norm used is Euclidean, and \(v_X\) and \(x_Y\) are
+average vectors for sets \(X\) and \(Y\) respectively. {]}
 
 \vspace{-2mm}
 
@@ -470,9 +526,9 @@ explanation and visualizations will be more transparent (and
 MAC will be useful in the development of our alternative method as its
 range of applicability is the widest.
 
-\hypertarget{non-statistical-problems-with-cosine-based-measures-of-bias}{%
-\subsection{Non-statistical problems with cosine-based measures of
-bias}\label{non-statistical-problems-with-cosine-based-measures-of-bias}}
+\hypertarget{methodological-problems-with-cosine-based-measures-of-bias}{%
+\subsection{Methodological problems with cosine-based measures of
+bias}\label{methodological-problems-with-cosine-based-measures-of-bias}}
 
 One issue to consider is the selection of attributes for bias
 measurement. The word lists used in the literature are often fairly
@@ -527,8 +583,9 @@ groups: neutral words and stereotype-free human predicates.
 
 \todo{unclear czy to sie przeklada na downstream effect}
 
-\hypertarget{statistical-issues}{%
-\subsection{Statistical issues}\label{statistical-issues}}
+\hypertarget{metrics-that-pre-average-are-a-bad-guide}{%
+\subsection{Metrics that pre-average are a bad
+guide}\label{metrics-that-pre-average-are-a-bad-guide}}
 
 In contrast, statistical intervals will help us decide whether a given
 cosine similarity is high enough to consider the words to be more
@@ -604,6 +661,143 @@ pre-averaging}\label{general-problem-with-pre-averaging}}
 \subsection{Bayesian method
 introduction}\label{bayesian-method-introduction}}
 
+\hypertarget{what-is-bayesian-statistics}{%
+\subsubsection{What is Bayesian
+statistics?}\label{what-is-bayesian-statistics}}
+
+Bayesian statistics is a theory which enables one to assign
+epistemological uncertainty with the use of probability. It is a system
+that allows to express a degree of belief in a certain event. Bayesian
+methods use existing prior beliefs together with real data to receive
+posterior beliefs. Bayesian inference together with probability tools
+may be used to quantify the uncertainty in the inferences.
+
+\hypertarget{how-does-it-differ-from-the-classical-statistics}{%
+\subsubsection{How does it differ from the classical
+statistics?}\label{how-does-it-differ-from-the-classical-statistics}}
+
+One could ask what is the difference between Bayesian statistics and the
+classical, frequentist approach. Broadly speaking the Frequentist
+statistics looks, as the name suggests, at the frequency of an event in
+a long run and based on that assigns its probability. In Bayesian
+statistics the approach is more epistemological as one may include
+his/her prior beliefs on the likelihood of an event and update it
+accordingly to the available data which results in the posterior
+probability of an event. What is more in a classical approach, the
+parameters are fixed whereas in Bayesian statistics the parameters are
+assumed to be random variables to which one assigns a probability
+distribution. In contrast with CIs, the posterior distributions (and
+their highest posterior density intervals HPDIs, the narrowest intervals
+containing a certain ratio of the area under the curve) are easily
+interpretable and have direct relevance for the question at hand.
+
+\hypertarget{how-does-the-bayesian-model-work}{%
+\subsubsection{How does the Bayesian model
+work?}\label{how-does-the-bayesian-model-work}}
+
+Referring to the \textit{Statistical rethinking} one may distinguish
+three steps that are necessary to design Bayesian model: 1. Data story:
+Think about the narrative on how the data can emerge. 2. Update: Let the
+model learn from the data. 3. Evaluate: Verify whether it is a good
+representation of the phenomenon.
+
+A Bayesian model consists of the variables and the distributions that
+define these variables. The priors that one assigns provide the
+likelihood of each parameter before any data has been seen. Then using
+real data one may apply numerical techniques like Markov chain Monte
+Carlo to calculate the posterior distribution.
+
+\hypertarget{interpreting-models-results}{%
+\subsubsection{Interpreting model's
+results}\label{interpreting-models-results}}
+
+The standard output from the model's learning may contain the following
+pieces of information.
+
+WAIC -
+
+\hypertarget{what-are-hierarchical-models}{%
+\subsubsection{What are hierarchical
+models?}\label{what-are-hierarchical-models}}
+
+Hierarchical models are also known as multilevel models, random effects,
+varying effects, or mixed effects models. In
+\textit{Statistical rethinking} one may read that the central device of
+the multilevel models is to learn the strength of the prior from the
+data itself. Multilevel models may be regarded as adaptive
+regularization, meaning that the model tunes itself to get the most
+optimal skepticism. It is worth mentioning that with these types of
+models adding more parameters can sometimes lead to the effect where
+effective number of parameters (the penalty term in WAIC) is actually
+reduced. The overfitting may be more dependent on how the parameters are
+related to one another than with how many parameters one inputs into the
+model.
+
+\hypertarget{coding-example-from-our-model}{%
+\subsubsection{Coding example from our
+model}\label{coding-example-from-our-model}}
+
+To build a model one may use original \textit{Stan} which is a
+state-of-the-art platform for statistical modeling and high-performance
+statistical computation (\url{https://mc-stan.org/}). The simpler option
+is to use \textit{Rethinking} package from the
+\textit{Statistical rethinking} course. With one of the functions
+\textit{ulam} one may build RStan models from the formulas in an easy
+manner.
+
+Explain the model?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{buildModel }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(dataset)\{}
+  \FunctionTok{options}\NormalTok{(}\AttributeTok{buildtools.check =}
+  \ControlFlowTok{function}\NormalTok{(action) }\ConstantTok{TRUE}\NormalTok{ )}
+
+\NormalTok{  modelResult }\OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
+    \FunctionTok{alist}\NormalTok{(}
+\NormalTok{      distance }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu,sigma),}
+\NormalTok{      mu }\OtherTok{\textless{}{-}}\NormalTok{ d[pwi] }\SpecialCharTok{*}\NormalTok{ different}
+      \SpecialCharTok{+}\NormalTok{ a[pwi] }\SpecialCharTok{*}\NormalTok{ associated}
+      \SpecialCharTok{+}\NormalTok{ h[pwi] }\SpecialCharTok{*}\NormalTok{ human}
+      \SpecialCharTok{+}\NormalTok{ n[pwi] }\SpecialCharTok{*}\NormalTok{ none,}
+      
+\NormalTok{      d[pwi] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(dbar, dsigmabar),}
+\NormalTok{      a[pwi] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(abar, asigmabar),}
+\NormalTok{      h[pwi] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(hbar, hsigmabar),}
+\NormalTok{      n[pwi] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(nbar, nsigmabar),}
+      
+\NormalTok{      dbar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{3}\NormalTok{),}
+\NormalTok{      abar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{3}\NormalTok{),}
+\NormalTok{      hbar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{3}\NormalTok{),}
+\NormalTok{      nbar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{3}\NormalTok{),}
+\NormalTok{      dsigmabar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{2}\NormalTok{),}
+\NormalTok{      asigmabar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{2}\NormalTok{),}
+\NormalTok{      hsigmabar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{2}\NormalTok{),}
+\NormalTok{      nsigmabar }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{2}\NormalTok{),}
+\NormalTok{      sigma }\OtherTok{\textless{}{-}}\NormalTok{ s[connection],}
+\NormalTok{      s[connection] }\SpecialCharTok{\textasciitilde{}}  \FunctionTok{dexp}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{    ),}
+    
+    \AttributeTok{data =}\NormalTok{ dataset, }\AttributeTok{chains=}\DecValTok{2}\NormalTok{ ,}
+    \AttributeTok{iter=}\DecValTok{8000}\NormalTok{ , }\AttributeTok{warmup=}\DecValTok{1000}\NormalTok{,}
+    \AttributeTok{log\_lik =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{cores =} \DecValTok{4}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{limitations}{%
+\subsubsection{Limitations}\label{limitations}}
+
+Each method has its own limitations and Bayesian statistics is no
+exception. One may think about a few limitations with this approach. One
+of them is that there is no final and correct way to choose a prior. At
+the same time prior beliefs can be explicitly stated, debated, or often
+found in previous research which may give good justification for a given
+set of priors. Finally, Bayesian method may be computationally expensive
+which may be a limiting factor when considering to use it in a more
+real-time environment.
+
 \hypertarget{existing-applications-to-nlp-and-perhaps-to-bias}{%
 \subsection{Existing applications to NLP and perhaps to
 bias}\label{existing-applications-to-nlp-and-perhaps-to-bias}}
@@ -636,21 +830,21 @@ calculations}\label{examples-of-weat-and-mac-calculations}}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-Bolukbasi2016man}{}}%
+\leavevmode\hypertarget{ref-Bolukbasi2016man}{}%
 \CSLLeftMargin{{[}1{]} }
 \CSLRightInline{Tolga Bolukbasi, Kai-Wei Chang, James Y. Zou, Venkatesh
 Saligrama, and Adam Kalai. 2016. Man is to computer programmer as woman
 is to homemaker? Debiasing word embeddings. \emph{CoRR} abs/1607.06520,
 (2016). Retrieved from \url{http://arxiv.org/abs/1607.06520}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Caliskan2017semanticsBiases}{}}%
+\leavevmode\hypertarget{ref-Caliskan2017semanticsBiases}{}%
 \CSLLeftMargin{{[}2{]} }
 \CSLRightInline{Aylin Caliskan, Joanna J. Bryson, and Arvind Narayanan.
 2017. Semantics derived automatically from language corpora contain
 human-like biases. \emph{Science} 356, 6334 (April 2017), 183--186.
 DOI:https://doi.org/\href{https://doi.org/10.1126/science.aal4230}{10.1126/science.aal4230}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Garg2018years}{}}%
+\leavevmode\hypertarget{ref-Garg2018years}{}%
 \CSLLeftMargin{{[}3{]} }
 \CSLRightInline{Nikhil Garg, Londa Schiebinger, Dan Jurafsky, and James
 Zou. 2018. Word embeddings quantify 100 years of gender and ethnic
@@ -658,7 +852,7 @@ stereotypes. \emph{Proceedings of the National Academy of Sciences} 115,
 16 (April 2018), E3635--E3644.
 DOI:https://doi.org/\href{https://doi.org/10.1073/pnas.1720347115}{10.1073/pnas.1720347115}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Gonen2019lipstick}{}}%
+\leavevmode\hypertarget{ref-Gonen2019lipstick}{}%
 \CSLLeftMargin{{[}4{]} }
 \CSLRightInline{Hila Gonen and Yoav Goldberg. 2019. Lipstick on a pig:
 {D}ebiasing methods cover up systematic gender biases in word embeddings
@@ -669,28 +863,28 @@ papers)}, Association for Computational Linguistics, Minneapolis,
 Minnesota, 609--614.
 DOI:https://doi.org/\href{https://doi.org/10.18653/v1/N19-1061}{10.18653/v1/N19-1061}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Lauscher2019multidimensional}{}}%
+\leavevmode\hypertarget{ref-Lauscher2019multidimensional}{}%
 \CSLLeftMargin{{[}5{]} }
 \CSLRightInline{Anne Lauscher and Goran Glavas. 2019. Are we
 consistently biased? Multidimensional analysis of biases in
 distributional word vectors. \emph{CoRR} abs/1904.11783, (2019).
 Retrieved from \url{http://arxiv.org/abs/1904.11783}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Manzini2019blackToCriminal}{}}%
+\leavevmode\hypertarget{ref-Manzini2019blackToCriminal}{}%
 \CSLLeftMargin{{[}6{]} }
 \CSLRightInline{Thomas Manzini, Yao Chong Lim, Yulia Tsvetkov, and Alan
 W Black. 2019. Black is to criminal as caucasian is to police: Detecting
 and removing multiclass bias in word embeddings. Retrieved from
-\url{https://arxiv.org/abs/1904.04047}}
+\url{http://arxiv.org/abs/1904.04047}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Nissim2020fair}{}}%
+\leavevmode\hypertarget{ref-Nissim2020fair}{}%
 \CSLLeftMargin{{[}7{]} }
 \CSLRightInline{Malvina Nissim, Rik van Noord, and Rob van der Goot.
 2020. Fair is better than sensational: Man is to doctor as woman is to
 doctor. \emph{Computational Linguistics} 46, 2 (June 2020), 487--497.
 DOI:https://doi.org/\href{https://doi.org/10.1162/coli_a_00379}{10.1162/coli\_a\_00379}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Nosek2002harvesting}{}}%
+\leavevmode\hypertarget{ref-Nosek2002harvesting}{}%
 \CSLLeftMargin{{[}8{]} }
 \CSLRightInline{Brian A. Nosek, Mahzarin R. Banaji, and Anthony G.
 Greenwald. 2002. Harvesting implicit group attitudes and beliefs from a
