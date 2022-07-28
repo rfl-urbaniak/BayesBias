@@ -148,7 +148,7 @@ Package typearea Info: These are the values describing the layout:
 (typearea)             BCOR = 0.0pt
 (typearea)             \paperwidth      = 597.50793pt
 (typearea)              \textwidth      = 373.44246pt
-(typearea)              DIV departure   = 41%
+(typearea)              DIV departure   = -4%
 (typearea)              \evensidemargin = 39.76274pt
 (typearea)              \oddsidemargin  = 39.76274pt
 (typearea)             \paperheight     = 845.04694pt
@@ -1662,7 +1662,7 @@ LaTeX Info: Redefining \selectfont on input line 314.
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
-* \@twocolumntrue
+* \@twocolumnfalse
 * \@twosidefalse
 * \@mparswitchfalse
 * \@reversemarginfalse
@@ -1763,10 +1763,10 @@ LaTeX Font Info:    Trying to load font information for OT1+jkpss on input line
  395.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ot1jkpss.fd
 File: ot1jkpss.fd 2007/07/16 Fontinst v1.928 font definitions for OT1/jkpss.
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+) [1
 
 
-
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be

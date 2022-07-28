@@ -14,6 +14,7 @@ resultsWeat7Google <- plotFromPrecis(precis = precisWeat7Google,
                                      embedding = "Google")
 
 
+
 weat7Glove <- cleanDataset(read.csv("./datasets/macWeatDatasets/weat_7_glove.csv")[,-1])
 precisWeat7Glove <- readRDS("resultsDFs/Weat7GloveDF.rds")
 resultsWeat7Glove <- plotFromPrecis(precis = precisWeat7Glove,

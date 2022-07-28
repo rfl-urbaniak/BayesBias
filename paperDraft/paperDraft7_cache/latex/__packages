@@ -1,0 +1,15 @@
+base
+ggplot2
+ggthemes
+gridExtra
+StanHeaders
+rstan
+rethinking
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
