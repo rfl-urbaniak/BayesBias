@@ -42,30 +42,14 @@ library(gridExtra)
 
 ## Word embeddings and their bias
 
-
-- akapit filozoficzny, z odniesieniem do value free
-
-Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings, in which particular lexical units are represented as vectors of real numbers.
-
-- troche o tym jak sa skonstruowane (optimizing for co-ocurrence frequency)
-
-- przejrzec jak to jest wprowadzane w kilku innych artykulach, zwl. fair is better than sensational
-
-- troche wiecej o tej konstrukcji i intuicji semantycznych, ale to nie super dobry pomysl
-
- 
-- undesirable bias with respect to a certain groups words if stereotypically connected words (for stereotypes that we don't want to be used or relied on in downstream tasks) are systematically closer to each other. + EXAMPLES
-
-
-It has been suggested [@Bolukbasi2016man; @Caliskan2017semanticsBiases; @Gonen2019lipstick; @Lauscher2019multidimensional; @Garg2018years; @Manzini2019blackToCriminal]  that in the learning process  such models can learn implicit biases that reflect harmful stereotypical thinking. A large chunk of  the literature on the topic  focuses on  the geometry of the learnt word embeddings;  in particular, unusually low (cosine) proximity of words belonging, intuitively, to a stereotype, is taken as a sign that  this stereotype has been built into a given embedding. This methodology will be in the focus of our paper.   
+Modern Natural Language Processing (NLP) models are used to complete various tasks such as providing email filters, smart assistants, search results, language translations, text analytics and so on. All of them need as an input words represented by means of numbers which is accomplished with word embeddings, in which particular lexical units are represented as vectors of real numbers. They are necessary to perform machine learning tasks that require the use of natural language. One of the ways to learn these vectors representations is to use simple neural network that based on the millions of real sentences examples assigns the numbers based on their co-occurrence and context. Using co-occurence results in a vector space that contains similar words closer to each other and dissimilar further away. It has been suggested [@Bolukbasi2016man; @Caliskan2017semanticsBiases; @Gonen2019lipstick; @Lauscher2019multidimensional; @Garg2018years; @Manzini2019blackToCriminal]  that in the learning process  such models can learn implicit biases that reflect harmful stereotypical thinking (eg. that the word \textit{she} is much closer in the vector space to the word \textit{cooking} than the word \textit{he}). This phenomenon may be undesired when using these vectors for further downstream tasks (eg. web search, recommendations, etc.).\todo{find downstream tasks and bias examples from papers} Before we move to more technical details regarding this topic, it is worth looking first at the theoretical background which may help to better grasp the concept of bias within machine learning algorithms.
 
 
 
+In \todo{cite Are algorithms Value-Free} the author focuses on the general issue, namely whether algorithms can in principle be value-free. The author draws attention to the observation that in both scientific research and machine learning domain, induction plays a crucial role in the decision-making process. 
+Induction is essential for both of these domains as "if ever considered literally just the facts, we would never be able to draw inductive conclusions" \todo{cite Gabrielle}. Induction comes with certain risks which are 1) the problem with justification, and 2) the risk of getting things wrong. During the process of designing machine learning process some decisions have to always be made. As the author states, there is no such thing as the justification in the abstract. \todo{cite Gabrielle} We may justify certain design decisions, data choice, etc. only by referring to the world's being certain way. Therefore if the induction is justified by contingent features that the world exhibits, which are intrinsically dependent on our current set of values, then our values indeed are the source of the justified inductive arguments. The other issue with induction is that as the machine learning algorithm always has access to a limited amount of information, it is prone to make mistakes from time to time, even if it's general accuracy is very high. What does it all mean in the context of bias within word embeddings? It seems that the presence of bias, value-laden algorithms is unavoidable due to the very nature of induction.
 
-
-
-
-
+Assuming that the algorithms indeed due to the nature of their decision-making cannot fulfill the ideal of being value-free, it is even more justified to focus on ways how to properly detect harmful bias to limit its negative impact by the awareness of its presence. The aim of this paper is to contribute to this idea that using proper statistical tools may improve our understanding of what is happening inside machine learning models and especially within word embeddings. 
 
 
 
@@ -271,6 +255,94 @@ The t-tests they employ are run on average cosines used to calculate MAC.
 
 
 ## Bayesian method introduction
+
+
+### What is Bayesian statistics?
+
+Bayesian statistics is a theory which enables one to assign epistemological uncertainty with the use of probability. It is a system that allows to express a degree of belief in a certain event. Bayesian methods use existing prior beliefs together with real data to receive posterior beliefs.
+Bayesian inference together with probability tools may be used to quantify the uncertainty in the inferences.
+
+
+### How does it differ from the classical statistics?
+
+One could ask what is the difference between Bayesian statistics and the classical, frequentist approach. Broadly speaking the Frequentist statistics looks, as the name suggests, at the frequency of an event in a long run and based on that assigns its probability. In Bayesian statistics the approach is more epistemological as one may include his/her prior beliefs on the likelihood of an event and update it accordingly to the available data which results in the posterior probability of an event. What is more in a classical approach, the parameters are fixed whereas in Bayesian statistics the parameters are assumed to be random variables to which one assigns a probability distribution. In contrast with CIs, the posterior distributions (and their highest posterior density intervals HPDIs, the narrowest intervals containing a certain ratio of the area under the curve) are easily interpretable and have direct relevance for the question at hand.
+
+
+### How does the Bayesian model work?
+
+Referring to the \textit{Statistical rethinking} one may distinguish three steps that are necessary to design Bayesian model:
+1. Data story: Think about the narrative on how the data can emerge. 
+2. Update: Let the model learn from the data.
+3. Evaluate: Verify whether it is a good representation of the phenomenon.
+
+
+A Bayesian model consists of the variables and the distributions that define these variables. The priors that one assigns provide the likelihood of each parameter before any data has been seen. Then using real data one may apply numerical techniques like Markov chain Monte Carlo to calculate the posterior distribution. 
+
+
+### Interpreting model's results
+
+The standard output from the model's learning may contain the following pieces of information. 
+
+WAIC - 
+
+
+### What are hierarchical models?
+
+Hierarchical models are also known as multilevel models, random effects, varying effects, or mixed effects models. In \textit{Statistical rethinking} one may read that the central device of the multilevel models is to learn the strength of the prior from the data itself. Multilevel models may be regarded as adaptive regularization, meaning that the model tunes itself to get the most optimal skepticism. It is worth mentioning that with these types of models adding more parameters can sometimes lead to the effect where effective number of parameters (the penalty term in WAIC) is actually reduced. The overfitting may be more dependent on how the parameters are related to one another than with how many parameters one inputs into the model. 
+
+
+
+### Coding example from our model
+
+To build a model one may use original \textit{Stan} which is a state-of-the-art platform for statistical modeling and high-performance statistical computation (https://mc-stan.org/). The simpler option is to use \textit{Rethinking} package from the \textit{Statistical rethinking} course. With one of the functions \textit{ulam} one may build RStan models from the formulas in an easy manner. 
+
+
+Explain the model?
+
+```{r, eval=FALSE, echo=TRUE}
+buildModel <- function(dataset){
+  options(buildtools.check =
+  function(action) TRUE )
+
+  modelResult <- ulam(
+    alist(
+      distance ~ dnorm(mu,sigma),
+      mu <- d[pwi] * different
+      + a[pwi] * associated
+      + h[pwi] * human
+      + n[pwi] * none,
+      
+      d[pwi] ~ dnorm(dbar, dsigmabar),
+      a[pwi] ~ dnorm(abar, asigmabar),
+      h[pwi] ~ dnorm(hbar, hsigmabar),
+      n[pwi] ~ dnorm(nbar, nsigmabar),
+      
+      dbar ~ dnorm(1,.3),
+      abar ~ dnorm(1,.3),
+      hbar ~ dnorm(1,.3),
+      nbar ~ dnorm(1,.3),
+      dsigmabar ~ dexp(2),
+      asigmabar ~ dexp(2),
+      hsigmabar ~ dexp(2),
+      nsigmabar ~ dexp(2),
+      sigma <- s[connection],
+      s[connection] ~  dexp(2)
+    ),
+    
+    data = dataset, chains=2 ,
+    iter=8000 , warmup=1000,
+    log_lik = TRUE, cores = 4
+  )
+}
+```
+
+
+
+
+### Limitations
+
+Each method has its own limitations and Bayesian statistics is no exception. One may think about a few limitations with this approach. One of them is that there is no final and correct way to choose a prior. At the same time prior beliefs can be explicitly stated, debated, or often found in previous research which may give good justification for a given set of priors. Finally, Bayesian method may be computationally expensive which may be a limiting factor when considering to use it in a more real-time environment.
+
 
 ## Existing applications to NLP and perhaps to bias
 
