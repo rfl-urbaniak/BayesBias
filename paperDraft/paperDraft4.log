@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  28 JUL 2022 13:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.6.8)  29 JUL 2022 12:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -137,12 +137,6 @@ Package: typearea 2020/09/21 v3.32 KOMA-Script package (type area)
 \ta@vblk=\skip50
 \ta@temp=\skip51
 \footheight=\skip52
-Package typearea Info: Maybe no optimal type area settings!
-(typearea)             The detected line width is about 41%
-(typearea)             smaller than the heuristically estimated maximum
-(typearea)             limit of typographical good line width.
-(typearea)             You could e.g. increase DIV
-(typearea)             or change the papersize.
 Package typearea Info: These are the values describing the layout:
 (typearea)             DIV  = 8
 (typearea)             BCOR = 0.0pt
@@ -1744,36 +1738,30 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.32pt on input line 323.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.32pt on input line 323.
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-28.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 370.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 370.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 370.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 379.
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 386.
+ine 342.
+
+LaTeX Warning: Marginpar on page 1 moved.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 385.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 385.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 385.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 394.
+[1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for OT1+jkpss on input line
- 395.
+ 410.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/ot1jkpss.fd
 File: ot1jkpss.fd 2007/07/16 Fontinst v1.928 font definitions for OT1/jkpss.
-) [1
-
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-
-]
+)
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.88pt on input line 466.
-
-LaTeX Warning: Marginpar on page 2 moved.
-
+(Font)              scaled to size 6.88pt on input line 481.
 [2]
 
 LaTeX Warning: Marginpar on page 3 moved.
@@ -1788,212 +1776,126 @@ LaTeX Warning: Marginpar on page 3 moved.
 LaTeX Warning: Marginpar on page 3 moved.
 
 [3]
+
+LaTeX Warning: Marginpar on page 4 moved.
+
+[4]
 LaTeX Font Info:    Trying to load font information for T1+jkptt on input line 
-751.
+766.
 (/usr/share/texlive/texmf-dist/tex/latex/kpfonts/t1jkptt.fd
 File: t1jkptt.fd 2007/01/26 Fontinst v1.928 font definitions for T1/jkptt.
-)
+) [5]
+<paperDraft4_files/figure-latex/unnamed-chunk-2-1.pdf, id=139, 469.755pt x 325.
+215pt>
+File: paperDraft4_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
+df)
+<use paperDraft4_files/figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: paperDraft4_files/figure-latex/unnamed-chunk-2-1.pdf  
+used on input line 832.
+(pdftex.def)             Requested size: 449.13188pt x 310.93744pt.
+
+Overfull \hbox (40.83574pt too wide) in paragraph at lines 832--832
+ [] 
+ []
+
+[6 <./paperDraft4_files/figure-latex/unnamed-chunk-2-1.pdf>]
 
 Class scrartcl Warning: Incompatible usage of \@ssect detected.
 (scrartcl)              You've used the KOMA-Script implementation of \@ssect
 (scrartcl)              from within a non compatible caller, that does not
 (scrartcl)              \scr@s@ct@@nn@m@ locally.
 (scrartcl)              This could result in several error messages on input li
-ne 828.
+ne 848.
 
 
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 833--839
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 853--859
 [][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 833--839
+Underfull \hbox (badness 10000) in paragraph at lines 853--859
 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[4]
-Underfull \hbox (badness 7851) in paragraph at lines 845--845
-\T1/ptm/m/n/10 (+20) de-rived au-to-mat-i-cally from lan-guage
- []
-
-
-Overfull \hbox (5.6979pt too wide) in paragraph at lines 845--845
-\T1/ptm/m/n/10 (-20) DOI:https://doi.org/[][]10.1126/science.aal4230[][] 
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 840--846
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 860--866
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 840--846
+Underfull \hbox (badness 10000) in paragraph at lines 860--866
 
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 853--853
-[]\T1/ptm/m/n/10 (+20) Nikhil Garg, Londa Schiebinger, Dan
- []
-
-
-Underfull \hbox (badness 2662) in paragraph at lines 853--853
-\T1/ptm/m/n/10 (+20) and eth-nic stereo-types. \T1/ptm/m/it/10 (+20) Pro-ceed-i
-ngs
- []
-
-
-Underfull \hbox (badness 1924) in paragraph at lines 853--853
-\T1/ptm/m/it/10 (+20) of the Na-tional Academy of Sci-ences
- []
-
-
-Underfull \hbox (badness 3179) in paragraph at lines 853--853
-\T1/ptm/m/n/10 (+20) 115, 16 (April 2018), E3635--E3644.
- []
-
-
-Overfull \hbox (12.79361pt too wide) in paragraph at lines 853--853
-\T1/ptm/m/n/10 (-20) DOI:https://doi.org/[][]10.1073/pnas.1720347115[][] 
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 847--854
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 867--874
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 847--854
+Underfull \hbox (badness 10000) in paragraph at lines 867--874
 
  []
 
 
-Underfull \hbox (badness 2012) in paragraph at lines 864--864
-\T1/ptm/m/n/10 (+20) cover up sys-tem-atic gen-der bi-ases in
- []
-
-
-Underfull \hbox (badness 2035) in paragraph at lines 864--864
-\T1/ptm/m/n/10 (+20) word em-bed-dings but do not re-move
- []
-
-
-Underfull \hbox (badness 3039) in paragraph at lines 864--864
-\T1/ptm/m/it/10 (+20) fer-ence of the north Amer-i-can chap-
- []
-
-
-Underfull \hbox (badness 3557) in paragraph at lines 864--864
-\T1/ptm/m/it/10 (+20) gies, vol-ume 1 (long and short pa-
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 855--865
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 875--885
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 855--865
+Underfull \hbox (badness 10000) in paragraph at lines 875--885
 
  []
 
 
-Underfull \hbox (badness 1102) in paragraph at lines 871--871
-\T1/ptm/m/n/10 (+20) Are we con-sis-tently bi-ased? Mul-ti-di-
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 866--872
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 886--892
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 866--872
+Underfull \hbox (badness 10000) in paragraph at lines 886--892
 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 873--879
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 893--899
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 873--879
+Underfull \hbox (badness 10000) in paragraph at lines 893--899
 
  []
 
 
-Underfull \hbox (badness 1147) in paragraph at lines 885--885
-[]\T1/ptm/m/n/10 (+20) Malvina Nis-sim, Rik van No-ord, and
- []
-
-
-Underfull \hbox (badness 2134) in paragraph at lines 885--885
-\T1/ptm/m/n/10 (+20) woman is to doc-tor. \T1/ptm/m/it/10 (+20) Com-pu-ta-tiona
-l
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 880--886
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 900--906
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 880--886
+Underfull \hbox (badness 10000) in paragraph at lines 900--906
 
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 893--893
-[]\T1/ptm/m/n/10 (+20) Brian A. Nosek, Mahzarin R. Ba-naji,
- []
-
-
-Underfull \hbox (badness 3679) in paragraph at lines 893--893
-\T1/ptm/m/n/10 (+20) and An-thony G. Green-wald. 2002.
- []
-
-
-Underfull \hbox (badness 4048) in paragraph at lines 893--893
-\T1/ptm/m/it/10 (+20) Group Dy-nam-ics: The-ory, Re-search,
- []
-
-
-Underfull \hbox (badness 3884) in paragraph at lines 893--893
-\T1/ptm/m/it/10 (+20) and Prac-tice \T1/ptm/m/n/10 (+20) 6, 1 (2002), 101--115.
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 893--893
-\T1/ptm/m/n/10 (+20) DOI:https://doi.org/[][]10.1037/1089-
- []
-
-
-Overfull \hbox (1.90002pt too wide) in paragraph at lines 887--894
+Overfull \hbox (1.52002pt too wide) in paragraph at lines 907--914
 [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 887--894
+Underfull \hbox (badness 10000) in paragraph at lines 907--914
 
  []
 
-[5] (./paperDraft4.aux) ) 
+[7] (./paperDraft4.aux) ) 
 Here is how much of TeX's memory you used:
- 35014 strings out of 481252
- 654907 string characters out of 5915889
- 1161202 words of memory out of 5000000
- 50805 multiletter control sequences out of 15000+600000
- 514695 words of font info for 384 fonts, out of 8000000 for 9000
+ 35028 strings out of 481252
+ 655748 string characters out of 5915889
+ 1167148 words of memory out of 5000000
+ 50824 multiletter control sequences out of 15000+600000
+ 514311 words of font info for 380 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 111i,16n,116p,10634b,921s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 111i,16n,116p,10634b,927s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r
 .enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sh
@@ -2007,10 +1909,10 @@ hvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on paperDraft4.pdf (5 pages, 135372 bytes).
+Output written on paperDraft4.pdf (7 pages, 145738 bytes).
 PDF statistics:
- 333 PDF objects out of 1000 (max. 8388607)
- 294 compressed objects within 3 object streams
- 99 named destinations out of 1000 (max. 500000)
- 96605 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 343 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 94546 words of extra memory for PDF output out of 106986 (max. 10000000)
 

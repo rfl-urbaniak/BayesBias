@@ -6,11 +6,6 @@
 \documentclass[
   10pt,
   dvipsnames,enabledeprecatedfontcommands]{scrartcl}
-\title{Taking uncertainty in word embedding bias estimation seriously: a
-bayesian approach}
-\author{Alicja Dobrzeniecka and Rafal Urbaniak}
-\date{}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{ifxetex,ifluatex}
@@ -327,43 +322,58 @@ bias}\label{cosine-based-measures-of-bias}}
 \subsection{Word embeddings and their
 bias}\label{word-embeddings-and-their-bias}}
 
-\begin{itemize}
-\tightlist
-\item
-  akapit filozoficzny, z odniesieniem do value free
-\end{itemize}
-
 Modern Natural Language Processing (NLP) models are used to complete
 various tasks such as providing email filters, smart assistants, search
 results, language translations, text analytics and so on. All of them
 need as an input words represented by means of numbers which is
 accomplished with word embeddings, in which particular lexical units are
-represented as vectors of real numbers.
+represented as vectors of real numbers. They are necessary to perform
+machine learning tasks that require the use of natural language. One of
+the ways to learn these vectors representations is to use simple neural
+network that based on the millions of real sentences examples assigns
+the numbers based on their co-occurrence and context. Using co-occurence
+results in a vector space that contains similar words closer to each
+other and dissimilar further away. It has been suggested {[}1--6{]} that
+in the learning process such models can learn implicit biases that
+reflect harmful stereotypical thinking (eg. that the word \textit{she}
+is much closer in the vector space to the word \textit{cooking} than the
+word \textit{he}). This phenomenon may be undesired when using these
+vectors for further downstream tasks (eg. web search, recommendations,
+etc.).\todo{find downstream tasks and bias examples from papers} Before
+we move to more technical details regarding this topic, it is worth
+looking first at the theoretical background which may help to better
+grasp the concept of bias within machine learning algorithms.
 
-\begin{itemize}
-\item
-  troche o tym jak sa skonstruowane (optimizing for co-ocurrence
-  frequency)
-\item
-  przejrzec jak to jest wprowadzane w kilku innych artykulach, zwl. fair
-  is better than sensational
-\item
-  troche wiecej o tej konstrukcji i intuicji semantycznych, ale to nie
-  super dobry pomysl
-\item
-  undesirable bias with respect to a certain groups words if
-  stereotypically connected words (for stereotypes that we don't want to
-  be used or relied on in downstream tasks) are systematically closer to
-  each other. + EXAMPLES
-\end{itemize}
+In \todo{cite Are algorithms Value-Free} the author focuses on the
+general issue, namely whether algorithms can in principle be value-free.
+The author draws attention to the observation that in both scientific
+research and machine learning domain, induction plays a crucial role in
+the decision-making process. Induction is essential for both of these
+domains as ``if ever considered literally just the facts, we would never
+be able to draw inductive conclusions'' \todo{cite Gabrielle}. Induction
+comes with certain risks which are 1) the problem with justification,
+and 2) the risk of getting things wrong. During the process of designing
+machine learning process some decisions have to always be made. As the
+author states, there is no such thing as the justification in the
+abstract. \todo{cite Gabrielle} We may justify certain design decisions,
+data choice, etc. only by referring to the world's being certain way.
+Therefore if the induction is justified by contingent features that the
+world exhibits, which are intrinsically dependent on our current set of
+values, then our values indeed are the source of the justified inductive
+arguments. The other issue with induction is that as the machine
+learning algorithm always has access to a limited amount of information,
+it is prone to make mistakes from time to time, even if it's general
+accuracy is very high. What does it all mean in the context of bias
+within word embeddings? It seems that the presence of bias, value-laden
+algorithms is unavoidable due to the very nature of induction.
 
-It has been suggested {[}1--6{]} that in the learning process such
-models can learn implicit biases that reflect harmful stereotypical
-thinking. A large chunk of the literature on the topic focuses on the
-geometry of the learnt word embeddings; in particular, unusually low
-(cosine) proximity of words belonging, intuitively, to a stereotype, is
-taken as a sign that this stereotype has been built into a given
-embedding. This methodology will be in the focus of our paper.
+Assuming that the algorithms indeed due to the nature of their
+decision-making cannot fulfill the ideal of being value-free, it is even
+more justified to focus on ways how to properly detect harmful bias to
+limit its negative impact by the awareness of its presence. The aim of
+this paper is to contribute to this idea that using proper statistical
+tools may improve our understanding of what is happening inside machine
+learning models and especially within word embeddings.
 
 \hypertarget{general-challenges}{%
 \subsection{General challenges}\label{general-challenges}}
@@ -819,7 +829,7 @@ bias}\label{existing-applications-to-nlp-and-perhaps-to-bias}}
 \begin{figure}
 
 
-\begin{center}\includegraphics[width=1.1\linewidth]{paperDraft4_files/figure-latex/unnamed-chunk-1-1} \end{center}
+\begin{center}\includegraphics[width=1.1\linewidth]{paperDraft4_files/figure-latex/unnamed-chunk-2-1} \end{center}
 \caption{dsds}
 \label{fig:weat7google}
 \end{figure}

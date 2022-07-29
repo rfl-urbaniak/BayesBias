@@ -1,4 +1,3 @@
-base
 ggplot2
 ggthemes
 gridExtra
@@ -13,3 +12,4 @@ purrr
 dplyr
 stringr
 forcats
+cmdstanr
